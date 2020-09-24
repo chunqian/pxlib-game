@@ -1,0 +1,9 @@
+# Xmake cache
+.xmake/
+build/
+
+# MacOS Cache
+.DS_Store
+
+PainterEngine Game Release/**/*.exe
+compile_commands.json

@@ -1,0 +1,11 @@
+{
+   "LobbyServer":{
+		"IP":"www.0-0i.com"
+	},
+  "SignupServer": {
+    "IP": "www.0-0i.com"
+  },
+  "LoginServer": {
+    "IP": "www.0-0i.com"
+  }
+}

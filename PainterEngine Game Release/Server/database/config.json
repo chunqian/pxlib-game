@@ -1,0 +1,13 @@
+{
+ "ship_info":{
+     "alpha":{
+	    "maxforce":100,
+		"maxlife":200,
+		"maxshield":100,
+		"maxspeed":200,
+		"last_fire_recovery":3000,
+		"base_weapon_generator_time":200,
+		"slienttime":10000
+	 }
+ }
+}
