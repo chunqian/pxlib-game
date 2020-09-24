@@ -637,6 +637,8 @@ static px_bool PX_ScriptParse_AST_PushToken(PX_SCRIPT_Analysis *analysis, px_vec
                         PX_VectorPushback(tk, &operand);
                         return PX_TRUE;
                     } break;
+                    default:
+                        break;
                 }
             }
         }
@@ -761,6 +763,8 @@ static px_bool PX_ScriptParse_AST_PushToken(PX_SCRIPT_Analysis *analysis, px_vec
                 operand.pSet = PX_ScriptParseGetSetByIndex(analysis, pvar->setIndex);
                 PX_VectorPushback(tk, &operand);
             } break;
+            default:
+                break;
         }
 
         return PX_TRUE;
@@ -4825,6 +4829,8 @@ static px_bool PX_ScriptParseExpressionStream(PX_SCRIPT_Analysis *analysis, px_v
                                         goto _EXPR_OUT;
                                     }
                                     break;
+                                default:
+                                    break;
                             }
                             (*offset)++;
                         }
@@ -7208,6 +7214,8 @@ px_bool PX_ScriptParseLastBlockEnd(PX_SCRIPT_Analysis *analysis) {
                 return PX_ScriptParseLastCodeblockEnd(analysis);
             }
         } break;
+        default:
+            break;
     }
     return PX_TRUE;
 }
@@ -7386,6 +7394,8 @@ px_bool PX_ScriptParseIfLastAST(PX_SCRIPT_Analysis *analysis) {
                     return PX_ScriptParseLastCodeblockEnd(analysis);
                 }
             } break;
+            default:
+                break;
         }
     } else
         return PX_FALSE;
@@ -8285,6 +8295,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                         PX_StringFree(&fmrString);
                         goto _BREAKOUT;
                     } break;
+                    default:
+                        break;
                 }
             }
         _BREAKOUT:
@@ -8323,6 +8335,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                         PX_StringFree(&fmrString);
                         goto _CONTINUEOUT;
                     } break;
+                    default:
+                        break;
                 }
             }
         _CONTINUEOUT:
@@ -8438,6 +8452,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                         PX_ScriptTranslatorError(&analysis.lexer, "Return-type not matched.");
                         goto _ERROR;
                     }
+                    break;
+                default:
                     break;
             }
 

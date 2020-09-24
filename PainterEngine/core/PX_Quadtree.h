@@ -1,5 +1,6 @@
 #ifndef PX_QUADTREE_H
 #define PX_QUADTREE_H
+
 #include "PX_List.h"
 #include "PX_Vector.h"
 
@@ -37,4 +38,5 @@ px_bool PX_QuadtreeCreate(px_memorypool *mp, PX_Quadtree *pQuadtree, px_float ma
 px_void PX_QuadtreeAddNode(PX_Quadtree *pQuadtree, px_float CenterX, px_float CenterY, px_float width, px_float height, PX_Quadtree_UserData userData);
 px_void PX_QuadtreeTestNode(PX_Quadtree *pQuadtree, px_float CenterX, px_float CenterY, px_float width, px_float height, PX_Quadtree_UserData user);
 px_void PX_QuadtreeResetTest(PX_Quadtree *pQuadtree);
+
 #endif

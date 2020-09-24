@@ -1,5 +1,6 @@
 #ifndef GAME_RESOURCELOADER_H
 #define GAME_RESOURCELOADER_H
+
 #include "PainterEngine_Startup.h"
 #include "Game_Text.h"
 

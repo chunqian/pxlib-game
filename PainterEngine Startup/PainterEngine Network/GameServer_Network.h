@@ -12,6 +12,8 @@
 #define PX_STARTUP_NICKNAME_MINLEN 2
 #define PX_STARTUP_NICKNAME_MAXLEN 16
 
+#include "../../PainterEngine/core/PX_Core.h"
+
 typedef enum {
     PX_STARTUP_GAMESTATE_STANDBY,
     PX_STARTUP_GAMESTATE_RANKING,

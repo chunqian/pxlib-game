@@ -1,5 +1,6 @@
 #ifndef PX_CURVE25519_H
 #define PX_CURVE25519_H
+
 #include "PX_MemoryPool.h"
 /*
 To generate a private key, generate 32 random bytes and:

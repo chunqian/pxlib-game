@@ -1,7 +1,9 @@
 #include "PainterEngine_Lobby.h"
+
 extern px_void PX_ApplicationMessageBoxAlertYesNo(const px_char content[], PX_MessageBoxCallBack yescallback, px_void *yesptr, PX_MessageBoxCallBack nocallback,
                                                   px_void *noptr);
 extern px_void PX_ApplicationMessageBoxAlertOk(const px_char content[]);
+
 DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
     px_char currentDir[MAX_PATH];
     px_dword processRet;

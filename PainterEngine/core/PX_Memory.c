@@ -1,4 +1,5 @@
 #include "PX_Memory.h"
+
 px_void PX_MemoryInit(px_memorypool *mp, px_memory *memory) {
     memory->buffer = PX_NULL;
     memory->allocsize = 0;

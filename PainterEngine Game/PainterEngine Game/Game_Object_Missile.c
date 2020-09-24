@@ -1,4 +1,4 @@
-#include "Game_Object_missile.h"
+#include "Game_Object_Missile.h"
 
 px_void Game_Object_MissileImpact(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     PX_Object_Event pe;

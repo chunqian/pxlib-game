@@ -1,7 +1,7 @@
 #ifndef GAMESERVER_DATABASE_H
 #define GAMESERVER_DATABASE_H
 
-#include "../../../PainterEngine/kernel/PX_Kernel.h"
+#include "../../PainterEngine/kernel/PX_Kernel.h"
 #include "../PainterEngine Network/GameServer_Network.h"
 #include "PainterEngine_Startup.h"
 #include "stdio.h"

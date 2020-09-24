@@ -26,6 +26,7 @@
 
 #define PX_STARTUPSERVER_LOBBY_TEXT_INITIALIZE_LOBBY_LARGEDATAUDP_FAILED "初始化用户数据服务器数据UDP初始化失败."
 #define PX_STARTUPSERVER_LOBBY_TEXT_LISTEN_LOBBY__LARGEDATAUDP_FAILED "监听用户数据服务数据端口失败."
+
 typedef struct {
     px_bool activated;
     px_int mapid;

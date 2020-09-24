@@ -1,5 +1,6 @@
 #ifndef PLATFORM_WINDOWS_SERIALPORT_H
 #define PLATFORM_WINDOWS_SERIALPORT_H
+
 #include <windows.h>
 
 typedef struct {

@@ -1,5 +1,6 @@
 #ifndef PX_JSON_H
 #define PX_JSON_H
+
 #include "PX_Lexer.h"
 
 typedef enum {

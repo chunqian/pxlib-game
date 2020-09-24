@@ -4,7 +4,7 @@ static px_void PX_ScriptVM_Error(PX_ScriptVM_Instance *Ins, px_char *log) { PX_E
 
 static px_void PX_ScriptVM_LOG(px_char *log) { PX_LOG(log); }
 #ifdef PX_DEBUG_MODE
-    #include "stdio.h"
+    #include <stdio.h>
     #define PX_SCRIPT_VM_LOG printf
 #else
     #define PX_SCRIPT_VM_LOG

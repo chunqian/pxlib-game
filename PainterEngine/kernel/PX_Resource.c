@@ -163,6 +163,8 @@ px_void PX_ResourceLibraryFree(PX_ResourceLibrary *lib) {
             case PX_RESOURCE_TYPE_DATA:
                 PX_MemoryFree(&pres->data);
                 break;
+            default:
+                break;
         }
         pNode = pNode->pnext;
     }
@@ -203,6 +205,8 @@ px_void PX_ResourceLibraryDelete(PX_ResourceLibrary *lib, const px_char key[]) {
                         break;
                     case PX_RESOURCE_TYPE_DATA:
                         PX_MemoryFree(&pres->data);
+                        break;
+                    default:
                         break;
                 }
                 PX_ListPop(&lib->resources, pNode);

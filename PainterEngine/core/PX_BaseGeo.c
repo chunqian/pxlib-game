@@ -1,4 +1,5 @@
 #include "PX_BaseGeo.h"
+
 static px_int st_symmetry_axis;
 
 #define PX_ABS_FRAC(x) ((x) > 0 ? PX_FRAC(x) : PX_FRAC(-(x)))

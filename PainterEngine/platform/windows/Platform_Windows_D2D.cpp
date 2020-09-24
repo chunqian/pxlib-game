@@ -166,7 +166,7 @@ BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen) 
 char Win_Str[WIN_MAX_INPUT_STRING_LEN] = {0};
 char Win_SpecKey[WIN_MAX_INPUT_SPECKEY_LEN] = {0};
 int Win_CurrentIndex = 0;
-#include "stdio.h"
+#include <stdio.h>
 LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     //  if(uMsg==0x246)
     //  printf("%x\n",uMsg);

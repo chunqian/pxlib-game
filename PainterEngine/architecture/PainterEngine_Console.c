@@ -717,7 +717,7 @@ PX_Object *PX_ConsolePrintImage(PX_Console *pc, px_char *res_image_key) {
     PX_ConsoleColumn obj;
     PX_Resource *pimageRes;
     PX_Object *pObject;
-    if (pimageRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_image_key)) {
+    if ((pimageRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_image_key))) {
         if (pimageRes->Type == PX_RESOURCE_TYPE_TEXTURE) {
             pObject = PX_Object_ImageCreate(&pc->runtime->mp_ui, PX_Object_ScrollAreaGetIncludedObjects(pc->Area), 0, 0, &pimageRes->texture);
             PX_Object_ImageSetAlign(pObject, PX_OBJECT_ALIGN_TOP | PX_OBJECT_ALIGN_LEFT);
@@ -740,7 +740,7 @@ PX_Object *PX_ConsolePrintShape(PX_Console *pc, px_char *res_image_key, px_color
     PX_ConsoleColumn obj;
     PX_Resource *pShape;
     PX_Object *pObject;
-    if (pShape = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_image_key)) {
+    if ((pShape = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_image_key))) {
         if (pShape->Type == PX_RESOURCE_TYPE_SHAPE) {
             pObject = PX_Object_ShapeCreate(&pc->runtime->mp_ui, PX_Object_ScrollAreaGetIncludedObjects(pc->Area), 0, 0, &pShape->shape);
             PX_Object_ShapeSetAlign(pObject, PX_OBJECT_ALIGN_TOP | PX_OBJECT_ALIGN_LEFT);
@@ -765,7 +765,7 @@ PX_Object *PX_ConsolePrintAnimation(PX_Console *pc, px_char *res_animation_key) 
     PX_Resource *pAnimationRes;
     PX_Object *pObject;
     px_rect rect;
-    if (pAnimationRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_animation_key)) {
+    if ((pAnimationRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_animation_key))) {
         if (pAnimationRes->Type == PX_RESOURCE_TYPE_ANIMATIONLIBRARY) {
             pObject = PX_Object_AnimationCreate(&pc->runtime->mp_ui, PX_Object_ScrollAreaGetIncludedObjects(pc->Area), 0, 0, &pAnimationRes->animationlibrary);
             PX_Object_AnimationSetAlign(pObject, PX_OBJECT_ALIGN_TOP | PX_OBJECT_ALIGN_LEFT);
@@ -820,7 +820,7 @@ PX_Object *PX_ConsoleShowImage(PX_Console *pc, px_char *res_image_key) {
     PX_ConsoleColumn obj;
     PX_Resource *pimageRes;
     PX_Object *pObject;
-    if (pimageRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_image_key)) {
+    if ((pimageRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, res_image_key))) {
         if (pimageRes->Type == PX_RESOURCE_TYPE_TEXTURE) {
             pObject = PX_Object_ImageCreate(&pc->runtime->mp_ui, PX_Object_ScrollAreaGetIncludedObjects(pc->Area), 0, 0, &pimageRes->texture);
             PX_Object_ImageSetAlign(pObject, PX_OBJECT_ALIGN_TOP | PX_OBJECT_ALIGN_LEFT);
@@ -862,7 +862,7 @@ px_void PC_ConsoleSetImageMask(PX_Console *pc, px_int id, px_char *mask_key) {
         if (pCc->id == id) {
             if (pCc->Object->Type == PX_OBJECT_TYPE_IMAGE) {
                 PX_Resource *pimageRes;
-                if (pimageRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, mask_key)) {
+                if ((pimageRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, mask_key))) {
                     if (pimageRes->Type == PX_RESOURCE_TYPE_TEXTURE) {
                         PX_Object_ImageSetMask(pCc->Object, &pimageRes->texture);
                     }
@@ -877,7 +877,7 @@ PX_Object *PC_ConsoleCreateRoundCursor(PX_Console *pc, px_char *shape_key, px_co
     PX_ConsoleColumn obj;
     PX_Resource *pShape;
     PX_Object *pObject;
-    if (pShape = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, shape_key)) {
+    if ((pShape = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, shape_key))) {
         if (pShape->Type == PX_RESOURCE_TYPE_SHAPE) {
             pObject = PX_Object_RoundCursorCreate(&pc->runtime->mp_ui, PX_Object_ScrollAreaGetIncludedObjects(pc->Area), 0, 0, &pShape->shape, clr);
             PX_ObjectSetSize(pObject, (px_float)pShape->shape.width, (px_float)pShape->shape.height, 0);
@@ -1056,7 +1056,7 @@ px_bool PC_ConsoleVM_PrintRoundCursor(PX_ScriptVM_Instance *Ins) {
 
 px_void PC_ConsoleRunScriptFunction(PX_Console *pc, px_char *script_key, px_char *func_name) {
     PX_Resource *pScriptRes;
-    if (pScriptRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, script_key)) {
+    if ((pScriptRes = PX_ResourceLibraryGet(&pc->runtime->ResourceLibrary, script_key))) {
         if (pScriptRes->Type == PX_RESOURCE_TYPE_SCRIPT) {
             PX_ScriptVM_RegistryHostFunction(&pScriptRes->Script, "PRINT", PC_ConsoleVM_Print);                    // Print
             PX_ScriptVM_RegistryHostFunction(&pScriptRes->Script, "PRINTIMAGE", PC_ConsoleVM_PrintImage);          // Print Image

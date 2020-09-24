@@ -903,6 +903,8 @@ px_bool PX_ScriptAsmScan(PX_SCRIPT_ASM_COMPILER *compiler) {
                 }
 
             } break;
+            default:
+                break;
         }
     }
     PX_StringFree(&assumeName);
@@ -1149,6 +1151,8 @@ px_bool PX_ScriptAsmCc(PX_SCRIPT_ASM_COMPILER *compiler) {
                 }
 
             } break;
+            default:
+                break;
         }
     }
     PX_StringFree(&ParamMne);

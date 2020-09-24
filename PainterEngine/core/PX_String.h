@@ -1,5 +1,6 @@
 #ifndef __PX_STRING_H
 #define __PX_STRING_H
+
 #include "PX_MemoryPool.h"
 
 typedef struct __px_string {

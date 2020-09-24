@@ -1,4 +1,3 @@
-
 #include "PX_Font.h"
 
 static px_void PX_GetGBKCode(px_uchar *pBuffer, px_uchar *c);

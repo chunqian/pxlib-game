@@ -1,5 +1,6 @@
 #ifndef PX_WAVE_H
 #define PX_WAVE_H
+
 #include "PX_Typedef.h"
 
 typedef struct {

@@ -1,4 +1,3 @@
-
 #include "Platform_Windows_D3D.h"
 
 #define WIN_MAX_INPUT_STRING_LEN 64

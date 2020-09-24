@@ -1,5 +1,6 @@
 #ifndef PX_PARTICAL_H
 #define PX_PARTICAL_H
+
 #include "PX_Script_VM.h"
 
 #define PX_PARTICAL_ATOM_TIME 8  // 8ms for partical atom

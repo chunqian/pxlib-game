@@ -1,6 +1,8 @@
 #ifndef __PX_VECTOR_H
 #define __PX_VECTOR_H
+
 #include "PX_MemoryPool.h"
+
 typedef struct __px_vector {
     px_void *data;
     px_int nodesize;

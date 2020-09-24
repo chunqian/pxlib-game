@@ -1,4 +1,4 @@
-#include "PX_WAVE.h"
+#include "PX_Wave.h"
 
 px_uint PX_WaveGetPCMSize(px_byte *buffer, px_int size) {
     px_int offset = 0, pcmSize;

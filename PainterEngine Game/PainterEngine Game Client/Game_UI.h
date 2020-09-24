@@ -1,5 +1,6 @@
 #ifndef GAME_UI_H
 #define GAME_UI_H
+
 #include "../PainterEngine Game/Game_Play.h"
 #include "../PainterEngine Game/Game_ObjectTypes.h"
 #include "Game_UI_StatusPanel.h"
@@ -27,4 +28,5 @@ typedef struct {
 px_bool Game_UIInitialize(PX_Instance *pIns, Game_UI *ui, Game_Play *pPlay);
 px_void Game_UIRender(px_surface *renderSurface, Game_UI *ui, px_int monitorPlayer, px_int fps, px_dword elpased);
 px_void Game_UIPostEvent(Game_UI *ui, PX_Object_Event e);
+
 #endif

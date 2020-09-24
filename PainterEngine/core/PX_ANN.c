@@ -177,6 +177,8 @@ px_double PX_ANNTrain(PX_ANN *pAnn, px_double *input, px_double *expect) {
             for (j = 0; j < p->pPrevious->Neurals; j++) {
                 delta = p->net[i] * p->pPrevious->out[j];
                 switch (pAnn->regularzation) {
+                    case PX_ANN_REGULARZATION_NONE:
+                        break;
                     case PX_ANN_REGULARZATION_L1:
                         delta = delta - delta * pAnn->regularization_rate / pAnn->Layer->Neurals;
                         break;

@@ -1,7 +1,7 @@
 #include "PX_Sync.h"
 
 #ifdef PX_DEBUG_MODE
-    #include "stdio.h"
+    #include <stdio.h>
     #define PX_SYNC_LOG printf
 #else
     #define PX_SYNC_LOG
@@ -643,6 +643,8 @@ px_void PX_SyncFrameClientUpdate(PX_SyncFrame_Client *client, px_dword elpased) 
         case PX_SYNC_CLIENT_STATUS_PROCESSING: {
             PX_SyncFrame_ClientHandle_StatusProcessing(client, elpased);
         } break;
+        default:
+            break;
     }
 }
 
@@ -941,6 +943,8 @@ px_bool PX_SyncDataClientUpdate(PX_SyncData_Client *syncdata_client, px_int elpa
             }
         } break;
         case PX_SYNCDATA_CLIENT_STATUS_SYNCHRONIZED:
+            break;
+        default:
             break;
     }
     return PX_TRUE;

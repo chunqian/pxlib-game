@@ -12,7 +12,7 @@ static px_bool PX_isBigEndianCPU() {
 px_uint PX_htoi(const px_char hex_str[]) {
     px_char ch;
     px_uint iret = 0;
-    while (ch = *hex_str++) {
+    while ((ch = *hex_str++)) {
         iret = (iret << 4) | px_hex_to_dex_table[ch];
     }
     return iret;

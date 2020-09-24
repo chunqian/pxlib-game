@@ -315,6 +315,8 @@ px_void PX_ApplicationUpdateConnecting(PX_Application *App, px_dword elpased) {
         case PX_SYNC_CLIENT_STATUS_PROCESSING: {
             PX_ApplicationGameStart(App);
         } break;
+        default:
+            break;
     }
 }
 
@@ -343,6 +345,8 @@ px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
         case PX_SYNC_CLIENT_STATUS_PROCESSING: {
             PX_ApplicationGameStart(App);
         } break;
+        default:
+            break;
     }
 }
 px_void PX_ApplicationUpdateReSync(PX_Application *App, px_dword elpased) {
@@ -569,6 +573,8 @@ px_void PX_ApplicationRender(PX_Application *App, px_dword elpased) {
         case PX_APPLICATION_STATUS_GAMEOVER:
             PX_ApplicationGameOverRender(renderSurface, App, elpased);
             Game_UI_RankPanelRender(renderSurface, &App->ui.uiRankPanel, elpased);
+            break;
+        default:
             break;
     }
 }

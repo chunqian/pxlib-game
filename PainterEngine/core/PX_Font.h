@@ -1,8 +1,8 @@
 #ifndef PIXELSES_FONT
 #define PIXELSES_FONT
 
-#include "../Core/PX_Surface.h"
-#include "../Core/PX_Texture.h"
+#include "../core/PX_Surface.h"
+#include "../core/PX_Texture.h"
 #include "PX_Hashmap.h"
 
 #define __PX_FONT_GBKSIZE 13

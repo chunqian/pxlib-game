@@ -1,12 +1,15 @@
 #ifndef __PX_SCRIPT_VM_H
 #define __PX_SCRIPT_VM_H
+
 #include "PX_ScriptCore.h"
+
 #define PX_SCRIPTVM_DEFALUT_FLOAT_PRECCISION 4
 #define PX_SCRIPTVM_REG_COUNT 8
 #define PX_SCRIPTVM_SIGNAL_COUNT 16
 #define PX_SCRIPTVM_DEBUGGER_CMD_LEN 128
 #define PX_SCRIPTVM_ATOM_INSTRUCTMENTS 64
 #define PX_SCRIPTVM_TICK_INFINITE (-1)
+
 typedef struct {
     px_bool Activated;
     px_bool suspend;

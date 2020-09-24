@@ -10,6 +10,7 @@
 
 #ifndef __PX_CORE_H
 #define __PX_CORE_H
+
 #include "PX_Texture.h"
 #include "PX_BaseGeo.h"
 #include "PX_Font.h"
@@ -34,4 +35,5 @@
 #include "PX_MFCC.h"
 #include "PX_KalmanFilter.h"
 #include "PX_SoundModule.h"
+
 #endif

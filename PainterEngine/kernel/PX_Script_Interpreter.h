@@ -6,6 +6,7 @@
 
 #ifndef _PX_SCRIPT_TRANSLATOR_H
 #define _PX_SCRIPT_TRANSLATOR_H
+
 #include "PX_ScriptCore.h"
 
 #define PX_SCRIPT_TRANSLATOR_FLOAT_PRECISION 6

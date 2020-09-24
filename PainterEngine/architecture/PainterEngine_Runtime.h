@@ -1,7 +1,7 @@
 #ifndef PAINTERENGINE_RUNTIME_H
 #define PAINTERENGINE_RUNTIME_H
 
-#include "../Kernel/PX_Kernel.h"
+#include "../kernel/PX_Kernel.h"
 
 #define PE_MEMORY_CALC_SIZE 1024 * 1024 * 2  // 2M
 

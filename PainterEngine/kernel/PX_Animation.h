@@ -1,6 +1,8 @@
 #ifndef PX_ANIMATION_H
 #define PX_ANIMATION_H
+
 #include "PX_2dxCommon.h"
+
 typedef struct {
     px_vector frames;  // vector frames
     px_vector animation;

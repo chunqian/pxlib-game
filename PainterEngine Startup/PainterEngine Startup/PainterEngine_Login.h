@@ -24,6 +24,7 @@
 #define PX_LOGIN_TEXT_INVALID_ACCOUNT ((px_char *)L"无效的账户名")
 #define PX_LOGIN_TEXT_INVALID_PASSWORD ((px_char *)L"无效的密码")
 #define PX_LOGIN_TEXT_LOGINING ((px_char *)L"登陆中")
+
 typedef enum {
     PX_LOGIN_STATUS_STANDBY,
     PX_LOGIN_STATUS_LOGINING_EXCHAGE,
@@ -60,4 +61,5 @@ px_void PX_LoginPostEvent(PX_Login *pl, PX_Object_Event e);
 px_void PX_LoginUpdate(PX_Login *pl, px_dword elpased);
 px_void PX_LoginRender(PX_Login *pl, px_dword elpased);
 px_void PX_LoginReset(PX_Login *pl);
+
 #endif

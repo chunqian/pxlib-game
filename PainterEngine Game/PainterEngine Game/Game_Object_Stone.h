@@ -22,6 +22,7 @@ typedef struct {
     PX_Instance *pIns;
     PX_World *pWorld;
 } Game_Object_Stone;
+
 px_void Game_Object_StoneCreate(PX_Instance *pIns, PX_World *pWorld);
 
 #endif

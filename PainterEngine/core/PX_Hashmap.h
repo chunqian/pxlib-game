@@ -1,4 +1,3 @@
-
 #ifndef PX_HASHMAP_H__
 #define PX_HASHMAP_H__
 

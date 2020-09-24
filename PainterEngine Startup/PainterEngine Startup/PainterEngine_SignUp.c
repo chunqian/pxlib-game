@@ -382,6 +382,8 @@ px_void PX_SignUpUpdate(PX_SignUp *pl, px_dword elpased) {
         case PX_SIGNUP_STATUS_SUCCEEDED:
             PX_SignUpSucceeded(pl, elpased);
             break;
+        default:
+            break;
     }
 }
 
@@ -396,6 +398,8 @@ px_void PX_SignUpRender(PX_SignUp *pl, px_dword elpased) {
             PX_ObjectRender(&pl->pIns->runtime.RenderSurface, pl->signup_root, elpased);
             break;
         case PX_SIGNUP_STATUS_SUCCEEDED:
+            break;
+        default:
             break;
     }
 }
@@ -412,6 +416,8 @@ px_void PX_SignUpPostEvent(PX_SignUp *pl, PX_Object_Event e) {
         case PX_SIGNUP_STATUS_FAILED:
             break;
         case PX_SIGNUP_STATUS_SUCCEEDED:
+            break;
+        default:
             break;
     }
 }

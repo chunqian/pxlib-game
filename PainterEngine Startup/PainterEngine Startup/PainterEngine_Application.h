@@ -1,7 +1,7 @@
 #ifndef PAINTERENGINE_APPLICATION_H
 #define PAINTERENGINE_APPLICATION_H
-#include "PainterEngine_Startup.h"
 
+#include "PainterEngine_Startup.h"
 #include "PainterEngine_Login.h"
 #include "PainterEngine_SignUp.h"
 #include "PainterEngine_Lobby.h"

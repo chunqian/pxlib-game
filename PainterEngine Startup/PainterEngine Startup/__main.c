@@ -88,65 +88,65 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                     e.Event = PX_OBJECT_EVENT_STRING;
                     e.Param_ptr[0] = text;
                 } break;
-                case WM_GESTURE: {
-                    GESTUREINFO gi;
-                    BOOL bHandled;
-                    BOOL bResult;
-                    ZeroMemory(&gi, sizeof(GESTUREINFO));
+                // case WM_GESTURE: {
+                //     GESTUREINFO gi;
+                //     BOOL bHandled;
+                //     BOOL bResult;
+                //     ZeroMemory(&gi, sizeof(GESTUREINFO));
 
-                    gi.cbSize = sizeof(GESTUREINFO);
+                //     gi.cbSize = sizeof(GESTUREINFO);
 
-                    bResult = GetGestureInfo((HGESTUREINFO)msg.lparam, &gi);
-                    bHandled = FALSE;
+                //     bResult = GetGestureInfo((HGESTUREINFO)msg.lparam, &gi);
+                //     bHandled = FALSE;
 
-                    if (bResult) {
-                        // now interpret the gesture
-                        switch (gi.dwID) {
-                            case GID_ZOOM:
-                                // Code for zooming goes here
+                //     if (bResult) {
+                //         // now interpret the gesture
+                //         switch (gi.dwID) {
+                //             case GID_ZOOM:
+                //                 // Code for zooming goes here
 
-                                if (25 > (main_zoomPoint.x - gi.ptsLocation.x) * (main_zoomPoint.x - gi.ptsLocation.x) +
-                                             (main_zoomPoint.y - gi.ptsLocation.y) * (main_zoomPoint.y - gi.ptsLocation.y)) {
-                                    e.Event = PX_OBJECT_EVENT_SCALE;
-                                    e.Param_int[0] = gi.ptsLocation.x;
-                                    e.Param_int[1] = gi.ptsLocation.y;
-                                    e.Param_int[2] = (px_int)gi.ullArguments - main_ZoomRegion;
-                                }
+                //                 if (25 > (main_zoomPoint.x - gi.ptsLocation.x) * (main_zoomPoint.x - gi.ptsLocation.x) +
+                //                              (main_zoomPoint.y - gi.ptsLocation.y) * (main_zoomPoint.y - gi.ptsLocation.y)) {
+                //                     e.Event = PX_OBJECT_EVENT_SCALE;
+                //                     e.Param_int[0] = gi.ptsLocation.x;
+                //                     e.Param_int[1] = gi.ptsLocation.y;
+                //                     e.Param_int[2] = (px_int)gi.ullArguments - main_ZoomRegion;
+                //                 }
 
-                                main_zoomPoint.x = gi.ptsLocation.x;
-                                main_zoomPoint.y = gi.ptsLocation.y;
-                                main_ZoomRegion = (px_int)gi.ullArguments;
+                //                 main_zoomPoint.x = gi.ptsLocation.x;
+                //                 main_zoomPoint.y = gi.ptsLocation.y;
+                //                 main_ZoomRegion = (px_int)gi.ullArguments;
 
-                                bHandled = TRUE;
-                                break;
-                            case GID_PAN:
-                                // Code for panning goes here
-                                bHandled = TRUE;
-                                break;
-                            case GID_ROTATE:
-                                // Code for rotation goes here
-                                bHandled = TRUE;
-                                break;
-                            case GID_TWOFINGERTAP:
-                                // Code for two-finger tap goes here
-                                bHandled = TRUE;
-                                break;
-                            case GID_PRESSANDTAP:
-                                // Code for roll over goes here
-                                bHandled = TRUE;
-                                break;
-                            default:
-                                // A gesture was not recognized
-                                break;
-                        }
-                        CloseGestureInfoHandle((HGESTUREINFO)msg.lparam);
-                    } else {
-                        DWORD dwErr = GetLastError();
-                        if (dwErr > 0) {
-                            // MessageBoxW(hWnd, L"Error!", L"Could not retrieve a GESTUREINFO structure.", MB_OK);
-                        }
-                    }
-                } break;
+                //                 bHandled = TRUE;
+                //                 break;
+                //             case GID_PAN:
+                //                 // Code for panning goes here
+                //                 bHandled = TRUE;
+                //                 break;
+                //             case GID_ROTATE:
+                //                 // Code for rotation goes here
+                //                 bHandled = TRUE;
+                //                 break;
+                //             case GID_TWOFINGERTAP:
+                //                 // Code for two-finger tap goes here
+                //                 bHandled = TRUE;
+                //                 break;
+                //             case GID_PRESSANDTAP:
+                //                 // Code for roll over goes here
+                //                 bHandled = TRUE;
+                //                 break;
+                //             default:
+                //                 // A gesture was not recognized
+                //                 break;
+                //         }
+                //         CloseGestureInfoHandle((HGESTUREINFO)msg.lparam);
+                //     } else {
+                //         DWORD dwErr = GetLastError();
+                //         if (dwErr > 0) {
+                //             // MessageBoxW(hWnd, L"Error!", L"Could not retrieve a GESTUREINFO structure.", MB_OK);
+                //         }
+                //     }
+                // } break;
                 default:
                     continue;
             }
@@ -176,7 +176,7 @@ BOOL IsAlreadyRunning() {
     }
     return FALSE;
 }
-#include "time.h"
+#include <time.h>
 int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd) {
     HANDLE hThread;
     DWORD threadId;

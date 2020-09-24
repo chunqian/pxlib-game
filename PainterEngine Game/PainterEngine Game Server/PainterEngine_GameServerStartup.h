@@ -2,6 +2,7 @@
 #define PAINTERENGINE_GAMESERVERSTARTUP_H
 
 #include "../../PainterEngine/core/PX_Core.h"
+
 #define PAINTERENGINE_GAMESERVER_RESULT_PORT 47760
 
 typedef struct {

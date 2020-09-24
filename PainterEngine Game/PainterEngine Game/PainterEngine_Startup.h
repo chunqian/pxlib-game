@@ -1,11 +1,11 @@
 #ifndef PAINTERENGINE_STARTUP_H
 #define PAINTERENGINE_STARTUP_H
 
-#include "../../../PainterEngine/platform/windows/Platform_Windows_D2D.h"
-#include "../../../PainterEngine/platform/windows/Platform_Windows_Audio.h"
-#include "../../../PainterEngine/Architecture/PainterEngine_Console.h"
-#include "../../../PainterEngine/Architecture/PainterEngine_MessageBox.h"
-#include "../../../PainterEngine/platform/windows/px_udp.h"
+#include "../../PainterEngine/platform/windows/Platform_Windows_D2D.h"
+#include "../../PainterEngine/platform/windows/Platform_Windows_Audio.h"
+#include "../../PainterEngine/Architecture/PainterEngine_Console.h"
+#include "../../PainterEngine/Architecture/PainterEngine_MessageBox.h"
+#include "../../PainterEngine/platform/windows/px_udp.h"
 
 extern px_uint64 game_rand_seed;
 
@@ -52,4 +52,5 @@ px_bool PX_LoadSoundToResource(PX_Runtime *runtime, const px_char Path[], const 
 px_bool PX_LoadFontModuleFromFile(PX_FontModule *fm, const px_char Path[]);
 px_void PX_PlayLocalSoundFromResource(PX_Instance *pIns, PX_World *pWorld, px_float x, px_float y, const px_char key[], px_bool loop);
 px_void PX_PlayGlobalSoundFromResource(PX_Instance *pIns, const px_char key[], px_bool loop);
+
 #endif

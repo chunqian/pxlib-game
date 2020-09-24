@@ -1,4 +1,5 @@
 #include "Game_ResoucesLoader.h"
+
 px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TYPE type) {
     PX_Runtime *runtime = &Ins->runtime;
 

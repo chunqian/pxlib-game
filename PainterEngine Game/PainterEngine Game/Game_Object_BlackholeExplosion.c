@@ -8,8 +8,8 @@ px_void Game_Object_BlackHoleExplosionUpdate(PX_Object *pObject, px_dword elpase
     Game_Object_BlackHoleExplosion *pDesc = (Game_Object_BlackHoleExplosion *)pObject->pObject;
     pDesc->elpased += elpased;
 
-    if (count = PX_WorldSearchRegion(pDesc->pWorld, pObject->x, pObject->y, GAME_OBJECT_BLACKHOLEEXPLOSION_SEARCH_REGION, pTargetObjects,
-                                     PX_COUNTOF(pTargetObjects), pObject->impact_test_type)) {
+    if ((count = PX_WorldSearchRegion(pDesc->pWorld, pObject->x, pObject->y, GAME_OBJECT_BLACKHOLEEXPLOSION_SEARCH_REGION, pTargetObjects,
+                                         PX_COUNTOF(pTargetObjects), pObject->impact_test_type))) {
         px_int i;
         for (i = 0; i < count; i++) {
             PX_Object_Event e;
@@ -28,8 +28,8 @@ px_void Game_Object_BlackHoleExplosionUpdate(PX_Object *pObject, px_dword elpase
         }
     }
 
-    if (count = PX_WorldSearchRegion(pDesc->pWorld, pObject->x, pObject->y, GAME_OBJECT_BLACKHOLEEXPLOSION_SEARCH_DAMAGEREGION, pTargetObjects,
-                                     PX_COUNTOF(pTargetObjects), pObject->impact_test_type)) {
+    if ((count = PX_WorldSearchRegion(pDesc->pWorld, pObject->x, pObject->y, GAME_OBJECT_BLACKHOLEEXPLOSION_SEARCH_DAMAGEREGION, pTargetObjects,
+                                         PX_COUNTOF(pTargetObjects), pObject->impact_test_type))) {
         px_int i;
         for (i = 0; i < count; i++) {
             PX_Object_Event e;

@@ -1,4 +1,5 @@
 #include "PX_Json.h"
+
 static px_uint json_quotes;
 
 px_bool PX_JsonInterpret_Object(PX_Json *pjson, px_lexer *lexer, PX_Json_Object *json_Object);

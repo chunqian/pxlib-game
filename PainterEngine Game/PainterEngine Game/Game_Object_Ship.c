@@ -440,7 +440,7 @@ px_void Game_Object_ShipFire(PX_Object *pObject) {
 
 px_void Game_Object_ShipOnFire(PX_Object *pObject, PX_Object_Event e, px_void *ptr) { Game_Object_ShipFire(pObject); }
 
-#include "stdio.h"
+#include <stdio.h>
 
 px_void Game_Object_ShipUpdate(PX_Object *pObject, px_uint elpased) {
     px_float f_distance;

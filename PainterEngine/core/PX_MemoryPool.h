@@ -1,5 +1,6 @@
 #ifndef PIXELSES_MEMORYPOOL
 #define PIXELSES_MEMORYPOOL
+
 #include "PX_Typedef.h"
 
 #define __PX_MEMORYPOOL_ALIGN_BYTES (sizeof(void *))

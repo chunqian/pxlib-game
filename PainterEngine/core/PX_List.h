@@ -1,6 +1,8 @@
 #ifndef __PX_LIST_H
 #define __PX_LIST_H
+
 #include "PX_MemoryPool.h"
+
 typedef struct __px_list_node {
     px_void *pdata;
     struct __px_list_node *pnext;
@@ -26,4 +28,5 @@ px_void PX_ListFree(px_list *list);
 
 #define PX_LIST_NODEDATA(x) ((x)->pdata)
 #define PX_LISTAT(t, x, i) ((t *)(PX_ListAt(x, i)->pdata))
+
 #endif

@@ -127,7 +127,7 @@ px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *dat
     if (!pf) {
         return PX_FALSE;
     }
-    fprintf(pf, regcode);
+    fprintf(pf, "%s", regcode);
     fclose(pf);
 
     // log
@@ -161,7 +161,7 @@ px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *dat
     if (!pf) {
         return PX_FALSE;
     }
-    fprintf(pf, admin_name);
+    fprintf(pf, "%s", admin_name);
     fclose(pf);
 
     return PX_TRUE;

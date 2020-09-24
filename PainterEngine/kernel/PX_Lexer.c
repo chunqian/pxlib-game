@@ -228,6 +228,8 @@ px_int PX_LexerFilterChar(px_lexer *lexer, px_char ch) {
             lexer->SortStatus = PX_LEXERSORT_STATUS_NORMAL;
             return PX_TRUE;
             break;
+        case PX_LEXER_SORT_STATUS_COMMENT:
+            break;
         case PX_LEXER_SORT_STATUS_NEWLINE:
             if (PX_LexerIsSpacer(lexer, ch) || PX_LexerIsNewLine(ch)) {
                 return PX_FALSE;
@@ -255,7 +257,7 @@ px_bool PX_LexerSortText(px_lexer *lexer, const px_char *SourceText) {
 
     while (*SourceText) {
         // Comment trim
-        if (chrst = PX_LexerIsCommentStart(lexer, SourceText)) {
+        if ((chrst = PX_LexerIsCommentStart(lexer, SourceText))) {
             SourceText += PX_strlen(chrst);
             while (!(chred = PX_LexerIsCommentEnd(lexer, chrst, SourceText))) {
                 if (!*SourceText) {
@@ -272,7 +274,7 @@ px_bool PX_LexerSortText(px_lexer *lexer, const px_char *SourceText) {
         }
 
         // container skip
-        if (chrst = PX_LexerIsContainerStart(lexer, SourceText)) {
+        if ((chrst = PX_LexerIsContainerStart(lexer, SourceText))) {
             PX_memcpy(lexer->Sources + Offset, chrst, PX_strlen(chrst));
             Offset += PX_strlen(chrst);
             ;
@@ -333,7 +335,7 @@ PX_LEXER_LEXEME_TYPE PX_LexerGetNextLexeme(px_lexer *lexer) {
         lexer->CurrentLexemeFlag = PX_LEXER_LEXEME_TYPE_END;
         return PX_LEXER_LEXEME_TYPE_END;
     }
-    if (chrst = PX_LexerIsContainerStart(lexer, (&lexer->Sources[lexer->SourceOffset]))) {
+    if ((chrst = PX_LexerIsContainerStart(lexer, (&lexer->Sources[lexer->SourceOffset])))) {
         PX_StringCat(&lexer->CurLexeme, chrst);
         lexer->SourceOffset += PX_strlen(chrst);
         while (!(chred = PX_LexerIsContainerEnd(lexer, chrst, &lexer->Sources[lexer->SourceOffset]))) {

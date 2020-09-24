@@ -1,4 +1,5 @@
 #include "PX_BpNeural.h"
+
 px_bool PX_BpNeuralsInit(px_memorypool *mp, PX_BpNeurals *bpN, px_int inputCount, px_int hiddenCount, px_int outputCount, px_double bias1, px_double bias2,
                          px_double learningRate, PX_BPNERURALS_ACTIVATION_FUNCTION activation, PX_BPNERURALS_INITMODE mode, px_double c) {
     px_int i;

@@ -261,6 +261,8 @@ px_void PX_LoginUpdate(PX_Login *pl, px_dword elpased) {
             break;
         case PX_LOGIN_STATUS_SUCCEEDED:
             break;
+        default:
+            break;
     }
 }
 

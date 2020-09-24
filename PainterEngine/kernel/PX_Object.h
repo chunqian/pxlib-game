@@ -1,7 +1,7 @@
 #ifndef PIXELSES_OBJECT_H
 #define PIXELSES_OBJECT_H
 
-#include "../Core/PX_Core.h"
+#include "../core/PX_Core.h"
 #include "PX_Animation.h"
 #include "PX_Partical.h"
 

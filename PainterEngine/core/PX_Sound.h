@@ -1,5 +1,6 @@
 #ifndef PX_SOUND_H
 #define PX_SOUND_H
+
 // painter engine sound-mixer
 // 44100HZ
 // 16bit
@@ -48,4 +49,5 @@ px_bool PX_SoundPlayGetDataCount(PX_SoundPlay *pSoundPlay);
 PX_Sound PX_SoundCreate(PX_SoundData *data, px_bool loop);
 px_bool PX_SoundStaticDataCreate(PX_SoundData *sounddata, px_memorypool *mp, px_byte *data, px_int datasize);
 px_void PX_SoundStaticDataFree(PX_SoundData *sounddata);
+
 #endif

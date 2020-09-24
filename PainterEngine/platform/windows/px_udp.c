@@ -28,7 +28,7 @@ px_bool PX_UDPInit(PX_UDP *udp, PX_UDP_IP_TYPE type) {
         return PX_FALSE;
     }
 
-    rev = ioctlsocket(udp->socket, FIONBIO, (u_long *)&imode);
+    rev = ioctlsocket(udp->socket, FIONBIO, (PULONG)&imode); // u_long * <- PULONG
 
     setsockopt(udp->socket, SOL_SOCKET, SO_RCVBUF, (const char *)&nRecvBuf, sizeof(int));
 

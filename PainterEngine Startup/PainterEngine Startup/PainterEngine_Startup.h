@@ -1,11 +1,11 @@
 #ifndef PAINTERENGINE_STARTUP_H
 #define PAINTERENGINE_STARTUP_H
 
-#include "../../../PainterEngine/platform/windows/Platform_Windows_D2D.h"
-#include "../../../PainterEngine/platform/windows/Platform_Windows_Audio.h"
-#include "../../../PainterEngine/Architecture/PainterEngine_Console.h"
-#include "../../../PainterEngine/Architecture/PainterEngine_MessageBox.h"
-#include "../../../PainterEngine/platform/windows/px_udp.h"
+#include "../../PainterEngine/platform/windows/Platform_Windows_D2D.h"
+#include "../../PainterEngine/platform/windows/Platform_Windows_Audio.h"
+#include "../../PainterEngine/Architecture/PainterEngine_Console.h"
+#include "../../PainterEngine/Architecture/PainterEngine_MessageBox.h"
+#include "../../PainterEngine/platform/windows/px_udp.h"
 #include "../PainterEngine Network/GameServer_Network.h"
 
 typedef struct {
@@ -44,4 +44,5 @@ px_bool PX_LoadSoundToResource(PX_Runtime *runtime, const px_char Path[], const 
 px_bool PX_LoadFontModuleFromFile(PX_FontModule *fm, const px_char Path[]);
 px_bool PX_LoadJsonFromFile(PX_Json *json, const px_char *path);
 px_bool PX_CopyFile(const px_char resFile[], const px_char DestFile[]);
+
 #endif

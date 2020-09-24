@@ -1,5 +1,6 @@
 #ifndef PAINTERENGINE_APPLICATION_H
 #define PAINTERENGINE_APPLICATION_H
+
 #include "../PainterEngine Game/PainterEngine_Startup.h"
 #include "../PainterEngine Game/Game_Play.h"
 #include "PainterEngine_GameClientStartup.h"

@@ -1,5 +1,6 @@
 #ifndef PLATFORM_WINDOWS_DSOUND_H
 #define PLATFORM_WINDOWS_DSOUND_H
+
 #include <windows.h>
 #include "../../core/PX_Sound.h"
 
@@ -12,4 +13,5 @@ BOOL PX_AudioCaptureOpen(GUID dev_id, int channel);
 DWORD PX_AudioCaptureRead(void *buffer, px_int buffersize);
 DWORD PX_AudioCaptureReadEx(void *buffer, px_int buffersize, px_int align);
 BOOL PX_AudioCaptureClose();
+
 #endif

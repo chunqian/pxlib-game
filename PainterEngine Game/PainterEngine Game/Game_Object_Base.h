@@ -1,5 +1,6 @@
 #ifndef GAME_OBJECT_BASE_H
 #define GAME_OBJECT_BASE_H
+
 #include "PainterEngine_Startup.h"
 #include "Game_Text.h"
 

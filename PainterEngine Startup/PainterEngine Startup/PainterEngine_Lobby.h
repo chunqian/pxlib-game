@@ -1,5 +1,6 @@
 #ifndef PX_LOBBY_H
 #define PX_LOBBY_H
+
 #include "PainterEngine_Startup.h"
 #include "../../PainterEngine Game/PainterEngine Game Client/PainterEngine_GameClientStartup.h"
 #include "../../PainterEngine Game/PainterEngine Game/Game_Object_Base.h"
@@ -14,6 +15,7 @@
 #define PX_LOBBY_UPDATE_USERSTATE_TIME 1000
 #define PX_LOBBY_UPDATE_PHOTO_TIME 3000
 #define PX_LOBBY_UPDATE_NEWS_TIME 10000
+
 typedef struct {
     PX_Object *root;
     px_shape shape_coin, shape_ticket;

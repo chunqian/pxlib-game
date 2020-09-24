@@ -13,4 +13,5 @@ typedef struct {
 } Game_Object_LaunchFire;
 
 px_void Game_Object_LaunchFireCreate(PX_Instance *pIns, PX_World *pWorld, px_point position, px_point direction, px_point velocity, const px_char sndKey[]);
+
 #endif

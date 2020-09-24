@@ -15,4 +15,5 @@ typedef struct {
 
 px_bool PX_PacketCompress(px_byte *_in, px_uint input_size, px_byte *_out, px_uint *out_size, px_dword algotithm);
 px_bool PX_PacketDecompress(px_byte *_in, px_uint input_size, px_byte *_out, px_uint *out_size);
+
 #endif

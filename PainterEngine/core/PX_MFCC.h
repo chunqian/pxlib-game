@@ -1,5 +1,6 @@
 #ifndef PX_MFCC_H
 #define PX_MFCC_H
+
 #include "PX_MemoryPool.h"
 
 #define PX_MFCC_FRAME_MAX_SIZE 2048
@@ -19,4 +20,5 @@ typedef struct {
 
 px_void PX_MFCCInitialize(PX_MFCC *mfcc, px_int framesize, px_int sampleRate, px_int low, px_int high);
 px_bool PX_MFCCParse(PX_MFCC *mfcc, px_double *data, PX_MFCC_FEATURE *out);
+
 #endif

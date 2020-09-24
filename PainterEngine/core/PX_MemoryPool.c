@@ -2,7 +2,7 @@
 
 #if defined(PX_DEBUG_MODE) && defined(PX_MEMORYPOOL_DEBUG_CHECK)
 
-    #include "stdio.h"
+    #include <stdio.h>
 static px_int DEBUG_i;
 static px_int DEBUG_assert;
 px_void MP_UnreleaseInfo(px_memorypool *mp) {

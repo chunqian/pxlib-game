@@ -1,10 +1,10 @@
 #ifndef PAINTERENGINE_STARTUP_H
 #define PAINTERENGINE_STARTUP_H
 
-#include "../../../PainterEngine/platform/windows/Platform_Windows_D2D.h"
-#include "../../../PainterEngine/Architecture/PainterEngine_Console.h"
-#include "../../../PainterEngine/Architecture/PainterEngine_MessageBox.h"
-#include "../../../PainterEngine/platform/windows/px_udp.h"
+#include "../../PainterEngine/platform/windows/Platform_Windows_D2D.h"
+#include "../../PainterEngine/Architecture/PainterEngine_Console.h"
+#include "../../PainterEngine/Architecture/PainterEngine_MessageBox.h"
+#include "../../PainterEngine/platform/windows/px_udp.h"
 #include "../PainterEngine Network/GameServer_Network.h"
 
 typedef struct {
