@@ -8,16 +8,12 @@
 #include "Game_UI_RankPanel.h"
 #include "Game_UI_Message.h"
 
-
-
-typedef struct
-{
+typedef struct {
     px_texture *pTexture;
     px_float rotation;
-}Game_Object_Cursor;
+} Game_Object_Cursor;
 
-typedef struct  
-{
+typedef struct {
     PX_Instance *pIns;
     Game_Play *pPlay;
     Game_Object_Cursor cursor;
@@ -26,9 +22,9 @@ typedef struct
     Game_UI_ScorePanel uiScorePanel;
     Game_UI_RankPanel uiRankPanel;
     Game_UI_Message uiMessage;
-}Game_UI;
+} Game_UI;
 
-px_bool Game_UIInitialize(PX_Instance *pIns,Game_UI *ui,Game_Play *pPlay);
-px_void Game_UIRender(px_surface *renderSurface,Game_UI *ui,px_int monitorPlayer,px_int fps,px_dword elpased);
-px_void Game_UIPostEvent(Game_UI *ui,PX_Object_Event e);
+px_bool Game_UIInitialize(PX_Instance *pIns, Game_UI *ui, Game_Play *pPlay);
+px_void Game_UIRender(px_surface *renderSurface, Game_UI *ui, px_int monitorPlayer, px_int fps, px_dword elpased);
+px_void Game_UIPostEvent(Game_UI *ui, PX_Object_Event e);
 #endif

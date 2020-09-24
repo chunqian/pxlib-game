@@ -15,29 +15,26 @@
 #define PX_STARTUPSERVER_LOGIN_INVALID_LOGIN_DATA L"µ«¬º ß∞‹,’Àªß√‹¬Î¥ÌŒÛ"
 #define PX_STARTUPSERVER_LOGIN_INVALID_VERSION L"∞Ê±æ¥ÌŒÛ,«Î∑√Œ :Q»∫419410284ªÚmatrixcascade@gmail.com"
 
-typedef struct
-{
+typedef struct {
     px_bool activate;
     PX_UDP_ADDR Addr;
-    px_byte  privatekey[32];
-    px_byte  publickey[32];
-    px_byte  theirkey[32];
-    px_byte  sharekey[32];
+    px_byte privatekey[32];
+    px_byte publickey[32];
+    px_byte theirkey[32];
+    px_byte sharekey[32];
     px_dword v_code;
     px_dword elpased;
-}PX_StartupServer_LoginConnection;
+} PX_StartupServer_LoginConnection;
 
-
-typedef struct  
-{
+typedef struct {
     PX_StartupServer_LoginConnection *connections;
     px_int max_connections;
     px_memorypool mp;
     PX_UDP udp;
-}PX_StartupServer_Login;
+} PX_StartupServer_Login;
 
-px_bool PX_StartupServer_LoginInitialize(PX_StartupServer_Login *pLogin,px_int max_connections);
-px_void PX_StartupServer_LoginUpdate(PX_StartupServer_Login *pLogin,px_dword elpased);
+px_bool PX_StartupServer_LoginInitialize(PX_StartupServer_Login *pLogin, px_int max_connections);
+px_void PX_StartupServer_LoginUpdate(PX_StartupServer_Login *pLogin, px_dword elpased);
 px_void PX_StartupServer_LoginFree(PX_StartupServer_Login *pLogin);
 
 #endif

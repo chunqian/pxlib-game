@@ -4,29 +4,25 @@
 #include "../../PainterEngine/core/PX_Core.h"
 #define PAINTERENGINE_GAMESERVER_RESULT_PORT 47760
 
-
-typedef struct  
-{
+typedef struct {
     px_ushort dataport;
     px_ushort gameport;
     px_dword playerCount;
-}PX_GameServerStartUp_Info;
+} PX_GameServerStartUp_Info;
 
-typedef struct  
-{
+typedef struct {
     px_dword clientID;
     px_dword serverID;
-}PX_GameServerStartUp_PlayerNetInfo;
+} PX_GameServerStartUp_PlayerNetInfo;
 
-typedef struct
-{
+typedef struct {
     px_char account[32];
     px_dword group;
     px_dword rank;
     px_dword gameType;
     px_dword score;
-}PX_GameServer_PlayerResult;
+} PX_GameServer_PlayerResult;
 
-//Game_Play_PlayerDataDesc
+// Game_Play_PlayerDataDesc
 
 #endif

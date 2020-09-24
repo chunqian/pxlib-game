@@ -11,8 +11,7 @@
 #define GAME_OBJECT_MINE_DAMAGE 35
 #define GAME_OBJECT_MINE_SEARCH 150
 
-typedef struct
-{
+typedef struct {
     PX_World *pWorld;
     PX_Instance *pIns;
     px_int Player;
@@ -21,8 +20,8 @@ typedef struct
     PX_Animation animation;
     px_point velocity;
     px_float angle;
-}Game_Object_Mine;
+} Game_Object_Mine;
 
-px_void Game_Object_MineCreate(PX_Instance *pIns,PX_World *pWorld,px_point position,px_point direction,px_int group,px_int player);
+px_void Game_Object_MineCreate(PX_Instance *pIns, PX_World *pWorld, px_point position, px_point direction, px_int group, px_int player);
 
 #endif

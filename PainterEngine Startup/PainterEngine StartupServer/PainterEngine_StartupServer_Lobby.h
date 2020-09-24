@@ -26,18 +26,13 @@
 
 #define PX_STARTUPSERVER_LOBBY_TEXT_INITIALIZE_LOBBY_LARGEDATAUDP_FAILED "初始化用户数据服务器数据UDP初始化失败."
 #define PX_STARTUPSERVER_LOBBY_TEXT_LISTEN_LOBBY__LARGEDATAUDP_FAILED "监听用户数据服务数据端口失败."
-typedef struct
-{
+typedef struct {
     px_bool activated;
     px_int mapid;
     px_int id;
-}PX_StartupServer_Lobby_GameInstance_Player;
+} PX_StartupServer_Lobby_GameInstance_Player;
 
-
-
-
-typedef struct
-{
+typedef struct {
     volatile px_bool activated;
     volatile HANDLE hGameProcess;
     px_dword gameport;
@@ -46,47 +41,42 @@ typedef struct
     px_dword serverIDArrary[PX_STARTUP_ROOM_MAX_SUPPORT_PLAYER];
     px_dword clientIDArrary[PX_STARTUP_ROOM_MAX_SUPPORT_PLAYER];
     PX_StartupServer_Lobby_GameInstance_Player PlayerStack[PX_STARTUP_ROOM_MAX_SUPPORT_PLAYER];
-}PX_StartupServer_Lobby_GameInstance;
+} PX_StartupServer_Lobby_GameInstance;
 
-typedef struct
-{
+typedef struct {
     px_bool activated;
     px_dword roomKey;
     GAME_PLAY_GAMETYPE type;
     PX_StartupServer_Lobby_GameInstance_Player PlayerStack[PX_STARTUP_ROOM_MAX_SUPPORT_PLAYER];
-}PX_StartupServer_Lobby_GameRoom;
+} PX_StartupServer_Lobby_GameRoom;
 
-typedef struct
-{
+typedef struct {
     px_bool activated;
 
-
-    //authority
+    // authority
     px_dword id;
     px_char account[32];
     px_uchar pwd_sha256[SHA256_HASH_SIZE];
     px_byte cookie[32];
     PX_AES aes_encoder;
 
-    //timer
+    // timer
     px_byte aes_code[32];
     px_dword hb_elpased;
     px_dword lastop_elpased;
     px_dword photo_elpased;
 
-    //data
+    // data
     PX_Startup_UserData userdata;
     px_byte photoData[PX_STARTUP_USERDATA_PHOTOSIZE];
 
-    //Game Instance
+    // Game Instance
     PX_Startup_UserState userState;
     px_int GameInstanceIndex;
 
-}PX_StartupServer_LobbyClient;
+} PX_StartupServer_LobbyClient;
 
-
-typedef struct  
-{
+typedef struct {
     px_memorypool mp;
     px_int allocID;
 
@@ -101,15 +91,15 @@ typedef struct
     PX_StartupServer_Lobby_GameRoom GameRoom[PX_STARTUPSERVER_LOBBY_MAX_SUPPORTROOM];
     PX_StartupServer_Lobby_GameInstance GameInstance[PX_STARTUPSERVER_LOBBY_MAX_SUPPORTINSTANCE];
 
-    //config
+    // config
     PX_Json json_config;
-}PX_StartupServer_Lobby;
+} PX_StartupServer_Lobby;
 
-
-px_bool PX_StartupServer_LobbyInitialize(PX_StartupServer_Lobby *pDesc,PX_StartupServer_Database *pDataBase,px_int max_connections);
-px_bool PX_StartupServer_LobbyLogin(PX_StartupServer_Lobby *pDesc,px_byte aes_code[32],px_char account[32],px_char pwd[32],_OUT px_byte cookie[32],_OUT px_dword *map_index,_OUT px_dword *id);
-px_bool PX_StartupServer_LobbyUpdateClientUserInfoByAccount(PX_StartupServer_Lobby *pDesc,px_char account[]);
-px_void PX_StartupServer_LobbyUpdate(PX_StartupServer_Lobby *pDesc,px_dword elpased);
+px_bool PX_StartupServer_LobbyInitialize(PX_StartupServer_Lobby *pDesc, PX_StartupServer_Database *pDataBase, px_int max_connections);
+px_bool PX_StartupServer_LobbyLogin(PX_StartupServer_Lobby *pDesc, px_byte aes_code[32], px_char account[32], px_char pwd[32], _OUT px_byte cookie[32],
+                                    _OUT px_dword *map_index, _OUT px_dword *id);
+px_bool PX_StartupServer_LobbyUpdateClientUserInfoByAccount(PX_StartupServer_Lobby *pDesc, px_char account[]);
+px_void PX_StartupServer_LobbyUpdate(PX_StartupServer_Lobby *pDesc, px_dword elpased);
 px_void PX_StartupServer_LobbyFree(PX_StartupServer_Lobby *pDesc);
 
 #endif

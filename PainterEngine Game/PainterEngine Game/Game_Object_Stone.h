@@ -5,13 +5,12 @@
 #include "Game_Object_FireExplosion.h"
 #include "Game_Object_Pickup.h"
 
-#define GAME_STONE_GEN_SPACE 300 
-#define GAME_STONE_DEFALUE_MIN_ROTATION_SPEED 10 
-#define GAME_STONE_DEFALUE_MAX_ROTATION_SPEED 360 
+#define GAME_STONE_GEN_SPACE 300
+#define GAME_STONE_DEFALUE_MIN_ROTATION_SPEED 10
+#define GAME_STONE_DEFALUE_MAX_ROTATION_SPEED 360
 
-typedef struct
-{
-    px_float life; 
+typedef struct {
+    px_float life;
     px_float scale;
     px_point velocity;
     px_float rotation;
@@ -22,7 +21,7 @@ typedef struct
 
     PX_Instance *pIns;
     PX_World *pWorld;
-}Game_Object_Stone;
-px_void Game_Object_StoneCreate(PX_Instance *pIns,PX_World *pWorld);
+} Game_Object_Stone;
+px_void Game_Object_StoneCreate(PX_Instance *pIns, PX_World *pWorld);
 
 #endif

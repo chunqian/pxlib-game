@@ -8,8 +8,7 @@
 #define GAME_OBJECT_PIERCER_DEFAULT_SPEED 650
 #define GAME_OBJECT_PIERCER_DAMAGE 6
 
-typedef struct
-{
+typedef struct {
     PX_World *pWorld;
     PX_Instance *pIns;
     px_int Player;
@@ -17,8 +16,9 @@ typedef struct
     PX_Animation animation;
     px_point velocity;
     px_point direction;
-    
-}Game_Object_Piercer;
 
-px_void Game_Object_PiercerCreate(PX_Instance *pIns,PX_World *pWorld,px_point position,px_point direction,px_point refvelocity,px_int group,px_int Player);
+} Game_Object_Piercer;
+
+px_void Game_Object_PiercerCreate(PX_Instance *pIns, PX_World *pWorld, px_point position, px_point direction, px_point refvelocity, px_int group,
+                                  px_int Player);
 #endif

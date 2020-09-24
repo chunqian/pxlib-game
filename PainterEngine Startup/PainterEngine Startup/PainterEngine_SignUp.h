@@ -29,21 +29,16 @@
 #define PX_SIGNUP_TEXT_REGISTRY_SUCCEEDED ((px_char *)L"×¢²á³É¹¦")
 #define PX_SIGNUP_TEXT_LOGIN "µÇÂ¼"
 
-
-typedef enum
-{
+typedef enum {
     PX_SIGNUP_STATUS_STANDBY,
     PX_SIGNUP_STATUS_REGISTING_EXCHAGE,
     PX_SIGNUP_STATUS_REGISTING_REG,
     PX_SIGNUP_STATUS_REGISTING_DOWNLOAD,
     PX_SIGNUP_STATUS_SUCCEEDED,
     PX_SIGNUP_STATUS_FAILED,
-}PX_SIGNUP_STATUS;
+} PX_SIGNUP_STATUS;
 
-
-
-typedef struct  
-{
+typedef struct {
     PX_Instance *pIns;
     px_char userName[32];
     px_word nickName[32];
@@ -53,22 +48,21 @@ typedef struct
     px_byte publickey[32];
     px_byte sharekey[32];
     px_char *loginText;
-    px_texture SignUpTexture,SigningTexture;
+    px_texture SignUpTexture, SigningTexture;
     PX_SIGNUP_STATUS status;
     PX_Object *signup_root;
-    PX_Object *edit_user,*edit_nickname,*edit_pwd,*edit_pwdrepeat,*edit_regcode,*btn_login;
-    PX_Object *btn_reg,*btn_exit;
-    PX_Object *label_accountInfo,*label_nickInfo,*label_pwdInfo,*label_regcodeInfo;
+    PX_Object *edit_user, *edit_nickname, *edit_pwd, *edit_pwdrepeat, *edit_regcode, *btn_login;
+    PX_Object *btn_reg, *btn_exit;
+    PX_Object *label_accountInfo, *label_nickInfo, *label_pwdInfo, *label_regcodeInfo;
     PX_Object *radius_signing;
     PX_UDP udp;
     PX_UDP_ADDR ServerAddr;
     px_dword elpased;
     px_int times;
-}PX_SignUp;
+} PX_SignUp;
 
-
-px_bool PX_SignUpInitialize(PX_Instance *pIns,PX_SignUp *pR,const px_char SignupServerIpAddr[],px_ushort port);
-px_void PX_SignUpPostEvent(PX_SignUp *pl,PX_Object_Event e);
-px_void PX_SignUpUpdate(PX_SignUp *pl,px_dword elpased);
-px_void PX_SignUpRender(PX_SignUp *pl,px_dword elpased);
+px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char SignupServerIpAddr[], px_ushort port);
+px_void PX_SignUpPostEvent(PX_SignUp *pl, PX_Object_Event e);
+px_void PX_SignUpUpdate(PX_SignUp *pl, px_dword elpased);
+px_void PX_SignUpRender(PX_SignUp *pl, px_dword elpased);
 #endif

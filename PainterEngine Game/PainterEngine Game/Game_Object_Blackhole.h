@@ -10,8 +10,7 @@
 #define GAME_OBJECT_BLACKHOLE_SEARCH 400
 #define GAME_OBJECT_BLACKHOLE_SEARCH_COUNT 64
 
-typedef struct
-{
+typedef struct {
     PX_World *pWorld;
     PX_Instance *pIns;
     px_int Player;
@@ -20,8 +19,8 @@ typedef struct
     px_point velocity;
     px_point direction;
     px_float angle;
-}Game_Object_BlackHole;
+} Game_Object_BlackHole;
 
-px_void Game_Object_BlackHoleCreate(PX_Instance *pIns,PX_World *pWorld,px_point position,px_point direction,px_int group,px_int player);
+px_void Game_Object_BlackHoleCreate(PX_Instance *pIns, PX_World *pWorld, px_point position, px_point direction, px_int group, px_int player);
 
 #endif

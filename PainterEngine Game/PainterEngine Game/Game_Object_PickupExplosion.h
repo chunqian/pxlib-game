@@ -5,8 +5,7 @@
 
 #define GAME_OBJECT_PICKUPEXPLOSION_ALIVE 500
 
-typedef enum
-{
+typedef enum {
     GAME_OBJECT_PICKETUP_TYPE_BLACKHOLE,
     GAME_OBJECT_PICKETUP_TYPE_MINE,
     GAME_OBJECT_PICKETUP_TYPE_MISSILE,
@@ -19,17 +18,16 @@ typedef enum
     GAME_OBJECT_PICKETUP_TYPE_POWERUP,
     GAME_OBJECT_PICKETUP_TYPE_PROTECTSHIELD,
     GAME_OBJECT_PICKETUP_TYPE_PIERCER,
-}GAME_OBJECT_PICKETUP_TYPE;
+} GAME_OBJECT_PICKETUP_TYPE;
 
-typedef struct
-{
+typedef struct {
     PX_World *pWorld;
     PX_Instance *pIns;
     px_shape *logo;
     px_dword elpased;
     GAME_OBJECT_PICKETUP_TYPE type;
-}Game_Object_PickupExplosion;
+} Game_Object_PickupExplosion;
 
-px_void Game_Object_PickupExplosionCreate(PX_Instance *pIns,PX_World *pWorld,px_point position,GAME_OBJECT_PICKETUP_TYPE type);
+px_void Game_Object_PickupExplosionCreate(PX_Instance *pIns, PX_World *pWorld, px_point position, GAME_OBJECT_PICKETUP_TYPE type);
 
 #endif

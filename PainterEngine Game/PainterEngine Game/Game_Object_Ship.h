@@ -1,7 +1,6 @@
 #ifndef GAME_OBJECT_SHIP
 #define GAME_OBJECT_SHIP
 
-
 #include "Game_Object_Base.h"
 
 #include "Game_Object_Shotgun.h"
@@ -22,49 +21,42 @@
 #define GAME_SHIP_IMPACT_MIN_VELOCITY 20
 #define GAME_SHIP_NAME_DEFEAT_SCORE 8000
 
-
-typedef enum
-{
+typedef enum {
     GAME_OBJECT_SHIP_TYPE_ALPHA,
     GAME_OBJECT_SHIP_TYPE_PROPHET,
     GAME_OBJECT_SHIP_TYPE_UFO,
     GAME_OBJECT_SHIP_TYPE_ILLUSION,
     GAME_OBJECT_SHIP_TYPE_GHOST,
     GAME_OBJECT_SHIP_TYPE_TITAN,
-}GAME_OBJECT_SHIP_TYPE;
+} GAME_OBJECT_SHIP_TYPE;
 
-typedef struct
-{
+typedef struct {
     GAME_OBJECT_SHIP_WEAPON_TYPE type;
     px_dword turretType;
     px_int AtomCount;
     px_int MaxAtomCount;
     px_dword fire_duration;
     px_dword fire_elpased;
-}Game_Weapon_Info;
+} Game_Weapon_Info;
 
-
-
-
-typedef struct
-{
-    //Player ID
+typedef struct {
+    // Player ID
     px_int player;
     px_int group;
 
-    //Controller
+    // Controller
     PX_Controller controller;
-    px_bool  bLocalController;
+    px_bool bLocalController;
 
-    //Interface
+    // Interface
     PX_Instance *pIns;
     PX_World *pWorld;
     PX_Object *playerLinkerObject;
 
-    //Base Info
+    // Base Info
     GAME_OBJECT_SHIP_TYPE type;
 
-    px_float life;  
+    px_float life;
     px_float shield;
 
     px_float max_force;
@@ -88,25 +80,24 @@ typedef struct
     px_dword last_shield_damage_elpased;
     px_dword slientTime;
 
-    px_point power_main_point,power_assist_L_point,power_assist_R_point;
+    px_point power_main_point, power_assist_L_point, power_assist_R_point;
 
     Game_Object_Plugin_Turret Turret[GAME_SHIP_MAX_TURRUT];
-    px_point cannon_point0,cannon_point1,cannon_point2;
+    px_point cannon_point0, cannon_point1, cannon_point2;
 
     px_int WeaponIndex;
     Game_Weapon_Info WeaponStack[8];
 
-    //Render Data
-    PX_Object *ship_powerpartical_main,*ship_powerpartical_l1,*ship_powerpartical_l2;
+    // Render Data
+    PX_Object *ship_powerpartical_main, *ship_powerpartical_l1, *ship_powerpartical_l2;
     px_word PlayerName[GAME_SHIP_NAME_MAX_LEN];
     px_bool showHelpLine;
-    px_texture photo,photo_mini;
+    px_texture photo, photo_mini;
     px_texture *shipObject;
     px_texture *shieldtex;
-}Game_Object_Ship;
+} Game_Object_Ship;
 
-typedef struct  
-{
+typedef struct {
     px_int player;
     px_int group;
     px_float maxshield;
@@ -121,10 +112,9 @@ typedef struct
 
     GAME_OBJECT_SHIP_TYPE type;
     px_word PlayerName[GAME_SHIP_NAME_MAX_LEN];
-}Game_Object_ShipDescription;
+} Game_Object_ShipDescription;
 
 Game_Object_Ship *Game_Object_GetShip(PX_Object *pObject);
-PX_Object* Game_Object_ShipCreate(PX_Instance *pIns,PX_World *pWorld,Game_Object_ShipDescription desc);
-
+PX_Object *Game_Object_ShipCreate(PX_Instance *pIns, PX_World *pWorld, Game_Object_ShipDescription desc);
 
 #endif

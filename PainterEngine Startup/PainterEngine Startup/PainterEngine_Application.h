@@ -7,38 +7,34 @@
 #include "PainterEngine_Lobby.h"
 
 //////////////////////////////////////////////////////////////////////////
-//Configures
-#define  PX_WINDOW_NAME     ""
+// Configures
+#define PX_WINDOW_NAME ""
 
-#define  PX_WINDOW_WIDTH    800
-#define  PX_WINDOW_HEIGHT   600
+#define PX_WINDOW_WIDTH 800
+#define PX_WINDOW_HEIGHT 600
 
-//memorypool for runtime(bytes)
-#define PX_MEMORY_UI_SIZE (1024*1024*8)
-#define PX_MEMORY_RESOURCES_SIZE (1024*1024*32)
-#define PX_MEMORY_GAME_SIZE (1024*1024)
-
-
-//////////////////////////////////////////////////////////////////////////
+// memorypool for runtime(bytes)
+#define PX_MEMORY_UI_SIZE (1024 * 1024 * 8)
+#define PX_MEMORY_RESOURCES_SIZE (1024 * 1024 * 32)
+#define PX_MEMORY_GAME_SIZE (1024 * 1024)
 
 //////////////////////////////////////////////////////////////////////////
-//Configurations
+
+//////////////////////////////////////////////////////////////////////////
+// Configurations
 
 #define PX_APPLICATION_CLIENTLOGIN_PORT 31415
 #define PX_SIGNUP_SERVER_PORT 31416
 #define PX_LOBBY_SERVER_PORT 31417
 #define PX_LOBBY_SERVER_LARGEDATAPORT 31418
 
-typedef enum
-{
+typedef enum {
     GAMESTARTUP_STATUS_LOGIN,
     GAMESTARTUP_STATUS_SIGNUP,
     GAMESTARTUP_STATUS_LOBBY,
-}GAMESTARTUP_STATUS;
+} GAMESTARTUP_STATUS;
 
-
-typedef struct
-{
+typedef struct {
     PX_Instance Instance;
     PX_MessageBox messagebox;
     PX_SignUp signup;
@@ -46,13 +42,13 @@ typedef struct
     PX_Lobby lobby;
     GAMESTARTUP_STATUS status;
     PX_Json ConfigJson;
-}PX_Application;
+} PX_Application;
 
 extern PX_Application App;
 
 px_bool PX_ApplicationInitialize(PX_Application *pApp);
-px_void PX_ApplicationUpdate(PX_Application *App,px_dword elpased);
-px_void PX_ApplicationRender(PX_Application *App,px_dword elpased);
-px_void PX_ApplicationPostEvent(PX_Application *App,PX_Object_Event e);
+px_void PX_ApplicationUpdate(PX_Application *App, px_dword elpased);
+px_void PX_ApplicationRender(PX_Application *App, px_dword elpased);
+px_void PX_ApplicationPostEvent(PX_Application *App, PX_Object_Event e);
 
 #endif

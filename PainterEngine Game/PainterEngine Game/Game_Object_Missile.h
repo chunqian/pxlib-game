@@ -11,8 +11,7 @@
 #define GAME_OBJECT_MISSILE_DAMAGE 25
 #define GAME_OBJECT_MISSILE_SEARCH 200
 
-typedef struct
-{
+typedef struct {
     PX_World *pWorld;
     PX_Instance *pIns;
     px_int Player;
@@ -21,8 +20,8 @@ typedef struct
     PX_Animation animation;
     px_point velocity;
     px_point direction;
-}Game_Object_Missile;
+} Game_Object_Missile;
 
-px_void Game_Object_MissileCreate(PX_Instance *pIns,PX_World *pWorld,px_point position,px_point direction,px_int group,px_int player);
+px_void Game_Object_MissileCreate(PX_Instance *pIns, PX_World *pWorld, px_point position, px_point direction, px_int group, px_int player);
 
 #endif
