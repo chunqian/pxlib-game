@@ -10,8 +10,8 @@ px_void Game_Object_NuclearImpact(PX_Object *pObject, PX_Object_Event e, px_void
     PX_WorldRemoveObject(pNuclear->pWorld, pObject);
     Game_Object_FireExplosionCreate(pNuclear->pIns, pNuclear->pWorld, PX_POINT(pObject->x, pObject->y, 0), 100, PX_TRUE);
 
-    if (count = PX_WorldSearchRegion(pNuclear->pWorld, pObject->x, pObject->y, GAME_OBJECT_NUCLEAR_SEARCH, pImpactObjects, GAME_OBJECT_NUCLEAR_SEARCH_COUNT,
-                                     GAME_IMPACT_TYPE_ALL_OBJECTGROUP | GAME_IMPACT_TYPE_AMMO | GAME_IMPACT_TYPE_SPECIALAMMO | GAME_IMPACT_TYPE_PICKER)) {
+    if ((count = PX_WorldSearchRegion(pNuclear->pWorld, pObject->x, pObject->y, GAME_OBJECT_NUCLEAR_SEARCH, pImpactObjects, GAME_OBJECT_NUCLEAR_SEARCH_COUNT,
+                                         GAME_IMPACT_TYPE_ALL_OBJECTGROUP | GAME_IMPACT_TYPE_AMMO | GAME_IMPACT_TYPE_SPECIALAMMO | GAME_IMPACT_TYPE_PICKER))) {
         px_int i;
         pe.Event = GAME_OBJECT_EVENT_DAMAGE;
         pe.Param_float[0] = GAME_OBJECT_NUCLEAR_DAMAGE;
@@ -69,7 +69,7 @@ px_void Game_Object_NuclearRender(px_surface *psurface, PX_Object *pObject, px_d
                               PX_NULL);
 
     PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT((GAME_OBJECT_NUCLEAR_ALIVE_TIME - pNuclear->elpased) / 1000.0f));
-    PX_wstrcat(wconetnt, (const px_word *)L"µ¹¼ÆÊ±");
+    PX_wstrcat(wconetnt, (const px_word *)L"å€’è®¡æ—¶");
     PX_FontModule_wastrcat(wconetnt, content);
     PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y - 32, wconetnt, PX_COLOR(255, 192, 0, 0), &pNuclear->pIns->FontModule18,
                           PX_FONT_ALIGN_XCENTER);

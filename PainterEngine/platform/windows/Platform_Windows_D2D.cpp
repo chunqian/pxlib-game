@@ -328,7 +328,7 @@ char *PX_OpenFileDialog(const char Filter[]) {
     ofn.lpstrFile = szFile;
     ofn.lpstrFile[0] = TEXT('\0');
     ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = Filter;  // TEXT("Mirror文件(.mirror)\0*.mirror");
+    ofn.lpstrFilter = Filter;  // TEXT("Mirror鏂囦欢(.mirror)\0*.mirror");
     ofn.nFilterIndex = 1;
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;
@@ -350,7 +350,7 @@ char *PX_MultFileDialog(const char Filter[]) {
     ofn.lpstrFile = szFile;
     ofn.lpstrFile[0] = TEXT('\0');
     ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = Filter;  // TEXT("Mirror文件(.mirror)\0*.mirror");
+    ofn.lpstrFilter = Filter;  // TEXT("Mirror鏂囦欢(.mirror)\0*.mirror");
     ofn.nFilterIndex = 1;
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;
@@ -382,7 +382,7 @@ char *PX_SaveFileDialog(const char Filter[], const char ext[]) {
     ofn.lpstrFile = szFile;
     ofn.lpstrFile[0] = TEXT('\0');
     ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = Filter;  // TEXT("Mirror文件(.mirror)\0*.mirror");
+    ofn.lpstrFilter = Filter;  // TEXT("Mirror鏂囦欢(.mirror)\0*.mirror");
     ofn.nFilterIndex = 1;
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;

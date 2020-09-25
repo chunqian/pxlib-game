@@ -127,7 +127,7 @@ px_void Game_Object_ShipRender(px_surface *psurface, PX_Object *pObject, px_uint
         px_char content[16] = {0};
         px_word wconetnt[32] = {0};
         PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT(pShip->slientTime / 1000.0f));
-        PX_wstrcat(wconetnt, (const px_word *)L"ÎäÆ÷½âËøÓÚ");
+        PX_wstrcat(wconetnt, (const px_word *)L"æ­¦å™¨è§£é”äºŽ");
         PX_FontModule_wastrcat(wconetnt, content);
         PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y + 48, wconetnt, PX_COLOR(255, 192, 0, 0), &pShip->pIns->FontModule18,
                               PX_FONT_ALIGN_XCENTER);

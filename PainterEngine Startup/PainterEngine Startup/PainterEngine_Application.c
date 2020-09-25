@@ -51,78 +51,78 @@ px_bool PX_ApplicationInitialize(PX_Application *pApp) {
     WSAStartup(MAKEWORD(2, 2), &wsaData);
 
     if (!PX_JsonInitialize(&pApp->Instance.runtime.mp_game, &pApp->ConfigJson)) {
-        MessageBox(NULL, "JSONÅäÖÃÊ§°Ü", "error", MB_OK);
+        MessageBox(NULL, "JSONé…ç½®å¤±è´¥", "error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_LoadJsonFromFile(&pApp->ConfigJson, "./resources/config.json")) {
-        MessageBox(NULL, "ÅäÖÃÎÄ¼þÈ±Ê§", "error", MB_OK);
+        MessageBox(NULL, "é…ç½®æ–‡ä»¶ç¼ºå¤±", "error", MB_OK);
         return PX_FALSE;
     }
 
     pValue = PX_JsonGetValue(&pApp->ConfigJson, "LoginServer.IP");
     if (!pValue) {
-        MessageBox(NULL, "ÎÞÐ§µÄµÇÂ¼·þÎñµØÖ·", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ— æ•ˆçš„ç™»å½•æœåŠ¡åœ°å€", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
     host = gethostbyname(pValue->_string.buffer);
     if (!host) {
-        MessageBox(NULL, "ÎÞÐ§µÄµÇÂ¼·þÎñµØÖ·", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ— æ•ˆçš„ç™»å½•æœåŠ¡åœ°å€", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
     if (!PX_LoginInitialize(&pApp->Instance, &pApp->login, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]), PX_APPLICATION_CLIENTLOGIN_PORT)) {
-        MessageBox(NULL, "µÇÂ¼·þÎñÆô¶¯Ê§°Ü", "´íÎó", MB_OK);
+        MessageBox(NULL, "ç™»å½•æœåŠ¡å¯åŠ¨å¤±è´¥", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
 
     pValue = PX_JsonGetValue(&pApp->ConfigJson, "SignupServer.IP");
     if (!pValue) {
-        MessageBox(NULL, "ÎÞÐ§µÄ×¢²á·þÎñµØÖ·", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ— æ•ˆçš„æ³¨å†ŒæœåŠ¡åœ°å€", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
     host = gethostbyname(pValue->_string.buffer);
     if (!host) {
-        MessageBox(NULL, "ÎÞÐ§µÄ×¢²á·þÎñµØÖ·", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ— æ•ˆçš„æ³¨å†ŒæœåŠ¡åœ°å€", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
     if (!PX_SignUpInitialize(&pApp->Instance, &pApp->signup, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]), PX_SIGNUP_SERVER_PORT)) {
-        MessageBox(NULL, "×¢²á·þÎñÆô¶¯Ê§°Ü", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ³¨å†ŒæœåŠ¡å¯åŠ¨å¤±è´¥", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
 
     pValue = PX_JsonGetValue(&pApp->ConfigJson, "LobbyServer.IP");
     if (!pValue) {
-        MessageBox(NULL, "ÎÞÐ§µÄ´óÌü·þÎñµØÖ·", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ— æ•ˆçš„å¤§åŽ…æœåŠ¡åœ°å€", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
     host = gethostbyname(pValue->_string.buffer);
     if (!host) {
-        MessageBox(NULL, "ÎÞÐ§µÄÓÎÏ·´óÌü·þÎñµØÖ·", "´íÎó", MB_OK);
+        MessageBox(NULL, "æ— æ•ˆçš„æ¸¸æˆå¤§åŽ…æœåŠ¡åœ°å€", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_LobbyInitialize(&pApp->Instance, &pApp->lobby, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]), PX_LOBBY_SERVER_PORT,
                             PX_LOBBY_SERVER_LARGEDATAPORT)) {
-        MessageBox(NULL, "´óÌü·þÎñÆô¶¯Ê§°Ü", "´íÎó", MB_OK);
+        MessageBox(NULL, "å¤§åŽ…æœåŠ¡å¯åŠ¨å¤±è´¥", "é”™è¯¯", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_MessageBoxInitialize(&pApp->Instance.runtime, &pApp->messagebox, &pApp->Instance.fontmodule32, pApp->Instance.runtime.width,
                                  pApp->Instance.runtime.height)) {
-        MessageBox(NULL, "MessageBox³õÊ¼»¯Ê§°Ü", "error", MB_OK);
+        MessageBox(NULL, "MessageBoxåˆå§‹åŒ–å¤±è´¥", "error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_FontModuleInitialize(&pApp->Instance.runtime.mp_resources, &App.Instance.fontmodule32)) {
-        MessageBox(NULL, "×ÖÄ£³õÊ¼»¯Ê§°Ü", "error", MB_OK);
+        MessageBox(NULL, "å­—æ¨¡åˆå§‹åŒ–å¤±è´¥", "error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/chs32.pxf")) {
-        MessageBox(NULL, "×ÖÄ£È±Ê§", "error", MB_OK);
+        MessageBox(NULL, "å­—æ¨¡ç¼ºå¤±", "error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/ss32.pxf")) {
-        MessageBox(NULL, "×ÖÄ£È±Ê§", "error", MB_OK);
+        MessageBox(NULL, "å­—æ¨¡ç¼ºå¤±", "error", MB_OK);
         return PX_FALSE;
     }
 

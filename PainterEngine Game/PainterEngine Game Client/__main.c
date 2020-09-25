@@ -197,7 +197,7 @@ int main(int argc, const px_char *argv[])
     if (StartupFilePath != PX_NULL && StartupFilePath[0] != 0) {
         FILE *pf = fopen(StartupFilePath, "rb");
         if (!pf) {
-            MessageBox(PX_NULL, "ÎŞ·¨´ò¿ªÅäÖÃÎÄ¼ş", "", MB_OK);
+            MessageBox(PX_NULL, "æ— æ³•æ‰“å¼€é…ç½®æ–‡ä»¶", "", MB_OK);
             return 0;
         }
         if (fread(&startup, 1, sizeof(PX_GameClientStartUp), pf) != sizeof(PX_GameClientStartUp)) {
@@ -211,11 +211,11 @@ int main(int argc, const px_char *argv[])
     PX_srand(314159);
     if (!PX_InstanceInitialize(&App.Instance, PX_WINDOW_NAME, PX_WINDOW_WIDTH, PX_WINDOW_HEIGHT, PX_MEMORY_UI_SIZE, PX_MEMORY_RESOURCES_SIZE,
                                PX_MEMORY_GAME_SIZE)) {
-        MessageBox(PX_NULL, "ÓÎÏ·³õÊ¼»¯Ê§°Ü", "", MB_OK);
+        MessageBox(PX_NULL, "æ¸¸æˆåˆå§‹åŒ–å¤±è´¥", "", MB_OK);
         return 0;
     }
     if (!PX_ApplicationInitialize(&App, startup.IpAddr, startup.syncDataPort, startup.syncFramePort, startup.clientID, startup.serverID)) {
-        MessageBox(PX_NULL, "Ó¦ÓÃ³õÊ¼»¯Ê§°Ü", "", MB_OK);
+        MessageBox(PX_NULL, "åº”ç”¨åˆå§‹åŒ–å¤±è´¥", "", MB_OK);
         return 0;
     }
     //////////////////////////////////////////////////////////////////////////

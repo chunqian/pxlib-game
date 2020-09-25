@@ -24,7 +24,7 @@ px_void Game_PlayOnDefeat(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
 
     PX_memset(&message, 0, sizeof(message));
     PX_wstrcat(message.Message, pAttackship->PlayerName);
-    PX_wstrcat(message.Message, (px_word *)L" ÌÔÌ­ÁË ");
+    PX_wstrcat(message.Message, (px_word *)L" æ·˜æ±°äº† ");
     PX_wstrcat(message.Message, pDefeatship->PlayerName);
 
     PX_VectorPushback(&pPlay->Messages, &message);

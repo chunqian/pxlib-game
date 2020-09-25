@@ -19,9 +19,9 @@
 #define PX_MEMORY_GAME_SIZE (2 * 1024 * 1024)
 //////////////////////////////////////////////////////////////////////////
 
-#define PX_APPLICATION_TEXT_LOGIN_SERVER_COULD_NOT_STARTUP "ÎÞ·¨¿ªÆôµÇÂ¼·þÎñÆ÷"
-#define PX_APPLICATION_TEXT_LOBBY_SERVER_COULD_NOT_STARTUP "ÎÞ·¨¿ªÆôÓÎÏ·´óÌü·þÎñÆ÷"
-#define PX_APPLICATION_TEXT_SIGNUP_SERVER_COULD_NOT_STARTUP "ÎÞ·¨¿ªÆô×¢²á·þÎñÆ÷"
+#define PX_APPLICATION_TEXT_LOGIN_SERVER_COULD_NOT_STARTUP "æ— æ³•å¼€å¯ç™»å½•æœåŠ¡å™¨"
+#define PX_APPLICATION_TEXT_LOBBY_SERVER_COULD_NOT_STARTUP "æ— æ³•å¼€å¯æ¸¸æˆå¤§åŽ…æœåŠ¡å™¨"
+#define PX_APPLICATION_TEXT_SIGNUP_SERVER_COULD_NOT_STARTUP "æ— æ³•å¼€å¯æ³¨å†ŒæœåŠ¡å™¨"
 
 typedef struct {
     PX_Instance Instance;

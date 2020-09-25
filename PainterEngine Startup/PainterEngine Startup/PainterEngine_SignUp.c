@@ -100,7 +100,7 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
         PX_Object_EditSetBorder(pR->edit_user, PX_FALSE);
         PX_Object_EditSetLimit(pR->edit_user, PX_SignUp_EditAccountLimit);
 
-        if (!(pR->label_accountInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 178, 128, 22, "*ÕË»§", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_accountInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 178, 128, 22, "*è´¦æˆ·", PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_accountInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_accountInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
@@ -108,7 +108,7 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
         if (!(pR->edit_nickname = PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 231, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
         PX_Object_EditSetBorder(pR->edit_nickname, PX_FALSE);
 
-        if (!(pR->label_nickInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 231, 128, 22, "*êÇ³Æ", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_nickInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 231, 128, 22, "*æ˜µç§°", PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_nickInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_nickInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
@@ -118,7 +118,7 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
         PX_Object_EditSetPasswordStyle(pR->edit_pwd, PX_TRUE);
         PX_Object_EditSetLimit(pR->edit_pwd, PX_SignUp_EditPasswordLimit);
 
-        if (!(pR->label_pwdInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 555, 284, 128, 22, "*ÃÜÂë", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_pwdInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 555, 284, 128, 22, "*å¯†ç ", PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_pwdInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_pwdInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
@@ -132,7 +132,7 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
         PX_Object_EditSetBorder(pR->edit_regcode, PX_FALSE);
         PX_Object_EditSetLimit(pR->edit_regcode, PX_SignUp_EditAccountLimit);
 
-        if (!(pR->label_regcodeInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 384, 128, 22, "*×¢²áÂë", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_regcodeInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 384, 128, 22, "*æ³¨å†Œç ", PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_regcodeInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_regcodeInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);

@@ -24,7 +24,7 @@ px_void Game_UI_TreasureAlertRender(px_surface *renderSurface, Game_UI *ui, px_d
         px_float schedule = (GAME_PLAY_TREASURE_GEN_DURATION - ui->pPlay->treasureGenElpased) / 10000.0f;
         PX_GeoDrawRing(renderSurface, ui->pIns->runtime.width / 2 - 160, ui->pIns->runtime.height - 32, 24, 8, PX_COLOR(255, 255, 0, 0), 270,
                        (px_uint)(270 + 360 * schedule));
-        PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2, ui->pIns->runtime.height - 24, (px_word *)L"强化道具即将投放",
+        PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2, ui->pIns->runtime.height - 24, (px_word *)L"寮哄寲閬撳叿鍗冲皢鎶曟斁",
                               PX_COLOR(192, 255, 0, 0), &ui->pIns->FontModule32, PX_FONT_ALIGN_XCENTER);
     }
 }

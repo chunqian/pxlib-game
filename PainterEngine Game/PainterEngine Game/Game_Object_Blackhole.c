@@ -50,7 +50,7 @@ px_void Game_Object_BlackHoleRender(px_surface *psurface, PX_Object *pObject, px
     PX_GeoDrawRing(psurface, (px_int)pObject->x, (px_int)pObject->y, 36, 2, PX_COLOR(255, 0, 0, 0), (px_uint)angle, (px_uint)angle + 60);
 
     PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT((GAME_OBJECT_BLACKHOLE_ALIVE_TIME - pBlackHole->elpased) / 1000.0f));
-    PX_wstrcat(wconetnt, (const px_word *)L"µ¹¼ÆÊ±");
+    PX_wstrcat(wconetnt, (const px_word *)L"å€’è®¡æ—¶");
     PX_FontModule_wastrcat(wconetnt, content);
     PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y - 36, wconetnt, PX_COLOR(255, 192, 0, 0), &pBlackHole->pIns->FontModule18,
                           PX_FONT_ALIGN_XCENTER);

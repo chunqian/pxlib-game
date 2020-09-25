@@ -14,16 +14,16 @@
 
 #define PX_LOGIN_TEXT_PATH_LOGO "./resources/login.traw"
 
-#define PX_LOGIN_TEXT_SIGNUP "×¢²áÕË»§"
-#define PX_LOGIN_TEXT_EXIT "ÍË³öÓÎÏ·"
-#define PX_LOGIN_TEXT_LOGIN "µÇÂ¼"
-#define PX_LOGIN_TEXT_LOGINING_LOGIN_TEXT ((px_char *)L"ÒÔ°²È«Á´½ÓµÇÂ¼ÖĞ")
-#define PX_LOGIN_TEXT_LOGINING_EXCHANGE_TEXT ((px_char *)L"ÕıÔÚ½¨Á¢°²È«Á´½Ó")
-#define PX_LOGIN_TEXT_CONNECTION_FAILED ((px_char *)L"Á¬½ÓÊ§°Ü")
+#define PX_LOGIN_TEXT_SIGNUP "æ³¨å†Œè´¦æˆ·"
+#define PX_LOGIN_TEXT_EXIT "é€€å‡ºæ¸¸æˆ"
+#define PX_LOGIN_TEXT_LOGIN "ç™»å½•"
+#define PX_LOGIN_TEXT_LOGINING_LOGIN_TEXT ((px_char *)L"ä»¥å®‰å…¨é“¾æ¥ç™»å½•ä¸­")
+#define PX_LOGIN_TEXT_LOGINING_EXCHANGE_TEXT ((px_char *)L"æ­£åœ¨å»ºç«‹å®‰å…¨é“¾æ¥")
+#define PX_LOGIN_TEXT_CONNECTION_FAILED ((px_char *)L"è¿æ¥å¤±è´¥")
 
-#define PX_LOGIN_TEXT_INVALID_ACCOUNT ((px_char *)L"ÎŞĞ§µÄÕË»§Ãû")
-#define PX_LOGIN_TEXT_INVALID_PASSWORD ((px_char *)L"ÎŞĞ§µÄÃÜÂë")
-#define PX_LOGIN_TEXT_LOGINING ((px_char *)L"µÇÂ½ÖĞ")
+#define PX_LOGIN_TEXT_INVALID_ACCOUNT ((px_char *)L"æ— æ•ˆçš„è´¦æˆ·å")
+#define PX_LOGIN_TEXT_INVALID_PASSWORD ((px_char *)L"æ— æ•ˆçš„å¯†ç ")
+#define PX_LOGIN_TEXT_LOGINING ((px_char *)L"ç™»é™†ä¸­")
 
 typedef enum {
     PX_LOGIN_STATUS_STANDBY,

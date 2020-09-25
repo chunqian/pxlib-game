@@ -42,7 +42,7 @@ px_void Game_Object_TreasureTagRender(px_surface *psurface, PX_Object *pObject, 
                          pst->rotation);
 
     PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT((GAME_TREASURETAG_DEFALUE_ALIVE_TIME - pst->elpased) / 1000.0f));
-    PX_wstrcat(wconetnt, (const px_word *)L"¼´½«¿ªÆô:");
+    PX_wstrcat(wconetnt, (const px_word *)L"å³å°†å¼€å¯:");
     PX_FontModule_wastrcat(wconetnt, content);
     PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y - 32, wconetnt, PX_COLOR(255, 192, 0, 0), &pst->pIns->FontModule18,
                           PX_FONT_ALIGN_XCENTER);

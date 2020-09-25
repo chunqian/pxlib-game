@@ -24,7 +24,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
 
     pf = fopen("./bin/startup", "wb");
     if (!pf) {
-        MessageBox(NULL, "Æô¶¯ÅäÖÃÊ§°Ü,ÇëÖØĞÂÆô¶¯ÓÎÏ·", "Error", MB_OK);
+        MessageBox(NULL, "å¯åŠ¨é…ç½®å¤±è´¥,è¯·é‡æ–°å¯åŠ¨æ¸¸æˆ", "Error", MB_OK);
         exit(0);
     }
     fwrite(&startup_param, 1, sizeof(startup_param), pf);
@@ -38,7 +38,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
         pDesc->gameHandle = PX_NULL;
     } else {
         pDesc->gameHandle = PX_NULL;
-        MessageBox(NULL, "ÑÏÖØ´íÎó:ÓÎÏ·ÎÄ¼şÈ±Ê§,ÇëÖØĞÂÏÂÔØÓÎÏ·!", "Error", MB_OK);
+        MessageBox(NULL, "ä¸¥é‡é”™è¯¯:æ¸¸æˆæ–‡ä»¶ç¼ºå¤±,è¯·é‡æ–°ä¸‹è½½æ¸¸æˆ!", "Error", MB_OK);
         exit(0);
     }
     return 0;
@@ -50,7 +50,7 @@ px_void PX_LobbyBuyTicket(px_void *ptr) {
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
 
     if ((px_int)pDesc->userInfo.coin < 1000) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
 
@@ -78,12 +78,12 @@ px_void PX_LobbyUpgrade_AmmoGen(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
 
@@ -111,12 +111,12 @@ px_void PX_LobbyUpgrade_AmmoRecovery(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -143,12 +143,12 @@ px_void PX_LobbyUpgrade_force(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -175,12 +175,12 @@ px_void PX_LobbyUpgrade_speed(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -207,12 +207,12 @@ px_void PX_LobbyUpgrade_shield(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -239,12 +239,12 @@ px_void PX_LobbyUpgrade_life(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸ä¸è¶³");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -281,11 +281,11 @@ px_void PX_LobbyUpload_Photo(px_void *ptr) {
         px_char *path = PX_OpenFileDialog("bmp\0*.bmp\0traw\0*.traw");
         if (path) {
             if (!PX_LoadTextureFromFile(&mp, &tex, path)) {
-                PX_ApplicationMessageBoxAlertOk((px_char *)L"ÎŞĞ§µÄÍ¼ÏñÎÄ¼ş(±ØĞëÎª64x64µÄbmp»òtrawÎÄ¼ş)");
+                PX_ApplicationMessageBoxAlertOk((px_char *)L"æ— æ•ˆçš„å›¾åƒæ–‡ä»¶(å¿…é¡»ä¸º64x64çš„bmpæˆ–trawæ–‡ä»¶)");
                 return;
             }
             if (tex.width != 64 || tex.height != 64) {
-                PX_ApplicationMessageBoxAlertOk((px_char *)L"ÎŞĞ§µÄÍ¼ÏñÎÄ¼ş(±ØĞëÎª64x64µÄbmp»òtrawÎÄ¼ş)");
+                PX_ApplicationMessageBoxAlertOk((px_char *)L"æ— æ•ˆçš„å›¾åƒæ–‡ä»¶(å¿…é¡»ä¸º64x64çš„bmpæˆ–trawæ–‡ä»¶)");
                 return;
             }
             PX_TRawBuild(&tex, LargeDataPack.photo, &size);
@@ -295,7 +295,7 @@ px_void PX_LobbyUpload_Photo(px_void *ptr) {
     } while (0);
 
     if ((px_int)pDesc->userInfo.coin < 12800 && (px_int)pDesc->userInfo.ticket < 12800) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ËùĞèµÄ½ğ±Ò»òµãÈ¯²»×ã");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"æ‰€éœ€çš„é‡‘å¸æˆ–ç‚¹åˆ¸ä¸è¶³");
         return;
     }
 
@@ -309,17 +309,17 @@ px_void PX_LobbyUpload_Photo(px_void *ptr) {
     PX_AES_CipherBuffer(&aes, (px_byte *)&LargeDataPack.header.cookie, sizeof(LargeDataPack.header.cookie), (px_byte *)&LargeDataPack.header.cookie);
 
     PX_UDPSend(&pDesc->udp, pDesc->serverLargeDataAddr, (px_byte *)&LargeDataPack, sizeof(LargeDataPack));
-    PX_ApplicationMessageBoxAlertOk((px_char *)L"ÉÏ´«Íê³É,ÖØÆôºóÉúĞ§");
+    PX_ApplicationMessageBoxAlertOk((px_char *)L"ä¸Šä¼ å®Œæˆ,é‡å¯åç”Ÿæ•ˆ");
 }
 
 px_void PX_LobbyOnUploadPhoto(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
-    PX_ApplicationMessageBoxAlertYesNo((px_char *)L"»¨·Ñ12800½ğ±Ò»òµãÈ¯ÉÏ´«ĞÂÍ·Ïñ?", PX_LobbyUpload_Photo, pDesc, PX_NULL, PX_NULL);
+    PX_ApplicationMessageBoxAlertYesNo((px_char *)L"èŠ±è´¹12800é‡‘å¸æˆ–ç‚¹åˆ¸ä¸Šä¼ æ–°å¤´åƒ?", PX_LobbyUpload_Photo, pDesc, PX_NULL, PX_NULL);
 }
 
 px_void PX_LobbyOnBuyTicket(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
-    PX_ApplicationMessageBoxAlertYesNo((px_char *)L"»¨·Ñ1000½ğ±Ò¹ºÂò10ÕÅÈë³¡È¯?", PX_LobbyBuyTicket, pDesc, PX_NULL, PX_NULL);
+    PX_ApplicationMessageBoxAlertYesNo((px_char *)L"èŠ±è´¹1000é‡‘å¸è´­ä¹°10å¼ å…¥åœºåˆ¸?", PX_LobbyBuyTicket, pDesc, PX_NULL, PX_NULL);
 }
 
 px_void PX_LobbyOnUpgrade_AmmoGen(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
@@ -330,15 +330,15 @@ px_void PX_LobbyOnUpgrade_AmmoGen(PX_Object *pObject, PX_Object_Event e, px_void
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"»¨·Ñ");
+    PX_wstrcat(content, (px_word *)L"èŠ±è´¹");
     PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"½ğ±Ò»òµãÈ¯ÌáÉı»ù´¡ÎäÆ÷²¹³äµÈ¼¶?");
+    PX_wstrcat(content, (px_word *)L"é‡‘å¸æˆ–ç‚¹åˆ¸æå‡åŸºç¡€æ­¦å™¨è¡¥å……ç­‰çº§?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_AmmoGen, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -350,15 +350,15 @@ px_void PX_LobbyOnUpgrade_AmmoRec(PX_Object *pObject, PX_Object_Event e, px_void
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"»¨·Ñ");
+    PX_wstrcat(content, (px_word *)L"èŠ±è´¹");
     PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"½ğ±Ò»òµãÈ¯ÌáÉı»ù´¡ÎäÆ÷ÀäÈ´µÈ¼¶?");
+    PX_wstrcat(content, (px_word *)L"é‡‘å¸æˆ–ç‚¹åˆ¸æå‡åŸºç¡€æ­¦å™¨å†·å´ç­‰çº§?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_AmmoRecovery, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -370,15 +370,15 @@ px_void PX_LobbyOnUpgrade_Force(PX_Object *pObject, PX_Object_Event e, px_void *
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"»¨·Ñ");
+    PX_wstrcat(content, (px_word *)L"èŠ±è´¹");
     PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"½ğ±Ò»òµãÈ¯ÌáÉı×î´óÍÆÁ¦µÈ¼¶?");
+    PX_wstrcat(content, (px_word *)L"é‡‘å¸æˆ–ç‚¹åˆ¸æå‡æœ€å¤§æ¨åŠ›ç­‰çº§?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_force, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -390,15 +390,15 @@ px_void PX_LobbyOnUpgrade_Speed(PX_Object *pObject, PX_Object_Event e, px_void *
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"»¨·Ñ");
+    PX_wstrcat(content, (px_word *)L"èŠ±è´¹");
     PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"½ğ±ÒÌáÉı×î´óËÙ¶ÈµÈ¼¶?");
+    PX_wstrcat(content, (px_word *)L"é‡‘å¸æå‡æœ€å¤§é€Ÿåº¦ç­‰çº§?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_speed, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -409,15 +409,15 @@ px_void PX_LobbyOnUpgrade_Life(PX_Object *pObject, PX_Object_Event e, px_void *p
     px_int level = pDesc->userInfo.ShipStack[pDesc->userState.shipIndex].upgrade_life;
     px_int pay = 100 * (1 << level);
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"»¨·Ñ");
+    PX_wstrcat(content, (px_word *)L"èŠ±è´¹");
     PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"½ğ±ÒÌáÉı×î´óÉúÃüµÈ¼¶?");
+    PX_wstrcat(content, (px_word *)L"é‡‘å¸æå‡æœ€å¤§ç”Ÿå‘½ç­‰çº§?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_life, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -429,15 +429,15 @@ px_void PX_LobbyOnUpgrade_Shield(PX_Object *pObject, PX_Object_Event e, px_void 
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"µÈ¼¶ÒÑ´ïµ½×î´óÖµ");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ç­‰çº§å·²è¾¾åˆ°æœ€å¤§å€¼");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"»¨·Ñ");
+    PX_wstrcat(content, (px_word *)L"èŠ±è´¹");
     PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"½ğ±ÒÌáÉı×î´ó»¤¶ÜµÈ¼¶?");
+    PX_wstrcat(content, (px_word *)L"é‡‘å¸æå‡æœ€å¤§æŠ¤ç›¾ç­‰çº§?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_shield, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -457,7 +457,7 @@ px_void PX_LobbyOnRanking8P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 4) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ÄãÃ»ÓĞ×ã¹»µÄÈë³¡È¯(4ÕÅ)À´²Î¼ÓÕâ³¡±ÈÈü");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ä½ æ²¡æœ‰è¶³å¤Ÿçš„å…¥åœºåˆ¸(4å¼ )æ¥å‚åŠ è¿™åœºæ¯”èµ›");
         return;
     }
 
@@ -490,7 +490,7 @@ px_void PX_LobbyOnRanking6P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 3) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ÄãÃ»ÓĞ×ã¹»µÄÈë³¡È¯(3ÕÅ)À´²Î¼ÓÕâ³¡±ÈÈü");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ä½ æ²¡æœ‰è¶³å¤Ÿçš„å…¥åœºåˆ¸(3å¼ )æ¥å‚åŠ è¿™åœºæ¯”èµ›");
         return;
     }
 
@@ -522,7 +522,7 @@ px_void PX_LobbyOnRanking4P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 2) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ÄãÃ»ÓĞ×ã¹»Èë³¡È¯(2ÕÅ)À´²Î¼ÓÕâ³¡±ÈÈü");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ä½ æ²¡æœ‰è¶³å¤Ÿå…¥åœºåˆ¸(2å¼ )æ¥å‚åŠ è¿™åœºæ¯”èµ›");
         return;
     }
 
@@ -554,7 +554,7 @@ px_void PX_LobbyOnRanking2P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 1) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ÄãÃ»ÓĞ×ã¹»µÄÈë³¡È¯(1ÕÅ)À´²Î¼ÓÕâ³¡±ÈÈü");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ä½ æ²¡æœ‰è¶³å¤Ÿçš„å…¥åœºåˆ¸(1å¼ )æ¥å‚åŠ è¿™åœºæ¯”èµ›");
         return;
     }
 
@@ -586,7 +586,7 @@ px_void PX_LobbyOnRanking4V4(PX_Object *pObject, PX_Object_Event e, px_void *ptr
 
     if (pDesc->userInfo.ticket < 4) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"ÄãÃ»ÓĞ×ã¹»µÄÈë³¡È¯(4ÕÅ)À´²Î¼ÓÕâ³¡±ÈÈü");
+        PX_ApplicationMessageBoxAlertOk((px_char *)L"ä½ æ²¡æœ‰è¶³å¤Ÿçš„å…¥åœºåˆ¸(4å¼ )æ¥å‚åŠ è¿™åœºæ¯”èµ›");
         return;
     }
 
@@ -796,17 +796,17 @@ static px_void PX_LobbyStandRender_UserState(PX_Lobby *pDesc, px_dword elpased) 
         case PX_STARTUP_GAMESTATE_STANDBY: {
             pDesc->state_angle = 0;
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-                                  (px_word *)L"´ıÃüÖĞ", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+                                  (px_word *)L"å¾…å‘½ä¸­", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
         } break;
         case PX_STARTUP_GAMESTATE_RANKING: {
             pDesc->state_angle += elpased / 1000.0f * 90;
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-                                  (px_word *)L"ÅÅÎ»ÖĞ", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+                                  (px_word *)L"æ’ä½ä¸­", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
         } break;
         case PX_STARTUP_GAMESTATE_GAMING: {
             pDesc->state_angle += elpased / 1000.0f * 90;
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-                                  (px_word *)L"ÓÎÏ·ÖĞ", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+                                  (px_word *)L"æ¸¸æˆä¸­", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
         } break;
     }
 }
@@ -838,20 +838,20 @@ px_bool PX_LobbyInitialize(PX_Instance *pIns, PX_Lobby *pDesc, const px_char Lob
         px_int oft = 80;
         pDesc->ui_oproot = PX_ObjectCreate(&pDesc->pIns->runtime.mp_ui, PX_NULL, 0, 0, 0, 0, 0, 0);
         pDesc->btn_matchRanking8p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 500, 128, 32, "8ÈËÅÅÎ»Õ½", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 500, 128, 32, "8äººæ’ä½æˆ˜", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_matchRanking6p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138, 500, 128, 32, "6ÈËÅÅÎ»Õ½", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138, 500, 128, 32, "6äººæ’ä½æˆ˜", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_matchRanking4p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 2, 500, 128, 32, "4ÈËÅÅÎ»Õ½", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 2, 500, 128, 32, "4äººæ’ä½æˆ˜", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_EnterGame =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "½øÈëÓÎÏ·", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "è¿›å…¥æ¸¸æˆ", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_matchCancel =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "È¡Ïû", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "å–æ¶ˆ", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_matchCancel->Visible = PX_FALSE;
         pDesc->btn_match2p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 3, 500, 128, 32, "2ÈËÅÅÎ»Õ½", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 3, 500, 128, 32, "2äººæ’ä½æˆ˜", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_match1p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 4, 500, 128, 32, "µ¥ÈËÑµÁ·", PX_COLOR(255, 0, 0, 0));
+            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 4, 500, 128, 32, "å•äººè®­ç»ƒ", PX_COLOR(255, 0, 0, 0));
 
         pDesc->autoText_Content = PX_Object_AutoTextCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 585, 135, 172);
 
@@ -865,17 +865,17 @@ px_bool PX_LobbyInitialize(PX_Instance *pIns, PX_Lobby *pDesc, const px_char Lob
 
         oft = 32;
         pDesc->btn_upgrade_ammogen =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132, 128, 20, "Éı¼¶»ù´¡ÎäÆ÷»Ö¸´", PX_COLOR(255, 0, 0, 0));
+            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132, 128, 20, "å‡çº§åŸºç¡€æ­¦å™¨æ¢å¤", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_upgrade_ammorec =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 1, 128, 20, "Éı¼¶»ù´¡ÎäÆ÷ÀäÈ´", PX_COLOR(255, 0, 0, 0));
+            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 1, 128, 20, "å‡çº§åŸºç¡€æ­¦å™¨å†·å´", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_upgrade_force =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 2, 128, 20, "Éı¼¶ÍÆÁ¦", PX_COLOR(255, 0, 0, 0));
+            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 2, 128, 20, "å‡çº§æ¨åŠ›", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_upgrade_speed =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 3, 128, 20, "Éı¼¶ËÙ¶È", PX_COLOR(255, 0, 0, 0));
+            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 3, 128, 20, "å‡çº§é€Ÿåº¦", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_upgrade_life =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 4, 128, 20, "Éı¼¶ÉúÃü×î´óÖµ", PX_COLOR(255, 0, 0, 0));
+            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 4, 128, 20, "å‡çº§ç”Ÿå‘½æœ€å¤§å€¼", PX_COLOR(255, 0, 0, 0));
         pDesc->btn_upgrade_shield =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 5, 128, 20, "Éı¼¶»¤¶Ü×î´óÖµ", PX_COLOR(255, 0, 0, 0));
+            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 5, 128, 20, "å‡çº§æŠ¤ç›¾æœ€å¤§å€¼", PX_COLOR(255, 0, 0, 0));
 
         PX_ObjectRegisterEvent(pDesc->btn_upgrade_ammogen, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUpgrade_AmmoGen, pDesc);
         PX_ObjectRegisterEvent(pDesc->btn_upgrade_ammorec, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUpgrade_AmmoRec, pDesc);
@@ -1231,7 +1231,7 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
             px_char numeric[16];
             px_word content[32] = {0};
             PX_itoa(pDesc->userState.game_onlineCount, numeric, sizeof(numeric), 10);
-            PX_wstrcat(content, (px_word *)L"ÓÎÏ·´óÌüÔÚÏß:");
+            PX_wstrcat(content, (px_word *)L"æ¸¸æˆå¤§å…åœ¨çº¿:");
             PX_FontModule_wastrcat(content, numeric);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
                                   &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
@@ -1240,7 +1240,7 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
             px_char numeric[16];
             px_word content[32] = {0};
             PX_itoa(pDesc->userState.game_readyPlayers, numeric, sizeof(numeric), 10);
-            PX_wstrcat(content, (px_word *)L"Íæ¼ÒÒÑ¼ÓÈë:");
+            PX_wstrcat(content, (px_word *)L"ç©å®¶å·²åŠ å…¥:");
             PX_FontModule_wastrcat(content, numeric);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
                                   &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
@@ -1271,37 +1271,37 @@ px_void PX_LobbyStandRender_Content(PX_Lobby *pDesc, px_dword elpased) {
         if (pDesc->userState.RoomPlayerCount[i]) {
             switch (i) {
                 case GAME_PLAY_GAMETYPE_8P:
-                    PX_sprintf1(subContent, sizeof(subContent), "8ÈËÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "8äººæ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_6P:
-                    PX_sprintf1(subContent, sizeof(subContent), "6ÈËÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "6äººæ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_4P:
-                    PX_sprintf1(subContent, sizeof(subContent), "4ÈËÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "4äººæ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_2P:
-                    PX_sprintf1(subContent, sizeof(subContent), "2ÈËÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "2äººæ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_1P:
                     break;
                 case GAME_PLAY_GAMETYPE_5V5:
-                    PX_sprintf1(subContent, sizeof(subContent), "5V5ÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "5V5æ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_4V4:
-                    PX_sprintf1(subContent, sizeof(subContent), "4V4ÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "4V4æ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_3V3:
-                    PX_sprintf1(subContent, sizeof(subContent), "3V3ÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "3V3æ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
                 case GAME_PLAY_GAMETYPE_2V2:
-                    PX_sprintf1(subContent, sizeof(subContent), "2V2ÅÅÎ»µÈ´ı:%1ÈË\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
+                    PX_sprintf1(subContent, sizeof(subContent), "2V2æ’ä½ç­‰å¾…:%1äºº\n", PX_STRINGFORMAT_INT(pDesc->userState.RoomPlayerCount[i]));
                     PX_strcat(Content, subContent);
                     break;
             }

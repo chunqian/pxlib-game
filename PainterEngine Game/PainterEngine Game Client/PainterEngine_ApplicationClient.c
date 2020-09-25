@@ -262,7 +262,7 @@ px_void PX_ApplicationUpdateDownloading(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
     static px_word wprocContent[32] = {0};
     static px_char procContent[16];
-    const px_char *Content[] = {(const char *)L"Êı¾İÍ¬²½ÖĞ.", (const char *)L"Êı¾İÍ¬²½ÖĞ..", (const char *)L"Êı¾İÍ¬²½ÖĞ..."};
+    const px_char *Content[] = {(const char *)L"æ•°æ®åŒæ­¥ä¸­.", (const char *)L"æ•°æ®åŒæ­¥ä¸­..", (const char *)L"æ•°æ®åŒæ­¥ä¸­..."};
 
     if (!App->messagebox.show) {
         PX_MessageBoxAlert(&App->messagebox, Content[0]);
@@ -292,7 +292,7 @@ px_void PX_ApplicationUpdateDownloading(PX_Application *App, px_dword elpased) {
 px_void PX_ApplicationUpdateConnecting(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
 
-    const px_char *Content[] = {(const char *)L"Á¬½ÓÖĞ.", (const char *)L"Á¬½ÓÖĞ..", (const char *)L"Á¬½ÓÖĞ..."};
+    const px_char *Content[] = {(const char *)L"è¿æ¥ä¸­.", (const char *)L"è¿æ¥ä¸­..", (const char *)L"è¿æ¥ä¸­..."};
 
     if (!App->messagebox.show) {
         PX_MessageBoxAlert(&App->messagebox, Content[0]);
@@ -324,7 +324,7 @@ px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
     static px_word wprocContent[32] = {0};
     static px_char procContent[16];
-    const px_char *Content[] = {(const char *)L"µÈ´ıÆäËüÍæ¼Ò.", (const char *)L"µÈ´ıÆäËüÍæ¼Ò..", (const char *)L"µÈ´ıÆäËüÍæ¼Ò..."};
+    const px_char *Content[] = {(const char *)L"ç­‰å¾…å…¶å®ƒç©å®¶.", (const char *)L"ç­‰å¾…å…¶å®ƒç©å®¶..", (const char *)L"ç­‰å¾…å…¶å®ƒç©å®¶..."};
     aniElpased += elpased;
     if (aniElpased >= 1500) {
         aniElpased = 0;
@@ -359,7 +359,7 @@ px_void PX_ApplicationUpdateReSync(PX_Application *App, px_dword elpased) {
             PX_MessageBoxAlert(&App->SyncMessageBox, (const px_char *)Contentw);
         }
         Contentw[0] = 0;
-        PX_wstrcat(Contentw, (px_word *)L"Í¬²½ÖĞ(");
+        PX_wstrcat(Contentw, (px_word *)L"åŒæ­¥ä¸­(");
         PX_ftoa(App->syncTime * 100.0f / (serverSyncTime), Numeric, sizeof(Numeric), 2);
         PX_FontModule_wastrcat(Contentw, Numeric);
         PX_wstrcat(Contentw, (px_word *)L"%)");
@@ -466,7 +466,7 @@ px_void PX_ApplicationGamingRender(px_surface *renderSurface, PX_Application *Ap
     if (Game_PlayIsGameOver(&App->play) && App->play.GameOverWaitElpased >= GAME_PLAY_GAME_WAIT_ELPASED) {
         // Game Render
         Game_PlayRender(renderSurface, &App->play, elpased);
-        PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, 128, (px_word *)L"ÓÎÏ·¼´½«½áÊø", PX_COLOR(255, 255, 0, 0),
+        PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, 128, (px_word *)L"æ¸¸æˆå³å°†ç»“æŸ", PX_COLOR(255, 255, 0, 0),
                               &App->Instance.FontModule32, PX_FONT_ALIGN_XCENTER);
     } else {
         px_int MonitorPlayer, LocalPlayer;
@@ -513,22 +513,22 @@ px_void PX_ApplicationGameOverRender(px_surface *renderSurface, PX_Application *
     px_int rank = Game_PlayGetPlayerRank(&App->play, App->SyncFrameClient.c_id);
     static const px_word *rankContent[] = {
         (const px_word *)L"DBinary(matrixcascade@gmail.com) All Rights Reserved",
-        (const px_word *)L"µÚÒ»Ãû ×îÇ¿ÀÏË¾»ú!",
-        (const px_word *)L"µÚ¶şÃû ÀÏË¾»ú!",
-        (const px_word *)L"µÚÈıÃû ´óÀĞ!",
-        (const px_word *)L"µÚËÄÃû Æì¹ÄÏàµ±µÄ¶ÔÊÖ",
-        (const px_word *)L"µÚÎåÃû µÜµÜ",
-        (const px_word *)L"µÚÁùÃû ²Ë¼¦",
-        (const px_word *)L"µÚÆßÃû Èõ¼¦",
-        (const px_word *)L"µÚ°ËÃû ÔüÔü",
-        (const px_word *)L"µÚ¾ÅÃû",
-        (const px_word *)L"µÚÊ®Ãû",
-        (const px_word *)L"µÚÊ®Ò»Ãû",
-        (const px_word *)L"µÚÊ®¶şÃû",
-        (const px_word *)L"µÚÊ®ÈıÃû",
-        (const px_word *)L"µÚÊ®ËÄÃû",
-        (const px_word *)L"µÚÊ®ÎåÃû",
-        (const px_word *)L"µÚÊ®ÁùÃû",
+        (const px_word *)L"ç¬¬ä¸€å æœ€å¼ºè€å¸æœº!",
+        (const px_word *)L"ç¬¬äºŒå è€å¸æœº!",
+        (const px_word *)L"ç¬¬ä¸‰å å¤§ä½¬!",
+        (const px_word *)L"ç¬¬å››å æ——é¼“ç›¸å½“çš„å¯¹æ‰‹",
+        (const px_word *)L"ç¬¬äº”å å¼Ÿå¼Ÿ",
+        (const px_word *)L"ç¬¬å…­å èœé¸¡",
+        (const px_word *)L"ç¬¬ä¸ƒå å¼±é¸¡",
+        (const px_word *)L"ç¬¬å…«å æ¸£æ¸£",
+        (const px_word *)L"ç¬¬ä¹å",
+        (const px_word *)L"ç¬¬åå",
+        (const px_word *)L"ç¬¬åä¸€å",
+        (const px_word *)L"ç¬¬åäºŒå",
+        (const px_word *)L"ç¬¬åä¸‰å",
+        (const px_word *)L"ç¬¬åå››å",
+        (const px_word *)L"ç¬¬åäº”å",
+        (const px_word *)L"ç¬¬åå…­å",
     };
 
     if (rank > 0 && rank < PX_COUNTOF(rankContent)) {
@@ -622,7 +622,7 @@ px_void PX_ApplicationPostEvent(PX_Application *App, PX_Object_Event e) {
 }
 
 px_void PX_ApplicationSaveReplay(PX_Application *App) {
-    px_char *path = "./Game.replay";  //=PX_SaveFileDialog("ÓÎÏ·Â¼ÏñÎÄ¼ş(Replay File)\0*.reply\0\0",".replay");
+    px_char *path = "./Game.replay";  //=PX_SaveFileDialog("æ¸¸æˆå½•åƒæ–‡ä»¶(Replay File)\0*.reply\0\0",".replay");
     if (path) {
         FILE *pf;
         px_dword magicnumber = 477608346;
