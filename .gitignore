@@ -5,5 +5,5 @@ build/
 # MacOS Cache
 .DS_Store
 
-PainterEngine Game Release/**/*.exe
+release/**/*.exe
 compile_commands.json

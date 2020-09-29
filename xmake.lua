@@ -1,5 +1,4 @@
--- add_rules("mode.debug", "mode.release")
-add_rules("mode.debug")
+add_rules("mode.debug", "mode.release")
 
 toolchain("i686-windows")
     set_toolset("cc", "i686-w64-mingw32-gcc")
@@ -7,11 +6,11 @@ toolchain("i686-windows")
     set_toolset("ld", "i686-w64-mingw32-g++", "i686-w64-mingw32-gcc")
     set_toolset("ar", "i686-w64-mingw32-ar")
 
-pxlibdir =  "$(projectdir)/PainterEngine"
+pxlibdir =  "$(projectdir)/pxlib"
 
-includes("PainterEngine/pxlib.lua")
+includes("pxlib/pxlib.lua")
 
--- target("PainterEngine Startup")
+-- target("startup_client")
 
 --     -- 构建之后运行插件
 --     after_build(function (target)
@@ -29,15 +28,15 @@ includes("PainterEngine/pxlib.lua")
 --     set_optimize("faster")
 
 --     add_includedirs("/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
---     add_includedirs("$(projectdir)/PainterEngine Startup/PainterEngine Network")
+--     add_includedirs("$(projectdir)/startup/network")
 --     add_includedirs(pxlibdir .. "/core")
 --     add_includedirs(pxlibdir .. "/kernel")
---     add_includedirs(pxlibdir .. "/architecture")
+--     add_includedirs(pxlibdir .. "/arch")
 --     add_includedirs(pxlibdir .. "/platform/windows")
 
---     add_files(pxlibdir .. "/platform/windows/*.c|windows_main.c|Platform_Windows_WaveOut.c")
---     add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D2D_DINPUT.cpp|Platform_Windows_D3D.cpp")
---     add_files("$(projectdir)/PainterEngine Startup/PainterEngine Startup/*.c")
+--     add_files(pxlibdir .. "/platform/windows/*.c")
+--     add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D3D.cpp")
+--     add_files("$(projectdir)/startup/client/*.c")
 
 --     set_toolchains("i686-windows")
 
@@ -50,7 +49,7 @@ includes("PainterEngine/pxlib.lua")
     
 --     add_syslinks("winmm", "d2d1", "ws2_32", "dsound", "comdlg32")
 
-target("PainterEngine StartupServer")
+target("startup_server")
 
     -- 构建之后运行插件
     after_build(function (target)
@@ -68,15 +67,15 @@ target("PainterEngine StartupServer")
     set_optimize("faster")
 
     add_includedirs("/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
-    add_includedirs("$(projectdir)/PainterEngine Startup/PainterEngine Network")
+    add_includedirs("$(projectdir)/startup/network")
     add_includedirs(pxlibdir .. "/core")
     add_includedirs(pxlibdir .. "/kernel")
-    add_includedirs(pxlibdir .. "/architecture")
+    add_includedirs(pxlibdir .. "/arch")
     add_includedirs(pxlibdir .. "/platform/windows")
 
-    add_files(pxlibdir .. "/platform/windows/*.c|windows_main.c|Platform_Windows_WaveOut.c|Platform_Windows_SerialPort.c")
-    add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D2D_DINPUT.cpp|Platform_Windows_D3D.cpp|Platform_Windows_DSound.cpp")
-    add_files("$(projectdir)/PainterEngine Startup/PainterEngine StartupServer/*.c|GameLoginServer_Lobby.c")
+    add_files(pxlibdir .. "/platform/windows/*.c|Platform_Windows_SerialPort.c")
+    add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D3D.cpp|Platform_Windows_DSound.cpp")
+    add_files("$(projectdir)/startup/server/*.c")
 
     set_toolchains("i686-windows")
 
@@ -89,7 +88,7 @@ target("PainterEngine StartupServer")
     
     add_syslinks("winmm", "d2d1", "ws2_32", "dsound", "comdlg32")
 
--- target("PainterEngine Game Client")
+-- target("game_client")
 
 --     -- 构建之后运行插件
 --     after_build(function (target)
@@ -107,16 +106,16 @@ target("PainterEngine StartupServer")
 --     set_optimize("faster")
 
 --     add_includedirs("/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
---     add_includedirs("$(projectdir)/PainterEngine Game/PainterEngine Game")
+--     add_includedirs("$(projectdir)/game/common")
 --     add_includedirs(pxlibdir .. "/core")
 --     add_includedirs(pxlibdir .. "/kernel")
---     add_includedirs(pxlibdir .. "/architecture")
+--     add_includedirs(pxlibdir .. "/arch")
 --     add_includedirs(pxlibdir .. "/platform/windows")
 
---     add_files(pxlibdir .. "/platform/windows/*.c|windows_main.c|Platform_Windows_WaveOut.c")
---     add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D2D_DINPUT.cpp|Platform_Windows_D3D.cpp")
---     add_files("$(projectdir)/PainterEngine Game/PainterEngine Game/*.c")
---     add_files("$(projectdir)/PainterEngine Game/PainterEngine Game Client/*.c")
+--     add_files(pxlibdir .. "/platform/windows/*.c")
+--     add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D3D.cpp")
+--     add_files("$(projectdir)/game/common/*.c")
+--     add_files("$(projectdir)/game/client/*.c")
 
 --     set_toolchains("i686-windows")
 
@@ -129,7 +128,7 @@ target("PainterEngine StartupServer")
     
 --     add_syslinks("winmm", "d2d1", "ws2_32", "dsound", "comdlg32")
 
--- target("PainterEngine Game Server")
+-- target("game_server")
 
 --     -- 构建之后运行插件
 --     after_build(function (target)
@@ -147,16 +146,16 @@ target("PainterEngine StartupServer")
 --     set_optimize("faster")
 
 --     add_includedirs("/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
---     add_includedirs("$(projectdir)/PainterEngine Game/PainterEngine Game")
+--     add_includedirs("$(projectdir)/game/common")
 --     add_includedirs(pxlibdir .. "/core")
 --     add_includedirs(pxlibdir .. "/kernel")
---     add_includedirs(pxlibdir .. "/architecture")
+--     add_includedirs(pxlibdir .. "/arch")
 --     add_includedirs(pxlibdir .. "/platform/windows")
 
---     add_files(pxlibdir .. "/platform/windows/*.c|windows_main.c|Platform_Windows_WaveOut.c")
---     add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D2D_DINPUT.cpp|Platform_Windows_D3D.cpp")
---     add_files("$(projectdir)/PainterEngine Game/PainterEngine Game/*.c")
---     add_files("$(projectdir)/PainterEngine Game/PainterEngine Game Server/*.c")
+--     add_files(pxlibdir .. "/platform/windows/*.c")
+--     add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D3D.cpp")
+--     add_files("$(projectdir)/game/common/*.c")
+--     add_files("$(projectdir)/game/server/*.c")
 
 --     set_toolchains("i686-windows")
 
