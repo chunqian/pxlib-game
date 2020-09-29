@@ -12,12 +12,12 @@
 #include <dinput.h>
 #include <mmsystem.h>
 
-#pragma comment(lib, "d3dx9.lib")
-#pragma comment(lib, "d3d9.lib")
-#pragma comment(lib, "WINMM.LIB")
-#pragma comment(lib, "DXGUID.LIB")
-#pragma comment(lib, "dsound.lib")
-#pragma comment(lib, "dinput8.lib")
+// #pragma comment(lib, "d3dx9.lib")
+// #pragma comment(lib, "d3d9.lib")
+// #pragma comment(lib, "winmm.LIB")
+// #pragma comment(lib, "dxguid.LIB")
+// #pragma comment(lib, "dsound.lib")
+// #pragma comment(lib, "dinput8.lib")
 
 #define PX_DIK_ESCAPE 0x01
 #define PX_DIK_1 0x02
@@ -178,4 +178,5 @@ BOOL PX_MouseRButtonDown();
 BOOL PX_MouseMButtonDown();
 POINT PX_MousePosition();
 BOOL PX_KeyDown(char key);
+
 #endif

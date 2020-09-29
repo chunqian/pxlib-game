@@ -4,7 +4,8 @@
 #include "../../PainterEngine/kernel/PX_Kernel.h"
 #include "../PainterEngine Network/GameServer_Network.h"
 #include "PainterEngine_Startup.h"
-#include "stdio.h"
+
+#include <stdio.h>
 
 #define GAMESERVER_TEXT_DATABASE_FILE_DATABASE "./database"
 #define GAMESERVER_TEXT_DATABASE_FILE_PASSWORD "password"
@@ -33,4 +34,5 @@ px_bool PX_StartupServer_Database_WriteUserData(PX_StartupServer_Database *datab
 px_bool PX_StartupServer_Database_WriteUserPhoto(PX_StartupServer_Database *database, px_char account[32], px_void *data, px_int size);
 px_bool PX_StartupServer_Database_WriteBackupUserData(PX_StartupServer_Database *database, px_char account[32], PX_Startup_UserData *pUserData);
 px_bool PX_StartupServer_Database_ReadPhoto(PX_StartupServer_Database *database, px_char account[32], px_byte data[]);
+
 #endif

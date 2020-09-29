@@ -1,4 +1,5 @@
-add_rules("mode.debug", "mode.release")
+-- add_rules("mode.debug", "mode.release")
+add_rules("mode.debug")
 
 toolchain("i686-windows")
     set_toolset("cc", "i686-w64-mingw32-gcc")
@@ -7,6 +8,7 @@ toolchain("i686-windows")
     set_toolset("ar", "i686-w64-mingw32-ar")
 
 pxlibdir =  "$(projectdir)/PainterEngine"
+
 includes("PainterEngine/pxlib.lua")
 
 -- target("PainterEngine Startup")

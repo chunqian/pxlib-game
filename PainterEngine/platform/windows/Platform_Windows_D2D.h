@@ -3,9 +3,9 @@
 
 #include <windows.h>
 #include <stdio.h>
-// #pragma comment(lib,"User32.lib")
-// #pragma comment(lib,"Shell32.lib")
-// #pragma comment(lib,"Ole32.lib")
+// #pragma comment(lib,"user32.lib")
+// #pragma comment(lib,"shell32.lib")
+// #pragma comment(lib,"ole32.lib")
 // #pragma comment(lib,"winmm.lib" )
 
 #define PX_DIK_ESCAPE 0x01

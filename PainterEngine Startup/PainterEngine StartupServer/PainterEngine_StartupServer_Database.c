@@ -1,7 +1,8 @@
 #include "PainterEngine_StartupServer_Database.h"
-#include "windows.h"
-#include "direct.h"
-#include "time.h"
+
+#include <windows.h>
+#include <direct.h>
+#include <time.h>
 
 px_bool PX_StartupServer_Database_Initialize(PX_StartupServer_Database *database) {
     if (GetFileAttributes(GAMESERVER_TEXT_DATABASE_FILE_DATABASE) != FILE_ATTRIBUTE_DIRECTORY) return PX_FALSE;

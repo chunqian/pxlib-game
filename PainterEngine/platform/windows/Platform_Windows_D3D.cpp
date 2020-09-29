@@ -139,7 +139,7 @@ BOOL DINPUT_CreateDevice(HWND hWnd, REFGUID guid, LPDIRECTINPUTDEVICE8 *ppInputD
     }
 
     if (nType == DINPUT_IO_DEVICE_TYPE_JOY) {
-        ZeroMemory(&dipr, sizeof DIPROPRANGE);
+        ZeroMemory(&dipr, sizeof(DIPROPRANGE));
         dipr.diph.dwSize = sizeof(dipr);
         dipr.diph.dwHeaderSize = sizeof(dipr);
         dipr.diph.dwObj = DIJOFS_X;
@@ -256,7 +256,7 @@ void DInput_Update() {
 
     for (i = 0; i < DInput_MouseDeviceIndex; i++) {
         if (!MouseReaded) {
-            if (!DInput_ReadDevice(DInput_MouseDevice[i].pDIDevice, &DInput_MouseState, sizeof DIMOUSESTATE)) {
+            if (!DInput_ReadDevice(DInput_MouseDevice[i].pDIDevice, &DInput_MouseState, sizeof(DIMOUSESTATE))) {
                 DInput_UpdateDevice();
                 return;
             } else {
@@ -267,7 +267,7 @@ void DInput_Update() {
 
     for (i = 0; i < DInput_JoyDeviceIndex; i++) {
         if (!JoyReaded) {
-            if (!DInput_ReadDevice(DInput_JoyDevice[i].pDIDevice, &DInput_JoyState, sizeof DIJOYSTATE)) {
+            if (!DInput_ReadDevice(DInput_JoyDevice[i].pDIDevice, &DInput_JoyState, sizeof(DIJOYSTATE))) {
                 DInput_UpdateDevice();
                 return;
             } else {
