@@ -655,7 +655,7 @@ px_void PX_ConsoleUpdateEx(PX_Console *pc) {
     px_int i, y = 10;
     PX_ConsoleColumn *pCc;
 
-    while (pc->pObjects.size > pc->max_column) {
+    while (pc->pObjects.size >= pc->max_column) {
         pCc = (PX_VECTORAT(PX_ConsoleColumn, &pc->pObjects, 0));
         PX_ObjectDelete(pCc->Object);
         PX_VectorErase(&pc->pObjects, 0);
