@@ -1681,13 +1681,9 @@ px_void PX_memcpy(px_void *dst, const px_void *src, px_int size) {
     PX_MEMCPY_16 *_16byteMovSrc, *_16byteMovDst;
     px_uint _movTs;
 
-    //  if (!src||!dst)
-    //  {
-    //      PX_ASSERT();
-    //      return;
-    //  }
-
-    if (dst > src && (px_char *)dst <= (px_char *)src + size) {
+    // is overlap?
+    if (dst > src && (px_char *)dst < (px_char *)src + size) {
+        px_dword _4byteMov = 0;  // 4bytes unit-copy
         // backward overlap
         psrc = (px_uchar *)src + size - 1;
         pdst = (px_uchar *)dst + size - 1;
@@ -1702,9 +1698,38 @@ px_void PX_memcpy(px_void *dst, const px_void *src, px_int size) {
         _4byteMovSrc = (px_dword *)psrc;
         _movTs = size >> 2;
         while (_movTs--) {
-            *_4byteMovDst-- = *_4byteMovSrc--;
+            _4byteMov = *_4byteMovSrc;
+            _4byteMovSrc--;
+            *_4byteMovDst = _4byteMov;
+            _4byteMovDst--;
         }
+    } else if (src > dst && (px_char *)src < (px_char *)dst + size) {
+        px_dword _4byteMov = 0;  // 4bytes unit-copy
+
+        // forward overlap
+        psrc = (px_uchar *)src;
+        pdst = (px_uchar *)dst;
+
+        _4byteMovDst = (px_dword *)pdst;
+        _4byteMovSrc = (px_dword *)psrc;
+        _movTs = size >> 2;
+        while (_movTs--) {
+            _4byteMov = *_4byteMovSrc;
+            _4byteMovSrc++;
+            *_4byteMovDst = _4byteMov;
+            _4byteMovDst++;
+        }
+        _movTs = size & 3;
+
+        psrc = (px_uchar *)_4byteMovSrc;
+        pdst = (px_uchar *)_4byteMovDst;
+
+        while (_movTs--) *(pdst++) = *(psrc++);
+
+        pdst += 3;
+        psrc += 3;
     } else {
+        // no overlap,using block-copy
         // high->low
         _movTs = size >> 12;
         if (_movTs) {
