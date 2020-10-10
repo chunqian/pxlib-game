@@ -1,0 +1,3 @@
+{
+    "style": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 160, IndentPPDirectives: BeforeHash, AlwaysBreakBeforeMultilineStrings: false, TabWidth: 4, UseTab: Never}"
+}
