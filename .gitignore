@@ -1,9 +1,12 @@
 # Xmake cache
 .xmake/
+.cache/
 build/
 
 # MacOS Cache
 .DS_Store
 
+.clangd/
 release/**/*.exe
+pxlib/supports/**/*.pages
 compile_commands.json
