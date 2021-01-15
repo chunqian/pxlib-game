@@ -8,7 +8,7 @@ set_toolset("ar", "i686-w64-mingw32-ar")
 
 pxlibdir = "$(projectdir)/pxlib"
 
-includes("pxlib/pxlib.lua")
+includes("pxlib/xmake.lua")
 
 target("startup_client")
 
