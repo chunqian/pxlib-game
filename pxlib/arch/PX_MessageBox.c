@@ -1,5 +1,7 @@
 #include "PX_MessageBox.h"
 
+#include "PX_Typedef.h"
+
 px_void PX_MessageBox_BtnYesClick(PX_Object *pObject, PX_Object_Event e, px_void *user) {
     PX_MessageBox *pm = (PX_MessageBox *)user;
     pm->retVal = PX_MESSAGEBOX_RETURN_YES;
@@ -29,12 +31,12 @@ px_bool PX_MessageBoxInitialize(PX_Runtime *runtime, PX_MessageBox *pm, PX_FontM
 
     if (!(pm->root = PX_ObjectCreate(&runtime->mp_ui, PX_NULL, 0, 0, 0, 0, 0, 0))) return PX_FALSE;
 
-    if (!(pm->btn_Ok =
-              PX_Object_PushButtonCreate(&runtime->mp_ui, pm->root, window_Width / 2 + 200, window_Height / 2 + 150, 84, 28, "OK", PX_COLOR(255, 0, 0, 0))))
+    if (!(pm->btn_Ok = PX_Object_PushButtonCreate(&runtime->mp_ui, pm->root, window_Width / 2 + 200, window_Height / 2 + 150, 84, 28, "OK", PX_NULL,
+                                                  PX_COLOR(255, 0, 0, 0))))
         return PX_FALSE;
 
-    if (!(pm->btn_Cancel =
-              PX_Object_PushButtonCreate(&runtime->mp_ui, pm->root, window_Width / 2 + 300, window_Height / 2 + 150, 84, 28, "CANCEL", PX_COLOR(255, 0, 0, 0))))
+    if (!(pm->btn_Cancel = PX_Object_PushButtonCreate(&runtime->mp_ui, pm->root, window_Width / 2 + 300, window_Height / 2 + 150, 84, 28, "CANCEL", PX_NULL,
+                                                      PX_COLOR(255, 0, 0, 0))))
         return PX_FALSE;
 
     pm->Message = PX_NULL;
@@ -121,10 +123,11 @@ px_void PX_MessageBoxRender(px_surface *pSurface, PX_MessageBox *pm, px_dword el
                        (pm->window_Height + pm->PX_MESSAGEBOX_STAGE_2_HEIGHT) / 2 + 30, backGroundColor);
 
         if (pm->fontmodule) {
-            PX_FontModuleDrawText(pSurface, pm->window_Width / 2, pm->window_Height / 2, (px_word *)pm->Message, frontColor, pm->fontmodule,
-                                  PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(pSurface, pm->window_Width / 2, pm->window_Height / 2, (px_word *)pm->Message, frontColor, pm->fontmodule,
+            //                       PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(pSurface, pm->fontmodule, pm->window_Width / 2, pm->window_Height / 2, PX_ALIGN_CENTER, (px_word *)pm->Message, frontColor);
         } else {
-            PX_FontDrawText(pSurface, pm->window_Width / 2, pm->window_Height / 2, pm->Message, frontColor, PX_FONT_ALIGN_XCENTER);
+            PX_FontDrawText(pSurface, pm->window_Width / 2, pm->window_Height / 2, PX_ALIGN_CENTER, pm->Message, frontColor);
         }
 
         PX_ObjectRender(pSurface, pm->root, elpased);

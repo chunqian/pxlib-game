@@ -174,6 +174,7 @@ typedef struct {
     px_bool Border;
     px_color TextColor;
     px_color BackgroundColor;
+    PX_FontModule *fontModule;
     px_char *Text;
 } PX_Object_Label;
 
@@ -274,6 +275,7 @@ typedef struct {
     px_color CursorColor;
     px_color PushColor;
     px_char *Text;
+    PX_FontModule *fontModule;
     px_texture *Texture;
     px_shape *shape;
     px_float roundradius;
@@ -314,12 +316,15 @@ typedef struct {
     px_uint elpased;
     px_bool Password;
     px_bool AutoNewline;
+    px_int AutoNewLineSpacing;
     px_int XOffset, YOffset;
     px_int VerticalOffset, HorizontalOffset;
-    px_int xSpacing, ySpacing;
+    // px_int xSpacing, ySpacing;
+    px_int xFontSpacing, yFontSpacing;
     px_int cursor_index;
     px_int max_length;
     px_surface EditSurface;
+    PX_FontModule *fontModule;
     const px_char *Limit;
     PX_OBJECT_EDIT_STATE state;
 } PX_Object_Edit;
@@ -340,6 +345,7 @@ typedef struct {
 
 typedef struct {
     px_color TextColor;
+    PX_FontModule *fontModule;
     px_string text;
 } PX_Object_AutoText;
 
@@ -422,7 +428,8 @@ px_int PX_ObjectRegisterEvent(PX_Object *Object, px_uint Event, px_void (*Proces
 px_void PX_ObjectPostEvent(PX_Object *pPost, PX_Object_Event Event);
 px_void PX_ObjectExecuteEvent(PX_Object *pPost, PX_Object_Event Event);
 
-PX_Object *PX_Object_LabelCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text, px_color Color);
+PX_Object *PX_Object_LabelCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text, PX_FontModule *fm,
+                                 px_color Color);
 PX_Object_Label *PX_Object_GetLabel(PX_Object *Object);
 px_char *PX_Object_LabelGetText(PX_Object *Label);
 px_void PX_Object_LabelSetText(PX_Object *pLabel, px_char *Text);
@@ -469,7 +476,7 @@ px_void PX_Object_SliderBarSetColor(PX_Object *pSliderBar, px_color color);
 px_void PX_Object_SliderBarSetSliderButtonLength(PX_Object *pSliderBar, px_int length);
 
 PX_Object *PX_Object_PushButtonCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text,
-                                      px_color Color);
+                                      PX_FontModule *fontmodule, px_color Color);
 PX_Object_PushButton *PX_Object_GetPushButton(PX_Object *Object);
 px_char *PX_Object_PushButtonGetText(PX_Object *PushButton);
 px_void PX_Object_PushButtonSetText(PX_Object *pObject, const px_char *Text);
@@ -486,7 +493,8 @@ px_void PX_Object_PushButtonSetTexture(PX_Object *pObject, px_texture *texture);
 px_void PX_Object_PushButtonSetShape(PX_Object *pObject, px_shape *pshape);
 px_void PX_Object_PushButtonFree(PX_Object *Obj);
 
-PX_Object *PX_Object_EditCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, px_color TextColor);
+PX_Object *PX_Object_EditCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, PX_FontModule *fontModule,
+                                px_color TextColor);
 PX_Object_Edit *PX_Object_GetEdit(PX_Object *Object);
 px_char *PX_Object_EditGetText(PX_Object *pObject);
 px_void PX_Object_EditSetMaxTextLength(PX_Object *pObject, px_int max_length);
@@ -532,7 +540,7 @@ px_void PX_Object_RotationSetSpeed(PX_Object *rot, px_int Angle_per_second);
 px_void PX_Object_RotationStop(PX_Object *rot, px_bool bstop);
 px_void PX_Object_RotationRender(px_surface *psurface, PX_Object *Obj, px_uint elpased);
 
-PX_Object *PX_Object_AutoTextCreate(px_memorypool *mp, PX_Object *Parent, int x, int y, int limit_width);
+PX_Object *PX_Object_AutoTextCreate(px_memorypool *mp, PX_Object *Parent, int x, int y, int limit_width, PX_FontModule *fm);
 PX_Object_AutoText *PX_Object_GetAutoText(PX_Object *Object);
 px_void PX_Object_AutoTextSetTextColor(PX_Object *pObject, px_color Color);
 px_void PX_Object_AutoTextSetText(PX_Object *Obj, const px_char *Text);
@@ -571,7 +579,7 @@ px_void PX_Object_RoundCursor_Mousemove(PX_Object *pobject, PX_Object_Event e, p
 
 // use pushbutton function to operate cursor-button
 PX_Object *PX_Object_CursorButtonCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text,
-                                        px_color Color);
+                                        PX_FontModule *fontmodule, px_color Color);
 PX_Object_CursorButton *PX_Object_GetCursorButton(PX_Object *Object);
 PX_Object *PX_Object_GetCursorButtonPushButton(PX_Object *Object);
 
@@ -593,6 +601,8 @@ px_void PX_Object_VirtualKeyBoardCursorColor(PX_Object *pObject, px_color Color)
 px_void PX_Object_VirtualKeyBoardPushColor(PX_Object *pObject, px_color Color);
 px_char PX_Object_VirtualKeyBoardGetCode(PX_Object *pObject);
 
+#define PX_OBJECT_COORDINATES_DEFAULT_EXPONENTIAL_FORMAT "%1.2e%2"
+
 #define PX_OBJECT_COORDINATEFLAGLINE_XSHOW 1
 #define PX_OBJECT_COORDINATEFLAGLINE_YLSHOW 2
 #define PX_OBJECT_COORDINATEFLAGLINE_YRSHOW 4
@@ -613,6 +623,11 @@ typedef enum {
     PX_OBJECT_COORDINATES_COORDINATEDATA_MAP_RIGHT,
 } PX_OBJECT_COORDINATES_COORDINATEDATA_MAP;
 
+typedef enum {
+    PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_NORMAL,
+    PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_EXPONENTRAL,
+} PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE;
+
 typedef struct {
     px_double X, Y;
     px_color color;
@@ -631,12 +646,76 @@ typedef struct {
     px_int Size;
 } PX_Object_CoordinateData;
 
+// typedef struct {
+//     px_memorypool *mp;
+//     px_double HorizontalRangeMin;
+//     px_double HorizontalRangeMax;
+//     px_double LeftVerticalRangeMin, LeftVerticalRangeMax;
+//     px_double RightVerticalRangeMin, RightVerticalRangeMax;
+
+//     px_double ResHorizontalRangeMin;
+//     px_double ResHorizontalRangeMax;
+//     px_double ResLeftVerticalRangeMin, ResLeftVerticalRangeMax;
+//     px_double ResRightVerticalRangeMin, ResRightVerticalRangeMax;
+
+//     px_int MinVerticalPixelDividing;
+//     px_int MinHorizontalPixelDividing;
+//     px_int HorizontalDividing;
+//     px_int LeftVerticalDividing;
+//     px_int RightVerticalDividing;
+
+//     px_int LeftSpacer, RightSpacer, TopSpacer, BottomSpacer;
+
+//     const px_char *FloatFlagFormat_H;
+//     const px_char *IntFlagFormat_H;
+//     const px_char *FloatFlagFormat_L;
+//     const px_char *IntFlagFormat_L;
+//     const px_char *FloatFlagFormat_R;
+//     const px_char *IntFlagFormat_R;
+//     const px_char *LeftTitle, *RightTitle, *TopTitle, *BottomTitle;
+
+//     px_point DragStartPoint;
+//     px_point DragingPoint;
+//     px_int bScaleDrag;
+//     px_int bScaling;
+//     px_int MarkLineX;
+
+//     px_bool ScaleEnabled;
+//     px_bool ShowGuides;
+//     px_bool MarkValueEnabled;
+//     px_bool OnMarkStatus;
+//     px_bool bDataUpdatePainter;
+//     px_bool ShowHelpLine;
+
+//     px_bool LeftTitleShow, RightTitleShow, HorizontalShow;
+
+//     px_color DashColor;
+//     px_color FontColor;
+//     px_color borderColor;
+//     px_color helpLineColor;
+//     int FontSize;
+
+//     PX_OBJECT_COORDINATES_LINEMODE LineMode;
+//     PX_OBJECT_COORDINATES_GUIDESSHOWMODE guidesShowMode;
+
+//     px_float DataLineWidth;
+//     px_float DataPillarWidth;
+
+//     px_float GuidesLineWidth;
+//     px_vector vData;
+//     px_vector vFlagLine;
+
+//     px_int helpLineX, helpLineY;
+//     PX_FontModule *fontModule;
+// } PX_Object_Coordinates;
+
 typedef struct {
     px_memorypool *mp;
     px_double HorizontalRangeMin;
     px_double HorizontalRangeMax;
     px_double LeftVerticalRangeMin, LeftVerticalRangeMax;
     px_double RightVerticalRangeMin, RightVerticalRangeMax;
+    PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE leftTextDisplayMode, RightTextDisplayMode;
 
     px_double ResHorizontalRangeMin;
     px_double ResHorizontalRangeMax;
@@ -651,6 +730,7 @@ typedef struct {
 
     px_int LeftSpacer, RightSpacer, TopSpacer, BottomSpacer;
 
+    const px_char *Exponential_Format;
     const px_char *FloatFlagFormat_H;
     const px_char *IntFlagFormat_H;
     const px_char *FloatFlagFormat_L;
@@ -672,7 +752,7 @@ typedef struct {
     px_bool bDataUpdatePainter;
     px_bool ShowHelpLine;
 
-    px_bool LeftTitleShow, RightTitleShow, HorizontalShow;
+    px_bool LeftTextShow, RightTextShow, HorizontalTextShow;
 
     px_color DashColor;
     px_color FontColor;
@@ -691,6 +771,7 @@ typedef struct {
     px_vector vFlagLine;
 
     px_int helpLineX, helpLineY;
+    PX_FontModule *fontmodule;
 } PX_Object_Coordinates;
 
 PX_Object_Coordinates *PX_Object_GetCoordinates(PX_Object *pObject);
@@ -747,7 +828,7 @@ px_void PX_Object_CoordinatesAddCoordinateFlagLine(PX_Object *pObject, PX_Object
 //
 px_void PX_Object_CoordinatesSetMargin(PX_Object_Coordinates *pcd, int Left, int Right, int Top, int Bottom);
 px_void PX_Object_CoordinatesRestoreCoordinates(PX_Object *pObject);
-PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height);
+PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, PX_FontModule *fontmodule);
 
 #define PX_OBJECT_FILTER_EDITOR_MAX_PT 256
 #define PX_OBJECT_FILTER_EDITOR_DEFAULT_RADIUS 6
@@ -823,6 +904,7 @@ typedef struct {
     px_color PushColor;
     px_char Text[PX_OBJECT_CHECKBOX_MAX_CONTENT];
     px_bool bCheck;
+    PX_FontModule *fm;
     PX_Object_CHECKBOX_STATE state;
 } PX_Object_CheckBox;
 

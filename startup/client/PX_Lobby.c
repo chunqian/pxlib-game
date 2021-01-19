@@ -1,4 +1,5 @@
 #include "PX_Lobby.h"
+#include "PX_Typedef.h"
 
 extern px_void PX_ApplicationMessageBoxAlertYesNo(const px_char content[], PX_MessageBoxCallBack yescallback, px_void *yesptr, PX_MessageBoxCallBack nocallback,
                                                   px_void *noptr);
@@ -50,7 +51,7 @@ px_void PX_LobbyBuyTicket(px_void *ptr) {
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
 
     if ((px_int)pDesc->userInfo.coin < 1000) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
 
@@ -78,12 +79,12 @@ px_void PX_LobbyUpgrade_AmmoGen(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
 
@@ -111,12 +112,12 @@ px_void PX_LobbyUpgrade_AmmoRecovery(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -143,12 +144,12 @@ px_void PX_LobbyUpgrade_force(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -175,12 +176,12 @@ px_void PX_LobbyUpgrade_speed(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -207,12 +208,12 @@ px_void PX_LobbyUpgrade_shield(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -239,12 +240,12 @@ px_void PX_LobbyUpgrade_life(px_void *ptr) {
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     if ((px_int)pDesc->userInfo.coin < pay) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币不足");
         return;
     }
     pDesc->userinfo_elpased = PX_LOBBY_UPDATE_USERINFO_TIME;
@@ -281,11 +282,11 @@ px_void PX_LobbyUpload_Photo(px_void *ptr) {
         px_char *path = PX_OpenFileDialog("bmp\0*.bmp\0traw\0*.traw");
         if (path) {
             if (!PX_LoadTextureFromFile(&mp, &tex, path)) {
-                PX_ApplicationMessageBoxAlertOk((px_char *)L"无效的图像文件(必须为64x64的bmp或traw文件)");
+                PX_ApplicationMessageBoxAlertOk("无效的图像文件(必须为64x64的bmp或traw文件)");
                 return;
             }
             if (tex.width != 64 || tex.height != 64) {
-                PX_ApplicationMessageBoxAlertOk((px_char *)L"无效的图像文件(必须为64x64的bmp或traw文件)");
+                PX_ApplicationMessageBoxAlertOk("无效的图像文件(必须为64x64的bmp或traw文件)");
                 return;
             }
             PX_TRawBuild(&tex, LargeDataPack.photo, &size);
@@ -295,7 +296,7 @@ px_void PX_LobbyUpload_Photo(px_void *ptr) {
     } while (0);
 
     if ((px_int)pDesc->userInfo.coin < 12800 && (px_int)pDesc->userInfo.ticket < 12800) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"所需的金币或点券不足");
+        PX_ApplicationMessageBoxAlertOk("所需的金币或点券不足");
         return;
     }
 
@@ -309,17 +310,17 @@ px_void PX_LobbyUpload_Photo(px_void *ptr) {
     PX_AES_CipherBuffer(&aes, (px_byte *)&LargeDataPack.header.cookie, sizeof(LargeDataPack.header.cookie), (px_byte *)&LargeDataPack.header.cookie);
 
     PX_UDPSend(&pDesc->udp, pDesc->serverLargeDataAddr, (px_byte *)&LargeDataPack, sizeof(LargeDataPack));
-    PX_ApplicationMessageBoxAlertOk((px_char *)L"上传完成,重启后生效");
+    PX_ApplicationMessageBoxAlertOk("上传完成,重启后生效");
 }
 
 px_void PX_LobbyOnUploadPhoto(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
-    PX_ApplicationMessageBoxAlertYesNo((px_char *)L"花费12800金币或点券上传新头像?", PX_LobbyUpload_Photo, pDesc, PX_NULL, PX_NULL);
+    PX_ApplicationMessageBoxAlertYesNo("花费12800金币或点券上传新头像?", PX_LobbyUpload_Photo, pDesc, PX_NULL, PX_NULL);
 }
 
 px_void PX_LobbyOnBuyTicket(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
-    PX_ApplicationMessageBoxAlertYesNo((px_char *)L"花费1000金币购买10张入场券?", PX_LobbyBuyTicket, pDesc, PX_NULL, PX_NULL);
+    PX_ApplicationMessageBoxAlertYesNo("花费1000金币购买10张入场券?", PX_LobbyBuyTicket, pDesc, PX_NULL, PX_NULL);
 }
 
 px_void PX_LobbyOnUpgrade_AmmoGen(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
@@ -330,15 +331,17 @@ px_void PX_LobbyOnUpgrade_AmmoGen(PX_Object *pObject, PX_Object_Event e, px_void
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"花费");
-    PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"金币或点券提升基础武器补充等级?");
+    // PX_wstrcat(content, "花费");
+    // PX_FontModule_wastrcat(content, numeric);
+    // PX_wstrcat(content, "金币或点券提升基础武器补充等级?");
+    PX_strcat((px_char *)content, "花费");
+    PX_strcat((px_char *)content, "金币或点券提升基础武器补充等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_AmmoGen, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -350,15 +353,17 @@ px_void PX_LobbyOnUpgrade_AmmoRec(PX_Object *pObject, PX_Object_Event e, px_void
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"花费");
-    PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"金币或点券提升基础武器冷却等级?");
+    // PX_wstrcat(content, "花费");
+    // PX_FontModule_wastrcat(content, numeric);
+    // PX_wstrcat(content, "金币或点券提升基础武器冷却等级?");
+    PX_strcat((px_char *)content, "花费");
+    PX_strcat((px_char *)content, "金币或点券提升基础武器冷却等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_AmmoRecovery, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -370,15 +375,17 @@ px_void PX_LobbyOnUpgrade_Force(PX_Object *pObject, PX_Object_Event e, px_void *
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"花费");
-    PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"金币或点券提升最大推力等级?");
+    // PX_wstrcat(content, "花费");
+    // PX_FontModule_wastrcat(content, numeric);
+    // PX_wstrcat(content, "金币或点券提升最大推力等级?");
+    PX_strcat((px_char *)content, "花费");
+    PX_strcat((px_char *)content, "金币或点券提升最大推力等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_force, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -390,15 +397,17 @@ px_void PX_LobbyOnUpgrade_Speed(PX_Object *pObject, PX_Object_Event e, px_void *
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"花费");
-    PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"金币提升最大速度等级?");
+    // PX_wstrcat(content, "花费");
+    // PX_FontModule_wastrcat(content, numeric);
+    // PX_wstrcat(content, "金币提升最大速度等级?");
+    PX_strcat((px_char *)content, "花费");
+    PX_strcat((px_char *)content, "金币提升最大速度等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_speed, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -409,15 +418,17 @@ px_void PX_LobbyOnUpgrade_Life(PX_Object *pObject, PX_Object_Event e, px_void *p
     px_int level = pDesc->userInfo.ShipStack[pDesc->userState.shipIndex].upgrade_life;
     px_int pay = 100 * (1 << level);
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"花费");
-    PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"金币提升最大生命等级?");
+    // PX_wstrcat(content, "花费");
+    // PX_FontModule_wastrcat(content, numeric);
+    // PX_wstrcat(content, "金币提升最大生命等级?");
+    PX_strcat((px_char *)content, "花费");
+    PX_strcat((px_char *)content, "金币提升最大生命等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_life, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -429,15 +440,17 @@ px_void PX_LobbyOnUpgrade_Shield(PX_Object *pObject, PX_Object_Event e, px_void 
     px_int pay = 100 * (1 << level);
 
     if (level >= 10) {
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"等级已达到最大值");
+        PX_ApplicationMessageBoxAlertOk("等级已达到最大值");
         return;
     }
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    PX_wstrcat(content, (px_word *)L"花费");
-    PX_FontModule_wastrcat(content, numeric);
-    PX_wstrcat(content, (px_word *)L"金币提升最大护盾等级?");
+    // PX_wstrcat(content, "花费");
+    // PX_FontModule_wastrcat(content, numeric);
+    // PX_wstrcat(content, "金币提升最大护盾等级?");
+    PX_strcat((px_char *)content, "花费");
+    PX_strcat((px_char *)content, "金币提升最大护盾等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_shield, pDesc, PX_NULL, PX_NULL);
 }
 
@@ -457,7 +470,7 @@ px_void PX_LobbyOnRanking8P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 4) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"你没有足够的入场券(4张)来参加这场比赛");
+        PX_ApplicationMessageBoxAlertOk("你没有足够的入场券(4张)来参加这场比赛");
         return;
     }
 
@@ -490,7 +503,7 @@ px_void PX_LobbyOnRanking6P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 3) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"你没有足够的入场券(3张)来参加这场比赛");
+        PX_ApplicationMessageBoxAlertOk("你没有足够的入场券(3张)来参加这场比赛");
         return;
     }
 
@@ -522,7 +535,7 @@ px_void PX_LobbyOnRanking4P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 2) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"你没有足够入场券(2张)来参加这场比赛");
+        PX_ApplicationMessageBoxAlertOk("你没有足够入场券(2张)来参加这场比赛");
         return;
     }
 
@@ -554,7 +567,7 @@ px_void PX_LobbyOnRanking2P(PX_Object *pObject, PX_Object_Event e, px_void *ptr)
 
     if (pDesc->userInfo.ticket < 1) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"你没有足够的入场券(1张)来参加这场比赛");
+        PX_ApplicationMessageBoxAlertOk("你没有足够的入场券(1张)来参加这场比赛");
         return;
     }
 
@@ -586,7 +599,7 @@ px_void PX_LobbyOnRanking4V4(PX_Object *pObject, PX_Object_Event e, px_void *ptr
 
     if (pDesc->userInfo.ticket < 4) {
         extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
-        PX_ApplicationMessageBoxAlertOk((px_char *)L"你没有足够的入场券(4张)来参加这场比赛");
+        PX_ApplicationMessageBoxAlertOk("你没有足够的入场券(4张)来参加这场比赛");
         return;
     }
 
@@ -669,22 +682,26 @@ px_bool PX_LobbyInitialize_PanelUserInfoInitialize(PX_Lobby *pDesc, PX_Lobby_Pan
     panel_userinfo->root->Width = (px_float)pDesc->pIns->runtime.width;
     panel_userinfo->root->Height = PX_LOBBY_PANELUSERINFO_HEIGHT;
 
-    panel_userinfo->ticket = PX_Object_LabelCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 84, 22, "0", PX_COLOR(255, 0, 0, 0));
+    panel_userinfo->ticket =
+        PX_Object_LabelCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 84, 22, "0", &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
     PX_Object_LabelSetBackgroundColor(panel_userinfo->ticket, PX_COLOR(255, 255, 255, 255));
     PX_Object_LabelSetAlign(panel_userinfo->ticket, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
 
-    panel_userinfo->coin = PX_Object_LabelCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 84, 22, "0", PX_COLOR(255, 0, 0, 0));
+    panel_userinfo->coin =
+        PX_Object_LabelCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 84, 22, "0", &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
     PX_Object_LabelSetBackgroundColor(panel_userinfo->coin, PX_COLOR(255, 255, 255, 255));
     PX_Object_LabelSetAlign(panel_userinfo->coin, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
 
-    panel_userinfo->uploadPhoto = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 64, 64, "", PX_COLOR(0, 0, 0, 0));
+    panel_userinfo->uploadPhoto =
+        PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 64, 64, "", &pDesc->pIns->fontmodule32, PX_COLOR(0, 0, 0, 0));
     PX_Object_PushButtonSetBorderColor(panel_userinfo->uploadPhoto, PX_COLOR(0, 0, 0, 0));
     PX_Object_PushButtonSetCursorColor(panel_userinfo->uploadPhoto, PX_COLOR(0, 0, 0, 0));
     PX_Object_PushButtonSetPushColor(panel_userinfo->uploadPhoto, PX_COLOR(0, 0, 0, 0));
     PX_Object_PushButtonSetBackgroundColor(panel_userinfo->uploadPhoto, PX_COLOR(0, 0, 0, 0));
     PX_ObjectRegisterEvent(panel_userinfo->uploadPhoto, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUploadPhoto, pDesc);
 
-    panel_userinfo->btn_buyTicket = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 24, 24, "+", PX_COLOR(255, 0, 0, 0));
+    panel_userinfo->btn_buyTicket =
+        PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, panel_userinfo->root, 0, 0, 24, 24, "+", &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
     PX_ObjectRegisterEvent(panel_userinfo->btn_buyTicket, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnBuyTicket, pDesc);
     return PX_TRUE;
 _ERROR:
@@ -725,8 +742,11 @@ static px_void PX_LobbyStandRender_UserInfo(PX_Lobby *pDesc, px_dword elpased) {
     pDesc->panel_userinfo.uploadPhoto->y = pDesc->panel_userinfo.root->y + 8;
 
     // NickName
-    PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, (px_int)pDesc->panel_userinfo.root->x + 48 + 48, (px_int)pDesc->panel_userinfo.root->y + 32 + 8,
-                          pDesc->userInfo.nickname, PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XLEFT);
+    // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, (px_int)pDesc->panel_userinfo.root->x + 48 + 48, (px_int)pDesc->panel_userinfo.root->y + 32 +
+    // 8,
+    //                       pDesc->userInfo.nickname, PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XLEFT);
+    PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, (px_int)pDesc->panel_userinfo.root->x + 48 + 48,
+                          (px_int)pDesc->panel_userinfo.root->y + 32 + 8, PX_ALIGN_LEFTMID, pDesc->userInfo.nickname, PX_COLOR(255, 0, 0, 0));
 
     // rank
     if (pDesc->displayRankPt > (px_int)pDesc->userInfo.rank_pt) {
@@ -748,9 +768,12 @@ static px_void PX_LobbyStandRender_UserInfo(PX_Lobby *pDesc, px_dword elpased) {
         px_char content[32];
         px_word wcontent[32];
         PX_sprintf1(content, sizeof(content), "Rank:%1", PX_STRINGFORMAT_INT(pDesc->displayRankPt));
-        PX_FontModule_atow(content, wcontent);
-        PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, (px_int)pDesc->panel_userinfo.root->x + 64 + 256, (px_int)pDesc->panel_userinfo.root->y + 52,
-                              wcontent, PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XLEFT);
+        // PX_FontModule_atow(content, wcontent);
+        // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, (px_int)pDesc->panel_userinfo.root->x + 64 + 256, (px_int)pDesc->panel_userinfo.root->y +
+        // 52,
+        //                       wcontent, PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XLEFT);
+        PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, (px_int)pDesc->panel_userinfo.root->x + 64 + 256,
+                              (px_int)pDesc->panel_userinfo.root->y + 52, PX_ALIGN_LEFTMID, wcontent, PX_COLOR(255, 0, 0, 0));
 
     } while (0);
 
@@ -795,18 +818,24 @@ static px_void PX_LobbyStandRender_UserState(PX_Lobby *pDesc, px_dword elpased) 
     switch (pDesc->userState.userState) {
         case PX_STARTUP_GAMESTATE_STANDBY: {
             pDesc->state_angle = 0;
-            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-                                  (px_word *)L"待命中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
+            //                       "待命中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2,
+                                  pDesc->pIns->runtime.height / 2 + 8, PX_ALIGN_CENTER, "待命中", PX_COLOR(255, 0, 0, 0));
         } break;
         case PX_STARTUP_GAMESTATE_RANKING: {
             pDesc->state_angle += elpased / 1000.0f * 90;
-            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-                                  (px_word *)L"排位中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
+            //                       "排位中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2,
+                                  pDesc->pIns->runtime.height / 2 + 8, PX_ALIGN_CENTER, "排位中", PX_COLOR(255, 0, 0, 0));
         } break;
         case PX_STARTUP_GAMESTATE_GAMING: {
             pDesc->state_angle += elpased / 1000.0f * 90;
-            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-                                  (px_word *)L"游戏中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
+            //                       "游戏中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2,
+                                  pDesc->pIns->runtime.height / 2 + 8, PX_ALIGN_CENTER, "游戏中", PX_COLOR(255, 0, 0, 0));
         } break;
     }
 }
@@ -837,23 +866,23 @@ px_bool PX_LobbyInitialize(PX_Instance *pIns, PX_Lobby *pDesc, const px_char Lob
     do {
         px_int oft = 80;
         pDesc->ui_oproot = PX_ObjectCreate(&pDesc->pIns->runtime.mp_ui, PX_NULL, 0, 0, 0, 0, 0, 0);
-        pDesc->btn_matchRanking8p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 500, 128, 32, "8人排位战", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_matchRanking6p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138, 500, 128, 32, "6人排位战", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_matchRanking4p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 2, 500, 128, 32, "4人排位战", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_EnterGame =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "进入游戏", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_matchCancel =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "取消", PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_matchRanking8p = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 500, 128, 32, "8人排位战",
+                                                                 &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_matchRanking6p = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138, 500, 128, 32, "6人排位战",
+                                                                 &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_matchRanking4p = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 2, 500, 128, 32, "4人排位战",
+                                                                 &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_EnterGame = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "进入游戏",
+                                                            &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_matchCancel = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 120 + 148 + 74, 500, 128, 32, "取消",
+                                                              &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
         pDesc->btn_matchCancel->Visible = PX_FALSE;
-        pDesc->btn_match2p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 3, 500, 128, 32, "2人排位战", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_match1p =
-            PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 4, 500, 128, 32, "单人训练", PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_match2p = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 3, 500, 128, 32, "2人排位战",
+                                                          &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_match1p = PX_Object_CursorButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft + 138 * 4, 500, 128, 32, "单人训练",
+                                                          &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
 
-        pDesc->autoText_Content = PX_Object_AutoTextCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 585, 135, 172);
+        pDesc->autoText_Content = PX_Object_AutoTextCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, 585, 135, 172, &pDesc->pIns->fontmodule32);
 
         PX_ObjectRegisterEvent(PX_Object_GetCursorButton(pDesc->btn_EnterGame)->pushbutton, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnGameStart, pDesc);
         PX_ObjectRegisterEvent(PX_Object_GetCursorButton(pDesc->btn_matchRanking8p)->pushbutton, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnRanking8P, pDesc);
@@ -864,18 +893,18 @@ px_bool PX_LobbyInitialize(PX_Instance *pIns, PX_Lobby *pDesc, const px_char Lob
         PX_ObjectRegisterEvent(PX_Object_GetCursorButton(pDesc->btn_match1p)->pushbutton, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnGame1P, pDesc);
 
         oft = 32;
-        pDesc->btn_upgrade_ammogen =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132, 128, 20, "升级基础武器恢复", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_upgrade_ammorec =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 1, 128, 20, "升级基础武器冷却", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_upgrade_force =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 2, 128, 20, "升级推力", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_upgrade_speed =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 3, 128, 20, "升级速度", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_upgrade_life =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 4, 128, 20, "升级生命最大值", PX_COLOR(255, 0, 0, 0));
-        pDesc->btn_upgrade_shield =
-            PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 5, 128, 20, "升级护盾最大值", PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_upgrade_ammogen = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132, 128, 20, "升级基础武器恢复",
+                                                                &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_upgrade_ammorec = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 1, 128, 20, "升级基础武器冷却",
+                                                                &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_upgrade_force = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 2, 128, 20, "升级推力",
+                                                              &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_upgrade_speed = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 3, 128, 20, "升级速度",
+                                                              &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_upgrade_life = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 4, 128, 20, "升级生命最大值",
+                                                             &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
+        pDesc->btn_upgrade_shield = PX_Object_PushButtonCreate(&pDesc->pIns->runtime.mp_ui, pDesc->ui_oproot, oft, 132 + 54 * 5, 128, 20, "升级护盾最大值",
+                                                               &pDesc->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0));
 
         PX_ObjectRegisterEvent(pDesc->btn_upgrade_ammogen, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUpgrade_AmmoGen, pDesc);
         PX_ObjectRegisterEvent(pDesc->btn_upgrade_ammorec, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUpgrade_AmmoRec, pDesc);
@@ -1231,19 +1260,25 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
             px_char numeric[16];
             px_word content[32] = {0};
             PX_itoa(pDesc->userState.game_onlineCount, numeric, sizeof(numeric), 10);
-            PX_wstrcat(content, (px_word *)L"游戏大厅在线:");
-            PX_FontModule_wastrcat(content, numeric);
-            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
-                                  &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_wstrcat(content, "游戏大厅在线:");
+            // PX_FontModule_wastrcat(content, numeric);
+            PX_strcat((px_char *)content, "游戏大厅在线:");
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
+            //                       &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2, 164, PX_ALIGN_CENTER,
+                                  content, PX_COLOR(255, 0, 0, 0));
         } break;
         case PX_STARTUP_GAMESTATE_RANKING: {
             px_char numeric[16];
             px_word content[32] = {0};
             PX_itoa(pDesc->userState.game_readyPlayers, numeric, sizeof(numeric), 10);
-            PX_wstrcat(content, (px_word *)L"玩家已加入:");
-            PX_FontModule_wastrcat(content, numeric);
-            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
-                                  &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_wstrcat(content, "玩家已加入:");
+            // PX_FontModule_wastrcat(content, numeric);
+            PX_strcat((px_char *)content, "玩家已加入:");
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
+            //                       &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2, 164, PX_ALIGN_CENTER,
+                                  content, PX_COLOR(255, 0, 0, 0));
         } break;
     }
 }

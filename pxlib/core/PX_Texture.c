@@ -1137,7 +1137,8 @@ px_void PX_TextureRenderEx(px_surface *psurface, px_texture *resTexture, px_int 
                 clr._argb.r = bR > 255 ? 255 : (px_uchar)bR;
                 clr._argb.g = bG > 255 ? 255 : (px_uchar)bG;
                 clr._argb.b = bB > 255 ? 255 : (px_uchar)bB;
-                PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                PX_SurfaceDrawPixel(psurface, x + i, y + j, clr);
             }
         }
 
@@ -1158,7 +1159,8 @@ px_void PX_TextureRenderEx(px_surface *psurface, px_texture *resTexture, px_int 
                     continue;
                 }
 
-                PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, PX_SURFACECOLOR(resTexture, mapX, mapY));
+                // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, PX_SURFACECOLOR(resTexture, mapX, mapY));
+                PX_SurfaceDrawPixel(psurface, x + i, y + j, PX_SURFACECOLOR(resTexture, mapX, mapY));
             }
         }
     }
@@ -1318,7 +1320,8 @@ px_void PX_TextureRenderMaskEx(px_surface *psurface, px_texture *mask_tex, px_te
                 clr._argb.r = bR > 255 ? 255 : (px_uchar)bR;
                 clr._argb.g = bG > 255 ? 255 : (px_uchar)bG;
                 clr._argb.b = bB > 255 ? 255 : (px_uchar)bB;
-                PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                PX_SurfaceDrawPixel(psurface, x + i, y + j, clr);
             }
         }
 
@@ -1341,7 +1344,8 @@ px_void PX_TextureRenderMaskEx(px_surface *psurface, px_texture *mask_tex, px_te
                 clr = pmapdata[j * map_tex->width + i];
                 clr._argb.a = 1 * clr._argb.a * pmaskdata[j * mask_tex->width + i]._argb.a / 255;
 
-                PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                PX_SurfaceDrawPixel(psurface, x + i, y + j, clr);
             }
         }
     }
@@ -1587,7 +1591,8 @@ px_void PX_ShapeRenderEx(px_surface *psurface, px_shape *shape, px_int x, px_int
             }
             clr = blendColor;
             clr._argb.a = 1 * clr._argb.a * shape->alpha[mapY * shape->width + mapX] / 255;
-            PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+            // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+            PX_SurfaceDrawPixel(psurface, x + i, y + j, clr);
         }
     }
 }
@@ -1735,7 +1740,8 @@ px_void PX_ShapeRenderEx_sincos(px_surface *psurface, px_shape *shape, px_int x,
             }
             clr = blendColor;
             clr._argb.a = 1 * clr._argb.a * shape->alpha[shape->width * mapY + mapX] / 255;
-            PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+            // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+            PX_SurfaceDrawPixel(psurface, x + i, y + j, clr);
         }
     }
 }
@@ -1877,7 +1883,8 @@ px_void PX_TextureRenderEx_sincos(px_surface *psurface, px_texture *resTexture, 
                 clr._argb.r = bR > 255 ? 255 : (px_uchar)bR;
                 clr._argb.g = bG > 255 ? 255 : (px_uchar)bG;
                 clr._argb.b = bB > 255 ? 255 : (px_uchar)bB;
-                PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, clr);
+                PX_SurfaceDrawPixel(psurface, x + i, y + j, clr);
             }
         }
 
@@ -1898,7 +1905,8 @@ px_void PX_TextureRenderEx_sincos(px_surface *psurface, px_texture *resTexture, 
                     continue;
                 }
 
-                PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, PX_SURFACECOLOR(resTexture, mapX, mapY));
+                // PX_SurfaceDrawPixelFaster(psurface, x + i, y + j, PX_SURFACECOLOR(resTexture, mapX, mapY));
+                PX_SurfaceDrawPixel(psurface, x + i, y + j, PX_SURFACECOLOR(resTexture, mapX, mapY));
             }
         }
     }

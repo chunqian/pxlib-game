@@ -1,11 +1,13 @@
 #ifndef PX_STARTUP_H
 #define PX_STARTUP_H
 
-#include "../../pxlib/platform/windows/Platform_Windows_D2D.h"
 #include "../../pxlib/platform/windows/Platform_Windows_Audio.h"
+#include "../../pxlib/platform/windows/Platform_Windows_D2D.h"
+
 #include "../../pxlib/arch/PX_Console.h"
 #include "../../pxlib/arch/PX_MessageBox.h"
 #include "../../pxlib/platform/windows/px_udp.h"
+
 #include "../network/GameServer_Network.h"
 
 typedef struct {

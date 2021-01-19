@@ -113,7 +113,7 @@ px_bool PX_ApplicationInitialize(PX_Application *pApp) {
         return PX_FALSE;
     }
 
-    if (!PX_FontModuleInitialize(&pApp->Instance.runtime.mp_resources, &App.Instance.fontmodule32)) {
+    if (!PX_FontModuleInitialize(&pApp->Instance.runtime.mp_resources, &App.Instance.fontmodule32, PX_FONTMODULE_CODEPAGE_UTF8)) {
         MessageBox(NULL, "字模初始化失败", "error", MB_OK);
         return PX_FALSE;
     }

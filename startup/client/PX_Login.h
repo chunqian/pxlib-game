@@ -17,13 +17,13 @@
 #define PX_LOGIN_TEXT_SIGNUP "注册账户"
 #define PX_LOGIN_TEXT_EXIT "退出游戏"
 #define PX_LOGIN_TEXT_LOGIN "登录"
-#define PX_LOGIN_TEXT_LOGINING_LOGIN_TEXT ((px_char *)L"以安全链接登录中")
-#define PX_LOGIN_TEXT_LOGINING_EXCHANGE_TEXT ((px_char *)L"正在建立安全链接")
-#define PX_LOGIN_TEXT_CONNECTION_FAILED ((px_char *)L"连接失败")
+#define PX_LOGIN_TEXT_LOGINING_LOGIN_TEXT "以安全链接登录中"
+#define PX_LOGIN_TEXT_LOGINING_EXCHANGE_TEXT "正在建立安全链接"
+#define PX_LOGIN_TEXT_CONNECTION_FAILED "连接失败"
 
-#define PX_LOGIN_TEXT_INVALID_ACCOUNT ((px_char *)L"无效的账户名")
-#define PX_LOGIN_TEXT_INVALID_PASSWORD ((px_char *)L"无效的密码")
-#define PX_LOGIN_TEXT_LOGINING ((px_char *)L"登陆中")
+#define PX_LOGIN_TEXT_INVALID_ACCOUNT "无效的账户名"
+#define PX_LOGIN_TEXT_INVALID_PASSWORD "无效的密码"
+#define PX_LOGIN_TEXT_LOGINING "登陆中"
 
 typedef enum {
     PX_LOGIN_STATUS_STANDBY,

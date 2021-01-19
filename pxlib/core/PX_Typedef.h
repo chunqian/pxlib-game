@@ -71,6 +71,18 @@ typedef struct {
 #define BigLittleSwap32(A) \
     ((((px_dword)(A)&0xff000000) >> 24) | (((px_dword)(A)&0x00ff0000) >> 8) | (((px_dword)(A)&0x0000ff00) << 8) | (((px_dword)(A)&0x000000ff) << 24))
 
+typedef enum {
+    PX_ALIGN_LEFTTOP,
+    PX_ALIGN_MIDTOP,
+    PX_ALIGN_RIGHTTOP,
+    PX_ALIGN_LEFTMID,
+    PX_ALIGN_CENTER,
+    PX_ALIGN_RIGHTMID,
+    PX_ALIGN_LEFTBOTTOM,
+    PX_ALIGN_MIDBOTTOM,
+    PX_ALIGN_RIGHTBOTTOM,
+} PX_ALIGN;
+
 typedef struct _px_matrix {
     union {
         struct {

@@ -2,8 +2,10 @@
 #define PX_LOBBY_H
 
 #include "PX_Startup.h"
+
 #include "../../game/client/PX_GameClientStartup.h"
 #include "../../game/common/Game_Object_Base.h"
+#include "GameServer_Network.h"
 
 #define PX_LOBBY_PANELUSERINFO_X 0
 #define PX_LOBBY_PANELUSERINFO_Y 0

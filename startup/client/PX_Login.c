@@ -56,35 +56,37 @@ px_bool PX_LoginInitialize(PX_Instance *pIns, PX_Login *pl, const px_char LoginS
 
     pl->login_root = PX_ObjectCreate(&pl->pIns->runtime.mp_ui, PX_NULL, 0, 0, 0, 0, 0, 0);
     if (pl->login_root) {
-        if (!(pl->edit_user = PX_Object_EditCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 300, 235, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pl->edit_user = PX_Object_EditCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 300, 235, 238, 22, &pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pl->edit_user, PX_FALSE);
         PX_Object_EditSetMaxTextLength(pl->edit_user, 16);
         PX_Object_EditSetLimit(pl->edit_user, PX_Login_EditAccountLimit);
 
-        if (!(pl->edit_pwd = PX_Object_EditCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 300, 298, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pl->edit_pwd = PX_Object_EditCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 300, 298, 238, 22, &pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pl->edit_pwd, PX_FALSE);
         PX_Object_EditSetPasswordStyle(pl->edit_pwd, PX_TRUE);
         PX_Object_EditSetMaxTextLength(pl->edit_pwd, 16);
         PX_Object_EditSetLimit(pl->edit_pwd, PX_Login_EditPasswordLimit);
 
-        if (!(pl->btn_login =
-                  PX_Object_PushButtonCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 255, 370, 128, 32, PX_LOGIN_TEXT_LOGIN, PX_COLOR(255, 0, 0, 0))))
+        if (!(pl->btn_login = PX_Object_PushButtonCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 255, 370, 128, 32, PX_LOGIN_TEXT_LOGIN, &pIns->fontmodule32,
+                                                         PX_COLOR(255, 0, 0, 0))))
             goto _ERROR;
         PX_Object_PushButtonSetBackgroundColor(pl->btn_login, PX_COLOR(255, 255, 255, 255));
         PX_Object_PushButtonSetBorder(pl->btn_login, PX_TRUE);
         PX_Object_PushButtonSetBorderColor(pl->btn_login, PX_COLOR(255, 0, 0, 0));
         PX_Object_PushButtonSetCursorColor(pl->btn_login, PX_COLOR(255, 192, 192, 192));
         PX_Object_PushButtonSetPushColor(pl->btn_login, PX_COLOR(255, 128, 128, 128));
-        if (!(pl->btn_exit =
-                  PX_Object_PushButtonCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 425, 370, 128, 32, PX_LOGIN_TEXT_EXIT, PX_COLOR(255, 0, 0, 0))))
+        if (!(pl->btn_exit = PX_Object_PushButtonCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 425, 370, 128, 32, PX_LOGIN_TEXT_EXIT, &pIns->fontmodule32,
+                                                        PX_COLOR(255, 0, 0, 0))))
             goto _ERROR;
         PX_Object_PushButtonSetBackgroundColor(pl->btn_exit, PX_COLOR(255, 255, 255, 255));
         PX_Object_PushButtonSetBorder(pl->btn_exit, PX_TRUE);
         PX_Object_PushButtonSetBorderColor(pl->btn_exit, PX_COLOR(255, 0, 0, 0));
         PX_Object_PushButtonSetCursorColor(pl->btn_exit, PX_COLOR(255, 192, 192, 192));
         PX_Object_PushButtonSetPushColor(pl->btn_exit, PX_COLOR(255, 128, 128, 128));
-        if (!(pl->btn_signup =
-                  PX_Object_PushButtonCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 718, 2, 80, 24, PX_LOGIN_TEXT_SIGNUP, PX_COLOR(255, 25, 25, 255))))
+        if (!(pl->btn_signup = PX_Object_PushButtonCreate(&pl->pIns->runtime.mp_ui, pl->login_root, 718, 2, 80, 24, PX_LOGIN_TEXT_SIGNUP, &pIns->fontmodule32,
+                                                          PX_COLOR(255, 25, 25, 255))))
             goto _ERROR;
         PX_Object_PushButtonSetBackgroundColor(pl->btn_signup, PX_COLOR(255, 255, 255, 255));
         PX_Object_PushButtonSetBorder(pl->btn_signup, PX_TRUE);
@@ -159,7 +161,8 @@ static px_void PX_ClientLoginUpdate_Exchange(PX_Login *pl, px_dword elpased) {
         pl->status = PX_LOGIN_STATUS_FAILED;
         PX_ApplicationMessageBoxAlertOk("");
         pl->loginErrorMessage[0] = 0;
-        PX_wstrcat(pl->loginErrorMessage, (px_word *)PX_LOGIN_TEXT_CONNECTION_FAILED);
+        // PX_wstrcat(pl->loginErrorMessage, (px_word *)PX_LOGIN_TEXT_CONNECTION_FAILED);
+        PX_strcat((px_char *)pl->loginErrorMessage, PX_LOGIN_TEXT_CONNECTION_FAILED);
         pl->times = 0;
         pl->elpased = 0;
     }
@@ -234,7 +237,8 @@ static px_void DEMO_ClientLoginUpdate_Login(PX_Login *pl, px_dword elpased) {
         pl->elpased = 0;
         pl->loginErrorMessage[0] = 0;
         PX_ApplicationMessageBoxAlertOk("");
-        PX_wstrcat(pl->loginErrorMessage, (px_word *)PX_LOGIN_TEXT_CONNECTION_FAILED);
+        // PX_wstrcat(pl->loginErrorMessage, (px_word *)PX_LOGIN_TEXT_CONNECTION_FAILED);
+        PX_strcat((px_char *)pl->loginErrorMessage, PX_LOGIN_TEXT_CONNECTION_FAILED);
     }
 }
 

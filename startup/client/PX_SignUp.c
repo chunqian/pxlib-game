@@ -96,49 +96,63 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
 
     pR->signup_root = PX_ObjectCreate(&pR->pIns->runtime.mp_ui, PX_NULL, 0, 0, 0, 0, 0, 0);
     if (pR->signup_root) {
-        if (!(pR->edit_user = PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 178, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pR->edit_user =
+                  PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 178, 238, 22, &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pR->edit_user, PX_FALSE);
         PX_Object_EditSetLimit(pR->edit_user, PX_SignUp_EditAccountLimit);
 
-        if (!(pR->label_accountInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 178, 128, 22, "*账户", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_accountInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 178, 128, 22, "*账户", &pR->pIns->fontmodule32,
+                                                            PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_accountInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_accountInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
 
-        if (!(pR->edit_nickname = PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 231, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pR->edit_nickname =
+                  PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 231, 238, 22, &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pR->edit_nickname, PX_FALSE);
 
-        if (!(pR->label_nickInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 231, 128, 22, "*昵称", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_nickInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 231, 128, 22, "*昵称", &pR->pIns->fontmodule32,
+                                                         PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_nickInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_nickInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
 
-        if (!(pR->edit_pwd = PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 284, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pR->edit_pwd =
+                  PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 284, 238, 22, &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pR->edit_pwd, PX_FALSE);
         PX_Object_EditSetPasswordStyle(pR->edit_pwd, PX_TRUE);
         PX_Object_EditSetLimit(pR->edit_pwd, PX_SignUp_EditPasswordLimit);
 
-        if (!(pR->label_pwdInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 555, 284, 128, 22, "*密码", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_pwdInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 555, 284, 128, 22, "*密码", &pR->pIns->fontmodule32,
+                                                        PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_pwdInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_pwdInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
 
-        if (!(pR->edit_pwdrepeat = PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 326, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pR->edit_pwdrepeat =
+                  PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 326, 238, 22, &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pR->edit_pwdrepeat, PX_FALSE);
         PX_Object_EditSetPasswordStyle(pR->edit_pwdrepeat, PX_TRUE);
         PX_Object_EditSetLimit(pR->edit_pwdrepeat, PX_SignUp_EditPasswordLimit);
 
-        if (!(pR->edit_regcode = PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 384, 238, 22, PX_COLOR(255, 0, 0, 0)))) goto _ERROR;
+        if (!(pR->edit_regcode =
+                  PX_Object_EditCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 298, 384, 238, 22, &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
+            goto _ERROR;
         PX_Object_EditSetBorder(pR->edit_regcode, PX_FALSE);
         PX_Object_EditSetLimit(pR->edit_regcode, PX_SignUp_EditAccountLimit);
 
-        if (!(pR->label_regcodeInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 384, 128, 22, "*注册码", PX_COLOR(255, 255, 0, 0))))
+        if (!(pR->label_regcodeInfo = PX_Object_LabelCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 545, 384, 128, 22, "*注册码", &pR->pIns->fontmodule32,
+                                                            PX_COLOR(255, 255, 0, 0))))
             goto _ERROR;
         PX_Object_LabelSetBackgroundColor(pR->label_regcodeInfo, PX_COLOR(255, 255, 255, 255));
         PX_Object_LabelSetAlign(pR->label_regcodeInfo, PX_OBJECT_ALIGN_LEFT | PX_OBJECT_ALIGN_VCENTER);
 
-        if (!(pR->btn_reg =
-                  PX_Object_PushButtonCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 255, 450, 128, 32, PX_SIGNUP_TEXT_SIGNUP, PX_COLOR(255, 0, 0, 0))))
+        if (!(pR->btn_reg = PX_Object_PushButtonCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 255, 450, 128, 32, PX_SIGNUP_TEXT_SIGNUP,
+                                                       &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
             goto _ERROR;
         PX_Object_PushButtonSetBackgroundColor(pR->btn_reg, PX_COLOR(255, 255, 255, 255));
         PX_Object_PushButtonSetBorder(pR->btn_reg, PX_TRUE);
@@ -146,8 +160,8 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
         PX_Object_PushButtonSetBorderColor(pR->btn_reg, PX_COLOR(255, 0, 0, 0));
         PX_Object_PushButtonSetCursorColor(pR->btn_reg, PX_COLOR(255, 192, 192, 192));
 
-        if (!(pR->btn_exit =
-                  PX_Object_PushButtonCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 425, 450, 128, 32, PX_SIGNUP_TEXT_EXIT, PX_COLOR(255, 0, 0, 0))))
+        if (!(pR->btn_exit = PX_Object_PushButtonCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 425, 450, 128, 32, PX_SIGNUP_TEXT_EXIT,
+                                                        &pR->pIns->fontmodule32, PX_COLOR(255, 0, 0, 0))))
             goto _ERROR;
         PX_Object_PushButtonSetBackgroundColor(pR->btn_exit, PX_COLOR(255, 255, 255, 255));
         PX_Object_PushButtonSetPushColor(pR->btn_exit, PX_COLOR(255, 128, 128, 128));
@@ -155,8 +169,8 @@ px_bool PX_SignUpInitialize(PX_Instance *pIns, PX_SignUp *pR, const px_char Sign
         PX_Object_PushButtonSetBorderColor(pR->btn_exit, PX_COLOR(255, 0, 0, 0));
         PX_Object_PushButtonSetCursorColor(pR->btn_exit, PX_COLOR(255, 192, 192, 192));
 
-        if (!(pR->btn_login =
-                  PX_Object_PushButtonCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 718, 2, 80, 24, PX_SIGNUP_TEXT_LOGIN, PX_COLOR(255, 25, 25, 255))))
+        if (!(pR->btn_login = PX_Object_PushButtonCreate(&pR->pIns->runtime.mp_ui, pR->signup_root, 718, 2, 80, 24, PX_SIGNUP_TEXT_LOGIN,
+                                                         &pR->pIns->fontmodule32, PX_COLOR(255, 25, 25, 255))))
             goto _ERROR;
         PX_Object_PushButtonSetBackgroundColor(pR->btn_login, PX_COLOR(255, 255, 255, 255));
         PX_Object_PushButtonSetBorder(pR->btn_login, PX_TRUE);

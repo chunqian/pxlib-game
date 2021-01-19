@@ -43,9 +43,19 @@ PX_Object *PX_ObjectCreateEx(px_memorypool *mp, PX_Object *Parent, px_float x, p
     return pObject;
 }
 
+px_void PX_ObjectGetInheritXY(PX_Object *Object, px_float *x, px_float *y) {
+    *x = 0;
+    *y = 0;
+    Object = Object->pParent;
+    while (Object) {
+        *x += Object->x;
+        *y += Object->y;
+        Object = Object->pParent;
+    }
+}
+
 static px_void PX_Object_ObjectEventFree(PX_Object **Object) {
     PX_OBJECT_EventAction *pNext, *pCur;
-    ;
     // PX_Object_Free Events linker
     pCur = (*Object)->pEventActions;
     while (pCur) {
@@ -329,7 +339,8 @@ px_void PX_ObjectPostEvent(PX_Object *pPost, PX_Object_Event Event) {
     PX_ObjectPostEvent(pPost->pChilds, Event);
 }
 
-PX_Object *PX_Object_LabelCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text, px_color Color) {
+PX_Object *PX_Object_LabelCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text, PX_FontModule *fm,
+                                 px_color Color) {
     px_int TextLen;
     PX_Object *pObject;
     PX_Object_Label *pLable = (PX_Object_Label *)MP_Malloc(mp, sizeof(PX_Object_Label));
@@ -365,9 +376,8 @@ PX_Object *PX_Object_LabelCreate(px_memorypool *mp, PX_Object *Parent, px_int x,
 
     pLable->TextColor = Color;
     pLable->BackgroundColor = PX_COLOR(0, 0, 0, 0);
-    pLable->Border = PX_FALSE;
-    pLable->Align = PX_OBJECT_ALIGN_HCENTER | PX_OBJECT_ALIGN_VCENTER;
-
+    pLable->Align = PX_ALIGN_LEFTMID;
+    pLable->fontModule = fm;
     return pObject;
 }
 
@@ -436,8 +446,9 @@ px_void PX_Object_LabelSetBorder(PX_Object *pLabel, px_bool Border) {
 }
 
 px_void PX_Object_LabelRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
-    px_int TextLen, i;
-    px_int x, y;
+    px_int x, y, w, h;
+    px_float inheritX, inheritY;
+    PX_SurfaceLimitInfo limitInfo;
     PX_Object_Label *pLabel = (PX_Object_Label *)pObject->pObject;
     if (pLabel == PX_NULL) {
         return;
@@ -447,54 +458,46 @@ px_void PX_Object_LabelRender(px_surface *psurface, PX_Object *pObject, px_uint 
         return;
     }
 
-    TextLen = 0;
-    for (i = 0; i < PX_strlen(pLabel->Text); i++) {
-        if (pLabel->Text[i] & 0x80) {
-            TextLen += __PX_FONT_GBKSIZE;
-            i++;
-            continue;
-        } else {
-            TextLen += __PX_FONT_ASCSIZE;
-        }
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+    x = (px_int)(pObject->x + inheritX);
+    y = (px_int)(pObject->y + inheritY);
+    w = (px_int)pObject->Width;
+    h = (px_int)pObject->Height;
+
+    PX_GeoDrawRect(psurface, x, y, x + w, y + h - 1, pLabel->BackgroundColor);
+    limitInfo = PX_SurfaceGetLimit(psurface);
+    PX_SurfaceSetLimit(psurface, x, y, x + w - 1, y + h - 1);
+
+    switch (pLabel->Align) {
+        case PX_ALIGN_LEFTTOP:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x, y, PX_ALIGN_LEFTTOP, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_LEFTMID:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x, y + h / 2, PX_ALIGN_LEFTMID, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_LEFTBOTTOM:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x, y + h, PX_ALIGN_LEFTBOTTOM, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_MIDTOP:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w / 2, y, PX_ALIGN_MIDTOP, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_CENTER:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w / 2, y + h / 2, PX_ALIGN_CENTER, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_MIDBOTTOM:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w / 2, y + h, PX_ALIGN_MIDBOTTOM, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_RIGHTTOP:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w, y, PX_ALIGN_RIGHTTOP, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_RIGHTMID:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w, y + h / 2, PX_ALIGN_RIGHTMID, pLabel->Text, pLabel->TextColor);
+            break;
+        case PX_ALIGN_RIGHTBOTTOM:
+            PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w, y + h, PX_ALIGN_RIGHTBOTTOM, pLabel->Text, pLabel->TextColor);
+            break;
     }
-    x = (px_int)pObject->x;
-    y = (px_int)pObject->y;
-
-    if (pLabel->Align & PX_OBJECT_ALIGN_HCENTER) {
-        x = (px_int)pObject->x;
-        x = x + (px_int)(pObject->Width - TextLen) / 2;
-    }
-
-    if (pLabel->Align & PX_OBJECT_ALIGN_VCENTER) {
-        y = (px_int)pObject->y;
-        y = y + (px_int)(pObject->Height - __PX_FONT_HEIGHT) / 2;
-    }
-
-    if (pLabel->Align & PX_OBJECT_ALIGN_LEFT) {
-        x = (px_int)pObject->x;
-    }
-
-    if (pLabel->Align & PX_OBJECT_ALIGN_RIGHT) {
-        x = (px_int)pObject->x + (px_int)pObject->Width - TextLen;
-    }
-
-    if (pLabel->Align & PX_OBJECT_ALIGN_TOP) {
-        y = (px_int)pObject->y;
-    }
-
-    if (pLabel->Align & PX_OBJECT_ALIGN_BOTTOM) {
-        y = (px_int)pObject->y + (px_int)pObject->Height - __PX_FONT_HEIGHT;
-    }
-
-    PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                   (px_int)pObject->y + (px_int)pObject->Height - 1, pLabel->BackgroundColor);
-
-    if (pLabel->Border) {
-        PX_GeoDrawBorder(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                         (px_int)pObject->y + (px_int)pObject->Height - 1, 1, pLabel->TextColor);
-    }
-
-    PX_FontDrawText(psurface, x, y, pLabel->Text, pLabel->TextColor, PX_FONT_ALIGN_XLEFT);
+    PX_SurfaceSetLimitInfo(psurface, limitInfo);
 }
 
 px_void PX_Object_LabelFree(PX_Object *pLabel) {
@@ -1293,7 +1296,7 @@ px_void PX_Object_PushButtonOnMouseLButtonUp(PX_Object *Object, PX_Object_Event 
 }
 
 PX_Object *PX_Object_PushButtonCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text,
-                                      px_color Color) {
+                                      PX_FontModule *fontmodule, px_color Color) {
     px_int TextLen;
     PX_Object *pObject;
     PX_Object_PushButton *pPushButton = (PX_Object_PushButton *)MP_Malloc(mp, sizeof(PX_Object_PushButton));
@@ -1333,13 +1336,13 @@ PX_Object *PX_Object_PushButtonCreate(px_memorypool *mp, PX_Object *Parent, px_i
     pPushButton->BackgroundColor = PX_COLOR(255, 255, 255, 255);
     pPushButton->BorderColor = PX_COLOR(255, 0, 0, 0);
     pPushButton->Border = PX_TRUE;
-    pPushButton->Align = PX_OBJECT_ALIGN_HCENTER | PX_OBJECT_ALIGN_VCENTER;
     pPushButton->state = PX_OBJECT_BUTTON_STATE_NORMAL;
     pPushButton->Border = PX_TRUE;
     pPushButton->style = PX_OBJECT_PUSHBUTTON_STYLE_RECT;
     pPushButton->roundradius = PX_OBJECT_PUSHBUTTON_ROUNDRADIUS;
     pPushButton->shape = PX_NULL;
     pPushButton->Texture = PX_NULL;
+    pPushButton->fontModule = fontmodule;
 
     PX_ObjectRegisterEvent(pObject, PX_OBJECT_EVENT_CURSORMOVE, PX_Object_PushButtonOnMouseMove, PX_NULL);
     PX_ObjectRegisterEvent(pObject, PX_OBJECT_EVENT_CURSORDRAG, PX_Object_PushButtonOnMouseMove, PX_NULL);
@@ -1458,9 +1461,17 @@ px_void PX_Object_PushButtonSetBorder(PX_Object *Object, px_bool Border) {
 }
 
 px_void PX_Object_PushButtonRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
-    px_int TextLen, i;
     px_int fx, fy;
     PX_Object_PushButton *pPushButton = PX_Object_GetPushButton(pObject);
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
 
     if (pPushButton == PX_NULL) {
         return;
@@ -1470,104 +1481,70 @@ px_void PX_Object_PushButtonRender(px_surface *psurface, PX_Object *pObject, px_
         return;
     }
 
-    TextLen = 0;
-    for (i = 0; i < PX_strlen(pPushButton->Text); i++) {
-        if (pPushButton->Text[i] & 0x80) {
-            TextLen += __PX_FONT_GBKSIZE;
-            i++;
-            continue;
-        } else {
-            TextLen += __PX_FONT_ASCSIZE;
-        }
-    }
-
-    if (pPushButton->Align & PX_OBJECT_ALIGN_HCENTER) {
-        fx = (px_int)pObject->x;
-        fx = fx + ((px_int)pObject->Width - TextLen) / 2;
-    }
-
-    if (pPushButton->Align & PX_OBJECT_ALIGN_VCENTER) {
-        fy = (px_int)pObject->y;
-        fy = fy + ((px_int)pObject->Height - __PX_FONT_HEIGHT) / 2;
-    }
-
-    if (pPushButton->Align & PX_OBJECT_ALIGN_LEFT) {
-        fx = (px_int)pObject->x;
-    }
-
-    if (pPushButton->Align & PX_OBJECT_ALIGN_RIGHT) {
-        fx = (px_int)pObject->x + (px_int)pObject->Width - TextLen;
-    }
-
-    if (pPushButton->Align & PX_OBJECT_ALIGN_TOP) {
-        fy = (px_int)pObject->y;
-    }
-
-    if (pPushButton->Align & PX_OBJECT_ALIGN_BOTTOM) {
-        fy = (px_int)pObject->y + (px_int)pObject->Height - __PX_FONT_HEIGHT;
-    }
-
     switch (pPushButton->style) {
         case PX_OBJECT_PUSHBUTTON_STYLE_RECT:
-            PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                           (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->BackgroundColor);
+            PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                           pPushButton->BackgroundColor);
             switch (pPushButton->state) {
                 case PX_OBJECT_BUTTON_STATE_NORMAL:
-                    PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                   (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->BackgroundColor);
+                    PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                   pPushButton->BackgroundColor);
                     break;
                 case PX_OBJECT_BUTTON_STATE_ONPUSH:
-                    PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                   (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->PushColor);
+                    PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                   pPushButton->PushColor);
                     break;
                 case PX_OBJECT_BUTTON_STATE_ONCURSOR:
-                    PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                   (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->CursorColor);
+                    PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                   pPushButton->CursorColor);
                     break;
             }
             break;
         case PX_OBJECT_PUSHBUTTON_STYLE_ROUNDRECT:
-            PX_GeoDrawSolidRoundRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                     (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->roundradius, pPushButton->BackgroundColor);
+            PX_GeoDrawSolidRoundRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                     pPushButton->roundradius, pPushButton->BackgroundColor);
             switch (pPushButton->state) {
                 case PX_OBJECT_BUTTON_STATE_NORMAL:
-                    PX_GeoDrawSolidRoundRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                             (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->roundradius, pPushButton->BackgroundColor);
+                    PX_GeoDrawSolidRoundRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                             pPushButton->roundradius, pPushButton->BackgroundColor);
                     break;
                 case PX_OBJECT_BUTTON_STATE_ONPUSH:
-                    PX_GeoDrawSolidRoundRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                             (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->roundradius, pPushButton->PushColor);
+                    PX_GeoDrawSolidRoundRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                             pPushButton->roundradius, pPushButton->PushColor);
                     break;
                 case PX_OBJECT_BUTTON_STATE_ONCURSOR:
-                    PX_GeoDrawSolidRoundRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                             (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->roundradius, pPushButton->CursorColor);
+                    PX_GeoDrawSolidRoundRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                             pPushButton->roundradius, pPushButton->CursorColor);
                     break;
             }
             break;
     }
 
     if (pPushButton->Texture) {
-        PX_TextureRender(psurface, pPushButton->Texture, (px_int)pObject->x + (px_int)pObject->Width / 2, (px_int)pObject->y + (px_int)pObject->Height / 2,
+        PX_TextureRender(psurface, pPushButton->Texture, (px_int)objx + (px_int)objWidth / 2, (px_int)objy + (px_int)objHeight / 2,
                          PX_TEXTURERENDER_REFPOINT_CENTER, PX_NULL);
     } else if (pPushButton->shape) {
-        PX_ShapeRender(psurface, pPushButton->shape, (px_int)pObject->x + (px_int)pObject->Width / 2, (px_int)pObject->y + (px_int)pObject->Height / 2,
+        PX_ShapeRender(psurface, pPushButton->shape, (px_int)objx + (px_int)objWidth / 2, (px_int)objy + (px_int)objHeight / 2,
                        PX_TEXTURERENDER_REFPOINT_CENTER, pPushButton->TextColor);
     }
 
     if (pPushButton->Border) {
         switch (pPushButton->style) {
             case PX_OBJECT_PUSHBUTTON_STYLE_RECT:
-                PX_GeoDrawBorder(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                 (px_int)pObject->y + (px_int)pObject->Height - 1, 1, pPushButton->BorderColor);
+                PX_GeoDrawBorder(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1, 1,
+                                 pPushButton->BorderColor);
                 break;
             case PX_OBJECT_PUSHBUTTON_STYLE_ROUNDRECT:
-                PX_GeoDrawRoundRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                                    (px_int)pObject->y + (px_int)pObject->Height - 1, pPushButton->roundradius, 0.6f, pPushButton->BorderColor);
+                PX_GeoDrawRoundRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                                    pPushButton->roundradius, 0.6f, pPushButton->BorderColor);
                 break;
         }
     }
 
-    PX_FontDrawText(psurface, fx, fy, pPushButton->Text, pPushButton->TextColor, PX_FONT_ALIGN_XLEFT);
+    fx = (px_int)(objx + objWidth / 2);
+    fy = (px_int)(objy + objHeight / 2);
+
+    PX_FontModuleDrawText(psurface, pPushButton->fontModule, fx, fy, PX_ALIGN_CENTER, pPushButton->Text, pPushButton->TextColor);
 }
 
 px_void PX_Object_PushButtonFree(PX_Object *Obj) {
@@ -1685,7 +1662,8 @@ static px_void PX_Object_EditCheckCursor(PX_Object_Edit *pedit) {
     }
 }
 
-PX_Object *PX_Object_EditCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, px_color TextColor) {
+PX_Object *PX_Object_EditCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, PX_FontModule *fontModule,
+                                px_color TextColor) {
     PX_Object *pObject;
     PX_Object_Edit *pEdit = (PX_Object_Edit *)MP_Malloc(mp, sizeof(PX_Object_Edit));
     if (pEdit == PX_NULL) {
@@ -1728,12 +1706,14 @@ PX_Object *PX_Object_EditCreate(px_memorypool *mp, PX_Object *Parent, px_int x, 
     pEdit->onFocus = PX_FALSE;
     pEdit->state = PX_OBJECT_EDIT_STATE_NORMAL;
     pEdit->AutoNewline = PX_FALSE;
-    pEdit->xSpacing = 0;
-    pEdit->ySpacing = 0;
+    pEdit->xFontSpacing = 0;
+    pEdit->yFontSpacing = 0;
     pEdit->HorizontalOffset = 3;
     pEdit->VerticalOffset = 3;
     pEdit->cursor_index = 0;
     pEdit->max_length = -1;
+    pEdit->fontModule = fontModule;
+    pEdit->AutoNewLineSpacing = __PX_FONT_ASCSIZE + 2;
 
     PX_ObjectRegisterEvent(pObject, PX_OBJECT_EVENT_CURSORMOVE, PX_Object_EditOnMouseMove, PX_NULL);
     PX_ObjectRegisterEvent(pObject, PX_OBJECT_EVENT_CURSORDOWN, PX_Object_EditOnMouseLButtonDown, PX_NULL);
@@ -1790,6 +1770,7 @@ px_void PX_Object_EditSetPasswordStyle(PX_Object *pLabel, px_uchar Enabled) {
     PX_Object_Edit *pEdit = PX_Object_GetEdit(pLabel);
     if (pEdit) {
         pEdit->Password = Enabled;
+        pEdit->fontModule = PX_NULL;
     }
 }
 px_void PX_Object_EditSetBackgroundColor(PX_Object *pObject, px_color Color) {
@@ -1834,148 +1815,217 @@ px_void PX_Object_EditSetBorder(PX_Object *pObj, px_bool Border) {
     }
 }
 
-px_void PX_Object_EditUpdateCursorOnDown(PX_Object *pObject, px_int cx, px_int cy) {
-    px_int charIndex;
-    px_int textLen, x, y;
+px_void PX_Object_EditGetCursorXY(PX_Object *pObject, px_int *cx, px_int *cy, px_int *height) {
+    px_int x = 0, y = 0, cursor = 0, fsize = 0;
     PX_Object_Edit *pEdit = (PX_Object_Edit *)pObject->pObject;
+    const px_char *Text = pEdit->text.buffer;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
     if (pEdit == PX_NULL) {
         return;
     }
 
     x = pEdit->HorizontalOffset;
     y = pEdit->VerticalOffset;
-    cx += pEdit->XOffset;
-    cy += pEdit->YOffset;
 
-    textLen = PX_strlen(pEdit->text.buffer);
+    while (PX_TRUE) {
+        fsize = 0;
 
-    for (charIndex = 0; charIndex < textLen; charIndex++) {
-        if (pEdit->text.buffer[charIndex] & 0x80) {
-            if (cx >= x && cx <= x + __PX_FONT_GBKSIZE + pEdit->xSpacing) {
-                if (cx <= x + (__PX_FONT_GBKSIZE + pEdit->xSpacing) / 2) {
-                    if (cy >= y && cy <= y + __PX_FONT_HEIGHT + pEdit->YOffset) {
-                        pEdit->cursor_index = charIndex;
-                        return;
-                    }
-                } else {
-                    if (cy >= y && cy <= y + __PX_FONT_HEIGHT + pEdit->YOffset) {
-                        if (pEdit->text.buffer[charIndex + 1]) {
-                            pEdit->cursor_index = charIndex + 2;
-                            return;
-                        }
-                        return;
-                    }
-                }
-            }
-        } else {
-            if (cx >= x && cx <= x + __PX_FONT_ASCSIZE + pEdit->xSpacing) {
-                if (cx <= x + (__PX_FONT_ASCSIZE + pEdit->xSpacing) / 2) {
-                    if (cy >= y && cy <= y + __PX_FONT_HEIGHT + pEdit->YOffset) {
-                        pEdit->cursor_index = charIndex;
-                        return;
-                    }
-                } else {
-                    if (cy >= y && cy <= y + __PX_FONT_HEIGHT + pEdit->YOffset) {
-                        pEdit->cursor_index = charIndex + 1;
-                        return;
-                    }
-                }
-            }
+        if (cursor == pEdit->cursor_index) {
+            *cx = x;
+            *cy = y;
+            *height = pEdit->fontModule ? pEdit->fontModule->max_Height : __PX_FONT_HEIGHT;
+            return;
         }
 
-        if (pEdit->text.buffer[charIndex] == '\r' || pEdit->text.buffer[charIndex] == '\n') {
-            x = pEdit->HorizontalOffset;
-            y += __PX_FONT_HEIGHT + pEdit->ySpacing;
-        } else if (pEdit->text.buffer[charIndex] == '\t') {
-            x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-        } else {
-            if (pEdit->text.buffer[charIndex] & 0x80) {
-                if (pEdit->Password) {
-                    x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-                    charIndex++;
-                } else {
-                    x += __PX_FONT_GBKSIZE + pEdit->xSpacing;
-                    charIndex++;
-                }
+        if (pEdit->fontModule) {
+            px_dword code;
+            px_int width, height;
+            fsize = PX_FontModuleGetCharacterDesc(pEdit->fontModule, Text + cursor, &code, &width, &height);
+            if (!fsize) {
+                break;
+            }
+            if (code == '\r') {
+                // skip
+            } else if (code == '\n') {
+                x = 0;
+                y += pEdit->fontModule->max_Height + pEdit->yFontSpacing;
             } else {
-                x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
+                x += width + pEdit->xFontSpacing;
             }
-        }
 
-        if (pEdit->AutoNewline) {
-            if (x >= pObject->Width - __PX_FONT_GBKSIZE - pEdit->xSpacing - pEdit->HorizontalOffset) {
-                x = pEdit->HorizontalOffset;
-                y += __PX_FONT_HEIGHT + pEdit->ySpacing;
+            if (pEdit->AutoNewline) {
+                if (x > objWidth - pEdit->AutoNewLineSpacing) {
+                    x = 0;
+                    y += pEdit->fontModule->max_Height + pEdit->yFontSpacing;
+                }
+            }
+
+        } else {
+            fsize = 1;
+
+            if (Text[cursor] == '\r') {
+                // skip
+            } else if (Text[cursor] == '\n') {
+                x = 0;
+                y += __PX_FONT_HEIGHT + pEdit->yFontSpacing;
+            } else if (Text[cursor]) {
+                x += __PX_FONT_ASCSIZE + pEdit->xFontSpacing;
+            } else {
+                break;
+            }
+
+            if (pEdit->AutoNewline) {
+                if (x > objWidth - pEdit->AutoNewLineSpacing) {
+                    x = 0;
+                    y += __PX_FONT_HEIGHT + pEdit->yFontSpacing;
+                }
             }
         }
+        cursor += fsize;
     }
 
-    pEdit->cursor_index = textLen;
+    *cx = x;
+    *cy = y;
+    *height = pEdit->fontModule ? pEdit->fontModule->max_Height : __PX_FONT_HEIGHT;
+}
+
+px_void PX_Object_EditUpdateCursorOnDown(PX_Object *pObject, px_int cx, px_int cy) {
+    px_int x_draw_oft = 0, y_draw_oft = 0, x = 0, y = 0, cursor = 0, fsize = 0;
+    PX_Object_Edit *pEdit = (PX_Object_Edit *)pObject->pObject;
+    const px_char *Text = pEdit->text.buffer;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
+    if (pEdit == PX_NULL) {
+        return;
+    }
+
+    x = pEdit->HorizontalOffset;
+    y = pEdit->VerticalOffset;
+
+    while (PX_TRUE) {
+        fsize = 0;
+        x_draw_oft = x - pEdit->XOffset;
+        y_draw_oft = y - pEdit->YOffset;
+
+        if (pEdit->fontModule) {
+            px_dword code;
+            px_int width, height;
+            fsize = PX_FontModuleGetCharacterDesc(pEdit->fontModule, Text + cursor, &code, &width, &height);
+            if (!fsize) {
+                break;
+            }
+            if (code == '\r') {
+                // skip
+            } else if (code == '\n') {
+                x = 0;
+                y += pEdit->fontModule->max_Height + pEdit->yFontSpacing;
+            } else {
+                if (cx <= x_draw_oft + width / 2 + pEdit->xFontSpacing / 2 && cy <= y_draw_oft + pEdit->fontModule->max_Height + pEdit->yFontSpacing / 2) {
+                    pEdit->cursor_index = cursor;
+                    return;
+                } else {
+                    pEdit->cursor_index = cursor + fsize;
+                }
+
+                x += width + pEdit->xFontSpacing;
+            }
+
+            if (pEdit->AutoNewline) {
+                if (x > objWidth - pEdit->AutoNewLineSpacing) {
+                    x = pEdit->HorizontalOffset;
+                    y += pEdit->fontModule->max_Height + pEdit->yFontSpacing;
+                }
+            }
+
+        } else {
+            fsize = 1;
+
+            if (Text[cursor] == '\r') {
+                // skip
+            } else if (Text[cursor] == '\n') {
+                x = 0;
+                y += __PX_FONT_HEIGHT + pEdit->yFontSpacing;
+            } else if (Text[cursor]) {
+                if (cx <= x_draw_oft + __PX_FONT_ASCSIZE / 2 + pEdit->xFontSpacing / 2 && cy <= y_draw_oft + __PX_FONT_HEIGHT + pEdit->yFontSpacing / 2) {
+                    pEdit->cursor_index = cursor;
+                    return;
+                } else {
+                    pEdit->cursor_index = cursor + fsize;
+                }
+
+                x += __PX_FONT_ASCSIZE + pEdit->xFontSpacing;
+            } else {
+                break;
+            }
+
+            if (pEdit->AutoNewline) {
+                if (x > objWidth - pEdit->AutoNewLineSpacing) {
+                    x = pEdit->HorizontalOffset;
+                    y += __PX_FONT_HEIGHT + pEdit->yFontSpacing;
+                }
+            }
+        }
+        cursor += fsize;
+    }
 }
 
 px_void PX_Object_EditUpdateCursorViewRegion(PX_Object *pObject) {
-    px_int charIndex;
-    px_int textLen, x, y;
+    px_int cursorX, cursorY, cursorHeight;
     PX_Object_Edit *pEdit = (PX_Object_Edit *)pObject->pObject;
+    px_float objWidth, objHeight;
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
     if (pEdit == PX_NULL) {
         return;
     }
 
-    x = pEdit->HorizontalOffset;
-    y = pEdit->VerticalOffset;
+    PX_Object_EditGetCursorXY(pObject, &cursorX, &cursorY, &cursorHeight);
 
-    textLen = PX_strlen(pEdit->text.buffer);
-
-    for (charIndex = 0; charIndex < textLen; charIndex++) {
-        if (pEdit->onFocus && pEdit->cursor_index == charIndex) {
-            break;
-        }
-
-        if (pEdit->text.buffer[charIndex] == '\r' || pEdit->text.buffer[charIndex] == '\n') {
-            x = pEdit->HorizontalOffset;
-            y += __PX_FONT_HEIGHT + pEdit->ySpacing;
-        } else if (pEdit->text.buffer[charIndex] == '\t') {
-            x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-        } else {
-            if (pEdit->text.buffer[charIndex] & 0x80) {
-                if (pEdit->Password) {
-                    x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-                    charIndex++;
-                } else {
-                    x += __PX_FONT_GBKSIZE + pEdit->xSpacing;
-                    charIndex++;
-                }
-            } else {
-                x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-            }
-        }
-
-        if (pEdit->AutoNewline) {
-            if (x >= pObject->Width - __PX_FONT_GBKSIZE - pEdit->xSpacing - pEdit->HorizontalOffset) {
-                x = pEdit->HorizontalOffset;
-                y += __PX_FONT_HEIGHT + pEdit->ySpacing;
-            }
-        }
+    if (cursorX > objWidth - 8) {
+        pEdit->XOffset = cursorX - (px_int)objWidth + 8;
+    } else {
+        pEdit->XOffset = 0;
     }
 
-    if (x != pEdit->XOffset + (px_int)pObject->Width - pEdit->HorizontalOffset - __PX_FONT_ASCSIZE) {
-        pEdit->XOffset = x - ((px_int)pObject->Width - pEdit->HorizontalOffset - __PX_FONT_ASCSIZE);
-        if (pEdit->XOffset < 0) {
-            pEdit->XOffset = 0;
-        }
-    }
-
-    if (x != pEdit->YOffset + (px_int)pObject->Height - pEdit->VerticalOffset - __PX_FONT_HEIGHT) {
-        pEdit->YOffset = y - ((px_int)pObject->Height - pEdit->VerticalOffset - __PX_FONT_HEIGHT);
-        if (pEdit->YOffset < 0) {
-            pEdit->YOffset = 0;
-        }
+    if (cursorY + cursorHeight > objHeight - 2) {
+        pEdit->YOffset = cursorY + cursorHeight - (px_int)objHeight + 2;
+    } else {
+        pEdit->YOffset = 0;
     }
 }
+
 px_void PX_Object_EditRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
-    px_int charIndex;
-    px_int x_draw_oft, y_draw_oft, textLen, x, y;
+    px_int x_draw_oft, y_draw_oft, x, y, cursor, fsize;
     PX_Object_Edit *pEdit = (PX_Object_Edit *)pObject->pObject;
+    const px_char *Text = pEdit->text.buffer;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
     if (pEdit == PX_NULL) {
         return;
     }
@@ -1984,93 +2034,100 @@ px_void PX_Object_EditRender(px_surface *psurface, PX_Object *pObject, px_uint e
         return;
     }
 
-    // clear
-    PX_SurfaceClear(&pEdit->EditSurface, 0, 0, (px_int)pObject->Width - 1, (px_int)pObject->Height - 1, pEdit->BackgroundColor);
+    if (pEdit->EditSurface.width != (px_int)objWidth || pEdit->EditSurface.height != (px_int)objHeight) {
+        PX_SurfaceFree(&pEdit->EditSurface);
+        if (!PX_SurfaceCreate(pObject->mp, (px_int)objWidth, (px_int)objHeight, &pEdit->EditSurface)) {
+            return;
+        }
+    }
 
+    // clear
+    PX_SurfaceClear(&pEdit->EditSurface, 0, 0, (px_int)objWidth - 1, (px_int)objHeight - 1, pEdit->BackgroundColor);
     if (pEdit->Border) {
         if (pEdit->state == PX_OBJECT_EDIT_STATE_NORMAL)
-            PX_GeoDrawBorder(&pEdit->EditSurface, 0, 0, (px_int)pObject->Width - 1, (px_int)pObject->Height - 1, 1, pEdit->BorderColor);
+            PX_GeoDrawBorder(&pEdit->EditSurface, 0, 0, (px_int)objWidth - 1, (px_int)objHeight - 1, 1, pEdit->BorderColor);
         else
-            PX_GeoDrawBorder(&pEdit->EditSurface, 0, 0, (px_int)pObject->Width - 1, (px_int)pObject->Height - 1, 1, pEdit->CursorColor);
+            PX_GeoDrawBorder(&pEdit->EditSurface, 0, 0, (px_int)objWidth - 1, (px_int)objHeight - 1, 1, pEdit->CursorColor);
     }
 
     x = pEdit->HorizontalOffset;
     y = pEdit->VerticalOffset;
 
-    textLen = PX_strlen(pEdit->text.buffer);
+    cursor = 0;
 
-    for (charIndex = 0; charIndex < textLen; charIndex++) {
-        // Draw Cursor
+    while (PX_TRUE) {
+        fsize = 0;
         x_draw_oft = x - pEdit->XOffset;
         y_draw_oft = y - pEdit->YOffset;
 
-        if (pEdit->onFocus && pEdit->cursor_index == charIndex) {
+        // Draw Cursor
+        if (pEdit->onFocus && pEdit->cursor_index == cursor) {
             pEdit->elpased += elpased;
             if ((pEdit->elpased / 200) & 1) {
-                PX_GeoDrawRect(&pEdit->EditSurface, x_draw_oft, y_draw_oft, x_draw_oft + 1, y_draw_oft + __PX_FONT_HEIGHT - 1, pEdit->CursorColor);
+                if (pEdit->fontModule) {
+                    PX_GeoDrawRect(&pEdit->EditSurface, x_draw_oft + 1, y_draw_oft, x_draw_oft, y_draw_oft + pEdit->fontModule->max_Height, pEdit->CursorColor);
+                } else {
+                    PX_GeoDrawRect(&pEdit->EditSurface, x_draw_oft + 1, y_draw_oft, x_draw_oft, y_draw_oft + __PX_FONT_HEIGHT - 1, pEdit->CursorColor);
+                }
             }
         }
 
-        if (pEdit->text.buffer[charIndex] == '\r' || pEdit->text.buffer[charIndex] == '\n') {
-            x = pEdit->HorizontalOffset;
-            y += __PX_FONT_HEIGHT + pEdit->ySpacing;
-        } else if (pEdit->text.buffer[charIndex] == '\t') {
-            x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-        } else {
-            // draw Text
+        if (pEdit->fontModule) {
+            px_dword code;
+            px_int width, height;
+            fsize = PX_FontModuleGetCharacterDesc(pEdit->fontModule, Text + cursor, &code, &width, &height);
+            if (!fsize) {
+                break;
+            }
+            if (code == '\r') {
+                // skip
+            } else if (code == '\n') {
+                x = pEdit->HorizontalOffset;
+                y += pEdit->fontModule->max_Height + pEdit->yFontSpacing;
+            } else {
+                PX_FontModuleDrawCharacter(&pEdit->EditSurface, pEdit->fontModule, x_draw_oft, y_draw_oft, code, pEdit->TextColor);
+                x += width + pEdit->xFontSpacing;
+            }
 
-            if (y_draw_oft > pObject->Height) {
+            if (pEdit->AutoNewline) {
+                if (x > objWidth - pEdit->AutoNewLineSpacing) {
+                    x = 0;
+                    y += pEdit->fontModule->max_Height + pEdit->yFontSpacing;
+                }
+            }
+
+        } else {
+            fsize = 1;
+
+            if (Text[cursor] == '\r') {
+                // skip
+            } else if (Text[cursor] == '\n') {
+                x = 0;
+                y += __PX_FONT_HEIGHT + pEdit->yFontSpacing;
+            } else if (Text[cursor]) {
+                if (pEdit->Password) {
+                    PX_FontDrawChar(&pEdit->EditSurface, x_draw_oft, y_draw_oft, '*', pEdit->TextColor);
+                    x += __PX_FONT_ASCSIZE;
+                } else {
+                    PX_FontDrawChar(&pEdit->EditSurface, x_draw_oft, y_draw_oft, Text[cursor], pEdit->TextColor);
+                    x += __PX_FONT_ASCSIZE;
+                }
+
+            } else {
                 break;
             }
 
-            if (x_draw_oft + __PX_FONT_GBKSIZE > 0 && y_draw_oft + __PX_FONT_HEIGHT > 0) {
-                if (pEdit->Password) {
-                    PX_FontDrawChar(&pEdit->EditSurface, x_draw_oft, y_draw_oft, "*", pEdit->TextColor);
-                } else {
-                    PX_FontDrawChar(&pEdit->EditSurface, x_draw_oft, y_draw_oft, pEdit->text.buffer + charIndex, pEdit->TextColor);
+            if (pEdit->AutoNewline) {
+                if (x > objWidth - pEdit->AutoNewLineSpacing) {
+                    x = pEdit->HorizontalOffset;
+                    y += __PX_FONT_HEIGHT + pEdit->yFontSpacing;
                 }
             }
-
-            if (pEdit->text.buffer[charIndex] & 0x80) {
-                if (pEdit->Password) {
-                    x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-                    charIndex++;
-                } else {
-                    x += __PX_FONT_GBKSIZE + pEdit->xSpacing;
-                    charIndex++;
-                }
-            } else {
-                x += __PX_FONT_ASCSIZE + pEdit->xSpacing;
-            }
         }
-
-        if (pEdit->AutoNewline) {
-            if (x >= pObject->Width - __PX_FONT_GBKSIZE - pEdit->xSpacing - pEdit->HorizontalOffset) {
-                x = pEdit->HorizontalOffset;
-                y += __PX_FONT_HEIGHT + pEdit->ySpacing;
-            }
-        }
-    }
-    if (textLen == 0) {
-        // just draw cursor
-        if (pEdit->onFocus) {
-            pEdit->elpased += elpased;
-            if ((pEdit->elpased / 200) & 1) {
-                PX_GeoDrawRect(&pEdit->EditSurface, x, y, x + __PX_FONT_ASCSIZE - 1, y + __PX_FONT_HEIGHT - 1, pEdit->CursorColor);
-            }
-        }
-    } else if (pEdit->onFocus && pEdit->cursor_index == charIndex) {
-        x_draw_oft = x - pEdit->XOffset;
-        y_draw_oft = y - pEdit->YOffset;
-
-        pEdit->elpased += elpased;
-        if ((pEdit->elpased / 200) & 1) {
-            PX_GeoDrawRect(&pEdit->EditSurface, x_draw_oft, y_draw_oft, x_draw_oft + __PX_FONT_ASCSIZE - 1, y_draw_oft + __PX_FONT_HEIGHT - 1,
-                           pEdit->CursorColor);
-        }
+        cursor += fsize;
     }
 
-    PX_SurfaceRender(psurface, &pEdit->EditSurface, (px_int)pObject->x, (px_int)pObject->y, PX_TEXTURERENDER_REFPOINT_LEFTTOP, PX_NULL);
+    PX_SurfaceRender(psurface, &pEdit->EditSurface, (px_int)objx, (px_int)objy, PX_TEXTURERENDER_REFPOINT_LEFTTOP, PX_NULL);
 }
 
 px_void PX_Object_EditFree(PX_Object *pObject) {
@@ -2127,26 +2184,85 @@ px_void PX_Object_EditAddString(PX_Object *pObject, px_char *Text) {
 }
 
 px_void PX_Object_EditBackspace(PX_Object *pObject) {
-    px_int oft;
     PX_Object_Event e;
     PX_Object_Edit *pEdit = PX_Object_GetEdit(pObject);
+
     if (pObject != PX_NULL && pEdit->onFocus) {
-        oft = pEdit->cursor_index - 1;
-        if (oft >= 0) {
-            if (pEdit->text.buffer[oft] & 0x80) {
-                if (PX_StringRemoveChar(&pEdit->text, oft)) {
-                    pEdit->cursor_index--;
-                    oft--;
-                }
-            }
-            if (PX_StringRemoveChar(&pEdit->text, oft)) {
+        px_char *pText;
+        pText = pEdit->text.buffer;
+
+        if (!pEdit->fontModule) {
+            if (pEdit->cursor_index) {
+                PX_StringRemoveChar(&pEdit->text, pEdit->cursor_index - 1);
                 pEdit->cursor_index--;
-                oft--;
             }
-            e.Event = PX_OBJECT_EVENT_VALUECHAGE;
-            e.Param_ptr[0] = (px_void *)(pEdit->text.buffer);
-            PX_ObjectExecuteEvent(pObject, e);
+
+            return;
         }
+
+        switch (pEdit->fontModule->codePage) {
+            case PX_FONTMODULE_CODEPAGE_GBK: {
+                px_int idx = 0;
+                px_int c = 0;
+                while (PX_TRUE) {
+                    if (idx == pEdit->cursor_index) {
+                        break;
+                    }
+
+                    if (pText[idx] == 0) {
+                        break;
+                    }
+
+                    if (pText[idx] & 0x80) {
+                        c = 2;
+                        idx += 2;
+                    } else {
+                        idx++;
+                        c = 1;
+                    }
+                }
+
+                while (c) {
+                    PX_StringRemoveChar(&pEdit->text, pEdit->cursor_index - 1);
+                    pEdit->cursor_index--;
+                    c--;
+                }
+
+            } break;
+            case PX_FONTMODULE_CODEPAGE_UTF8: {
+                px_int i;
+                for (i = 0; i < 6; i++) {
+                    if (pEdit->cursor_index == 0) {
+                        break;
+                    }
+
+                    if ((pText[pEdit->cursor_index - 1] & 0x80) == 0x00) {
+                        PX_StringRemoveChar(&pEdit->text, pEdit->cursor_index - 1);
+                        pEdit->cursor_index--;
+                        break;
+                    }
+
+                    if ((pText[pEdit->cursor_index - 1] & 0xc0) == 0x80) {
+                        PX_StringRemoveChar(&pEdit->text, pEdit->cursor_index - 1);
+                        pEdit->cursor_index--;
+                        continue;
+                    }
+
+                    if ((pText[pEdit->cursor_index - 1] & 0xc0) == 0xc0) {
+                        PX_StringRemoveChar(&pEdit->text, pEdit->cursor_index - 1);
+                        pEdit->cursor_index--;
+                        break;
+                    }
+                }
+            } break;
+            case PX_FONTMODULE_CODEPAGE_UTF16: {
+                // not support
+            } break;
+        }
+
+        e.Event = PX_OBJECT_EVENT_VALUECHAGE;
+        e.Param_ptr[0] = 0;
+        PX_ObjectExecuteEvent(pObject, e);
     }
 }
 
@@ -2199,103 +2315,6 @@ px_void PX_Object_EditSetOffset(PX_Object *pObject, px_int TopOffset, px_int Lef
         pEdit->HorizontalOffset = LeftOffset;
     }
 }
-
-//
-// PX_Object * PX_Object_StaticImageCreate(px_memorypool *mp,PX_Object *Parent,px_int x,px_int y,px_texture tex )
-// {
-//  PX_Object *pObject;
-//  PX_Object_StaticImage *pImage=(PX_Object_StaticImage *)MP_Malloc(mp,sizeof(PX_Object_StaticImage));
-//  if (pImage==PX_NULL)
-//  {
-//      return PX_NULL;
-//  }
-//  pObject=PX_ObjectCreate(mp,Parent,(px_float)x,(px_float)y,0,0,0,0);
-//  if (pObject==PX_NULL)
-//  {
-//      MP_Free(pObject->mp,pImage);
-//      return PX_NULL;
-//  }
-//
-//  pObject->pObject=pImage;
-//  pObject->Enabled=PX_TRUE;
-//  pObject->Visible=PX_TRUE;
-//  pObject->Type=PX_OBJECT_TYPE_STATICIMAGE;
-//  pObject->ReceiveEvents=PX_FALSE;
-//  pObject->Func_ObjectFree=PX_Object_StaticImageFree;
-//  pObject->Func_ObjectRender=PX_Object_StaticImageRender;
-//  pImage->Texture=tex;
-//  pImage->Align=PX_OBJECT_ALIGN_LEFT|PX_OBJECT_ALIGN_TOP;
-//  return pObject;
-// }
-//
-//
-// PX_Object_StaticImage * PX_Object_GetStaticImage( PX_Object *Object )
-// {
-//  if(Object->Type==PX_OBJECT_TYPE_STATICIMAGE)
-//      return (PX_Object_StaticImage *)Object->pObject;
-//  else
-//      return PX_NULL;
-// }
-//
-// px_void PX_Object_StaticImageSetAlign( PX_Object *pImage,px_dword Align)
-// {
-//  PX_Object_StaticImage *Bitmap=PX_Object_GetStaticImage(pImage);
-//  if (Bitmap)
-//  {
-//      Bitmap->Align=Align;
-//  }
-// }
-//
-//
-// px_void PX_Object_StaticImageRender(px_surface *psurface, PX_Object *im,px_uint elpased)
-// {
-//  px_int x;
-//  px_int y;
-//  PX_Object_StaticImage *pImage=PX_Object_GetStaticImage(im);
-//  x=(px_int)im->x;
-//  y=(px_int)im->y;
-//
-//  if (pImage->Align&PX_OBJECT_ALIGN_BOTTOM)
-//  {
-//      y=(px_int)im->y+(px_int)im->Height-pImage->Texture.height;
-//  }
-//  if (pImage->Align&PX_OBJECT_ALIGN_TOP)
-//  {
-//      y=(px_int)im->y;
-//  }
-//  if (pImage->Align&PX_OBJECT_ALIGN_LEFT)
-//  {
-//      x=(px_int)im->x;
-//  }
-//  if (pImage->Align&PX_OBJECT_ALIGN_RIGHT)
-//  {
-//      x=(px_int)im->x+(px_int)im->Width-pImage->Texture.width;
-//  }
-//
-//  if (pImage->Align&PX_OBJECT_ALIGN_HCENTER)
-//  {
-//      x=(px_int)im->x+((px_int)im->Width-pImage->Texture.width)/2;
-//  }
-//  if (pImage->Align&PX_OBJECT_ALIGN_VCENTER)
-//  {
-//      y=(px_int)im->y+((px_int)im->Height-pImage->Texture.height)/2;
-//  }
-//
-//  if (pImage!=PX_NULL)
-//  {
-//      PX_TextureRender(psurface,&pImage->Texture,x,y,PX_TEXTURERENDER_REFPOINT_LEFTTOP,PX_NULL);
-//  }
-// }
-//
-// px_void PX_Object_StaticImageFree(PX_Object *pObj)
-// {
-//  PX_Object_StaticImage *pImage;
-//  pImage=PX_Object_GetStaticImage(pObj);
-//  if (pImage)
-//  {
-//      PX_TextureFree(&pImage->Texture);
-//  }
-// }
 
 px_void PX_Object_ScrollArea_EventDispatcher(PX_Object *Object, PX_Object_Event e, px_void *user_ptr) {
     PX_Object_ScrollArea *pSA = PX_Object_GetScrollArea(Object);
@@ -2476,7 +2495,7 @@ PX_Object_ScrollArea *PX_Object_GetScrollArea(PX_Object *Object) {
         return PX_NULL;
 }
 
-PX_Object *PX_Object_AutoTextCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int width) {
+PX_Object *PX_Object_AutoTextCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int width, PX_FontModule *fm) {
     PX_Object *pObject;
 
     PX_Object_AutoText *pAt = (PX_Object_AutoText *)MP_Malloc(mp, sizeof(PX_Object_AutoText));
@@ -2507,55 +2526,83 @@ PX_Object *PX_Object_AutoTextCreate(px_memorypool *mp, PX_Object *Parent, px_int
     pObject->Func_ObjectRender = PX_Object_AutoTextRender;
 
     pAt->TextColor = PX_COLOR(255, 0, 0, 0);
+    pAt->fontModule = fm;
     return pObject;
 }
 
 px_void PX_Object_AutoTextRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
-    px_int i;
-    px_int w = 0;
-    px_int h = 0;
-    PX_Object_AutoText *pAt = PX_Object_GetAutoText(pObject);
+    px_int x_draw_oft, y_draw_oft, cursor, fsize;
+    PX_Object_AutoText *pAt = (PX_Object_AutoText *)pObject->pObject;
+    const px_char *Text = pAt->text.buffer;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
 
-    if (!pAt) {
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
+    if (pAt == PX_NULL) {
         return;
     }
-    for (i = 0; i < PX_strlen(pAt->text.buffer); i++) {
-        if (pAt->text.buffer[i] == '\n') {
-            w = 0;
-            h += PX_FontGetCharactorHeight();
-            continue;
-        }
-        if (pAt->text.buffer[i] == '\r') {
-            continue;
-        }
 
-        if (pAt->text.buffer[i] == '\t') {
-            w += PX_FontGetGbkCharactorWidth();
-            continue;
-        }
+    if (!pObject->Visible) {
+        return;
+    }
 
-        if (pAt->text.buffer[i] & 0x80) {
-            if (w + PX_FontGetGbkCharactorWidth() > pObject->Width) {
-                w = 0;
-                h += PX_FontGetCharactorHeight();
-                PX_FontDrawGBK(psurface, (px_int)pObject->x + w, (px_int)pObject->y + h, (px_uchar *)pAt->text.buffer + i, pAt->TextColor);
-                w += PX_FontGetGbkCharactorWidth();
-            } else {
-                PX_FontDrawGBK(psurface, (px_int)pObject->x + w, (px_int)pObject->y + h, (px_uchar *)pAt->text.buffer + i, pAt->TextColor);
-                w += PX_FontGetGbkCharactorWidth();
+    x_draw_oft = (px_int)objx;
+    y_draw_oft = (px_int)objy;
+
+    cursor = 0;
+
+    while (PX_TRUE) {
+        fsize = 0;
+
+        if (pAt->fontModule) {
+            px_dword code;
+            px_int width, height;
+            fsize = PX_FontModuleGetCharacterDesc(pAt->fontModule, Text + cursor, &code, &width, &height);
+            if (!fsize) {
+                break;
             }
-            i++;
+            if (code == '\r') {
+                // skip
+            } else if (code == '\n') {
+                x_draw_oft = (px_int)objx;
+                y_draw_oft += pAt->fontModule->max_Height;
+            } else {
+                PX_FontModuleDrawCharacter(psurface, pAt->fontModule, x_draw_oft, y_draw_oft, code, pAt->TextColor);
+                x_draw_oft += width;
+            }
+
+            if (x_draw_oft > objx + objWidth - PX_FontGetAscCharactorWidth() * 2) {
+                x_draw_oft = (px_int)objx;
+                y_draw_oft += pAt->fontModule->max_Height;
+            }
+
         } else {
-            if (w + PX_FontGetAscCharactorWidth() > pObject->Width) {
-                w = 0;
-                h += PX_FontGetCharactorHeight();
-                PX_FontDrawASCII(psurface, (px_int)pObject->x + w, (px_int)pObject->y + h, pAt->text.buffer[i], pAt->TextColor);
-                w += PX_FontGetAscCharactorWidth();
+            fsize = 1;
+
+            if (Text[cursor] == '\r') {
+                // skip
+            } else if (Text[cursor] == '\n') {
+                x_draw_oft = (px_int)objx;
+                y_draw_oft += __PX_FONT_HEIGHT;
+            } else if (Text[cursor]) {
+                PX_FontDrawChar(psurface, x_draw_oft, y_draw_oft, Text[cursor], pAt->TextColor);
+                x_draw_oft += __PX_FONT_ASCSIZE;
             } else {
-                PX_FontDrawASCII(psurface, (px_int)pObject->x + w, (px_int)pObject->y + h, pAt->text.buffer[i], pAt->TextColor);
-                w += PX_FontGetAscCharactorWidth();
+                break;
+            }
+
+            if (x_draw_oft > objx + objWidth - PX_FontGetAscCharactorWidth() * 2) {
+                x_draw_oft = (px_int)objx;
+                y_draw_oft += __PX_FONT_HEIGHT;
             }
         }
+        cursor += fsize;
     }
 }
 
@@ -2576,6 +2623,7 @@ px_int PX_Object_AutoTextGetHeight(PX_Object *pObject) {
     if (!pAt) {
         return 0;
     }
+
     for (i = 0; i < PX_strlen(pAt->text.buffer); i++) {
         if (pAt->text.buffer[i] == '\n') {
             w = 0;
@@ -2587,21 +2635,14 @@ px_int PX_Object_AutoTextGetHeight(PX_Object *pObject) {
         }
 
         if (pAt->text.buffer[i] == '\t') {
-            w += PX_FontGetGbkCharactorWidth();
+            w += PX_FontGetAscCharactorWidth();
             continue;
         }
 
         if (pAt->text.buffer[i] & 0x80) {
-            if (w + PX_FontGetGbkCharactorWidth() > pObject->Width) {
-                w = 0;
-                h += PX_FontGetCharactorHeight();
-                w += PX_FontGetGbkCharactorWidth();
-            } else {
-                w += PX_FontGetGbkCharactorWidth();
-            }
             i++;
         } else {
-            if (w + PX_FontGetAscCharactorWidth() > pObject->Width) {
+            if (w + PX_FontGetAscCharactorWidth() > pObject->Width - PX_FontGetAscCharactorWidth() * 2) {
                 w = 0;
                 h += PX_FontGetCharactorHeight();
                 w += PX_FontGetAscCharactorWidth();
@@ -3044,7 +3085,7 @@ px_void PX_Object_CursorButtonOnMouseMove(PX_Object *Object, PX_Object_Event e, 
 }
 
 PX_Object *PX_Object_CursorButtonCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, const px_char *Text,
-                                        px_color Color) {
+                                        PX_FontModule *fontmodule, px_color Color) {
     PX_Object *pObject;
     PX_Object_CursorButton *pCb = (PX_Object_CursorButton *)MP_Malloc(mp, sizeof(PX_Object_CursorButton));
     if (pCb == PX_NULL) {
@@ -3064,7 +3105,7 @@ PX_Object *PX_Object_CursorButtonCreate(px_memorypool *mp, PX_Object *Parent, px
     pObject->Func_ObjectUpdate = PX_NULL;
     pObject->Func_ObjectRender = PX_Object_CursorButtonRender;
 
-    pCb->pushbutton = PX_Object_PushButtonCreate(mp, pObject, x, y, Width, Height, Text, Color);
+    pCb->pushbutton = PX_Object_PushButtonCreate(mp, pObject, x, y, Width, Height, Text, fontmodule, Color);
     pCb->c_color = PX_COLOR(255, 0, 0, 0);
     pCb->c_distance = 0;
     pCb->c_distance_far = (px_float)(Width > Height ? Height / 4 : Width / 4);
@@ -3078,6 +3119,7 @@ PX_Object *PX_Object_CursorButtonCreate(px_memorypool *mp, PX_Object *Parent, px
     PX_ObjectRegisterEvent(pObject, PX_OBJECT_EVENT_CURSORMOVE, PX_Object_CursorButtonOnMouseMove, PX_NULL);
     return pObject;
 }
+
 PX_Object_CursorButton *PX_Object_GetCursorButton(PX_Object *Object) {
     if (Object->Type == PX_OBJECT_TYPE_CURSORBUTTON)
         return (PX_Object_CursorButton *)Object->pObject;
@@ -3364,12 +3406,24 @@ PX_Object_VirtualKeyBoard *PX_Object_GetVirtualKeyBoard(PX_Object *pObject) {
 
 px_void PX_Object_VirtualKeyBoardRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
     px_int i;
-    px_int oftx = (px_int)pObject->x;
-    px_int ofty = (px_int)pObject->y;
+    px_int oftx;
+    px_int ofty;
     PX_Object_VirtualKeyBoard *keyBoard = (PX_Object_VirtualKeyBoard *)pObject->pObject;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
+    oftx = (px_int)objx;
+    ofty = (px_int)objy;
+
     // clear background
-    PX_SurfaceClear(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)(pObject->x + pObject->Width), (px_int)(pObject->y + pObject->Height),
-                    keyBoard->backgroundColor);
+    PX_SurfaceClear(psurface, (px_int)objx, (px_int)objy, (px_int)(objx + objWidth), (px_int)(objy + objHeight), keyBoard->backgroundColor);
 
     for (i = 0; i < PX_COUNTOF(keyBoard->Keys); i++) {
         // draw rect
@@ -3386,11 +3440,11 @@ px_void PX_Object_VirtualKeyBoardRender(px_surface *psurface, PX_Object *pObject
                          ofty + keyBoard->Keys[i].y + keyBoard->Keys[i].height, 1, keyBoard->borderColor);
 
         if (keyBoard->bShift || keyBoard->bUpper) {
-            PX_FontDrawText(psurface, oftx + keyBoard->Keys[i].x + 2, ofty + keyBoard->Keys[i].y + 2, keyBoard->Keys[i].u_key, keyBoard->borderColor,
-                            PX_FONT_ALIGN_XLEFT);
+            PX_FontModuleDrawText(psurface, PX_NULL, oftx + keyBoard->Keys[i].x + 2, ofty + keyBoard->Keys[i].y + 2, PX_ALIGN_LEFTTOP, keyBoard->Keys[i].u_key,
+                                  keyBoard->borderColor);
         } else {
-            PX_FontDrawText(psurface, oftx + keyBoard->Keys[i].x + 2, ofty + keyBoard->Keys[i].y + 2, keyBoard->Keys[i].d_key, keyBoard->borderColor,
-                            PX_FONT_ALIGN_XLEFT);
+            PX_FontModuleDrawText(psurface, PX_NULL, oftx + keyBoard->Keys[i].x + 2, ofty + keyBoard->Keys[i].y + 2, PX_ALIGN_LEFTTOP, keyBoard->Keys[i].d_key,
+                                  keyBoard->borderColor);
         }
     }
 }
@@ -3997,33 +4051,6 @@ px_void PX_Object_CoordinatesSetDashLineColor(PX_Object *pObject, px_color clr) 
     pcd->DashColor = clr;
 }
 
-px_void PX_Object_CoordinatesSetTitleLeftShow(PX_Object *pObject, px_bool bshow) {
-    PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
-    if (!pcd) {
-        PX_ASSERT();
-        return;
-    }
-    pcd->LeftTitleShow = bshow;
-}
-
-px_void PX_Object_CoordinatesSetTitleRightShow(PX_Object *pObject, px_bool bshow) {
-    PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
-    if (!pcd) {
-        PX_ASSERT();
-        return;
-    }
-    pcd->RightTitleShow = bshow;
-}
-
-px_void PX_Object_CoordinatesSetHorizontalShow(PX_Object *pObject, px_bool bshow) {
-    PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
-    if (!pcd) {
-        PX_ASSERT();
-        return;
-    }
-    pcd->HorizontalShow = bshow;
-}
-
 px_void PX_Object_CoordinatesSetFloatFlagFormatHorizontal(PX_Object *pObject, const char *fmt) {
     PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
     if (!pcd) {
@@ -4330,23 +4357,36 @@ static px_void PX_Object_CoordinatesDrawDashed(px_surface *psurface, PX_Object *
     }
 }
 
-static px_void PX_Object_CoordinatesDrawFlagText(px_surface *psurface, PX_Object *pObject) {
+static px_void PX_Object_CoordinatesDrawDashText(px_surface *psurface, PX_Object *pObject) {
     px_double HorizontalInc = 0;
     px_double VerticalInc = 0;
     PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
     px_double ValInc;
     px_int IsFloat;
     px_int i;
-    px_int offsetx = (px_int)pObject->x;
-    px_int offsety = (px_int)pObject->y;
+    px_int offsetx;
+    px_int offsety;
 
     px_int Divid = PX_Object_CoordinatesGetCoordinateWidth(pObject) / pcd->MinHorizontalPixelDividing;
+
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
+    offsetx = (px_int)objx;
+    offsety = (px_int)objy;
 
     if (Divid > pcd->HorizontalDividing) {
         Divid = pcd->HorizontalDividing;
     }
 
-    if (Divid > 0) {
+    if (Divid > 0 && pcd->HorizontalTextShow) {
         HorizontalInc = (px_double)PX_Object_CoordinatesGetCoordinateWidth(pObject) / Divid;
         ValInc = (pcd->HorizontalRangeMax - pcd->HorizontalRangeMin) / Divid;
         if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
@@ -4364,9 +4404,9 @@ static px_void PX_Object_CoordinatesDrawFlagText(px_surface *psurface, PX_Object
             else
                 PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_H, PX_STRINGFORMAT_INT((px_int)(pcd->HorizontalRangeMin + i * ValInc)));
 
-            PX_FontDrawText(psurface, offsetx + (px_int)(pcd->LeftSpacer + (i)*HorizontalInc),
-                            offsety + (px_int)(pObject->Height - pcd->BottomSpacer + PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER + 2), text, pcd->FontColor,
-                            PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(psurface, PX_NULL, offsetx + (px_int)(pcd->LeftSpacer + (i)*HorizontalInc),
+                                  offsety + (px_int)(pObject->Height - pcd->BottomSpacer + PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER + 2), PX_ALIGN_CENTER,
+                                  text, pcd->FontColor);
         }
     }
 
@@ -4385,7 +4425,7 @@ static px_void PX_Object_CoordinatesDrawFlagText(px_surface *psurface, PX_Object
         VerticalInc = (px_double)PX_Object_CoordinatesGetCoordinateHeight(pObject) / Divid;
 
         // paint for Left vertical coordinates text
-        if (pcd->LeftTitleShow) {
+        if (pcd->LeftTextShow) {
             ValInc = (pcd->LeftVerticalRangeMax - pcd->LeftVerticalRangeMin) / Divid;
             if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
                 IsFloat = PX_FALSE;
@@ -4395,17 +4435,47 @@ static px_void PX_Object_CoordinatesDrawFlagText(px_surface *psurface, PX_Object
 
             for (i = 0; i <= Divid; i++) {
                 px_char text[32] = {0};
-                if (IsFloat)
-                    PX_sprintf1(text, sizeof(text), pcd->FloatFlagFormat_L, PX_STRINGFORMAT_FLOAT((px_float)(pcd->LeftVerticalRangeMin + i * ValInc)));
-                else
-                    PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_L, PX_STRINGFORMAT_INT((px_int)(pcd->LeftVerticalRangeMin + i * ValInc)));
 
-                PX_FontDrawText(psurface, offsetx + pcd->LeftSpacer - 6, offsety + (px_int)(pObject->Height - pcd->BottomSpacer - (i)*VerticalInc - 6), text,
-                                pcd->FontColor, PX_FONT_ALIGN_XRIGHT);
+                switch (pcd->leftTextDisplayMode) {
+                    case PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_EXPONENTRAL: {
+                        px_double value = PX_ABS(pcd->LeftVerticalRangeMin) > PX_ABS(pcd->LeftVerticalRangeMax) ? PX_ABS(pcd->LeftVerticalRangeMin)
+                                                                                                                : PX_ABS(pcd->LeftVerticalRangeMax);
+                        px_int e = 0;
+                        px_double e10 = 1;
+                        while (value > 10) {
+                            value /= 10, e++;
+                            e10 *= 10;
+                        };
+                        value = pcd->LeftVerticalRangeMin + i * ValInc;
+                        value /= e10;
+
+                        if (e >= 3) {
+                            PX_sprintf2(text, sizeof(text), pcd->Exponential_Format, PX_STRINGFORMAT_FLOAT((px_float)(value)), PX_STRINGFORMAT_INT(e));
+                        } else {
+                            if (IsFloat)
+                                PX_sprintf1(text, sizeof(text), pcd->FloatFlagFormat_L,
+                                            PX_STRINGFORMAT_FLOAT((px_float)(pcd->LeftVerticalRangeMin + i * ValInc)));
+                            else
+                                PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_L, PX_STRINGFORMAT_INT((px_int)(pcd->LeftVerticalRangeMin + i * ValInc)));
+                        }
+
+                    } break;
+                    default:
+                    case PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_NORMAL: {
+                        if (IsFloat)
+                            PX_sprintf1(text, sizeof(text), pcd->FloatFlagFormat_L, PX_STRINGFORMAT_FLOAT((px_float)(pcd->LeftVerticalRangeMin + i * ValInc)));
+                        else
+                            PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_L, PX_STRINGFORMAT_INT((px_int)(pcd->LeftVerticalRangeMin + i * ValInc)));
+                    } break;
+                }
+
+                PX_FontModuleDrawText(psurface, PX_NULL, offsetx + pcd->LeftSpacer - 6,
+                                      offsety + (px_int)(pObject->Height - pcd->BottomSpacer - (i)*VerticalInc - 6), PX_ALIGN_RIGHTTOP, text, pcd->FontColor);
             }
         }
+
         // paint for Right vertical coordinates text
-        if (pcd->RightTitleShow) {
+        if (pcd->RightTextShow) {
             ValInc = (pcd->RightVerticalRangeMax - pcd->RightVerticalRangeMin) / Divid;
             if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
                 IsFloat = PX_FALSE;
@@ -4415,13 +4485,41 @@ static px_void PX_Object_CoordinatesDrawFlagText(px_surface *psurface, PX_Object
 
             for (i = 0; i <= Divid; i++) {
                 px_char text[32] = {0};
-                if (IsFloat)
-                    PX_sprintf1(text, sizeof(text), pcd->FloatFlagFormat_L, PX_STRINGFORMAT_FLOAT((px_float)(pcd->LeftVerticalRangeMin + i * ValInc)));
-                else
-                    PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_L, PX_STRINGFORMAT_INT((px_int)(pcd->LeftVerticalRangeMin + i * ValInc)));
 
-                PX_FontDrawText(psurface, offsetx + (px_int)(pObject->Width - pcd->RightSpacer + PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER),
-                                offsety + (px_int)(pObject->Height - pcd->BottomSpacer - (i)*VerticalInc - 6), text, pcd->FontColor, PX_FONT_ALIGN_XLEFT);
+                switch (pcd->leftTextDisplayMode) {
+                    case PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_EXPONENTRAL: {
+                        px_double value = PX_ABS(pcd->RightVerticalRangeMin) > PX_ABS(pcd->RightVerticalRangeMax) ? PX_ABS(pcd->RightVerticalRangeMin)
+                                                                                                                  : PX_ABS(pcd->RightVerticalRangeMax);
+                        px_int e = 0;
+                        px_double e10 = 1;
+                        while (value > 10) {
+                            value /= 10, e++;
+                            e10 *= 10;
+                        };
+                        value = pcd->RightVerticalRangeMin + i * ValInc;
+                        value /= e10;
+
+                        if (e >= 3) {
+                            PX_sprintf2(text, sizeof(text), pcd->Exponential_Format, PX_STRINGFORMAT_FLOAT((px_float)(value)), PX_STRINGFORMAT_INT(e));
+                        } else {
+                            if (IsFloat)
+                                PX_sprintf1(text, sizeof(text), pcd->FloatFlagFormat_L,
+                                            PX_STRINGFORMAT_FLOAT((px_float)(pcd->LeftVerticalRangeMin + i * ValInc)));
+                            else
+                                PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_L, PX_STRINGFORMAT_INT((px_int)(pcd->LeftVerticalRangeMin + i * ValInc)));
+                        }
+
+                    } break;
+                    default:
+                    case PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_NORMAL: {
+                        if (IsFloat)
+                            PX_sprintf1(text, sizeof(text), pcd->FloatFlagFormat_L, PX_STRINGFORMAT_FLOAT((px_float)(pcd->RightVerticalRangeMin + i * ValInc)));
+                        else
+                            PX_sprintf1(text, sizeof(text), pcd->IntFlagFormat_L, PX_STRINGFORMAT_INT((px_int)(pcd->RightVerticalRangeMin + i * ValInc)));
+                    } break;
+                }
+                PX_FontModuleDrawText(psurface, PX_NULL, offsetx + (px_int)(pObject->Width - pcd->RightSpacer + PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER),
+                                      offsety + (px_int)(pObject->Height - pcd->BottomSpacer - (i)*VerticalInc - 6), PX_ALIGN_LEFTTOP, text, pcd->FontColor);
             }
         }
     }
@@ -4429,25 +4527,37 @@ static px_void PX_Object_CoordinatesDrawFlagText(px_surface *psurface, PX_Object
 
 static px_void PX_Object_CoordinatesDrawTitle(px_surface *psurface, PX_Object *pObject) {
     PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
-    px_int offsetx = (px_int)pObject->x;
-    px_int offsety = (px_int)pObject->y;
+    px_int offsetx;
+    px_int offsety;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
+    offsetx = (px_int)objx;
+    offsety = (px_int)objy;
     if (pcd->TopTitle[0]) {
-        PX_FontDrawText(psurface, offsetx + (px_int)(pObject->Width / 2), offsety, pcd->TopTitle, pcd->FontColor, PX_FONT_ALIGN_XCENTER);
+        PX_FontModuleDrawText(psurface, pcd->fontmodule, offsetx + (px_int)(pObject->Width / 2), offsety, PX_ALIGN_MIDTOP, pcd->TopTitle, pcd->FontColor);
     }
 
     if (pcd->BottomTitle[0]) {
-        PX_FontDrawText(psurface, offsetx + (px_int)(pObject->Width / 2), offsety + (px_int)(pObject->Height - pcd->BottomSpacer + 32), pcd->BottomTitle,
-                        pcd->FontColor, PX_FONT_ALIGN_XCENTER);
+        PX_FontModuleDrawText(psurface, pcd->fontmodule, offsetx + (px_int)(pObject->Width / 2), offsety + (px_int)(pObject->Height - pcd->BottomSpacer + 32),
+                              PX_ALIGN_MIDBOTTOM, pcd->BottomTitle, pcd->FontColor);
     }
 
-    //  px_int x = this->width()-20;
-    //
-    //  px_int y = ( this->height()/ 2);
-    //  painter.rotate(90);
-    //  painter.drawText(y-30, -x+12,m_RightTitle );
-    //
-    //  painter.rotate(180);
-    //  painter.drawText(-y-70, 45,m_LeftTitle);
+    // px_int x = this->width() - 20;
+
+    // px_int y = (this->height() / 2);
+    // painter.rotate(90);
+    // painter.drawText(y - 30, -x + 12, m_RightTitle);
+
+    // painter.rotate(180);
+    // painter.drawText(-y - 70, 45, m_LeftTitle);
 }
 
 static px_void PX_Object_CoordinatesDrawDataInfo(px_surface *psurface, PX_Object *pObject, px_double *Horizontal, px_double *Vertical, px_int linewidth,
@@ -4584,113 +4694,132 @@ static px_void PX_Object_CoordinatesDrawHelpLine(px_surface *psurface, PX_Object
     px_int x, y;
     px_double value;
     PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
 
     if (!pcd->ShowHelpLine) {
         return;
     }
     // Draw X line
 
-    if (pcd->HorizontalShow) {
-        value = PX_Object_CoordinatesMapPixelValueToVertical(pObject, pcd->helpLineX, PX_OBJECT_COORDINATEDATA_MAP_HORIZONTAL);
+    value = PX_Object_CoordinatesMapPixelValueToVertical(pObject, pcd->helpLineX, PX_OBJECT_COORDINATEDATA_MAP_HORIZONTAL);
 
-        if (value > pcd->HorizontalRangeMin && value < pcd->HorizontalRangeMax) {
-            px_int IsFloat;
-            px_int X, Y;
-            px_double ValInc = value;
-            px_char text[16];
-            x = PX_Object_CoordinatesMapHorizontalValueToPixel(pObject, value);
+    if (value > pcd->HorizontalRangeMin && value < pcd->HorizontalRangeMax) {
+        px_int IsFloat;
+        px_int X, Y;
+        px_double ValInc = value;
+        px_char text[16];
+        x = PX_Object_CoordinatesMapHorizontalValueToPixel(pObject, value);
 
-            PX_GeoDrawLine(psurface, (px_int)pObject->x + x, (px_int)(pObject->y + pObject->Height - pcd->BottomSpacer), (px_int)pObject->x + x,
-                           (px_int)pObject->y + pcd->TopSpacer, (px_int)1, pcd->helpLineColor);
-            // Draw text
+        PX_GeoDrawLine(psurface, (px_int)objx + x, (px_int)(objy + objHeight - pcd->BottomSpacer), (px_int)objx + x, (px_int)objy + pcd->TopSpacer, (px_int)1,
+                       pcd->helpLineColor);
 
-            if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
-                IsFloat = PX_FALSE;
-            } else {
-                IsFloat = PX_TRUE;
-            }
+        // Draw text
 
-            X = PX_Object_CoordinatesMapHorizontalValueToPixel(pObject, value);
-            Y = (px_int)(pObject->Height - pcd->BottomSpacer);
-
-            if (IsFloat)
-                PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_FLOAT((px_float)ValInc));
-            else
-                PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
-
-            PX_FontDrawText(psurface, (px_int)(pObject->x + X - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 1.5), (px_int)pObject->y + Y, text,
-                            pcd->helpLineColor, PX_FONT_ALIGN_XLEFT);
+        if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
+            IsFloat = PX_FALSE;
+        } else {
+            IsFloat = PX_TRUE;
         }
+
+        X = PX_Object_CoordinatesMapHorizontalValueToPixel(pObject, value);
+        Y = (px_int)(objHeight - pcd->BottomSpacer);
+
+        if (IsFloat)
+            PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_FLOAT((px_float)ValInc));
+        else
+            PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
+
+        PX_FontModuleDrawText(psurface, PX_NULL, (px_int)(objx + X - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 1.5), (px_int)objy + Y, PX_ALIGN_LEFTTOP,
+                              text, pcd->helpLineColor);
     }
 
     // Draw YL line
 
-    if (pcd->LeftTitleShow) {
-        value = PX_Object_CoordinatesMapPixelValueToVertical(pObject, pcd->helpLineY, PX_OBJECT_COORDINATEDATA_MAP_LEFT);
+    value = PX_Object_CoordinatesMapPixelValueToVertical(pObject, pcd->helpLineY, PX_OBJECT_COORDINATEDATA_MAP_LEFT);
 
-        if (value > pcd->LeftVerticalRangeMin && value < pcd->LeftVerticalRangeMax) {
-            px_int IsFloat;
-            px_int X, Y;
-            px_double ValInc = value;
-            px_char text[16];
+    if (value > pcd->LeftVerticalRangeMin && value < pcd->LeftVerticalRangeMax) {
+        px_int IsFloat;
+        px_int X, Y;
+        px_double ValInc = value;
+        px_char text[16];
 
-            y = pcd->helpLineY;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,value,PX_OBJECT_COORDINATEDATA_MAP_LEFT);
+        y = pcd->helpLineY;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,value,PX_OBJECT_COORDINATEDATA_MAP_LEFT);
 
-            PX_GeoDrawLine(psurface, (px_int)pObject->x + pcd->LeftSpacer, (px_int)pObject->y + y, (px_int)(pObject->x + pObject->Width - pcd->RightSpacer),
-                           (px_int)pObject->y + y, 1, pcd->helpLineColor);
-            // Draw text
+        PX_GeoDrawLine(psurface, (px_int)objx + pcd->LeftSpacer, (px_int)objy + y, (px_int)(objx + objWidth - pcd->RightSpacer), (px_int)objy + y, 1,
+                       pcd->helpLineColor);
+        // Draw text
 
-            if (PX_ABS(ValInc - (px_int)ValInc) < 0.000000001) {
-                IsFloat = PX_FALSE;
-            } else {
-                IsFloat = PX_TRUE;
-            }
-
-            X = pcd->LeftSpacer;
-            Y = y;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,ValInc,PX_OBJECT_COORDINATEDATA_MAP_LEFT);
-
-            if (IsFloat)
-                PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_FLOAT((px_float)ValInc));
-            else
-                PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
-
-            PX_FontDrawText(psurface, (px_int)pObject->x + X, (px_int)pObject->y + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 2 - 1, text,
-                            pcd->helpLineColor, PX_FONT_ALIGN_XLEFT);
+        if (PX_ABS(ValInc - (px_int)ValInc) < 0.000000001) {
+            IsFloat = PX_FALSE;
+        } else {
+            IsFloat = PX_TRUE;
         }
+
+        X = pcd->LeftSpacer;
+        Y = y;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,ValInc,PX_OBJECT_COORDINATEDATA_MAP_LEFT);
+
+        if (IsFloat)
+            PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_FLOAT((px_float)ValInc));
+        else
+            PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
+
+        PX_FontModuleDrawText(psurface, PX_NULL, (px_int)objx + X, (px_int)objy + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 2 - 1, PX_ALIGN_LEFTTOP,
+                              text, pcd->helpLineColor);
     }
 
     // Draw YR line
-    if (pcd->RightTitleShow) {
-        value = PX_Object_CoordinatesMapPixelValueToVertical(pObject, pcd->helpLineY, PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
 
-        if (value > pcd->RightVerticalRangeMin && value < pcd->RightVerticalRangeMax) {
-            px_int IsFloat;
-            px_int X, Y;
-            px_double ValInc = value;
-            px_char text[16];
+    value = PX_Object_CoordinatesMapPixelValueToVertical(pObject, pcd->helpLineY, PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
 
-            y = pcd->helpLineY;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,pflgl->Y,PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
-            PX_GeoDrawLine(psurface, (px_int)pObject->x + pcd->LeftSpacer, (px_int)pObject->y + y, (px_int)(pObject->x + pObject->Width - pcd->RightSpacer),
-                           (px_int)pObject->y + y, (px_int)(1), pcd->helpLineColor);
+    if (value > pcd->RightVerticalRangeMin && value < pcd->RightVerticalRangeMax) {
+        px_int IsFloat;
+        px_int X, Y;
+        px_double ValInc = value;
+        px_char text[16];
 
-            if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
-                IsFloat = PX_FALSE;
-            } else {
-                IsFloat = PX_TRUE;
-            }
+        y = pcd->helpLineY;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,pflgl->Y,PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
+        PX_GeoDrawLine(psurface, (px_int)objx + pcd->LeftSpacer, (px_int)objy + y, (px_int)(objx + objWidth - pcd->RightSpacer), (px_int)objy + y, (px_int)(1),
+                       pcd->helpLineColor);
 
-            X = (px_int)(pObject->Width - pcd->RightSpacer);
-            Y = y;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,ValInc,PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
-
-            PX_FontDrawText(psurface, (px_int)pObject->x + X, (px_int)pObject->y + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 2 - 1, text,
-                            pcd->helpLineColor, PX_FONT_ALIGN_XLEFT);
+        if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
+            IsFloat = PX_FALSE;
+        } else {
+            IsFloat = PX_TRUE;
         }
+
+        X = (px_int)(objWidth - pcd->RightSpacer);
+        Y = y;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,ValInc,PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
+
+        if (IsFloat)
+            PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_FLOAT((px_float)ValInc));
+        else
+            PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
+
+        PX_FontModuleDrawText(psurface, PX_NULL, (px_int)objx + X, (px_int)objy + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 2 - 1, PX_ALIGN_LEFTTOP,
+                              text, pcd->helpLineColor);
     }
 }
 
 static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object *pObject) {
     px_int x, y, i;
     PX_Object_Coordinates *pcd = PX_Object_GetCoordinates(pObject);
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
 
     for (i = 0; i < pcd->vFlagLine.size; i++) {
         // Draw X line
@@ -4703,8 +4832,8 @@ static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object
                 px_char text[16];
                 x = PX_Object_CoordinatesMapHorizontalValueToPixel(pObject, pflgl->X);
 
-                PX_GeoDrawLine(psurface, (px_int)pObject->x + x, (px_int)((px_int)pObject->y + pObject->Height - pcd->BottomSpacer), (px_int)pObject->x + x,
-                               (px_int)pObject->y + pcd->TopSpacer, (px_int)pflgl->LineWidth, pflgl->color);
+                PX_GeoDrawLine(psurface, (px_int)objx + x, (px_int)((px_int)objy + objHeight - pcd->BottomSpacer), (px_int)objx + x,
+                               (px_int)objy + pcd->TopSpacer, (px_int)pflgl->LineWidth, pflgl->color);
                 // Draw text
 
                 if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
@@ -4714,15 +4843,15 @@ static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object
                 }
 
                 X = PX_Object_CoordinatesMapHorizontalValueToPixel(pObject, pflgl->X);
-                Y = (px_int)(pObject->Height - pcd->BottomSpacer);
+                Y = (px_int)(objHeight - pcd->BottomSpacer);
 
                 if (IsFloat)
                     PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_FLOAT((px_float)ValInc));
                 else
                     PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
 
-                PX_FontDrawText(psurface, (px_int)((px_int)pObject->x + X - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 1.5), (px_int)pObject->y + Y, text,
-                                pcd->FontColor, PX_FONT_ALIGN_XLEFT);
+                PX_FontModuleDrawText(psurface, PX_NULL, (px_int)((px_int)objx + X - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER * 1.5), (px_int)objy + Y,
+                                      PX_ALIGN_LEFTTOP, text, pcd->FontColor);
             }
         }
 
@@ -4736,9 +4865,8 @@ static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object
                 px_char text[16];
                 y = PX_Object_CoordinatesMapVerticalValueToPixel(pObject, pflgl->Y, PX_OBJECT_COORDINATEDATA_MAP_LEFT);
 
-                PX_GeoDrawLine(psurface, (px_int)pObject->x + pcd->LeftSpacer, (px_int)pObject->y + y,
-                               (px_int)((px_int)pObject->x + pObject->Width - pcd->RightSpacer), (px_int)pObject->y + y, (px_int)(pflgl->LineWidth),
-                               pflgl->color);
+                PX_GeoDrawLine(psurface, (px_int)objx + pcd->LeftSpacer, (px_int)objy + y, (px_int)((px_int)objx + objWidth - pcd->RightSpacer),
+                               (px_int)objy + y, (px_int)(pflgl->LineWidth), pflgl->color);
                 // Draw text
 
                 if (PX_ABS(ValInc - (px_int)ValInc) < 0.000000001) {
@@ -4755,8 +4883,8 @@ static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object
                 else
                     PX_sprintf1(text, sizeof(text), "%1", PX_STRINGFORMAT_INT((px_int)ValInc));
 
-                PX_FontDrawText(psurface, (px_int)pObject->x + X - 4 * PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER,
-                                (px_int)pObject->y + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER, text, pcd->FontColor, PX_FONT_ALIGN_XLEFT);
+                PX_FontModuleDrawText(psurface, PX_NULL, (px_int)objx + X - 4 * PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER,
+                                      (px_int)objy + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER, PX_ALIGN_LEFTTOP, text, pcd->FontColor);
             }
         }
 
@@ -4769,9 +4897,8 @@ static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object
                 px_char text[16];
 
                 y = PX_Object_CoordinatesMapVerticalValueToPixel(pObject, pflgl->Y, PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
-                PX_GeoDrawLine(psurface, (px_int)pObject->x + pcd->LeftSpacer, (px_int)pObject->y + y,
-                               (px_int)((px_int)pObject->x + pObject->Width - pcd->RightSpacer), (px_int)pObject->y + y, (px_int)(pflgl->LineWidth),
-                               pflgl->color);
+                PX_GeoDrawLine(psurface, (px_int)objx + pcd->LeftSpacer, (px_int)objy + y, (px_int)((px_int)objx + objWidth - pcd->RightSpacer),
+                               (px_int)objy + y, (px_int)(pflgl->LineWidth), pflgl->color);
 
                 if (PX_ABS(ValInc - (px_int)ValInc) < 0.000001f) {
                     IsFloat = PX_FALSE;
@@ -4779,11 +4906,11 @@ static px_void PX_Object_CoordinatesDrawFlagLine(px_surface *psurface, PX_Object
                     IsFloat = PX_TRUE;
                 }
 
-                X = (px_int)(pObject->Width - pcd->RightSpacer);
+                X = (px_int)(objWidth - pcd->RightSpacer);
                 Y = y;  // PX_Object_CoordinatesMapVerticalValueToPixel(pObject,ValInc,PX_OBJECT_COORDINATEDATA_MAP_RIGHT);
 
-                PX_FontDrawText(psurface, (px_int)pObject->x + X, (px_int)pObject->y + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER, text, pcd->FontColor,
-                                PX_FONT_ALIGN_XLEFT);
+                PX_FontModuleDrawText(psurface, PX_NULL, (px_int)objx + X, (px_int)objy + Y - PX_OBJECT_COORDINATES_DEFAULT_FLAGTEXT_SPACER, PX_ALIGN_LEFTTOP,
+                                      text, pcd->FontColor);
             }
         }
     }
@@ -4885,7 +5012,7 @@ px_void PX_Object_CoordinatesRender(px_surface *psurface, PX_Object *pObject, px
 
     if (pcd->ShowGuides) PX_Object_CoordinatesDrawDashed(psurface, pObject);
 
-    if (pcd->HorizontalShow) PX_Object_CoordinatesDrawFlagText(psurface, pObject);
+    PX_Object_CoordinatesDrawDashText(psurface, pObject);
 
     PX_Object_CoordinatesDrawTitle(psurface, pObject);
 
@@ -5024,7 +5151,7 @@ px_void PX_Object_CoordinatesCursorMoveEvent(PX_Object *pObject, PX_Object_Event
     }
 }
 
-PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height) {
+PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_int x, px_int y, px_int Width, px_int Height, PX_FontModule *fontmodule) {
     PX_Object *pObject;
     PX_Object_Coordinates Coordinates;
     PX_memset(&Coordinates, 0, sizeof(Coordinates));
@@ -5038,8 +5165,11 @@ PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_
     Coordinates.guidesShowMode = PX_OBJECT_COORDINATES_GUIDESSHOWMODE_ALL;
     Coordinates.helpLineColor = PX_COLOR(255, 255, 0, 0);
     Coordinates.ShowHelpLine = PX_TRUE;
-    PX_Object_CoordinatesSetMargin(&Coordinates, (px_int)(1.5f * PX_OBJECT_COORDINATES_DEFAULT_SPACER), (px_int)(1.5 * PX_OBJECT_COORDINATES_DEFAULT_SPACER),
-                                   PX_OBJECT_COORDINATES_DEFAULT_SPACER, PX_OBJECT_COORDINATES_DEFAULT_SPACER);
+
+    Coordinates.LeftSpacer = (px_int)(1.5f * PX_OBJECT_COORDINATES_DEFAULT_SPACER);
+    Coordinates.RightSpacer = (px_int)(1.5 * PX_OBJECT_COORDINATES_DEFAULT_SPACER);
+    Coordinates.TopSpacer = PX_OBJECT_COORDINATES_DEFAULT_SPACER;
+    Coordinates.BottomSpacer = PX_OBJECT_COORDINATES_DEFAULT_SPACER;
 
     Coordinates.HorizontalRangeMin = -150;
     Coordinates.HorizontalRangeMax = 150;
@@ -5059,6 +5189,8 @@ PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_
     Coordinates.FloatFlagFormat_R = PX_OBJECT_COORDINATES_DEFAULT_FLOAT_FLAGFORMAT_R;
     Coordinates.IntFlagFormat_R = PX_OBJECT_COORDINATES_DEFAULT_INT_FLAGFORMAT_R;
 
+    Coordinates.Exponential_Format = PX_OBJECT_COORDINATES_DEFAULT_EXPONENTIAL_FORMAT;
+
     Coordinates.bScaling = PX_FALSE;
 
     Coordinates.FontSize = PX_OBJECT_COORDINATES_DEFAULT_FONT_SIZE;
@@ -5074,9 +5206,9 @@ PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_
 
     Coordinates.LineMode = PX_OBJECT_COORDINATES_LINEMODE_LINES;
 
-    Coordinates.LeftTitleShow = PX_TRUE;
-    Coordinates.RightTitleShow = PX_TRUE;
-    Coordinates.HorizontalShow = PX_TRUE;
+    Coordinates.LeftTextShow = PX_TRUE;
+    Coordinates.RightTextShow = PX_TRUE;
+    Coordinates.HorizontalTextShow = PX_TRUE;
     Coordinates.ScaleEnabled = PX_TRUE;
     Coordinates.ShowGuides = PX_TRUE;
 
@@ -5084,6 +5216,10 @@ PX_Object *PX_Object_CoordinatesCreate(px_memorypool *mp, PX_Object *Parent, px_
     Coordinates.RightTitle = "";
     Coordinates.TopTitle = "";
     Coordinates.BottomTitle = "";
+    Coordinates.fontmodule = fontmodule;
+    Coordinates.leftTextDisplayMode = PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_NORMAL;
+    Coordinates.RightTextDisplayMode = PX_OBJECT_COORDINATES_TEXT_DISPLAYMODE_NORMAL;
+
     PX_VectorInit(mp, &Coordinates.vData, sizeof(PX_Object_CoordinateData), 16);
     PX_VectorInit(mp, &Coordinates.vFlagLine, sizeof(PX_Object_CoordinateFlagLine), 16);
 
@@ -5159,19 +5295,29 @@ static px_void PX_Object_FilterEditorDrawHelpLine(px_surface *psurface, PX_Objec
     px_char text[16];
     px_double midy, incx, incy, x, y, val;
     px_double oftx, ofty;
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
+
     if (!pfe->ShowHelpLine) {
         return;
     }
-    oftx = pObject->x;
-    ofty = pObject->y;
-    midy = pObject->Height / 2;
-    incy = pObject->Height / 2 / (pfe->VerticalDividing / 2);
+    oftx = objx;
+    ofty = objy;
+    midy = objHeight / 2;
+    incy = objHeight / 2 / (pfe->VerticalDividing / 2);
 
     // up
     for (y = midy; y >= 0; y -= incy) {
         // line
-        PX_GeoDrawLine(psurface, (px_int)(oftx), (px_int)(ofty + y), (px_int)(oftx + pObject->Width), (px_int)(ofty + y), 1, pfe->helpLineColor);
-        val = (midy - y) / (pObject->Height / 2) * pfe->rangedb;
+        PX_GeoDrawLine(psurface, (px_int)(oftx), (px_int)(ofty + y), (px_int)(oftx + objWidth), (px_int)(ofty + y), 1, pfe->helpLineColor);
+        val = (midy - y) / (objHeight / 2) * pfe->rangedb;
         switch (pfe->FilterType) {
             case PX_OBJECT_FILTER_TYPE_dB:
                 PX_sprintf1(text, sizeof(text), "+%1.2db", PX_STRINGFORMAT_FLOAT((px_float)val));
@@ -5182,13 +5328,13 @@ static px_void PX_Object_FilterEditorDrawHelpLine(px_surface *psurface, PX_Objec
         }
 
         // text
-        PX_FontDrawText(psurface, (px_int)(oftx - 1), (px_int)(ofty + y - 5), text, pfe->FontColor, PX_FONT_ALIGN_XRIGHT);
+        PX_FontModuleDrawText(psurface, PX_NULL, (px_int)(oftx - 1), (px_int)(ofty + y - 5), PX_ALIGN_RIGHTTOP, text, pfe->FontColor);
     }
     // down
-    for (y = midy; y <= pObject->Height; y += incy) {
+    for (y = midy; y <= objHeight; y += incy) {
         // line
-        PX_GeoDrawLine(psurface, (px_int)(oftx), (px_int)(ofty + y), (px_int)(oftx + pObject->Width), (px_int)(ofty + y), 1, pfe->helpLineColor);
-        val = (midy - y) / (pObject->Height / 2) * pfe->rangedb;
+        PX_GeoDrawLine(psurface, (px_int)(oftx), (px_int)(ofty + y), (px_int)(oftx + objWidth), (px_int)(ofty + y), 1, pfe->helpLineColor);
+        val = (midy - y) / (objHeight / 2) * pfe->rangedb;
         switch (pfe->FilterType) {
             case PX_OBJECT_FILTER_TYPE_dB:
                 PX_sprintf1(text, sizeof(text), "%1.2db", PX_STRINGFORMAT_FLOAT((px_float)val));
@@ -5198,19 +5344,19 @@ static px_void PX_Object_FilterEditorDrawHelpLine(px_surface *psurface, PX_Objec
                 break;
         }
         // text
-        PX_FontDrawText(psurface, (px_int)(oftx - 1), (px_int)(ofty + y - 5), text, pfe->FontColor, PX_FONT_ALIGN_XRIGHT);
+        PX_FontModuleDrawText(psurface, PX_NULL, (px_int)(oftx - 1), (px_int)(ofty + y - 5), PX_ALIGN_RIGHTTOP, text, pfe->FontColor);
     }
 
     // horizontal
-    incx = pObject->Width / pfe->HorizontalDividing;
-    for (x = 0; x < pObject->Width; x += incx) {
+    incx = objWidth / pfe->HorizontalDividing;
+    for (x = 0; x < objWidth; x += incx) {
         // line
-        PX_GeoDrawLine(psurface, (px_int)(oftx + x), (px_int)(ofty + 0), (px_int)(oftx + x), (px_int)(ofty + pObject->Height - 1), 1, pfe->helpLineColor);
-        val = x / pObject->Width;
+        PX_GeoDrawLine(psurface, (px_int)(oftx + x), (px_int)(ofty + 0), (px_int)(oftx + x), (px_int)(ofty + objHeight - 1), 1, pfe->helpLineColor);
+        val = x / objWidth;
         // text
         if (pfe->showHorizontal) {
             PX_sprintf1(text, sizeof(text), "%1.2", PX_STRINGFORMAT_FLOAT((px_float)val));
-            PX_FontDrawText(psurface, (px_int)(oftx + x - 1), (px_int)(ofty + pObject->Height + 3), text, pfe->FontColor, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(psurface, PX_NULL, (px_int)(oftx + x - 1), (px_int)(ofty + objHeight + 3), PX_ALIGN_CENTER, text, pfe->FontColor);
         }
     }
 }
@@ -5609,9 +5755,16 @@ px_void PX_Object_CheckBoxOnMouseLButtonUp(PX_Object *Object, PX_Object_Event e,
 }
 
 px_void PX_Object_CheckBoxRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
-    px_int TextLen, i;
-    px_int fx, fy;
     PX_Object_CheckBox *pcb = PX_Object_GetCheckBox(pObject);
+    px_float objx, objy, objWidth, objHeight;
+    px_float inheritX, inheritY;
+
+    PX_ObjectGetInheritXY(pObject, &inheritX, &inheritY);
+
+    objx = (pObject->x + inheritX);
+    objy = (pObject->y + inheritY);
+    objWidth = pObject->Width;
+    objHeight = pObject->Height;
 
     if (pcb == PX_NULL) {
         return;
@@ -5621,71 +5774,30 @@ px_void PX_Object_CheckBoxRender(px_surface *psurface, PX_Object *pObject, px_ui
         return;
     }
 
-    TextLen = 0;
-    for (i = 0; i < PX_strlen(pcb->Text); i++) {
-        if (pcb->Text[i] & 0x80) {
-            TextLen += __PX_FONT_GBKSIZE;
-            i++;
-            continue;
-        } else {
-            TextLen += __PX_FONT_ASCSIZE;
-        }
-    }
-
-    if (pcb->Align & PX_OBJECT_ALIGN_HCENTER) {
-        fx = (px_int)pObject->x;
-        fx = fx + ((px_int)pObject->Width - TextLen) / 2;
-    }
-
-    if (pcb->Align & PX_OBJECT_ALIGN_VCENTER) {
-        fy = (px_int)pObject->y;
-        fy = fy + ((px_int)pObject->Height - __PX_FONT_HEIGHT) / 2;
-    }
-
-    if (pcb->Align & PX_OBJECT_ALIGN_LEFT) {
-        fx = (px_int)pObject->x + 18;
-    }
-
-    if (pcb->Align & PX_OBJECT_ALIGN_RIGHT) {
-        fx = (px_int)pObject->x + (px_int)pObject->Width - TextLen;
-    }
-
-    if (pcb->Align & PX_OBJECT_ALIGN_TOP) {
-        fy = (px_int)pObject->y;
-    }
-
-    if (pcb->Align & PX_OBJECT_ALIGN_BOTTOM) {
-        fy = (px_int)pObject->y + (px_int)pObject->Height - __PX_FONT_HEIGHT;
-    }
-
-    PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                   (px_int)pObject->y + (px_int)pObject->Height - 1, pcb->BackgroundColor);
+    PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1, pcb->BackgroundColor);
     switch (pcb->state) {
         case PX_OBJECT_BUTTON_STATE_NORMAL:
-            PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                           (px_int)pObject->y + (px_int)pObject->Height - 1, pcb->BackgroundColor);
+            PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1,
+                           pcb->BackgroundColor);
             break;
         case PX_OBJECT_BUTTON_STATE_ONPUSH:
-            PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                           (px_int)pObject->y + (px_int)pObject->Height - 1, pcb->PushColor);
+            PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1, pcb->PushColor);
             break;
         case PX_OBJECT_BUTTON_STATE_ONCURSOR:
-            PX_GeoDrawRect(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                           (px_int)pObject->y + (px_int)pObject->Height - 1, pcb->CursorColor);
+            PX_GeoDrawRect(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1, pcb->CursorColor);
             break;
     }
 
     if (pcb->Border) {
-        PX_GeoDrawBorder(psurface, (px_int)pObject->x, (px_int)pObject->y, (px_int)pObject->x + (px_int)pObject->Width - 1,
-                         (px_int)pObject->y + (px_int)pObject->Height - 1, 1, pcb->BorderColor);
+        PX_GeoDrawBorder(psurface, (px_int)objx, (px_int)objy, (px_int)objx + (px_int)objWidth - 1, (px_int)objy + (px_int)objHeight - 1, 1, pcb->BorderColor);
     }
 
-    PX_FontDrawText(psurface, fx, fy, pcb->Text, pcb->TextColor, PX_FONT_ALIGN_XLEFT);
+    PX_FontModuleDrawText(psurface, pcb->fm, (px_int)objx + 18, (px_int)(objy + objHeight / 2), PX_ALIGN_LEFTMID, pcb->Text, pcb->TextColor);
 
     // draw CheckState
-    PX_GeoDrawBorder(psurface, (px_int)pObject->x + 1, (px_int)pObject->y + 1, (px_int)pObject->x + 14, (px_int)pObject->y + 14, 1, pcb->BorderColor);
+    PX_GeoDrawBorder(psurface, (px_int)objx, (px_int)(objy + objHeight / 2 - 7), (px_int)objx + 14, (px_int)(objy + objHeight / 2 + 7), 1, pcb->BorderColor);
     if (pcb->bCheck) {
-        PX_GeoDrawRect(psurface, (px_int)pObject->x + 3, (px_int)pObject->y + 3, (px_int)pObject->x + 12, (px_int)pObject->y + 12, pcb->BorderColor);
+        PX_GeoDrawRect(psurface, (px_int)objx + 2, (px_int)(objy + objHeight / 2 - 5), (px_int)objx + 12, (px_int)(objy + objHeight / 2 + 5), pcb->BorderColor);
     }
 }
 

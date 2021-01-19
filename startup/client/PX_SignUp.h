@@ -25,8 +25,8 @@
 #define PX_SIGNUP_TEXT_INVALID_PASSWORD "无效的密码"
 #define PX_SIGNUP_TEXT_INVALID_SIGNUP_CODE "无效的注册码"
 #define PX_SIGNUP_TEXT_INVALID_REPEAT_IP "注册码实效错误"
-#define PX_SIGNUP_TEXT_CONNECTION_FAILED ((px_char *)L"网络连接失败")
-#define PX_SIGNUP_TEXT_REGISTRY_SUCCEEDED ((px_char *)L"注册成功")
+#define PX_SIGNUP_TEXT_CONNECTION_FAILED "网络连接失败"
+#define PX_SIGNUP_TEXT_REGISTRY_SUCCEEDED "注册成功"
 #define PX_SIGNUP_TEXT_LOGIN "登录"
 
 typedef enum {
