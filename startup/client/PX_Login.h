@@ -2,6 +2,7 @@
 #define PX_LOGIN_H
 
 #include "PX_Startup.h"
+
 #include "../../game/common/Game_Object_Base.h"
 
 #define PX_LOGIN_EXCHAGE_TIME 300
