@@ -4,8 +4,8 @@
 // QQ:477608346,tel-18959060883
 // include script compiler & parser & AST
 
-#ifndef _PX_SCRIPT_TRANSLATOR_H
-#define _PX_SCRIPT_TRANSLATOR_H
+#ifndef PX_SCRIPT_TRANSLATOR_H
+#define PX_SCRIPT_TRANSLATOR_H
 
 #include "PX_ScriptCore.h"
 

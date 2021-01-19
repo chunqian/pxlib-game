@@ -1,5 +1,5 @@
-#ifndef __PX_MEMORY_H
-#define __PX_MEMORY_H
+#ifndef PX_MEMORY_H
+#define PX_MEMORY_H
 
 #include "PX_MemoryPool.h"
 

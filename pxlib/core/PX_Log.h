@@ -1,5 +1,5 @@
-#ifndef __PX_LOG_H
-#define __PX_LOG_H
+#ifndef PX_LOG_H
+#define PX_LOG_H
 
 #include "PX_Typedef.h"
 

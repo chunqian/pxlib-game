@@ -1,4 +1,4 @@
-#ifndef __PX_LINKER_H
-#define __PX_LINKER_H
+#ifndef PX_LINKER_H
+#define PX_LINKER_H
 
 #endif

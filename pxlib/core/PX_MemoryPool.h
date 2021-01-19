@@ -1,5 +1,5 @@
-#ifndef PIXELSES_MEMORYPOOL
-#define PIXELSES_MEMORYPOOL
+#ifndef PX_MEMORYPOOL_H
+#define PX_MEMORYPOOL_H
 
 #include "PX_Typedef.h"
 

@@ -1,5 +1,5 @@
-#ifndef PIXELSES_BITMAP
-#define PIXELSES_BITMAP
+#ifndef PX_BITMAP_H
+#define PX_BITMAP_H
 
 #include "PX_Surface.h"
 

@@ -1,5 +1,5 @@
-#ifndef __PX_SCRIPT_H
-#define __PX_SCRIPT_H
+#ifndef PX_SCRIPT_H
+#define PX_SCRIPT_H
 
 #include "../core/PX_Core.h"
 #include "PX_Lexer.h"

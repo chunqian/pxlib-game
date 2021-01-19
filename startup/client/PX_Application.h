@@ -1,6 +1,8 @@
 #ifndef PX_APPLICATION_H
 #define PX_APPLICATION_H
 
+#define _WIN32_WINNT 0x0601
+
 #include "PX_Startup.h"
 #include "PX_Login.h"
 #include "PX_SignUp.h"

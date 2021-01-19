@@ -1,5 +1,5 @@
-#ifndef PX_TUNING
-#define PX_TUNING
+#ifndef PX_TUNING_H
+#define PX_TUNING_H
 
 #include "../core/PX_Core.h"
 

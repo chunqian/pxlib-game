@@ -1,5 +1,5 @@
-#ifndef PX_BRNEURAL_H
-#define PX_BRNEURAL_H
+#ifndef PX_BPNEURAL_H
+#define PX_BPNEURAL_H
 
 #include "PX_MemoryPool.h"
 

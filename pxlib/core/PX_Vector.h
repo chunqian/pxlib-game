@@ -1,5 +1,5 @@
-#ifndef __PX_VECTOR_H
-#define __PX_VECTOR_H
+#ifndef PX_VECTOR_H
+#define PX_VECTOR_H
 
 #include "PX_MemoryPool.h"
 

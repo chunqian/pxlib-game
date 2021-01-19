@@ -1,5 +1,5 @@
-#ifndef __PX_LEXER_H
-#define __PX_LEXER_H
+#ifndef PX_LEXER_H
+#define PX_LEXER_H
 
 #include "../core/PX_Core.h"
 

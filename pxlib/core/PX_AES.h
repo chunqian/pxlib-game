@@ -1,5 +1,5 @@
-#ifndef __PX_MATH_AES
-#define __PX_MATH_AES
+#ifndef PX_AES_H
+#define PX_AES_H
 
 #include "PX_Typedef.h"
 

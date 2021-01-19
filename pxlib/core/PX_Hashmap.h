@@ -1,5 +1,5 @@
-#ifndef PX_HASHMAP_H__
-#define PX_HASHMAP_H__
+#ifndef PX_HASHMAP_H
+#define PX_HASHMAP_H
 
 #include "PX_MemoryPool.h"
 #include "PX_rbtree.h"

@@ -7,8 +7,8 @@
 // it under the terms of the BSD General Public License
 
 //////////////////////////////////////////////////////////////////////////
-#ifndef _PX_KERNEL_H
-#define _PX_KERNEL_H
+#ifndef PX_KERNEL_H
+#define PX_KERNEL_H
 
 #include "PX_Script_Interpreter.h"
 #include "PX_Script_ASMCompiler.h"

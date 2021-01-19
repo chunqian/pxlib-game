@@ -1,5 +1,5 @@
-#ifndef PIXELSES_OBJECT_H
-#define PIXELSES_OBJECT_H
+#ifndef PX_OBJECT_H
+#define PX_OBJECT_H
 
 #include "../core/PX_Core.h"
 #include "PX_Animation.h"

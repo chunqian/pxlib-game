@@ -1,5 +1,5 @@
-#ifndef __PX_STRING_H
-#define __PX_STRING_H
+#ifndef PX_STRING_H
+#define PX_STRING_H
 
 #include "PX_MemoryPool.h"
 

@@ -1,5 +1,5 @@
-#ifndef __PX_TEXTURE_H
-#define __PX_TEXTURE_H
+#ifndef PX_TEXTURE_H
+#define PX_TEXTURE_H
 
 #include "PX_Surface.h"
 #include "PX_Bitmap.h"

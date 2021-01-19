@@ -1,5 +1,5 @@
-#ifndef __PX_SCRIPT_VM_H
-#define __PX_SCRIPT_VM_H
+#ifndef PX_SCRIPT_VM_H
+#define PX_SCRIPT_VM_H
 
 #include "PX_ScriptCore.h"
 

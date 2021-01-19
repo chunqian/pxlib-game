@@ -1,5 +1,5 @@
-#ifndef PIXELSES_FONT
-#define PIXELSES_FONT
+#ifndef PX_FONT_H
+#define PX_FONT_H
 
 #include "../core/PX_Base64.h"
 #include "../core/PX_Surface.h"

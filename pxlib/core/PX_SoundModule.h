@@ -1,5 +1,5 @@
-#ifndef PX_SOUNDMODULE
-#define PX_SOUNDMODULE
+#ifndef PX_SOUNDMODULE_H
+#define PX_SOUNDMODULE_H
 
 #include "../core/PX_Core.h"
 

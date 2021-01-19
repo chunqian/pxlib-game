@@ -1,5 +1,5 @@
-#ifndef PIXELSES_BASEGEO
-#define PIXELSES_BASEGEO
+#ifndef PX_BASEGEO_H
+#define PX_BASEGEO_H
 
 #include "PX_Surface.h"
 

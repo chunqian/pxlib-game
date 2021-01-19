@@ -1,5 +1,5 @@
-#ifndef __PX_SURFACE_H
-#define __PX_SURFACE_H
+#ifndef PX_SURFACE_H
+#define PX_SURFACE_H
 #include "PX_MemoryPool.h"
 
 typedef struct _PX_Surface {

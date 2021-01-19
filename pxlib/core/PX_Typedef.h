@@ -1,5 +1,5 @@
-#ifndef __PX_TYPEDEF_H
-#define __PX_TYPEDEF_H
+#ifndef PX_TYPEDEF_H
+#define PX_TYPEDEF_H
 
 #include "PX_MathTable.h"
 

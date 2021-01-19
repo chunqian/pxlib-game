@@ -1,5 +1,5 @@
-#ifndef _PX_TRAW_H
-#define _PX_TRAW_H
+#ifndef PX_TRAW_H
+#define PX_TRAW_H
 
 #include "../core/PX_Surface.h"
 
