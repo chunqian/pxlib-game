@@ -2,8 +2,8 @@
 #define PX_3D_H
 
 #include "PX_BaseGeo.h"
-#include "PX_Vector.h"
 #include "PX_Texture.h"
+#include "PX_Vector.h"
 
 #define PX_3D_FACESTATE_ACTIVE 1
 #define PX_3D_FACESTATE_CLIPPED 2

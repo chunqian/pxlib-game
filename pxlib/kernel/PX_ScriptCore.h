@@ -2,6 +2,7 @@
 #define PX_SCRIPT_H
 
 #include "../core/PX_Core.h"
+
 #include "PX_Lexer.h"
 
 // special register IP,SP,BP,rRET

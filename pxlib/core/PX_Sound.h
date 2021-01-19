@@ -5,9 +5,9 @@
 // 44100HZ
 // 16bit
 // 1/2-channel supported
-#include "PX_Wave.h"
-#include "PX_Vector.h"
 #include "PX_Tuning.h"
+#include "PX_Vector.h"
+#include "PX_Wave.h"
 
 #define PX_SOUND_DEFAULT_PARALLEL 8
 typedef enum { PX_SOUND_CHANNEL_ONE, PX_SOUND_CHANNEL_DOUBLE } PX_SOUND_CHANNEL;

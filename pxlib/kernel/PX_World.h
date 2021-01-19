@@ -2,9 +2,10 @@
 #define PX_WORLD_OBJECT_H
 
 #include "../core/PX_Core.h"
-#include "PX_Script_VM.h"
-#include "PX_Resource.h"
+
 #include "PX_Object.h"
+#include "PX_Resource.h"
+#include "PX_Script_VM.h"
 
 #define PX_WORLD_OBJECT_TYPE_NAME_LEN 32
 

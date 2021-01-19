@@ -1,7 +1,7 @@
 #ifndef PX_TRAW_H
 #define PX_TRAW_H
 
-#include "../core/PX_Surface.h"
+#include "PX_Surface.h"
 
 typedef struct _PX_TRaw_Header {
     px_byte Magic[4];  // TRAW 0x57415254

@@ -1,10 +1,10 @@
 #ifndef PX_FONT_H
 #define PX_FONT_H
 
-#include "../core/PX_Base64.h"
-#include "../core/PX_Surface.h"
-#include "../core/PX_Texture.h"
+#include "PX_Base64.h"
 #include "PX_Hashmap.h"
+#include "PX_Surface.h"
+#include "PX_Texture.h"
 
 //#define __PX_FONT_GBKSIZE		13
 #define __PX_FONT_ASCSIZE 8

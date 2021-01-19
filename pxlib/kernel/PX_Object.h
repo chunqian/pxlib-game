@@ -2,6 +2,7 @@
 #define PX_OBJECT_H
 
 #include "../core/PX_Core.h"
+
 #include "PX_Animation.h"
 #include "PX_Partical.h"
 

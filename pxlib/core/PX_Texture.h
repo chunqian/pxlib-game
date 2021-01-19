@@ -1,8 +1,8 @@
 #ifndef PX_TEXTURE_H
 #define PX_TEXTURE_H
 
-#include "PX_Surface.h"
 #include "PX_Bitmap.h"
+#include "PX_Surface.h"
 #include "PX_TRaw.h"
 
 typedef px_surface px_texture;

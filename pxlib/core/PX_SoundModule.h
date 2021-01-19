@@ -1,7 +1,8 @@
 #ifndef PX_SOUNDMODULE_H
 #define PX_SOUNDMODULE_H
 
-#include "../core/PX_Core.h"
+#include "PX_Memory.h"
+#include "PX_Typedef.h"
 
 #define PX_SOUNDMODULE_N 1024
 #define PX_SOUNDMODULE_FORMANT_COUNT 32
