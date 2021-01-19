@@ -125,7 +125,7 @@ px_void PX_MessageBoxRender(px_surface *pSurface, PX_MessageBox *pm, px_dword el
         if (pm->fontmodule) {
             // PX_FontModuleDrawText(pSurface, pm->window_Width / 2, pm->window_Height / 2, (px_word *)pm->Message, frontColor, pm->fontmodule,
             //                       PX_FONT_ALIGN_XCENTER);
-            PX_FontModuleDrawText(pSurface, pm->fontmodule, pm->window_Width / 2, pm->window_Height / 2, PX_ALIGN_CENTER, (px_word *)pm->Message, frontColor);
+            PX_FontModuleDrawText(pSurface, pm->fontmodule, pm->window_Width / 2, pm->window_Height / 2, PX_ALIGN_CENTER, pm->Message, frontColor);
         } else {
             PX_FontDrawText(pSurface, pm->window_Width / 2, pm->window_Height / 2, PX_ALIGN_CENTER, pm->Message, frontColor);
         }
