@@ -3,16 +3,16 @@
 
 #include "Game_Object_Base.h"
 
-#include "Game_Object_Shotgun.h"
+#include "Game_Object_Blackhole.h"
 #include "Game_Object_LaunchFire.h"
-#include "Game_Object_Railgun.h"
-#include "Game_Object_RailgunFire.h"
+#include "Game_Object_Mine.h"
 #include "Game_Object_Missile.h"
 #include "Game_Object_Nuclear.h"
-#include "Game_Object_Mine.h"
-#include "Game_Object_Blackhole.h"
-#include "Game_Object_ProtectShield.h"
 #include "Game_Object_Piercer.h"
+#include "Game_Object_ProtectShield.h"
+#include "Game_Object_Railgun.h"
+#include "Game_Object_RailgunFire.h"
+#include "Game_Object_Shotgun.h"
 
 #define GAME_SHIP_FORCE_MAX_DISTANCE 300
 #define GAME_SHIP_SIZE 64
@@ -90,7 +90,7 @@ typedef struct {
 
     // Render Data
     PX_Object *ship_powerpartical_main, *ship_powerpartical_l1, *ship_powerpartical_l2;
-    px_word PlayerName[GAME_SHIP_NAME_MAX_LEN];
+    px_char PlayerName[GAME_SHIP_NAME_MAX_LEN];
     px_bool showHelpLine;
     px_texture photo, photo_mini;
     px_texture *shipObject;

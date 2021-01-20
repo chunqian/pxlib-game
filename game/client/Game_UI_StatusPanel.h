@@ -1,8 +1,8 @@
 #ifndef GAME_UI_PANEL_H
 #define GAME_UI_PANEL_H
 
-#include "../common/Game_Play.h"
 #include "../common/Game_ObjectTypes.h"
+#include "../common/Game_Play.h"
 
 #define GAME_UI_MAX_SUPPORT_WEAPON 16
 

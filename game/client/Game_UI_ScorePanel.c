@@ -29,10 +29,8 @@ px_void Game_UI_ScorePanelRender(px_surface *renderSurface, Game_UI_ScorePanel *
         }
     }
 
-    PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2 + 92, 48, (px_word *)L"Score:", PX_COLOR(255, 0, 0, 0), &ui->pIns->FontModule24,
-                          PX_FONT_ALIGN_XRIGHT);
+    PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule24, ui->pIns->runtime.width / 2 + 92, 48, PX_ALIGN_RIGHTMID, "Score:", PX_COLOR(255, 0, 0, 0));
     PX_itoa((px_int)ui->displayScore, ScoreContent, sizeof(ScoreContent), 10);
-    PX_FontModule_atow(ScoreContent, ScoreContentw);
-    PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2 + 104, 64, ScoreContentw, PX_COLOR(255, 0, 0, 0), &ui->pIns->FontModuleScore,
-                          PX_FONT_ALIGN_XLEFT);
+    PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModuleScore, ui->pIns->runtime.width / 2 + 104, 64, PX_ALIGN_LEFTMID, ScoreContent,
+                          PX_COLOR(255, 0, 0, 0));
 }

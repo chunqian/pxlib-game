@@ -55,7 +55,7 @@ px_void PX_ConsoleUpdateEx(PX_Console *pc) {
             } break;
             case PX_OBJECT_TYPE_ROUNDCURSOR: {
                 PX_Object_RoundCursor *pRc = PX_Object_GetRoundCursor(pCc->Object);
-                PX_ObjectSetPosition(pCc->Object, (px_float)pc->runtime->width / 2, (px_float)y + pRc->shape->height / 2, 0);
+                PX_ObjectSetPosition(pCc->Object, (px_float)pc->runtime->width / 2, (px_float)y + (px_float)pRc->shape->height / 2, 0);
                 y += (px_int)PX_ObjectGetHeight(pCc->Object);
             } break;
             default: {

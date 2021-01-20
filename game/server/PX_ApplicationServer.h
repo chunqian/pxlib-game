@@ -1,8 +1,9 @@
 #ifndef PX_APPLICATION_H
 #define PX_APPLICATION_H
 
-#include "../common/PX_Startup.h"
 #include "../common/Game_Play.h"
+#include "../common/PX_Startup.h"
+
 #include "PX_GameServerStartup.h"
 
 //////////////////////////////////////////////////////////////////////////

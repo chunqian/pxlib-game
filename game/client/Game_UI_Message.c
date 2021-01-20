@@ -24,11 +24,11 @@ px_void Game_UI_MessageRender(px_surface *renderSurface, Game_UI_Message *ui, px
 
             if (ui->currentElpased >= 3000) {
                 px_uchar a = (px_uchar)((8000 - ui->currentElpased) / 5000.0f * 255);
-                PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2, 128, pMessage->Message, PX_COLOR(a, 255, 0, 0), &ui->pIns->FontModule32,
-                                      PX_FONT_ALIGN_XCENTER);
+                PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule32, ui->pIns->runtime.width / 2, 128, PX_ALIGN_CENTER, pMessage->Message,
+                                      PX_COLOR(a, 255, 0, 0));
             } else {
-                PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2, 128, pMessage->Message, PX_COLOR(255, 255, 0, 0), &ui->pIns->FontModule32,
-                                      PX_FONT_ALIGN_XCENTER);
+                PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule32, ui->pIns->runtime.width / 2, 128, PX_ALIGN_CENTER, pMessage->Message,
+                                      PX_COLOR(255, 255, 0, 0));
             }
         }
     }

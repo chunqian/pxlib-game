@@ -1,8 +1,8 @@
 #ifndef GAME_UI_MESSAGE_H
 #define GAME_UI_MESSAGE_H
 
-#include "../common/Game_Play.h"
 #include "../common/Game_ObjectTypes.h"
+#include "../common/Game_Play.h"
 
 typedef struct {
     PX_Instance *pIns;

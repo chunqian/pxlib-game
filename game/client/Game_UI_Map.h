@@ -1,8 +1,8 @@
 #ifndef GAME_UI_MAP_H
 #define GAME_UI_MAP_H
 
-#include "../common/Game_Play.h"
 #include "../common/Game_ObjectTypes.h"
+#include "../common/Game_Play.h"
 
 #define GAME_UI_MAP_SCALE 100
 

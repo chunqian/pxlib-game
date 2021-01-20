@@ -108,15 +108,18 @@ px_void Game_Object_ShipRender(px_surface *psurface, PX_Object *pObject, px_uint
     //////////////////////////////////////////////////////////////////////////
     // Name
     if (pShip->bLocalController) {
-        PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y - 48, pShip->PlayerName, PX_COLOR(255, 0, 192, 0), &pShip->pIns->FontModule18,
-                              PX_FONT_ALIGN_XCENTER);
+        PX_FontModuleDrawText(psurface, &pShip->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y - 48, PX_ALIGN_CENTER, pShip->PlayerName,
+                              PX_COLOR(255, 0, 192, 0));
     } else {
-        PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y - 48, pShip->PlayerName, PX_COLOR(255, 192, 0, 0), &pShip->pIns->FontModule18,
-                              PX_FONT_ALIGN_XCENTER);
+        PX_FontModuleDrawText(psurface, &pShip->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y - 48, PX_ALIGN_CENTER, pShip->PlayerName,
+                              PX_COLOR(255, 192, 0, 0));
     }
     // photo
     do {
-        px_int fwidth = PX_FontModuleGetTextPixelsWidth(&pShip->pIns->FontModule18, pShip->PlayerName);
+        // px_int fwidth = PX_FontModuleGetTextPixelsWidth(&pShip->pIns->FontModule18, pShip->PlayerName);
+        px_int fwidth = 0;
+        px_int fheight = 0;
+        PX_FontModuleTextGetRenderWidthHeight(&pShip->pIns->FontModule18, pShip->PlayerName, &fwidth, &fheight);
         PX_TextureRender(psurface, &pShip->photo_mini, (px_int)pObject->x - fwidth / 2 - 26, (px_int)pObject->y - 66, PX_TEXTURERENDER_REFPOINT_LEFTTOP,
                          PX_NULL);
     } while (0);
@@ -125,12 +128,14 @@ px_void Game_Object_ShipRender(px_surface *psurface, PX_Object *pObject, px_uint
     // silent
     if (pShip->slientTime) {
         px_char content[16] = {0};
-        px_word wconetnt[32] = {0};
+        px_char content2[32] = {0};
         PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT(pShip->slientTime / 1000.0f));
-        PX_wstrcat(wconetnt, (const px_word *)L"武器解锁于");
-        PX_FontModule_wastrcat(wconetnt, content);
-        PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y + 48, wconetnt, PX_COLOR(255, 192, 0, 0), &pShip->pIns->FontModule18,
-                              PX_FONT_ALIGN_XCENTER);
+        // PX_wstrcat(content2, (const px_word *)L"武器解锁于");
+        // PX_FontModule_wastrcat(content2, content);
+        PX_strcat(content2, "武器解锁于");
+        PX_strcat(content2, content);
+        PX_FontModuleDrawText(psurface, &pShip->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y + 48, PX_ALIGN_CENTER, content2,
+                              PX_COLOR(255, 192, 0, 0));
     }
 }
 
@@ -186,11 +191,11 @@ px_void Game_Object_ShipDeath(PX_Object *pObject, px_int attackPlayer) {
 }
 px_void Game_Object_ShipOnName(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     Game_Object_Ship *pShip = Game_Object_GetShip(pObject);
-    px_word *pName = (px_word *)e.Param_ptr[0];
+    px_char *pName = (px_char *)e.Param_ptr[0];
 
-    if (PX_wstrlen(pName) < PX_COUNTOF(pShip->PlayerName)) {
+    if (PX_strlen(pName) < PX_COUNTOF(pShip->PlayerName)) {
         pShip->PlayerName[0] = 0;
-        PX_wstrcat(pShip->PlayerName, pName);
+        PX_strcat(pShip->PlayerName, pName);
     }
 }
 px_void Game_Object_ShipOnImpact(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {

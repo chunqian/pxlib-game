@@ -1,10 +1,10 @@
 #ifndef PX_APPLICATION_H
 #define PX_APPLICATION_H
 
-#include "PX_StartupServer_SignUp.h"
 #include "PX_StartupServer_Database.h"
-#include "PX_StartupServer_Login.h"
 #include "PX_StartupServer_Lobby.h"
+#include "PX_StartupServer_Login.h"
+#include "PX_StartupServer_SignUp.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Configures

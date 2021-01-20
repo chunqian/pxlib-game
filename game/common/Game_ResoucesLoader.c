@@ -7,19 +7,19 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
     switch (type) {
         case GAME_RESOURCESLOADER_TYPE_CLIENT: {
             // FontModule
-            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModule32)) {
+            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModule32, PX_FONTMODULE_CODEPAGE_UTF8)) {
                 return PX_FALSE;
             }
 
-            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModule24)) {
+            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModule24, PX_FONTMODULE_CODEPAGE_UTF8)) {
                 return PX_FALSE;
             }
 
-            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModule18)) {
+            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModule18, PX_FONTMODULE_CODEPAGE_UTF8)) {
                 return PX_FALSE;
             }
 
-            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModuleScore)) {
+            if (!PX_FontModuleInitialize(&Ins->runtime.mp_resources, &Ins->FontModuleScore, PX_FONTMODULE_CODEPAGE_UTF8)) {
                 return PX_FALSE;
             }
 

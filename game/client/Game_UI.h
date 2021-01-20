@@ -1,13 +1,14 @@
 #ifndef GAME_UI_H
 #define GAME_UI_H
 
-#include "../common/Game_Play.h"
 #include "../common/Game_ObjectTypes.h"
-#include "Game_UI_StatusPanel.h"
+#include "../common/Game_Play.h"
+
 #include "Game_UI_Map.h"
-#include "Game_UI_ScorePanel.h"
-#include "Game_UI_RankPanel.h"
 #include "Game_UI_Message.h"
+#include "Game_UI_RankPanel.h"
+#include "Game_UI_ScorePanel.h"
+#include "Game_UI_StatusPanel.h"
 
 typedef struct {
     px_texture *pTexture;

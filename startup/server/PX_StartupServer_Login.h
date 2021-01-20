@@ -1,10 +1,10 @@
 #ifndef DEMO_SERVERLOGIN_H
 #define DEMO_SERVERLOGIN_H
 
-#include "PX_Startup.h"
-#include "../network/GameServer_Network.h"
-#include "PX_StartupServer_Database.h"
 #include "../../game/common/Game_Object_Base.h"
+#include "../network/GameServer_Network.h"
+#include "PX_Startup.h"
+#include "PX_StartupServer_Database.h"
 
 #define PX_STARTUPSERVER_LOGIN_MAXCONNECTION 256
 #define PX_STARTUPSERVER_LOGIN_CONNECTION_TIMEOUT 3000

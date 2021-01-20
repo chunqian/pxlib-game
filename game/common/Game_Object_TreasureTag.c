@@ -27,7 +27,7 @@ px_void Game_Object_TreasureTagUpdate(PX_Object *pObject, px_dword elpased) {
 px_void Game_Object_TreasureTagRender(px_surface *psurface, PX_Object *pObject, px_dword elpased) {
     Game_Object_TreasureTag *pst = Game_Object_GetTreasureTag(pObject);
     px_char content[16] = {0};
-    px_word wconetnt[32] = {0};
+    px_char content2[32] = {0};
     px_dword alive = GAME_TREASURETAG_DEFALUE_ALIVE_TIME - pst->elpased;
 
     if (GAME_TREASURETAG_DEFALUE_ALIVE_TIME - pst->elpased < 500) {
@@ -42,10 +42,11 @@ px_void Game_Object_TreasureTagRender(px_surface *psurface, PX_Object *pObject, 
                          pst->rotation);
 
     PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT((GAME_TREASURETAG_DEFALUE_ALIVE_TIME - pst->elpased) / 1000.0f));
-    PX_wstrcat(wconetnt, (const px_word *)L"即将开启:");
-    PX_FontModule_wastrcat(wconetnt, content);
-    PX_FontModuleDrawText(psurface, (px_int)pObject->x, (px_int)pObject->y - 32, wconetnt, PX_COLOR(255, 192, 0, 0), &pst->pIns->FontModule18,
-                          PX_FONT_ALIGN_XCENTER);
+    // PX_wstrcat(content2, (const px_word *)L"即将开启:");
+    // PX_FontModule_wastrcat(content2, content);
+    PX_strcat(content2, "即将开启:");
+    PX_strcat(content2, content);
+    PX_FontModuleDrawText(psurface, &pst->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y - 32, PX_ALIGN_CENTER, content2, PX_COLOR(255, 192, 0, 0));
 }
 
 PX_Object *Game_Object_TreasureTagCreateObject(PX_Instance *pIns, PX_World *pWorld, px_point position) {

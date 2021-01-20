@@ -19,7 +19,7 @@ px_void Game_UI_RankPanelRender(px_surface *renderSurface, Game_UI_RankPanel *ui
     Game_UI_RankPanelData Data[32];
     PX_QuickSortAtom SortData[32];
     px_char Content[64];
-    px_word contentw[64];
+    px_char contentw[64];
 
     sortcount = 0;
 
@@ -46,8 +46,8 @@ px_void Game_UI_RankPanelRender(px_surface *renderSurface, Game_UI_RankPanel *ui
             pShip = Game_Object_GetShip(ui->pPlay->Players[pData->player].pShipObject);
             PX_sprintf1(Content, sizeof(Content), ":%1", PX_STRINGFORMAT_INT(pData->score));
             contentw[0] = 0;
-            PX_wstrcat(contentw, pShip->PlayerName);
-            PX_FontModule_wastrcat(contentw, Content);
+            PX_strcat(contentw, (px_char *)pShip->PlayerName);
+            PX_strcat(contentw, Content);
 
             switch (i) {
                 case 0:
@@ -66,8 +66,8 @@ px_void Game_UI_RankPanelRender(px_surface *renderSurface, Game_UI_RankPanel *ui
 
             PX_TextureRender(renderSurface, &pShip->photo_mini, ui->pIns->runtime.width - 30, 32 * i, PX_TEXTURERENDER_REFPOINT_LEFTTOP, PX_NULL);
 
-            PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width - 32, 20 + 32 * i, contentw, PX_COLOR(255, 0, 128, 0), &ui->pIns->FontModule24,
-                                  PX_FONT_ALIGN_XRIGHT);
+            PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule24, ui->pIns->runtime.width - 32, 20 + 32 * i, PX_ALIGN_RIGHTMID, contentw,
+                                  PX_COLOR(255, 0, 128, 0));
         }
         yoffset = 32 * i;
     }
@@ -94,8 +94,8 @@ px_void Game_UI_RankPanelRender(px_surface *renderSurface, Game_UI_RankPanel *ui
             Game_UI_RankPanelData *pData = (Game_UI_RankPanelData *)SortData[i].pData;
             pShip = Game_Object_GetShip(ui->pPlay->Players[pData->player].pShipObject);
 
-            PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width - 32, 20 + 32 * i + yoffset, pShip->PlayerName, PX_COLOR(255, 168, 168, 168),
-                                  &ui->pIns->FontModule24, PX_FONT_ALIGN_XRIGHT);
+            PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule24, ui->pIns->runtime.width - 32, 20 + 32 * i + yoffset, PX_ALIGN_RIGHTMID,
+                                  (px_char *)pShip->PlayerName, PX_COLOR(255, 168, 168, 168));
         }
     }
 }

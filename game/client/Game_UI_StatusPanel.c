@@ -73,7 +73,7 @@ px_void Game_UI_StatusPanelRender(px_surface *renderSurface, Game_UI_StatusPanel
     PX_GeoDrawCircle(renderSurface, x, y, 24, 8, PX_COLOR(255, 0, 0, 0));
     PX_GeoDrawRing(renderSurface, x, y, 24, 6, color, 90, 90 + (px_int)(force / maxForce * 360));
     PX_itoa((px_int)force, text, sizeof(text), 10);
-    PX_FontDrawText(renderSurface, x - 3 - __PX_FONT_ASCSIZE * (PX_strlen(text) - 1) / 2 - 1, 26, text, color, PX_FONT_ALIGN_XLEFT);
+    PX_FontDrawText(renderSurface, x - 3 - __PX_FONT_ASCSIZE * (PX_strlen(text) - 1) / 2 - 1, 26, PX_ALIGN_LEFTMID, text, color);
 
     x += 64;
 
@@ -85,7 +85,7 @@ px_void Game_UI_StatusPanelRender(px_surface *renderSurface, Game_UI_StatusPanel
     PX_GeoDrawCircle(renderSurface, x, y, 24, 8, PX_COLOR(255, 0, 0, 0));
     PX_GeoDrawRing(renderSurface, x, y, 24, 6, color, 90, 90 + (px_int)(velocity / maxvelocity * 360));
     PX_itoa((px_int)velocity, text, sizeof(text), 10);
-    PX_FontDrawText(renderSurface, x - 3 - __PX_FONT_ASCSIZE * (PX_strlen(text) - 1) / 2 - 1, 26, text, color, PX_FONT_ALIGN_XLEFT);
+    PX_FontDrawText(renderSurface, x - 3 - __PX_FONT_ASCSIZE * (PX_strlen(text) - 1) / 2 - 1, 26, PX_ALIGN_LEFTMID, text, color);
 
     x += 36;
     y = 8;
@@ -136,11 +136,11 @@ px_void Game_UI_StatusPanelRender(px_surface *renderSurface, Game_UI_StatusPanel
 
     PX_sprintf1(text, sizeof(text), "fps:%1", PX_STRINGFORMAT_INT(fps));
     if (fps < 25) {
-        PX_FontDrawText(renderSurface, x, y, text, PX_COLOR(255, 255, 0, 0), PX_FONT_ALIGN_XLEFT);
+        PX_FontDrawText(renderSurface, x, y, PX_ALIGN_LEFTMID, text, PX_COLOR(255, 255, 0, 0));
     } else if (fps < 35) {
-        PX_FontDrawText(renderSurface, x, y, text, PX_COLOR(255, 255, 255, 0), PX_FONT_ALIGN_XLEFT);
+        PX_FontDrawText(renderSurface, x, y, PX_ALIGN_LEFTMID, text, PX_COLOR(255, 255, 255, 0));
     } else {
-        PX_FontDrawText(renderSurface, x, y, text, PX_COLOR(255, 37, 119, 0), PX_FONT_ALIGN_XLEFT);
+        PX_FontDrawText(renderSurface, x, y, PX_ALIGN_LEFTMID, text, PX_COLOR(255, 37, 119, 0));
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -210,7 +210,7 @@ px_void Game_UI_StatusPanelRender(px_surface *renderSurface, Game_UI_StatusPanel
         if (pShip->WeaponStack[pShip->WeaponIndex].type != GAME_OBJECT_SHIP_WEAPON_TYPE_NONE) {
             px_char countText[16];
             PX_itoa(pShip->WeaponStack[pShip->WeaponIndex].AtomCount, countText, sizeof(countText), 10);
-            PX_FontDrawText(renderSurface, coolx + 24, cooly + 52, countText, PX_COLOR(255, 255, 0, 0), PX_FONT_ALIGN_XCENTER);
+            PX_FontDrawText(renderSurface, coolx + 24, cooly + 52, PX_ALIGN_CENTER, countText, PX_COLOR(255, 255, 0, 0));
         }
     }
 }

@@ -23,9 +23,9 @@ px_void Game_PlayOnDefeat(PX_Object *pObject, PX_Object_Event e, px_void *ptr) {
     Game_Object_Ship *pDefeatship = Game_Object_GetShip(pPlay->Players[e.Param_int[1]].pShipObject);
 
     PX_memset(&message, 0, sizeof(message));
-    PX_wstrcat(message.Message, pAttackship->PlayerName);
-    PX_wstrcat(message.Message, (px_word *)L" 淘汰了 ");
-    PX_wstrcat(message.Message, pDefeatship->PlayerName);
+    PX_strcat(message.Message, pAttackship->PlayerName);
+    PX_strcat(message.Message, " 淘汰了 ");
+    PX_strcat(message.Message, pDefeatship->PlayerName);
 
     PX_VectorPushback(&pPlay->Messages, &message);
 }
@@ -103,7 +103,7 @@ px_void Game_PlayStart(Game_Play *pPlay, GAME_PLAY_GAMETYPE gameType, PX_GameSta
 
         pShip = Game_Object_GetShip(pobject);
         pShip->PlayerName[0] = 0;
-        PX_wstrcat(pShip->PlayerName, PlayerDataDesc[i].NickName);
+        PX_strcat(pShip->PlayerName, PlayerDataDesc[i].NickName);
         if (!PX_TextureCreateFromMemory(&pPlay->pIns->runtime.mp_resources, PlayerDataDesc[i].Photo_Data, sizeof(PlayerDataDesc[i].Photo_Data), &pShip->photo))
             PX_ASSERT();
         if (!PX_TextureCreateScale(&pPlay->pIns->runtime.mp_resources, &pShip->photo, 24, 24, &pShip->photo_mini)) PX_ASSERT();

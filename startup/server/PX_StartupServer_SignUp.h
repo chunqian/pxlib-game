@@ -1,9 +1,9 @@
 #ifndef PX_STARTUPSERVER_SIGNUP_H
 #define PX_STARTUPSERVER_SIGNUP_H
 
+#include "../network/GameServer_Network.h"
 #include "PX_Startup.h"
 #include "PX_StartupServer_Database.h"
-#include "../network/GameServer_Network.h"
 
 #define PX_STARTUPSERVER_SIGNUP_MAXCONNECTION 256
 #define PX_STARTUPSERVER_SIGNUP_CONNECTION_TIMEOUT 3000

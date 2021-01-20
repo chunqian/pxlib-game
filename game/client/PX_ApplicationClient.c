@@ -260,7 +260,7 @@ px_void PX_ApplicationUpdateGameOver(PX_Application *App, px_dword elpased) {
 
 px_void PX_ApplicationUpdateDownloading(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
-    static px_word wprocContent[32] = {0};
+    static px_char procContent2[32] = {0};
     static px_char procContent[16];
     const px_char *Content[] = {(const char *)L"数据同步中.", (const char *)L"数据同步中..", (const char *)L"数据同步中..."};
 
@@ -273,13 +273,13 @@ px_void PX_ApplicationUpdateDownloading(PX_Application *App, px_dword elpased) {
         aniElpased = 0;
     }
 
-    wprocContent[0] = '\0';
+    // procContent2[0] = '\0';
     PX_sprintf1(procContent, sizeof(procContent), "%1.2%",
                 PX_STRINGFORMAT_FLOAT(App->SyncDataClient.acceptBlock * 100.0f / (App->SyncDataClient.blockCount ? App->SyncDataClient.blockCount : 1)));
-    PX_wstrcat(wprocContent, (const px_word *)Content[aniElpased / 500]);
-    PX_FontModule_wastrcat(wprocContent, procContent);
+    PX_strcat(procContent2, Content[aniElpased / 500]);
+    // PX_FontModule_wastrcat(procContent2, procContent);
 
-    App->messagebox.Message = (const px_char *)wprocContent;
+    App->messagebox.Message = (const px_char *)procContent;
 
     PX_MessageBoxUpdate(&App->messagebox, elpased);
     PX_SyncDataClientUpdate(&App->SyncDataClient, elpased);
@@ -330,13 +330,13 @@ px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
         aniElpased = 0;
     }
 
-    wprocContent[0] = '\0';
+    // wprocContent[0] = '\0';
     PX_sprintf2(procContent, sizeof(procContent), "%1/%2", PX_STRINGFORMAT_INT(App->SyncFrameClient.connectCount),
                 PX_STRINGFORMAT_INT(App->SyncFrameClient.connectSumCount));
     PX_wstrcat(wprocContent, (const px_word *)Content[aniElpased / 500]);
-    PX_FontModule_wastrcat(wprocContent, procContent);
+    // PX_FontModule_wastrcat(wprocContent, procContent);
 
-    App->messagebox.Message = (const px_char *)wprocContent;
+    App->messagebox.Message = (const px_char *)procContent;
 
     PX_MessageBoxUpdate(&App->messagebox, elpased);
     PX_SyncFrameClientUpdate(&App->SyncFrameClient, elpased);
@@ -351,18 +351,24 @@ px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
 }
 px_void PX_ApplicationUpdateReSync(PX_Application *App, px_dword elpased) {
     static px_char Numeric[16] = {0};
-    static px_word Contentw[32] = {0};
+    static px_char Content[32] = {0};
     px_dword serverSyncTime = PX_SyncFrameClientGetReadyFrameCount(&App->SyncFrameClient) * GAME_SYNC_DURATION;
 
     if (serverSyncTime > 2000 && App->syncTime < serverSyncTime - GAME_SYNC_DELAY * 10) {
         if (!App->SyncMessageBox.show) {
-            PX_MessageBoxAlert(&App->SyncMessageBox, (const px_char *)Contentw);
+            PX_MessageBoxAlert(&App->SyncMessageBox, Content);
         }
-        Contentw[0] = 0;
-        PX_wstrcat(Contentw, (px_word *)L"同步中(");
+        Content[0] = 0;
+
+        // PX_wstrcat(Contentw, (px_word *)L"同步中(");
+        // PX_ftoa(App->syncTime * 100.0f / (serverSyncTime), Numeric, sizeof(Numeric), 2);
+        // PX_FontModule_wastrcat(Contentw, Numeric);
+        // PX_wstrcat(Contentw, (px_word *)L"%)");
+
+        PX_strcat(Content, "同步中(");
         PX_ftoa(App->syncTime * 100.0f / (serverSyncTime), Numeric, sizeof(Numeric), 2);
-        PX_FontModule_wastrcat(Contentw, Numeric);
-        PX_wstrcat(Contentw, (px_word *)L"%)");
+        PX_strcat(Content, Numeric);
+        PX_strcat(Content, "%)");
     } else {
         if (App->SyncMessageBox.show) {
             PX_MessageBoxClose(&App->SyncMessageBox);
@@ -466,8 +472,8 @@ px_void PX_ApplicationGamingRender(px_surface *renderSurface, PX_Application *Ap
     if (Game_PlayIsGameOver(&App->play) && App->play.GameOverWaitElpased >= GAME_PLAY_GAME_WAIT_ELPASED) {
         // Game Render
         Game_PlayRender(renderSurface, &App->play, elpased);
-        PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, 128, (px_word *)L"游戏即将结束", PX_COLOR(255, 255, 0, 0),
-                              &App->Instance.FontModule32, PX_FONT_ALIGN_XCENTER);
+        PX_FontModuleDrawText(renderSurface, &App->Instance.FontModule32, App->Instance.runtime.width / 2, 128, PX_ALIGN_CENTER, "游戏即将结束",
+                              PX_COLOR(255, 255, 0, 0));
     } else {
         px_int MonitorPlayer, LocalPlayer;
         PX_Object *pShipObject;
@@ -511,41 +517,41 @@ px_void PX_ApplicationGamingRender(px_surface *renderSurface, PX_Application *Ap
 
 px_void PX_ApplicationGameOverRender(px_surface *renderSurface, PX_Application *App, px_dword elpased) {
     px_int rank = Game_PlayGetPlayerRank(&App->play, App->SyncFrameClient.c_id);
-    static const px_word *rankContent[] = {
-        (const px_word *)L"DBinary(matrixcascade@gmail.com) All Rights Reserved",
-        (const px_word *)L"第一名 最强老司机!",
-        (const px_word *)L"第二名 老司机!",
-        (const px_word *)L"第三名 大佬!",
-        (const px_word *)L"第四名 旗鼓相当的对手",
-        (const px_word *)L"第五名 弟弟",
-        (const px_word *)L"第六名 菜鸡",
-        (const px_word *)L"第七名 弱鸡",
-        (const px_word *)L"第八名 渣渣",
-        (const px_word *)L"第九名",
-        (const px_word *)L"第十名",
-        (const px_word *)L"第十一名",
-        (const px_word *)L"第十二名",
-        (const px_word *)L"第十三名",
-        (const px_word *)L"第十四名",
-        (const px_word *)L"第十五名",
-        (const px_word *)L"第十六名",
+    static const px_char *rankContent[] = {
+        "DBinary(matrixcascade@gmail.com) All Rights Reserved",
+        "第一名 最强老司机!",
+        "第二名 老司机!",
+        "第三名 大佬!",
+        "第四名 旗鼓相当的对手",
+        "第五名 弟弟",
+        "第六名 菜鸡",
+        "第七名 弱鸡",
+        "第八名 渣渣",
+        "第九名",
+        "第十名",
+        "第十一名",
+        "第十二名",
+        "第十三名",
+        "第十四名",
+        "第十五名",
+        "第十六名",
     };
 
     if (rank > 0 && rank < PX_COUNTOF(rankContent)) {
         if (App->gameOverElpased < 1500) {
-            PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2, rankContent[rank],
-                                  PX_COLOR((px_uchar)(App->gameOverElpased / 1500.f * 255), 0, 0, 0), &App->Instance.FontModule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(renderSurface, &App->Instance.FontModule32, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2,
+                                  PX_ALIGN_CENTER, rankContent[rank], PX_COLOR((px_uchar)(App->gameOverElpased / 1500.f * 255), 0, 0, 0));
         } else {
-            PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2, rankContent[rank], PX_COLOR(255, 0, 0, 0),
-                                  &App->Instance.FontModule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(renderSurface, &App->Instance.FontModule32, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2,
+                                  PX_ALIGN_CENTER, rankContent[rank], PX_COLOR(255, 0, 0, 0));
         }
     } else {
         if (App->gameOverElpased < 1500) {
-            PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2, (px_word *)L"Game Over",
-                                  PX_COLOR((px_uchar)(App->gameOverElpased / 1500.f * 255), 0, 0, 0), &App->Instance.FontModule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(renderSurface, &App->Instance.FontModule32, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2,
+                                  PX_ALIGN_CENTER, "Game Over", PX_COLOR((px_uchar)(App->gameOverElpased / 1500.f * 255), 0, 0, 0));
         } else {
-            PX_FontModuleDrawText(renderSurface, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2, (px_word *)L"Game Over",
-                                  PX_COLOR(255, 0, 0, 0), &App->Instance.FontModule32, PX_FONT_ALIGN_XCENTER);
+            PX_FontModuleDrawText(renderSurface, &App->Instance.FontModule32, App->Instance.runtime.width / 2, App->Instance.runtime.height / 2,
+                                  PX_ALIGN_CENTER, "Game Over", PX_COLOR(255, 0, 0, 0));
         }
     }
 }

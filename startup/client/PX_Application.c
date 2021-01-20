@@ -51,78 +51,78 @@ px_bool PX_ApplicationInitialize(PX_Application *pApp) {
     WSAStartup(MAKEWORD(2, 2), &wsaData);
 
     if (!PX_JsonInitialize(&pApp->Instance.runtime.mp_game, &pApp->ConfigJson)) {
-        MessageBox(NULL, "JSON配置失败", "error", MB_OK);
+        MessageBox(NULL, L"JSON配置失败", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_LoadJsonFromFile(&pApp->ConfigJson, "./resources/config.json")) {
-        MessageBox(NULL, "配置文件缺失", "error", MB_OK);
+        MessageBox(NULL, L"配置文件缺失", L"error", MB_OK);
         return PX_FALSE;
     }
 
     pValue = PX_JsonGetValue(&pApp->ConfigJson, "LoginServer.IP");
     if (!pValue) {
-        MessageBox(NULL, "无效的登录服务地址", "错误", MB_OK);
+        MessageBox(NULL, L"无效的登录服务地址", L"error", MB_OK);
         return PX_FALSE;
     }
     host = gethostbyname(pValue->_string.buffer);
     if (!host) {
-        MessageBox(NULL, "无效的登录服务地址", "错误", MB_OK);
+        MessageBox(NULL, L"无效的登录服务地址", L"error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_LoginInitialize(&pApp->Instance, &pApp->login, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]), PX_APPLICATION_CLIENTLOGIN_PORT)) {
-        MessageBox(NULL, "登录服务启动失败", "错误", MB_OK);
+        MessageBox(NULL, L"登录服务启动失败", L"error", MB_OK);
         return PX_FALSE;
     }
 
     pValue = PX_JsonGetValue(&pApp->ConfigJson, "SignupServer.IP");
     if (!pValue) {
-        MessageBox(NULL, "无效的注册服务地址", "错误", MB_OK);
+        MessageBox(NULL, L"无效的注册服务地址", L"error", MB_OK);
         return PX_FALSE;
     }
     host = gethostbyname(pValue->_string.buffer);
     if (!host) {
-        MessageBox(NULL, "无效的注册服务地址", "错误", MB_OK);
+        MessageBox(NULL, L"无效的注册服务地址", L"error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_SignUpInitialize(&pApp->Instance, &pApp->signup, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]), PX_SIGNUP_SERVER_PORT)) {
-        MessageBox(NULL, "注册服务启动失败", "错误", MB_OK);
+        MessageBox(NULL, L"注册服务启动失败", L"error", MB_OK);
         return PX_FALSE;
     }
 
     pValue = PX_JsonGetValue(&pApp->ConfigJson, "LobbyServer.IP");
     if (!pValue) {
-        MessageBox(NULL, "无效的大厅服务地址", "错误", MB_OK);
+        MessageBox(NULL, L"无效的大厅服务地址", L"error", MB_OK);
         return PX_FALSE;
     }
     host = gethostbyname(pValue->_string.buffer);
     if (!host) {
-        MessageBox(NULL, "无效的游戏大厅服务地址", "错误", MB_OK);
+        MessageBox(NULL, L"无效的游戏大厅服务地址", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_LobbyInitialize(&pApp->Instance, &pApp->lobby, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]), PX_LOBBY_SERVER_PORT,
                             PX_LOBBY_SERVER_LARGEDATAPORT)) {
-        MessageBox(NULL, "大厅服务启动失败", "错误", MB_OK);
+        MessageBox(NULL, L"大厅服务启动失败", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_MessageBoxInitialize(&pApp->Instance.runtime, &pApp->messagebox, &pApp->Instance.fontmodule32, pApp->Instance.runtime.width,
                                  pApp->Instance.runtime.height)) {
-        MessageBox(NULL, "MessageBox初始化失败", "error", MB_OK);
+        MessageBox(NULL, L"MessageBox初始化失败", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_FontModuleInitialize(&pApp->Instance.runtime.mp_resources, &App.Instance.fontmodule32, PX_FONTMODULE_CODEPAGE_UTF8)) {
-        MessageBox(NULL, "字模初始化失败", "error", MB_OK);
+        MessageBox(NULL, L"字模初始化失败", L"error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/chs16.pxf")) {
-        MessageBox(NULL, "字模缺失", "error", MB_OK);
+        MessageBox(NULL, L"字模缺失", L"error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/ss16.pxf")) {
-        MessageBox(NULL, "字模缺失", "error", MB_OK);
+        MessageBox(NULL, L"字模缺失", L"error", MB_OK);
         return PX_FALSE;
     }
 

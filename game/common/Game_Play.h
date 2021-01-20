@@ -3,10 +3,10 @@
 
 #define GAME_PLAY_MAX_SUPPORT_PLAYERS 16
 
-#include "PX_Startup.h"
 #include "Game_ObjectTypes.h"
 #include "Game_ResoucesLoader.h"
 #include "Game_Text.h"
+#include "PX_Startup.h"
 
 #define GAME_PARTICAL_MP_FIRE 1024 * 1024       // 1M for fire
 #define GAME_PARTICAL_MP_EXPLODE 1024 * 1024    // 1M for partical
@@ -50,7 +50,7 @@ typedef struct {
 } Game_Play_NameInstr;
 
 typedef struct {
-    px_word Message[GAME_MESSAGE_LEN];
+    px_char Message[GAME_MESSAGE_LEN];
 } Game_Play_Message;
 
 typedef struct {

@@ -1,5 +1,4 @@
 #include "PX_Lobby.h"
-#include "PX_Typedef.h"
 
 extern px_void PX_ApplicationMessageBoxAlertYesNo(const px_char content[], PX_MessageBoxCallBack yescallback, px_void *yesptr, PX_MessageBoxCallBack nocallback,
                                                   px_void *noptr);
@@ -25,7 +24,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
 
     pf = fopen("./bin/startup", "wb");
     if (!pf) {
-        MessageBox(NULL, "启动配置失败,请重新启动游戏", "Error", MB_OK);
+        MessageBox(NULL, L"启动配置失败,请重新启动游戏", L"Error", MB_OK);
         exit(0);
     }
     fwrite(&startup_param, 1, sizeof(startup_param), pf);
@@ -39,7 +38,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
         pDesc->gameHandle = PX_NULL;
     } else {
         pDesc->gameHandle = PX_NULL;
-        MessageBox(NULL, "严重错误:游戏文件缺失,请重新下载游戏!", "Error", MB_OK);
+        MessageBox(NULL, L"严重错误:游戏文件缺失,请重新下载游戏!", L"Error", MB_OK);
         exit(0);
     }
     return 0;
@@ -766,14 +765,14 @@ static px_void PX_LobbyStandRender_UserInfo(PX_Lobby *pDesc, px_dword elpased) {
     }
     do {
         px_char content[32];
-        px_word wcontent[32];
+        px_char content2[32];
         PX_sprintf1(content, sizeof(content), "Rank:%1", PX_STRINGFORMAT_INT(pDesc->displayRankPt));
-        // PX_FontModule_atow(content, wcontent);
+        // PX_FontModule_atow(content, content2);
         // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, (px_int)pDesc->panel_userinfo.root->x + 64 + 256, (px_int)pDesc->panel_userinfo.root->y +
         // 52,
-        //                       wcontent, PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XLEFT);
+        //                       content2, PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XLEFT);
         PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, (px_int)pDesc->panel_userinfo.root->x + 64 + 256,
-                              (px_int)pDesc->panel_userinfo.root->y + 52, PX_ALIGN_LEFTMID, wcontent, PX_COLOR(255, 0, 0, 0));
+                              (px_int)pDesc->panel_userinfo.root->y + 52, PX_ALIGN_LEFTMID, content2, PX_COLOR(255, 0, 0, 0));
 
     } while (0);
 
@@ -1258,7 +1257,7 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
     switch (pDesc->userState.userState) {
         case PX_STARTUP_GAMESTATE_STANDBY: {
             px_char numeric[16];
-            px_word content[32] = {0};
+            px_char content[32] = {0};
             PX_itoa(pDesc->userState.game_onlineCount, numeric, sizeof(numeric), 10);
             // PX_wstrcat(content, "游戏大厅在线:");
             // PX_FontModule_wastrcat(content, numeric);
@@ -1270,7 +1269,7 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
         } break;
         case PX_STARTUP_GAMESTATE_RANKING: {
             px_char numeric[16];
-            px_word content[32] = {0};
+            px_char content[32] = {0};
             PX_itoa(pDesc->userState.game_readyPlayers, numeric, sizeof(numeric), 10);
             // PX_wstrcat(content, "玩家已加入:");
             // PX_FontModule_wastrcat(content, numeric);

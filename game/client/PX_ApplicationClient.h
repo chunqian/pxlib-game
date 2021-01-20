@@ -1,10 +1,11 @@
 #ifndef PX_APPLICATION_H
 #define PX_APPLICATION_H
 
-#include "../common/PX_Startup.h"
 #include "../common/Game_Play.h"
-#include "PX_GameClientStartup.h"
+#include "../common/PX_Startup.h"
+
 #include "Game_UI.h"
+#include "PX_GameClientStartup.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Configures

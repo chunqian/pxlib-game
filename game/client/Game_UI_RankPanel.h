@@ -1,8 +1,8 @@
 #ifndef GAME_UI_RANKPANEL_H
 #define GAME_UI_RANKPANEL_H
 
-#include "../common/Game_Play.h"
 #include "../common/Game_ObjectTypes.h"
+#include "../common/Game_Play.h"
 
 typedef struct {
     PX_Instance *pIns;

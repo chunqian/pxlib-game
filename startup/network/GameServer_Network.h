@@ -42,7 +42,7 @@ typedef struct {
 
 typedef struct {
     px_char account[32];
-    px_word nickname[32];
+    px_char nickname[32];
     px_dword rank_pt;
     px_dword rank;
     px_dword match_count;

@@ -142,7 +142,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                     } else {
                         DWORD dwErr = GetLastError();
                         if (dwErr > 0) {
-                            // MessageBoxW(hWnd, L"Error!", L"Could not retrieve a GESTUREINFO structure.", MB_OK);
+                            // MessageBox(hWnd, L"Error!", L"Could not retrieve a GESTUREINFO structure.", MB_OK);
                         }
                     }
                 } break;

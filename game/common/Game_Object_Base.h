@@ -1,8 +1,8 @@
 #ifndef GAME_OBJECT_BASE_H
 #define GAME_OBJECT_BASE_H
 
-#include "PX_Startup.h"
 #include "Game_Text.h"
+#include "PX_Startup.h"
 
 #define GAME_VERSION 0x12
 
@@ -144,7 +144,7 @@ typedef struct {
     // render description
     px_char account[32];
     px_byte Photo_Data[GAME_PLAY_USERDATA_PHOTOSIZE];
-    px_word NickName[32];
+    px_char NickName[32];
     // update description
     px_dword shiptype;
     px_dword group;

@@ -24,14 +24,15 @@ px_void Game_UI_TreasureAlertRender(px_surface *renderSurface, Game_UI *ui, px_d
         px_float schedule = (GAME_PLAY_TREASURE_GEN_DURATION - ui->pPlay->treasureGenElpased) / 10000.0f;
         PX_GeoDrawRing(renderSurface, ui->pIns->runtime.width / 2 - 160, ui->pIns->runtime.height - 32, 24, 8, PX_COLOR(255, 255, 0, 0), 270,
                        (px_uint)(270 + 360 * schedule));
-        PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2, ui->pIns->runtime.height - 24, (px_word *)L"强化道具即将投放",
-                              PX_COLOR(192, 255, 0, 0), &ui->pIns->FontModule32, PX_FONT_ALIGN_XCENTER);
+        PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule32, ui->pIns->runtime.width / 2, ui->pIns->runtime.height - 24, PX_ALIGN_CENTER,
+                              "强化道具即将投放", PX_COLOR(192, 255, 0, 0));
     }
 }
 
 px_void Game_UI_GameCountDownRender(px_surface *renderSurface, Game_UI *ui, px_dword elpased) {
     if (ui->pPlay->GameTime >= ui->pPlay->elpased) {
-        px_word timeContent[32] = {0};
+        // px_word timeContent[32] = {0};
+        px_char timeContent[32] = {0};
         px_char NumericContent[8];
         px_dword reserveTime = ui->pPlay->GameTime - ui->pPlay->elpased;
         px_int min = reserveTime / 1000 / 60;
@@ -39,27 +40,28 @@ px_void Game_UI_GameCountDownRender(px_surface *renderSurface, Game_UI *ui, px_d
         px_int millisecond = (reserveTime % 1000) / 10;
 
         PX_itoa(min, NumericContent, sizeof(NumericContent), 10);
-        PX_FontModule_wastrcat(timeContent, NumericContent);
-        PX_FontModule_wastrcat(timeContent, ":");
+        PX_strcat(timeContent, NumericContent);
+        PX_strcat(timeContent, ":");
 
         PX_itoa(second, NumericContent, sizeof(NumericContent), 10);
-        PX_FontModule_wastrcat(timeContent, NumericContent);
-        PX_FontModule_wastrcat(timeContent, ".");
+        PX_strcat(timeContent, NumericContent);
+        PX_strcat(timeContent, ".");
 
         PX_itoa(millisecond, NumericContent, sizeof(NumericContent), 10);
-        PX_FontModule_wastrcat(timeContent, NumericContent);
+        PX_strcat(timeContent, NumericContent);
+
         if (reserveTime <= 10000) {
             if ((reserveTime / 500) & 1) {
-                PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2 + 256 + 64, 64, timeContent, PX_COLOR(255, 255, 0, 0), &ui->pIns->FontModule24,
-                                      PX_FONT_ALIGN_XLEFT);
+                PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule24, ui->pIns->runtime.width / 2 + 256 + 64, 64, PX_ALIGN_LEFTMID, timeContent,
+                                      PX_COLOR(255, 255, 0, 0));
             } else {
-                PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2 + 256 + 64, 64, timeContent, PX_COLOR(128, 64, 64, 64),
-                                      &ui->pIns->FontModule24, PX_FONT_ALIGN_XLEFT);
+                PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule24, ui->pIns->runtime.width / 2 + 256 + 64, 64, PX_ALIGN_LEFTMID, timeContent,
+                                      PX_COLOR(128, 64, 64, 64));
             }
 
         } else {
-            PX_FontModuleDrawText(renderSurface, ui->pIns->runtime.width / 2 + 256 + 64, 64, timeContent, PX_COLOR(255, 0, 168, 0), &ui->pIns->FontModule24,
-                                  PX_FONT_ALIGN_XLEFT);
+            PX_FontModuleDrawText(renderSurface, &ui->pIns->FontModule24, ui->pIns->runtime.width / 2 + 256 + 64, 64, PX_ALIGN_LEFTMID, timeContent,
+                                  PX_COLOR(255, 0, 168, 0));
         }
     }
 }
