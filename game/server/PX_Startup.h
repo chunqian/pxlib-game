@@ -1,5 +1,5 @@
-#ifndef PX_GAMESERVERSTARTUP_H
-#define PX_GAMESERVERSTARTUP_H
+#ifndef PX_STARTUP_H
+#define PX_STARTUP_H
 
 #include "../../pxlib/core/PX_Core.h"
 

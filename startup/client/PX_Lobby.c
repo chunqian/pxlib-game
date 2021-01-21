@@ -29,9 +29,9 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
     }
     fwrite(&startup_param, 1, sizeof(startup_param), pf);
     fclose(pf);
-    GetCurrentDirectory(sizeof(currentDir), currentDir);
+    GetCurrentDirectory(sizeof(currentDir), (px_word *)currentDir);
     PX_strcat(currentDir, "/bin");
-    processRet = CreateProcess("./bin/game_client.exe", "game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
+    processRet = CreateProcess(L"./bin/game_client.exe", L"game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, (px_word *)currentDir, &sti, &proci);
     if (processRet) {
         CloseHandle(proci.hThread);
         WaitForSingleObject(proci.hProcess, INFINITE);

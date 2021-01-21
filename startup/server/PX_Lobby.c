@@ -1,4 +1,4 @@
-#include "PX_StartupServer_Lobby.h"
+#include "PX_Lobby.h"
 
 extern px_void PX_Application_ConsolePrint(const px_char *Text);
 

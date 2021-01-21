@@ -4,7 +4,6 @@
 #include "PX_Lobby.h"
 #include "PX_Login.h"
 #include "PX_SignUp.h"
-#include "PX_Startup.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Configures

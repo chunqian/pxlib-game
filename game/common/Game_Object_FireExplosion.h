@@ -2,6 +2,7 @@
 #define GAME_OBJECT_FIREEXPLOSION_H
 
 #include "Game_Object_Base.h"
+#include "Game_Startup.h"
 
 #define GAME_OBJECT_FIREEXPLOSION_DEFAULT_TIME 1000
 typedef struct {

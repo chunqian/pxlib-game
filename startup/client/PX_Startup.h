@@ -1,7 +1,7 @@
 #ifndef PX_STARTUP_H
 #define PX_STARTUP_H
 
-#define _WIN32_WINNT 0x0601 // Windows 7
+#define _WIN32_WINNT 0x0601  // Windows 7
 #define UNICODE
 
 #include "../../pxlib/platform/windows/Platform_Windows_Audio.h"
@@ -14,6 +14,14 @@
 #include "../network/GameServer_Network.h"
 
 typedef struct {
+    px_char IpAddr[32];
+    px_ushort syncDataPort;
+    px_ushort syncFramePort;
+    px_dword clientID;
+    px_dword serverID;
+} PX_GameClientStartUp;
+
+typedef struct {
     PX_Runtime runtime;
     PX_Console console;
     PX_SoundPlay soundplay;
@@ -24,7 +32,6 @@ extern px_void PX_ApplicationMessageBoxAlert(const px_char content[]);
 extern px_void PX_ApplicationMessageBoxAlertOk(const px_char content[]);
 extern px_void PX_ApplicationMessageBoxDisplayContent(const px_char content[]);
 extern px_void PX_ApplicationMessageBoxClose();
-//////////////////////////////////////////////////////////////////////////
 
 typedef struct {
     px_byte *buffer;

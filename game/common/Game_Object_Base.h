@@ -1,8 +1,10 @@
 #ifndef GAME_OBJECT_BASE_H
 #define GAME_OBJECT_BASE_H
 
+#include "../../pxlib/core/PX_Core.h"
+#include "../../pxlib/kernel/PX_Kernel.h"
+
 #include "Game_Text.h"
-#include "PX_Startup.h"
 
 #define GAME_VERSION 0x12
 

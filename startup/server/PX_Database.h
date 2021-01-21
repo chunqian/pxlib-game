@@ -1,9 +1,10 @@
-#ifndef GAMESERVER_DATABASE_H
-#define GAMESERVER_DATABASE_H
+#ifndef PX_DATABASE_H
+#define PX_DATABASE_H
+
+#include "PX_Startup.h"
 
 #include "../../pxlib/kernel/PX_Kernel.h"
 #include "../network/GameServer_Network.h"
-#include "PX_Startup.h"
 
 #include <stdio.h>
 

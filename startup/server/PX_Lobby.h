@@ -1,11 +1,11 @@
-#ifndef DEMO_SERVERLOBBY_H
-#define DEMO_SERVERLOBBY_H
+#ifndef PX_LOBBY_H
+#define PX_LOBBY_H
+
+#include "PX_Startup.h"
+#include "PX_Database.h"
 
 #include "../../game/common/Game_Object_Base.h"
-#include "../../game/server/PX_GameServerStartup.h"
 #include "../network/GameServer_Network.h"
-#include "PX_Startup.h"
-#include "PX_StartupServer_Database.h"
 
 #define PX_STARTUPSERVER_LOBBY_MAXCLIENT 128
 #define PX_STARTUPSERVER_LOBBY_CLIENT_TIMEOUT 16000

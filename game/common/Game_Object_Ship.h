@@ -1,5 +1,5 @@
-#ifndef GAME_OBJECT_SHIP
-#define GAME_OBJECT_SHIP
+#ifndef GAME_OBJECT_SHIP_H
+#define GAME_OBJECT_SHIP_H
 
 #include "Game_Object_Base.h"
 

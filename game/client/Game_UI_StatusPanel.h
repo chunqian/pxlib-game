@@ -1,5 +1,5 @@
-#ifndef GAME_UI_PANEL_H
-#define GAME_UI_PANEL_H
+#ifndef GAME_UI_STATUSPANEL_H
+#define GAME_UI_STATUSPANEL_H
 
 #include "../common/Game_ObjectTypes.h"
 #include "../common/Game_Play.h"

@@ -1,4 +1,4 @@
-#include "PX_ApplicationServer.h"
+#include "PX_Application.h"
 
 PX_Application App;
 

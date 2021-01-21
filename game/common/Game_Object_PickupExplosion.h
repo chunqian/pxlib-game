@@ -2,6 +2,7 @@
 #define GAME_OBJECT_PICKUPEXPLOSION_H
 
 #include "Game_Object_Base.h"
+#include "Game_Startup.h"
 
 #define GAME_OBJECT_PICKUPEXPLOSION_ALIVE 500
 

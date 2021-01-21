@@ -1,5 +1,5 @@
-#ifndef PX_STARTUP_H
-#define PX_STARTUP_H
+#ifndef GAME_STARTUP_H
+#define GAME_STARTUP_H
 
 #define _WIN32_WINNT 0x0601  // Windows 7
 #define UNICODE

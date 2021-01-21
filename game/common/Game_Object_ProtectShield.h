@@ -2,6 +2,7 @@
 #define GAME_OBJECT_PROTECTSHIELD_H
 
 #include "Game_Object_Base.h"
+#include "Game_Startup.h"
 
 #define GAME_OBJECT_PROTECTSHIELD_ALIVE_TIME 10000
 #define GAME_OBJECT_PROTECTSHIELD_DIAMETER 96

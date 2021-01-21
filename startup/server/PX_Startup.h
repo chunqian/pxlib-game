@@ -1,7 +1,7 @@
 #ifndef PX_STARTUP_H
 #define PX_STARTUP_H
 
-#define _WIN32_WINNT 0x0601 // Windows 7
+#define _WIN32_WINNT 0x0601  // Windows 7
 #define UNICODE
 
 #include "../../pxlib/platform/windows/Platform_Windows_D2D.h"
@@ -11,13 +11,32 @@
 #include "../../pxlib/platform/windows/px_udp.h"
 #include "../network/GameServer_Network.h"
 
+#define PX_GAMESERVER_RESULT_PORT 47760
+
+typedef struct {
+    px_ushort dataport;
+    px_ushort gameport;
+    px_dword playerCount;
+} PX_GameServerStartUp_Info;
+
+typedef struct {
+    px_dword clientID;
+    px_dword serverID;
+} PX_GameServerStartUp_PlayerNetInfo;
+
+typedef struct {
+    px_char account[32];
+    px_dword group;
+    px_dword rank;
+    px_dword gameType;
+    px_dword score;
+} PX_GameServer_PlayerResult;
+
 typedef struct {
     PX_Runtime runtime;
     PX_Console console;
     PX_SoundPlay soundplay;
 } PX_Instance;
-
-//////////////////////////////////////////////////////////////////////////
 
 typedef struct {
     px_byte *buffer;

@@ -22,11 +22,6 @@ set_optimize("faster")
 
 add_includedirs(
     "/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
-add_includedirs(pxlibdir)
-add_includedirs(pxlibdir .. "/core")
-add_includedirs(pxlibdir .. "/kernel")
-add_includedirs(pxlibdir .. "/arch")
-add_includedirs(pxlibdir .. "/platform/windows")
 
 add_files(pxlibdir .. "/core/*.c")
 add_files(pxlibdir .. "/kernel/*.c")

@@ -1,7 +1,8 @@
-#ifndef GAME_OBJECT_RAILGUNFIREASH_H
-#define GAME_OBJECT_RAILGUNFIREASH_H
+#ifndef GAME_OBJECT_RAILGUNFIRE_H
+#define GAME_OBJECT_RAILGUNFIRE_H
 
 #include "Game_Object_Base.h"
+#include "Game_Startup.h"
 
 #define GAME_OBJECT_RAILGUNFIRE_ALIVE_TIME 480
 

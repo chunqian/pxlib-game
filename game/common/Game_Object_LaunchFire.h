@@ -2,6 +2,7 @@
 #define GAME_OBJECT_LAUNCHFIRE_H
 
 #include "Game_Object_Base.h"
+#include "Game_Startup.h"
 
 #define GAME_OBJECT_SHOTGUNFIREASH_ALIVE_TIME 300
 

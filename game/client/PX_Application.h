@@ -1,13 +1,12 @@
 #ifndef PX_APPLICATION_H
 #define PX_APPLICATION_H
 
-#include "../common/Game_Play.h"
-#include "../common/PX_Startup.h"
-
 #include "Game_UI.h"
-#include "PX_GameClientStartup.h"
+#include "PX_Startup.h"
 
-//////////////////////////////////////////////////////////////////////////
+#include "../common/Game_Play.h"
+#include "../common/Game_Startup.h"
+
 // Configures
 #define PX_WINDOW_NAME ""
 
@@ -18,7 +17,6 @@
 #define PX_MEMORY_UI_SIZE (1024 * 1024 * 32)
 #define PX_MEMORY_RESOURCES_SIZE (1024 * 1024 * 96)
 #define PX_MEMORY_GAME_SIZE (1024 * 1024 * 32)
-//////////////////////////////////////////////////////////////////////////
 
 typedef enum {
     PX_APPLICATION_STATUS_DOWNLOADING,

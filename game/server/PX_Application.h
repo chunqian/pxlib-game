@@ -2,9 +2,9 @@
 #define PX_APPLICATION_H
 
 #include "../common/Game_Play.h"
-#include "../common/PX_Startup.h"
+#include "../common/Game_Startup.h"
 
-#include "PX_GameServerStartup.h"
+#include "PX_Startup.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Configures

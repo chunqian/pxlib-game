@@ -1,7 +1,5 @@
 #include "PX_MessageBox.h"
 
-#include "PX_Typedef.h"
-
 px_void PX_MessageBox_BtnYesClick(PX_Object *pObject, PX_Object_Event e, px_void *user) {
     PX_MessageBox *pm = (PX_MessageBox *)user;
     pm->retVal = PX_MESSAGEBOX_RETURN_YES;

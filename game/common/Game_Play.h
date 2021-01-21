@@ -6,7 +6,6 @@
 #include "Game_ObjectTypes.h"
 #include "Game_ResoucesLoader.h"
 #include "Game_Text.h"
-#include "PX_Startup.h"
 
 #define GAME_PARTICAL_MP_FIRE 1024 * 1024       // 1M for fire
 #define GAME_PARTICAL_MP_EXPLODE 1024 * 1024    // 1M for partical

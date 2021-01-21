@@ -1,4 +1,4 @@
-#include "PX_ApplicationServer.h"
+#include "PX_Application.h"
 
 // mouse informations
 POINT main_zoomPoint;

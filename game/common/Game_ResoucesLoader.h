@@ -2,7 +2,7 @@
 #define GAME_RESOURCELOADER_H
 
 #include "Game_Text.h"
-#include "PX_Startup.h"
+#include "Game_Startup.h"
 
 typedef enum { GAME_RESOURCESLOADER_TYPE_CLIENT, GAME_RESOURCESLOADER_TYPE_SERVER } GAME_RESOURCESLOADER_TYPE;
 

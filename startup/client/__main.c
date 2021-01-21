@@ -163,7 +163,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
 }
 // int main()
 
-#define REMOTESHELL_PROCESS_GUID ("startup_client")
+#define REMOTESHELL_PROCESS_GUID L"startup_client"
 HANDLE G_hMutex;
 
 BOOL IsAlreadyRunning() {
@@ -182,7 +182,7 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, _
 
     PX_srand(time((PX_NULL)));
 
-    if (GetFileAttributes("./debug") == INVALID_FILE_ATTRIBUTES) {
+    if (GetFileAttributes(L"./debug") == INVALID_FILE_ATTRIBUTES) {
         if (IsAlreadyRunning()) {
             return 0;
         }
