@@ -1,8 +1,6 @@
 #include "PX_Startup.h"
 
-//////////////////////////////////////////////////////////////////////////
 // Functions
-
 px_bool PX_InstanceInitialize(PX_Instance *Instance, px_char *name, px_int width, px_int height, px_uint ui_size, px_uint resource_size, px_uint game_size) {
     px_int allocSize;
 

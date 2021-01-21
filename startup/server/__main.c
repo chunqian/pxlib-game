@@ -102,7 +102,6 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                         switch (gi.dwID) {
                             case GID_ZOOM:
                                 // Code for zooming goes here
-
                                 if (25 > (main_zoomPoint.x - gi.ptsLocation.x) * (main_zoomPoint.x - gi.ptsLocation.x) +
                                              (main_zoomPoint.y - gi.ptsLocation.y) * (main_zoomPoint.y - gi.ptsLocation.y)) {
                                     e.Event = PX_OBJECT_EVENT_SCALE;
@@ -187,9 +186,8 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, _
                                PX_MEMORY_GAME_SIZE))
         return 0;
     if (!PX_ApplicationInitialize(&App)) return 0;
-    //////////////////////////////////////////////////////////////////////////
+    
     // CreateThread
-
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);
 
     while (PX_SystemLoop()) {

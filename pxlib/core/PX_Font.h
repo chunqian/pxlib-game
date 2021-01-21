@@ -9,12 +9,8 @@
 //#define __PX_FONT_GBKSIZE		13
 #define __PX_FONT_ASCSIZE 8
 #define __PX_FONT_HEIGHT 15
-#define __PX_FONT_MODULE_XSPACE_SIZE 0
-#define __PX_FONT_MODULE_YSPACE_SIZE 0
-////////////////////////////////////////////////////////////////////////////////////////////
-///////								Private function									////
-//////																					////
-////////////////////////////////////////////////////////////////////////////////////////////
+// #define __PX_FONT_MODULE_XSPACE_SIZE 0
+// #define __PX_FONT_MODULE_YSPACE_SIZE 0
 
 #define PX_FontGetCharactorHeight() (__PX_FONT_HEIGHT)
 #define PX_FontGetAscCharactorWidth() (__PX_FONT_ASCSIZE)

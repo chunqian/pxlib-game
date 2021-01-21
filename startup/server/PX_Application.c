@@ -131,8 +131,8 @@ px_bool PX_Application_ConsoleVM_ListSignCode(PX_ScriptVM_Instance *Ins) {
     PX_Console *pc = (PX_Console *)Ins->pThread[Ins->T].user_runtime_data;
     px_int i;
     for (i = 0; i < App.signup.regcode.size; i++) {
-        // GameLoginServer_SignUp_RegCode *preg=PX_VECTORAT(GameLoginServer_SignUp_RegCode,&serverSignUp.regcode,i);
-        // DEMO_Printf(DEMO_TEXT_LIST_REGISTRY_CODE,preg->regCode,preg->regCode,preg->sign_admin,preg->authority_level);
+        // GameLoginServer_SignUp_RegCode *preg = PX_VECTORAT(GameLoginServer_SignUp_RegCode, &serverSignUp.regcode, i);
+        // DEMO_Printf(DEMO_TEXT_LIST_REGISTRY_CODE, preg->regCode, preg->regCode, preg->sign_admin, preg->authority_level);
     }
     return PX_TRUE;
 }
@@ -195,9 +195,7 @@ px_bool PX_ApplicationInitialize(PX_Application *pApp) {
         return PX_FALSE;
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // loginServer
-
     if (!PX_StartupServer_LoginInitialize(&App.login, PX_STARTUPSERVER_LOGIN_MAXCONNECTION)) {
         PX_ConsolePrintText(&pApp->Instance.console, PX_APPLICATION_TEXT_LOGIN_SERVER_COULD_NOT_STARTUP);
     } else {

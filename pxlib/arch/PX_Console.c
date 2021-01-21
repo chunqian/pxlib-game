@@ -66,6 +66,7 @@ px_void PX_ConsoleUpdateEx(PX_Console *pc) {
     }
     PX_ObjectSetPosition(pc->Input, 0, (px_float)y, 0);
 }
+
 PX_Object *PX_ConsolePrintText(PX_Console *pc, const px_char *text) {
     PX_ConsoleColumn obj;
     PX_Object *pObject = PX_Object_AutoTextCreate(&pc->runtime->mp_ui, PX_Object_ScrollAreaGetIncludedObjects(pc->Area), 0, 0, pc->runtime->width - 1, PX_NULL);
@@ -599,15 +600,13 @@ px_bool PC_ConsoleInit(PX_Console *pc) {
 
     PX_VectorInit(&pc->runtime->mp_ui, &pc->pObjects, sizeof(PX_ConsoleColumn), PC_CONSOLE_DEFAULT_MAX_COLUMN);
 
-    //////////////////////////////////////////////////////////////////////////
     // logo
-
     if (!PX_ResourceLibraryLoad(&pc->runtime->ResourceLibrary, PX_RESOURCE_TYPE_TEXTURE, (px_byte *)fox_console_logo, sizeof(fox_console_logo), "console_logo"))
         return PX_FALSE;
 
     PX_ConsoleShowImage(pc, "console_logo");
     PX_ConsolePrintText(pc, "             PX JIT Compilation Console\n            StoryScript  Shell For StoryVM\n                Code By DBinary "
-                            "Build on 2019\n             Refer To:www.GitHub.com/matrixcascade\n");
+                            "Build on 2019\n             Refer To https://github.com/matrixcascade\n");
 
     return PX_TRUE;
 }
