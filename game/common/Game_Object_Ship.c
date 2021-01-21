@@ -130,8 +130,6 @@ px_void Game_Object_ShipRender(px_surface *psurface, PX_Object *pObject, px_uint
         px_char content[16] = {0};
         px_char content2[32] = {0};
         PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT(pShip->slientTime / 1000.0f));
-        // PX_wstrcat(content2, (const px_word *)L"武器解锁于");
-        // PX_FontModule_wastrcat(content2, content);
         PX_strcat(content2, "武器解锁于");
         PX_strcat(content2, content);
         PX_FontModuleDrawText(psurface, &pShip->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y + 48, PX_ALIGN_CENTER, content2,

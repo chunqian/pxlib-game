@@ -40,7 +40,7 @@ px_bool PX_StartupServer_Database_AccountIsRegisted(PX_StartupServer_Database *d
 // authority(authority level)
 // regadmin
 
-px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *database, px_char account[32], px_word nickname[32], px_char pwd[32],
+px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *database, px_char account[32], px_char nickname[32], px_char pwd[32],
                                                   px_char regcode[32], px_dword authority_level, px_char admin_name[16]) {
     px_int i;
     px_char hash_char[65] = {0};
@@ -103,7 +103,7 @@ px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *dat
     // user info
     PX_memset(&userinfo, 0, sizeof(userinfo));
     PX_strcpy(userinfo.account, account, sizeof(userinfo.account));
-    PX_wstrcpy(userinfo.nickname, nickname, sizeof(userinfo.nickname));
+    PX_strcpy(userinfo.nickname, nickname, sizeof(userinfo.nickname));
     userinfo.rank = 0;
     userinfo.coin = 0;
     userinfo.ticket = 100;

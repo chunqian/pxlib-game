@@ -322,7 +322,7 @@ px_void PX_ApplicationUpdateConnecting(PX_Application *App, px_dword elpased) {
 
 px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
-    static px_word wprocContent[32] = {0};
+    static px_char procContent2[32] = {0};
     static px_char procContent[16];
     const px_char *Content[] = {(const char *)L"等待其它玩家.", (const char *)L"等待其它玩家..", (const char *)L"等待其它玩家..."};
     aniElpased += elpased;
@@ -330,11 +330,10 @@ px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
         aniElpased = 0;
     }
 
-    // wprocContent[0] = '\0';
+    procContent2[0] = '\0';
     PX_sprintf2(procContent, sizeof(procContent), "%1/%2", PX_STRINGFORMAT_INT(App->SyncFrameClient.connectCount),
                 PX_STRINGFORMAT_INT(App->SyncFrameClient.connectSumCount));
-    PX_wstrcat(wprocContent, (const px_word *)Content[aniElpased / 500]);
-    // PX_FontModule_wastrcat(wprocContent, procContent);
+    PX_strcat(procContent2, Content[aniElpased / 500]);
 
     App->messagebox.Message = (const px_char *)procContent;
 
@@ -359,11 +358,6 @@ px_void PX_ApplicationUpdateReSync(PX_Application *App, px_dword elpased) {
             PX_MessageBoxAlert(&App->SyncMessageBox, Content);
         }
         Content[0] = 0;
-
-        // PX_wstrcat(Contentw, (px_word *)L"同步中(");
-        // PX_ftoa(App->syncTime * 100.0f / (serverSyncTime), Numeric, sizeof(Numeric), 2);
-        // PX_FontModule_wastrcat(Contentw, Numeric);
-        // PX_wstrcat(Contentw, (px_word *)L"%)");
 
         PX_strcat(Content, "同步中(");
         PX_ftoa(App->syncTime * 100.0f / (serverSyncTime), Numeric, sizeof(Numeric), 2);

@@ -166,7 +166,7 @@ px_void PX_StartupServer_SignUpUpdate(PX_StartupServer_SignUp *pR, px_dword elpa
                             PX_AES aes;
                             px_int j;
                             px_char pwd[32], user[32], regcode[32];
-                            px_word nickname[32];
+                            px_char nickname[32];
                             PX_StartupServer_SignUp_RegCode *preg;
                             PX_AES_Initialize(&aes, PX_AES_KeySize_Bits256, pR->connections[i].sharekey);
                             PX_AES_InvCipher(&aes, pSignPack->userName, (px_byte *)user);
@@ -208,7 +208,7 @@ px_void PX_StartupServer_SignUpUpdate(PX_StartupServer_SignUp *pR, px_dword elpa
                                 PX_UDPSend(&pR->udp, pR->connections[i].Addr, (px_byte *)&ack, sizeof(ack));
                                 break;
                             }
-                            if (PX_wstrlen(nickname) < PX_STARTUP_NICKNAME_MINLEN || PX_wstrlen(nickname) > PX_STARTUP_NICKNAME_MAXLEN) {
+                            if (PX_strlen(nickname) < PX_STARTUP_NICKNAME_MINLEN || PX_strlen(nickname) > PX_STARTUP_NICKNAME_MAXLEN) {
                                 PX_SignUp_Packet_SignAck ack;
                                 ack.magic_numeric = PX_NETWORKSIGNUP_MAGIC;
                                 ack.opcode = PX_NETWORKSIGNUP_OPCODE_SIGNACK;

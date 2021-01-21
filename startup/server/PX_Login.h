@@ -13,8 +13,8 @@
 
 #define PX_STARTUPSERVER_LOGIN_TEXT_INITIALIZE_LOGIN_UDP_FAILED "初始化登录服务器UDP初始化失败."
 #define PX_STARTUPSERVER_LOGIN_TEXT_LISTEN_LOGIN_UDP_FAILED "监听登录服务端口失败."
-#define PX_STARTUPSERVER_LOGIN_INVALID_LOGIN_DATA L"登录失败,账户密码错误"
-#define PX_STARTUPSERVER_LOGIN_INVALID_VERSION L"版本错误,请访问:Q群419410284或matrixcascade@gmail.com"
+#define PX_STARTUPSERVER_LOGIN_INVALID_LOGIN_DATA "登录失败,账户密码错误"
+#define PX_STARTUPSERVER_LOGIN_INVALID_VERSION "版本错误,请访问:Q群419410284或matrixcascade@gmail.com"
 
 typedef struct {
     px_bool activate;

@@ -46,7 +46,7 @@ typedef struct {
     px_dword id;
     px_dword mapid;
     px_dword v_code;
-    px_word loginErrorMessage[64];
+    px_char loginErrorMessage[64];
     px_char *loginText;
     px_texture LoginTexture;
     PX_LOGIN_STATUS status;

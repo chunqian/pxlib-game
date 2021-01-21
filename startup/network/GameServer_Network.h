@@ -165,7 +165,7 @@ typedef struct {
             px_dword id;
             px_dword map_index;
         };
-        px_word Message[64];
+        px_char Message[64];
     };
 
 } PX_Login_Packet_loginAck;

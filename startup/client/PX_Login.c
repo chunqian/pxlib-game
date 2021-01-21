@@ -161,7 +161,6 @@ static px_void PX_ClientLoginUpdate_Exchange(PX_Login *pl, px_dword elpased) {
         pl->status = PX_LOGIN_STATUS_FAILED;
         PX_ApplicationMessageBoxAlertOk("");
         pl->loginErrorMessage[0] = 0;
-        // PX_wstrcat(pl->loginErrorMessage, (px_word *)PX_LOGIN_TEXT_CONNECTION_FAILED);
         PX_strcat((px_char *)pl->loginErrorMessage, PX_LOGIN_TEXT_CONNECTION_FAILED);
         pl->times = 0;
         pl->elpased = 0;
@@ -206,7 +205,7 @@ static px_void DEMO_ClientLoginUpdate_Login(PX_Login *pl, px_dword elpased) {
             case PX_NETWORKLOGIN_OPCODE_LOGINRESULT_FAILED:
             default: {
                 pl->loginErrorMessage[0] = 0;
-                PX_wstrcat(pl->loginErrorMessage, pAck->Message);
+                PX_strcat(pl->loginErrorMessage, pAck->Message);
                 PX_ApplicationMessageBoxAlertOk("");
                 pl->status = PX_LOGIN_STATUS_FAILED;
             }
@@ -237,8 +236,7 @@ static px_void DEMO_ClientLoginUpdate_Login(PX_Login *pl, px_dword elpased) {
         pl->elpased = 0;
         pl->loginErrorMessage[0] = 0;
         PX_ApplicationMessageBoxAlertOk("");
-        // PX_wstrcat(pl->loginErrorMessage, (px_word *)PX_LOGIN_TEXT_CONNECTION_FAILED);
-        PX_strcat((px_char *)pl->loginErrorMessage, PX_LOGIN_TEXT_CONNECTION_FAILED);
+        PX_strcat(pl->loginErrorMessage, PX_LOGIN_TEXT_CONNECTION_FAILED);
     }
 }
 

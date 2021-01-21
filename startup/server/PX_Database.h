@@ -25,7 +25,7 @@ typedef struct {
 
 px_bool PX_StartupServer_Database_Initialize(PX_StartupServer_Database *database);
 px_bool PX_StartupServer_Database_AccountIsRegisted(PX_StartupServer_Database *database, px_char account[32]);
-px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *database, px_char account[32], px_word nickname[32], px_char pwd[32],
+px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *database, px_char account[32], px_char nickname[32], px_char pwd[32],
                                                   px_char regcode[32], px_dword authority_level, px_char admin_name[16]);
 px_bool PX_StartupServer_Database_AccountVerify(PX_StartupServer_Database *database, px_char account[32], px_char pwd[32]);
 px_bool PX_StartupServer_Database_ReadUserData(PX_StartupServer_Database *database, px_char account[32], PX_Startup_UserData *pUserData);

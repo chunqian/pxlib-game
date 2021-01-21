@@ -69,8 +69,6 @@ px_void Game_Object_NuclearRender(px_surface *psurface, PX_Object *pObject, px_d
                               PX_NULL);
 
     PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT((GAME_OBJECT_NUCLEAR_ALIVE_TIME - pNuclear->elpased) / 1000.0f));
-    // PX_wstrcat(content2, (const px_word *)L"倒计时");
-    // PX_FontModule_wastrcat(content2, content);
     PX_strcat(content2, "倒计时");
     PX_strcat(content2, content);
     PX_FontModuleDrawText(psurface, &pNuclear->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y - 32, PX_ALIGN_CENTER, content2,

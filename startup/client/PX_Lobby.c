@@ -336,9 +336,6 @@ px_void PX_LobbyOnUpgrade_AmmoGen(PX_Object *pObject, PX_Object_Event e, px_void
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    // PX_wstrcat(content, "花费");
-    // PX_FontModule_wastrcat(content, numeric);
-    // PX_wstrcat(content, "金币或点券提升基础武器补充等级?");
     PX_strcat((px_char *)content, "花费");
     PX_strcat((px_char *)content, "金币或点券提升基础武器补充等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_AmmoGen, pDesc, PX_NULL, PX_NULL);
@@ -358,9 +355,6 @@ px_void PX_LobbyOnUpgrade_AmmoRec(PX_Object *pObject, PX_Object_Event e, px_void
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    // PX_wstrcat(content, "花费");
-    // PX_FontModule_wastrcat(content, numeric);
-    // PX_wstrcat(content, "金币或点券提升基础武器冷却等级?");
     PX_strcat((px_char *)content, "花费");
     PX_strcat((px_char *)content, "金币或点券提升基础武器冷却等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_AmmoRecovery, pDesc, PX_NULL, PX_NULL);
@@ -380,9 +374,6 @@ px_void PX_LobbyOnUpgrade_Force(PX_Object *pObject, PX_Object_Event e, px_void *
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    // PX_wstrcat(content, "花费");
-    // PX_FontModule_wastrcat(content, numeric);
-    // PX_wstrcat(content, "金币或点券提升最大推力等级?");
     PX_strcat((px_char *)content, "花费");
     PX_strcat((px_char *)content, "金币或点券提升最大推力等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_force, pDesc, PX_NULL, PX_NULL);
@@ -402,9 +393,6 @@ px_void PX_LobbyOnUpgrade_Speed(PX_Object *pObject, PX_Object_Event e, px_void *
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    // PX_wstrcat(content, "花费");
-    // PX_FontModule_wastrcat(content, numeric);
-    // PX_wstrcat(content, "金币提升最大速度等级?");
     PX_strcat((px_char *)content, "花费");
     PX_strcat((px_char *)content, "金币提升最大速度等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_speed, pDesc, PX_NULL, PX_NULL);
@@ -423,9 +411,6 @@ px_void PX_LobbyOnUpgrade_Life(PX_Object *pObject, PX_Object_Event e, px_void *p
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    // PX_wstrcat(content, "花费");
-    // PX_FontModule_wastrcat(content, numeric);
-    // PX_wstrcat(content, "金币提升最大生命等级?");
     PX_strcat((px_char *)content, "花费");
     PX_strcat((px_char *)content, "金币提升最大生命等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_life, pDesc, PX_NULL, PX_NULL);
@@ -445,9 +430,6 @@ px_void PX_LobbyOnUpgrade_Shield(PX_Object *pObject, PX_Object_Event e, px_void 
 
     content[0] = 0;
     PX_itoa(pay, numeric, sizeof(numeric), 10);
-    // PX_wstrcat(content, "花费");
-    // PX_FontModule_wastrcat(content, numeric);
-    // PX_wstrcat(content, "金币提升最大护盾等级?");
     PX_strcat((px_char *)content, "花费");
     PX_strcat((px_char *)content, "金币提升最大护盾等级?");
     PX_ApplicationMessageBoxAlertYesNo((px_char *)content, PX_LobbyUpgrade_shield, pDesc, PX_NULL, PX_NULL);
@@ -1259,11 +1241,7 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
             px_char numeric[16];
             px_char content[32] = {0};
             PX_itoa(pDesc->userState.game_onlineCount, numeric, sizeof(numeric), 10);
-            // PX_wstrcat(content, "游戏大厅在线:");
-            // PX_FontModule_wastrcat(content, numeric);
             PX_strcat((px_char *)content, "游戏大厅在线:");
-            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
-            //                       &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2, 164, PX_ALIGN_CENTER,
                                   content, PX_COLOR(255, 0, 0, 0));
         } break;
@@ -1271,11 +1249,7 @@ px_void PX_LobbyRender_Online(PX_Lobby *pDesc, px_dword elpased) {
             px_char numeric[16];
             px_char content[32] = {0};
             PX_itoa(pDesc->userState.game_readyPlayers, numeric, sizeof(numeric), 10);
-            // PX_wstrcat(content, "玩家已加入:");
-            // PX_FontModule_wastrcat(content, numeric);
             PX_strcat((px_char *)content, "玩家已加入:");
-            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, 164, content, PX_COLOR(255, 0, 0, 0),
-            //                       &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2, 164, PX_ALIGN_CENTER,
                                   content, PX_COLOR(255, 0, 0, 0));
         } break;

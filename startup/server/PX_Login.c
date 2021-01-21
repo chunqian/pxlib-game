@@ -131,7 +131,7 @@ px_void PX_StartupServer_LoginUpdate(PX_StartupServer_Login *pLogin, px_dword el
                                 loginAck.opcode = PX_NETWORKLOGIN_OPCODE_LOGINACK;
 
                                 loginAck.Message[0] = 0;
-                                PX_wstrcat(loginAck.Message, (px_word *)PX_STARTUPSERVER_LOGIN_INVALID_VERSION);
+                                PX_strcat(loginAck.Message, PX_STARTUPSERVER_LOGIN_INVALID_VERSION);
                                 loginAck.result = PX_NETWORKLOGIN_OPCODE_LOGINRESULT_FAILED;
 
                                 PX_UDPSend(&pLogin->udp, pLogin->connections[i].Addr, (px_byte *)&loginAck, sizeof(loginAck));
@@ -151,7 +151,7 @@ px_void PX_StartupServer_LoginUpdate(PX_StartupServer_Login *pLogin, px_dword el
                                     PX_AES_Cipher(&aes, cookie + PX_AES_BLOCK_BYTES_SIZE, loginAck.cookie + PX_AES_BLOCK_BYTES_SIZE);
                                 } else {
                                     PX_memset(loginAck.Message, 0, sizeof(loginAck.Message));
-                                    PX_wstrcat(loginAck.Message, (px_word *)PX_STARTUPSERVER_LOGIN_INVALID_LOGIN_DATA);
+                                    PX_strcat(loginAck.Message, PX_STARTUPSERVER_LOGIN_INVALID_LOGIN_DATA);
                                     loginAck.result = PX_NETWORKLOGIN_OPCODE_LOGINRESULT_FAILED;
                                 }
 

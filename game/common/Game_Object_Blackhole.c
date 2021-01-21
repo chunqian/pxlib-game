@@ -32,7 +32,7 @@ px_void Game_Object_BlackHoleRender(px_surface *psurface, PX_Object *pObject, px
     px_float angle;
     Game_Object_BlackHole *pBlackHole = (Game_Object_BlackHole *)pObject->pObject;
     px_dword alive = GAME_OBJECT_BLACKHOLE_ALIVE_TIME - pBlackHole->elpased;
-    pBlackHole->angle += elpased / 2;
+    pBlackHole->angle += (px_float)elpased / 2;
     if (pBlackHole->angle > 360) {
         pBlackHole->angle = 0;
     }
@@ -50,8 +50,6 @@ px_void Game_Object_BlackHoleRender(px_surface *psurface, PX_Object *pObject, px
     PX_GeoDrawRing(psurface, (px_int)pObject->x, (px_int)pObject->y, 36, 2, PX_COLOR(255, 0, 0, 0), (px_uint)angle, (px_uint)angle + 60);
 
     PX_sprintf1(content, sizeof(content), "%1.2s", PX_STRINGFORMAT_FLOAT((GAME_OBJECT_BLACKHOLE_ALIVE_TIME - pBlackHole->elpased) / 1000.0f));
-    // PX_wstrcat(content2, (const px_word *)L"倒计时");
-    // PX_FontModule_wastrcat(content2, content);
     PX_strcat(content2, "倒计时");
     PX_strcat(content2, content);
     PX_FontModuleDrawText(psurface, &pBlackHole->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y - 36, PX_ALIGN_CENTER, content2,
