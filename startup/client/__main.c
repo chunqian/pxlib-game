@@ -3,7 +3,7 @@
 // mouse informations
 POINT main_zoomPoint;
 px_int main_ZoomRegion;
-//////////////////////////////////////////////////////////////////////////
+
 DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     DWORD time, elpased;
     PX_Object_Event e;
@@ -11,12 +11,10 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     static POINT LastDownPoint;
     LastDownPoint.x = -1;
     LastDownPoint.y = -1;
-    /*  px_char *keyBoardString;*/
-    //////////////////////////////////////////////////////////////////////////
+    // px_char *keyBoardString;
+
     // CreateWindow
-
     time = timeGetTime();
-
     while (1) {
         PX_SystemReadDeviceState();
 
