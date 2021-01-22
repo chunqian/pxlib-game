@@ -194,7 +194,7 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, _
     if (!PX_ApplicationInitialize(&App)) {
         return 0;
     }
-    //////////////////////////////////////////////////////////////////////////
+
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);

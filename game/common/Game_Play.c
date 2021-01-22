@@ -111,7 +111,7 @@ px_void Game_PlayStart(Game_Play *pPlay, GAME_PLAY_GAMETYPE gameType, PX_GameSta
 }
 px_void Game_PlayUpdate(Game_Play *pPlay, px_dword elpased) {
     px_int i;
-    //////////////////////////////////////////////////////////////////////////
+
     // Game Over Check
 
     if (Game_PlayIsGameOver(pPlay)) {
@@ -122,11 +122,9 @@ px_void Game_PlayUpdate(Game_Play *pPlay, px_dword elpased) {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // game time
     pPlay->elpased += elpased;
 
-    ///////////////////////////////////////////////////////////////////////////
     // Player InfoUpdate
     for (i = 0; i < PX_COUNTOF(pPlay->Players); i++) {
         if (pPlay->Players[i].pShipObject) {
@@ -136,7 +134,6 @@ px_void Game_PlayUpdate(Game_Play *pPlay, px_dword elpased) {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // Stone
 
     pPlay->stoneGenElpased += elpased;
@@ -146,7 +143,6 @@ px_void Game_PlayUpdate(Game_Play *pPlay, px_dword elpased) {
         Game_Object_StoneCreate(pPlay->pIns, &pPlay->world);
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // Alien
 
     pPlay->AlienGenElpased += elpased;
@@ -156,7 +152,6 @@ px_void Game_PlayUpdate(Game_Play *pPlay, px_dword elpased) {
         Game_Object_AlienCreate(pPlay->pIns, &pPlay->world);
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // treasure
     pPlay->treasureGenElpased += elpased;
     if (pPlay->treasureGenElpased >= GAME_PLAY_TREASURE_GEN_DURATION) {

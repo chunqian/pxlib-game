@@ -3,7 +3,7 @@
 // mouse informations
 POINT main_zoomPoint;
 px_int main_ZoomRegion;
-//////////////////////////////////////////////////////////////////////////
+
 DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     DWORD time, elpased;
     PX_Object_Event e;
@@ -11,10 +11,9 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     static POINT LastDownPoint;
     LastDownPoint.x = -1;
     LastDownPoint.y = -1;
-    /*  px_char *keyBoardString;*/
-    //////////////////////////////////////////////////////////////////////////
-    // CreateWindow
+    // px_char *keyBoardString;
 
+    // CreateWindow
     time = timeGetTime();
 
     while (1) {
@@ -218,7 +217,7 @@ int main(int argc, const px_char *argv[])
         MessageBox(PX_NULL, L"应用初始化失败", L"error", MB_OK);
         return 0;
     }
-    //////////////////////////////////////////////////////////////////////////
+
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);

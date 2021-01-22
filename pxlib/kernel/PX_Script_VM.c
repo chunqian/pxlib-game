@@ -3240,7 +3240,6 @@ static px_bool PX_ScriptVM_DebuggerSolveCmd(PX_ScriptVM_Instance *Ins, px_char *
 
     PX_LexerLoadSourceFromMemory(&lexer, cmd);
 
-    ///////////////////////////////////////////////////////////////////////////
     //
     // b break Point
     // n next instruction

@@ -3,11 +3,8 @@
 // mouse informations
 POINT main_zoomPoint;
 px_int main_ZoomRegion;
-//////////////////////////////////////////////////////////////////////////
-DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) { return 0; }
 
-//////////////////////////////////////////////////////////////////////////
-//
+DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) { return 0; }
 
 int main(int argc, const px_char *argv[]) {
     DWORD time, elpased;

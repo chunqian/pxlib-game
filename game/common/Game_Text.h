@@ -23,11 +23,10 @@
 #define GAME_TEXT_PATH_PARTICAL_FIRE_LARGE "./Resources/p_fire_l.traw"
 #define GAME_TEXT_PATH_CURSOR "./Resources/cursor.traw"
 #define GAME_TEXT_PATH_SHIP "./Resources/ship.traw"
-//////////////////////////////////////////////////////////////////////////
+
 // map star
 #define GAME_TEXT_PATH_MAP_STAR "./Resources/map_star.traw"
 
-//////////////////////////////////////////////////////////////////////////
 // machine gun
 #define GAME_TEXT_PATH_MACHINEGUN_AMMO "./Resources/machinegun_ammo.traw"
 #define GAME_TEXT_PATH_MACHINEGUN_FIRESOUND "./Resources/ship_fire.wav"
@@ -36,7 +35,7 @@
 #define GAME_TEXT_KEY_MACHINEGUN_FIRESOUND "snd_machinegunfire"
 #define GAME_TEXT_KEY_TEX_MACHINEGUN_AMMO "tex_machinegun_ammo"
 #define GAME_TEXT_KEY_PIERCER_FIRESOUND "snd_piercershot"
-//////////////////////////////////////////////////////////////////////////
+
 // railgun
 #define GAME_TEXT_PATH_RAILGUN_AMMO "./Resources/railgun_ammo.2dx"
 #define GAME_TEXT_PATH_RAILGUN_EXPLOSION "./Resources/railgun_explosion.2dx"
@@ -49,18 +48,14 @@
 #define GAME_TEXT_KEY_RAILGUN_FIRE "railgun_fire"
 #define GAME_TEXT_KEY_RAILGUN_FIRESOUND "railgun_firesound"
 #define GAME_TEXT_KEY_RAILGUN_EXPOLSIONSOUND "railgun_expolsionsound"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // missile
 #define GAME_TEXT_PATH_MISSILE_AMMO "./Resources/missile_ammo.2dx"
 #define GAME_TEXT_PATH_MISSILE_LAUNCH "./Resources/missile_launch.wav"
 
 #define GAME_TEXT_KEY_MISSILE_AMMO "missile_ammo"
 #define GAME_TEXT_KEY_MISSILE_LAUNCH "missile_launch"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // nuclear
 #define GAME_TEXT_PATH_NUCLEAR_AMMO "./Resources/nuclear_ammo.2dx"
 #define GAME_TEXT_PATH_NUCLEAR_LAUNCHSOUND "./Resources/nuclear_launch.wav"
@@ -70,13 +65,10 @@
 #define GAME_TEXT_KEY_NUCLEAR_LAUNCHSOUND "nuclear_launch"
 #define GAME_TEXT_KEY_NUCLEAR_EXPLOSIONSOUND "nuclear_explosion"
 
-//////////////////////////////////////////////////////////////////////////
 // mine
 #define GAME_TEXT_PATH_MINE_AMMO "./Resources/mine_ammo.2dx"
 #define GAME_TEXT_KEY_MINE_AMMO "mine_ammo"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // blackhole
 #define GAME_TEXT_PATH_BLACKHOLE_AMMO "./Resources/blackhole_ammo.2dx"
 #define GAME_TEXT_PATH_BLACKHOLE_EXPLOSIONSOUND "./Resources/blackhole_explosion.wav"
@@ -84,9 +76,6 @@
 #define GAME_TEXT_KEY_BLACKHOLE_AMMO "blackhole_ammo"
 #define GAME_TEXT_KEY_BLACKHOLE_EXPLOSIONSOUND "blackholesound"
 
-//////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////
 // stone
 
 #define GAME_TEXT_PATH_STONE1 "./Resources/stone01.traw"
@@ -109,47 +98,36 @@
 #define GAME_TEXT_PATH_REPAIR_LOGO "./Resources/repair_logo.traw"
 #define GAME_TEXT_PATH_PROTECTSHIELD_LOGO "./Resources/protectshield_logo.traw"
 #define GAME_TEXT_PATH_PIERCER_LOGO "./Resources/piercer_logo.traw"
-//////////////////////////////////////////////////////////////////////////
+
 // pickup
 #define GAME_TEXT_PATH_PICKUPEXPLOSION_SOUND "./Resources/pickup_explosion.wav"
 #define GAME_TEXT_KEY_PICKUPEXPLOSION_SOUND "pickup_explosion"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // treasure
 #define GAME_TEXT_PATH_TEX_TREASURE0 "./Resources/treasure.traw"
 #define GAME_TEXT_PATH_TEX_TREASURE1 "./Resources/treasuremark.traw"
 
 #define GAME_TEXT_KEY_TEX_TREASURE0 "treasure0"
 #define GAME_TEXT_KEY_TEX_TREASURE1 "treasure1"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // treasureTag
 #define GAME_TEXT_PATH_TREASURETAG "./Resources/treasuretag.traw"
 #define GAME_TEXT_KEY_TREASURETAG "treasuretag"
 
 #define GAME_TEXT_PATH_TREASURETAGMINI "./Resources/treasuretagmini.traw"
 #define GAME_TEXT_KEY_TREASURETAGMINI "treasuretagmini"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // protectshield
 #define GAME_TEXT_PATH_PROTECTSHIELDSOUND "./Resources/protectshield.wav"
 #define GAME_TEXT_KEY_PROTECTSHIELDSOUND "protectshieldwav"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // Alien
 #define GAME_TEXT_PATH_ALIEN "./Resources/alien.2dx"
 #define GAME_TEXT_KEY_ALIEN "alien"
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // Alien
 #define GAME_TEXT_PATH_PIERCER "./Resources/piercer.2dx"
 #define GAME_TEXT_KEY_PIERCER "piercer"
-//////////////////////////////////////////////////////////////////////////
 
 #define GAME_TEXT_KEY_MISSILE_LOGO "missile_logo"
 #define GAME_TEXT_KEY_MACHINEGUN_LOGO "machinegun_logo"

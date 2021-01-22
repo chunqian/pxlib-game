@@ -30,8 +30,7 @@ px_bool PX_StartupServer_Database_AccountIsRegisted(PX_StartupServer_Database *d
     return PX_FALSE;
 }
 
-//////////////////////////////////////////////////////////////////////////
-// dir-----sha256 account
+// dir sha256 account
 // userinfo
 // password
 // data(2dx data)
@@ -93,7 +92,6 @@ px_bool PX_StartupServer_Database_RegistryAccount(PX_StartupServer_Database *dat
     }
     fclose(pf);
 
-    ///
     // default photo
     sprintf_s(path, sizeof(path), "%s/%s/%s", database->path, hash_char, GAMESERVER_TEXT_DATABASE_FILE_PROFILE_PHOTO);
     if (!PX_CopyFile("./resources/default_photo.traw", path)) {

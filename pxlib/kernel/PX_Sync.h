@@ -43,7 +43,6 @@ typedef enum {
     PX_SYNC_CLIENT_STATUS_END,
 } PX_SYNC_CLIENT_STATUS;
 
-//////////////////////////////////////////////////////////////////////////
 //
 // SyncID
 typedef struct {
@@ -59,7 +58,6 @@ typedef struct {
 // dummy 2bytes
 //
 // 10 bytes dummy
-//////////////////////////////////////////////////////////////////////////
 
 struct _PX_SyncFrame_Server;
 struct _PX_SyncFrame_Client;

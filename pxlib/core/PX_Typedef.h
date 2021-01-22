@@ -36,15 +36,15 @@
 
 typedef void px_void;
 typedef int px_bool;
-typedef unsigned int px_dword;  // typedef     uint32_t            px_dword;
+typedef unsigned int px_dword;  // typedef uint32_t px_dword;
 typedef short px_short;
 typedef short px_int16;
-typedef unsigned short px_word;  // typedef     uint16_t            px_word;
+typedef unsigned short px_word;  // typedef uint16_t px_word;
 typedef unsigned short px_ushort;
 typedef unsigned int px_uint;
-typedef unsigned int px_uint32;  // typedef     uint32_t           px_uint32;
+typedef unsigned int px_uint32;  // typedef uint32_t px_uint32;
 typedef int px_int;
-typedef int px_int32;  // typedef     int32_t             px_int32;
+typedef int px_int32;  // typedef int32_t px_int32;
 typedef char px_char;
 typedef unsigned char px_byte;
 typedef unsigned char px_uchar;
@@ -53,8 +53,8 @@ typedef long px_long;
 typedef float px_float;
 typedef double px_double;
 typedef unsigned long long px_qword;
-typedef unsigned long long px_uint64;  // typedef     uint64_t            px_uint64;
-typedef long long px_int64;            // typedef      int64_t             px_int64;
+typedef unsigned long long px_uint64;  // typedef uint64_t px_uint64;
+typedef long long px_int64;            // typedef int64_t px_int64;
 
 typedef struct {
     union {
@@ -146,7 +146,6 @@ typedef struct __px_complex {
     px_double im;  // imaginary
 } px_complex;
 
-//////////////////////////////////////////////////////////////////////////
 // endian
 
 px_dword PX_htonl(px_dword h);
@@ -154,17 +153,14 @@ px_dword PX_ntohl(px_dword n);
 px_word PX_htons(px_word h);
 px_word PX_ntohs(px_word n);
 
-//////////////////////////////////////////////////////////////////////////
 //
 px_double PX_exp(px_double x);
 
-//////////////////////////////////////////////////////////////////////////
 // functions
 px_double PX_tanh(px_double x);
 px_double PX_sigmoid(px_double x);
 px_double PX_ReLU(px_double x);
 
-//////////////////////////////////////////////////////////////////////////
 // PMMCLCG
 px_void PX_srand(px_uint64 seed);
 px_uint32 PX_rand();
@@ -176,15 +172,12 @@ px_double PX_GaussRand();
 // ceil
 px_double PX_Ceil(px_double v);
 
-//////////////////////////////////////////////////////////////////////////
 // CRC
 px_uint32 PX_crc32(px_void *buffer, px_uint size);
 
-//////////////////////////////////////////////////////////////////////////
 // Sum
 px_uint32 PX_sum32(px_void *buffer, px_uint size);
 
-//////////////////////////////////////////////////////////////////////////
 // maths
 px_int PX_pow_ii(px_int i, px_int n);
 px_double PX_pow_dd(px_double num, px_double m);
@@ -219,7 +212,6 @@ px_float PX_Point_cos(px_point v);
 #define PX_FRAC(x) ((x) - (px_int)(x))
 #define PX_TRUNC(x) ((px_int)(x))
 
-//////////////////////////////////////////////////////////////////////////
 // string to others
 
 px_uint PX_htoi(const px_char hex_str[]);
@@ -233,25 +225,20 @@ px_int PX_itoa(px_int num, px_char *str, px_int MaxStrSize, px_int radix);
 px_char *PX_strchr(const char *s, int ch);
 px_char *PX_strstr(const char *dest, const char *src);
 
-///////////////////////////////////////////////////////////////////////////
 // rectangle circle
 px_bool PX_isPointInCircle(px_point p, px_point circle, px_float radius);
 px_bool PX_isPointInRect(px_point p, px_rect rect);
 px_bool PX_isXYInRegion(px_float x, px_float y, px_float rectx, px_float recty, px_float width, px_float height);
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // cross
 px_bool PX_isLineCrossRect(px_point p1, px_point p2, px_rect rect, px_point *cp1, px_point *cp2);
 px_bool PX_isRectCrossRect(px_rect rect1, px_rect rect2);
 px_bool PX_isRectCrossCircle(px_rect rect1, px_point center, px_float radius);
 px_bool PX_isCircleCrossCircle(px_point center1, px_float radius1, px_point center2, px_float radius2);
 
-//////////////////////////////////////////////////////////////////////////
 px_double PX_Covariance(px_double x[], px_double y[], px_int n);
 px_double PX_Variance(px_double x[], px_int n);
 
-//////////////////////////////////////////////////////////////////////////
 // memory
 void PX_memset(void *dst, px_byte byte, px_int size);
 void PX_memdwordset(void *dst, px_dword dw, px_int count);
@@ -305,9 +292,7 @@ px_int PX_sprintf2(px_char *str, px_int str_size, const px_char fmt[], px_string
 px_int PX_sprintf1(px_char *str, px_int str_size, const px_char fmt[], px_stringformat _1);
 px_int PX_sprintf0(px_char *str, px_int str_size, const px_char fmt[]);
 /*px_int px_sprintf(px_char *str,px_int str_size,px_char fmt[],...);*/
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // matrix
 void PX_MatrixZero(px_matrix *Mat);
 void PX_MatrixIdentity(px_matrix *Mat);
@@ -325,9 +310,7 @@ px_void PX_MatrixRotateZRadian(px_matrix *mat, px_float rad);
 px_void PX_MatrixScale(px_matrix *mat, px_float x, px_float y, px_float z);
 px_bool PX_MatrixInverse(px_matrix *mat);
 px_void PX_MatrixTranspose(px_matrix *matrix);
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // color
 px_color PX_COLOR(px_uchar a, px_uchar r, px_uchar g, px_uchar b);
 px_void PX_ColorIncrease(px_color *color, px_uchar inc);
@@ -335,9 +318,7 @@ px_color PX_ColorAdd(px_color color1, px_color color2);
 px_color PX_ColorSub(px_color color1, px_color color2);
 px_color PX_ColorMul(px_color color1, px_double muls);
 px_bool PX_ColorEqual(px_color color1, px_color color2);
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // point
 px_point PX_POINT(px_float x, px_float y, px_float z);
 px_point4D PX_POINT4D(px_float x, px_float y, px_float z);
@@ -363,18 +344,13 @@ px_point PX_PointReflectX(px_point vector_refer, px_point respoint);
 px_point PX_PointMulMatrix(px_point p, px_matrix m);
 px_point4D PX_Point4DMulMatrix(px_point4D p, px_matrix m);
 
-//////////////////////////////////////////////////////////////////////////
 // plane
 px_plane PX_PLANE(px_point3D p, px_vector3D n);
 
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
 // Rect
 px_rect PX_RECT(px_float x, px_float y, px_float width, px_float height);
 px_rect PX_RECTPOINT2(px_point p1, px_point p2);
 
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
 // complex
 px_complex PX_complexBuild(px_float re, px_float im);
 px_complex PX_complexAdd(px_complex a, px_complex b);
@@ -384,7 +360,6 @@ px_complex PX_complexLog(px_complex a);
 px_complex PX_complexExp(px_complex a);
 px_complex PX_complexSin(px_complex a);
 
-//////////////////////////////////////////////////////////////////////////
 // DFT/FFT
 void PX_DFT(_IN px_complex x[], _OUT px_complex X[], px_int N);
 void PX_DCT(_IN px_double x[], _OUT px_double X[], px_int N);
@@ -397,7 +372,6 @@ void PX_IFFT_2(_IN px_complex X[], _OUT px_complex x[], px_int N_N);
 void PX_FFT_2_Shift(_IN px_complex _in[], _OUT px_complex _out[], px_int N_N);
 void PX_FT_Symmetry(_IN px_complex x[], _OUT px_complex X[], px_int N);
 
-//////////////////////////////////////////////////////////////////////////
 // cepstrum
 typedef enum {
     PX_CEPTRUM_TYPE_REAL,
@@ -405,32 +379,28 @@ typedef enum {
 } PX_CEPSTRUM_TYPE;
 void PX_Cepstrum(_IN px_complex x[], _OUT px_complex X[], px_int N, PX_CEPSTRUM_TYPE type);
 
-//////////////////////////////////////////////////////////////////////////
 // zero-crossing rate,ZCR
 px_double PX_ZeroCrossingRate(_IN px_double x[], px_int N);
 px_double PX_ZeroCrossingRateComplex(_IN px_complex x[], px_int N);
-//////////////////////////////////////////////////////////////////////////
+
 // PitchEstimation
 px_int PX_PitchEstimation(_IN px_complex x[], px_int N, px_int sampleRate, px_int low_Hz, px_int high_Hz);
-//////////////////////////////////////////////////////////////////////////
+
 // PreEmphasise
 void PX_PreEmphasise(const px_double *data, int len, px_double *out, px_double preF);  // 0.9<preF<1.0 suggest 0.9;
 
-//////////////////////////////////////////////////////////////////////////
 // up/down sampling
 void PX_LinearInterpolationResample(_IN px_double x[], _OUT px_double X[], px_int N, px_int M);
 void PX_DownSampled(_IN px_complex x[], _OUT px_complex X[], px_int N, px_int M);
 void PX_UpSampled(_IN px_complex x[], _OUT px_complex X[], px_int N, px_int L);
 
-//////////////////////////////////////////////////////////////////////////
 // ipv4
 px_dword PX_inet_addr(const px_char cp[]);
 px_char *PX_inet_ntoa(px_dword ipv4);
 
-//////////////////////////////////////////////////////////////////////////
 // Bessel
 px_double PX_Bessel(int n, double x);
-//////////////////////////////////////////////////////////////////////////
+
 // Window Functions
 px_void PX_WindowFunction_tukey(px_double data[], px_int N);
 px_void PX_WindowFunction_hanning(px_double data[], px_int N);
@@ -441,13 +411,10 @@ px_void PX_WindowFunction_kaiser(px_double beta, px_double data[], px_int N);
 px_void PX_WindowFunction_triangular(px_double data[], px_int N);
 px_void PX_WindowFunction_Apply(px_double data[], px_double window[], px_int N);
 
-//////////////////////////////////////////////////////////////////////////
 // gainc
 px_void PX_gain(px_double b[], px_double a[], px_int m, px_int n, px_double x[], px_double y[], px_int len, px_int sign);
 px_void PX_gainc(px_double b[], px_double a[], px_int n, px_int ns, px_double x[], px_double y[], px_int len, px_int sign);
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
 // sine
 typedef struct {
     px_double A;
@@ -457,11 +424,9 @@ typedef struct {
 
 px_sine PX_SINE(px_double A, px_double P, px_double F);
 
-//////////////////////////////////////////////////////////////////////////
 // Instantaneous Frequency
 px_sine PX_InstantaneousFrequency(px_sine src, px_double p2, px_double delta_t);
 
-//////////////////////////////////////////////////////////////////////////
 //
 
 // FIR Filter

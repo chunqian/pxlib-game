@@ -30,8 +30,6 @@ typedef struct {
     PX_FontModule FontModuleScore;
 } PX_Instance;
 
-//////////////////////////////////////////////////////////////////////////
-
 typedef struct {
     px_byte *buffer;
     px_uint size;

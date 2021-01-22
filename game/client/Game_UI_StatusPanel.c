@@ -129,7 +129,6 @@ px_void Game_UI_StatusPanelRender(px_surface *renderSurface, Game_UI_StatusPanel
         PX_GeoDrawLine(renderSurface, i, y, i, y + 16, 1, PX_COLOR(255, 0, 0, 0));
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // fps
     x = 139;
     y += 18;
@@ -143,7 +142,6 @@ px_void Game_UI_StatusPanelRender(px_surface *renderSurface, Game_UI_StatusPanel
         PX_FontDrawText(renderSurface, x, y, PX_ALIGN_LEFTMID, text, PX_COLOR(255, 37, 119, 0));
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // Weapon Panel
     x += 118;
     y = 8;

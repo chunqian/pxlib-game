@@ -260,11 +260,10 @@ typedef struct __PX_SCRIPT_ASM_COMPILER {
 } PX_SCRIPT_ASM_COMPILER;
 
 typedef struct __PX_SCRIPT_ASM_HEADER {
-    //////////////////////////////////////////////////////////////////////////
     // 8 bytes check
     px_dword magic;
     px_dword CRC;
-    //////////////////////////////////////////////////////////////////////////
+
     px_dword stacksize;
     px_dword globalsize;
     px_dword threadcount;

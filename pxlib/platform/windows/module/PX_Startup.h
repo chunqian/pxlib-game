@@ -14,8 +14,6 @@ typedef struct {
     PX_SoundPlay soundplay;
 } PX_Instance;
 
-//////////////////////////////////////////////////////////////////////////
-
 typedef struct {
     px_byte *buffer;
     px_uint size;

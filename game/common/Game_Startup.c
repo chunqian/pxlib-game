@@ -1,6 +1,5 @@
 #include "Game_Startup.h"
 
-//////////////////////////////////////////////////////////////////////////
 // Functions
 px_uint64 game_rand_seed = (31415 * 16807) % (0xefffffff);
 

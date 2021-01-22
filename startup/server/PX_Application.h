@@ -6,7 +6,6 @@
 #include "PX_Login.h"
 #include "PX_SignUp.h"
 
-//////////////////////////////////////////////////////////////////////////
 // Configures
 #define PX_WINDOW_NAME ""
 
@@ -17,7 +16,6 @@
 #define PX_MEMORY_UI_SIZE (1024 * 1024 * 8)
 #define PX_MEMORY_RESOURCES_SIZE (1024 * 1024 * 8)
 #define PX_MEMORY_GAME_SIZE (2 * 1024 * 1024)
-//////////////////////////////////////////////////////////////////////////
 
 #define PX_APPLICATION_TEXT_LOGIN_SERVER_COULD_NOT_STARTUP "无法开启登录服务器"
 #define PX_APPLICATION_TEXT_LOBBY_SERVER_COULD_NOT_STARTUP "无法开启游戏大厅服务器"

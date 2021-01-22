@@ -1019,10 +1019,7 @@ px_void PX_TextureRenderEx(px_surface *psurface, px_texture *resTexture, px_int 
     px_color clr;
     px_int bA, bR, bG, bB;
 
-    //////////////////////////////////////////////////////////////////////////
     px_int left, right, top, bottom;
-
-    //////////////////////////////////////////////////////////////////////////
 
     resHeight = resTexture->height;
     resWidth = resTexture->width;
@@ -1030,7 +1027,6 @@ px_void PX_TextureRenderEx(px_surface *psurface, px_texture *resTexture, px_int 
     newHeight = PX_TRUNC(resHeight * scale);
     newWidth = PX_TRUNC(resWidth * scale);
 
-    //////////////////////////////////////////////////////////////////////////
     switch (refPoint) {
         case PX_TEXTURERENDER_REFPOINT_LEFTTOP:
             break;
@@ -1100,7 +1096,6 @@ px_void PX_TextureRenderEx(px_surface *psurface, px_texture *resTexture, px_int 
     } else {
         bottom = newHeight - 1;
     }
-    //////////////////////////////////////////////////////////////////////////
 
     invCosAgl = PX_cos_angle(-Angle);
     invSinAgl = PX_sin_angle(-Angle);
@@ -1180,10 +1175,7 @@ px_void PX_TextureRenderMaskEx(px_surface *psurface, px_texture *mask_tex, px_te
     px_color *pmapdata, *pmaskdata;
     px_color clr;
 
-    //////////////////////////////////////////////////////////////////////////
     px_int left, right, top, bottom;
-
-    //////////////////////////////////////////////////////////////////////////
 
     pmaskdata = (px_color *)mask_tex->surfaceBuffer;
     pmapdata = (px_color *)map_tex->surfaceBuffer;
@@ -1194,7 +1186,6 @@ px_void PX_TextureRenderMaskEx(px_surface *psurface, px_texture *mask_tex, px_te
     newHeight = PX_TRUNC(resHeight * scale);
     newWidth = PX_TRUNC(resWidth * scale);
 
-    //////////////////////////////////////////////////////////////////////////
     switch (refPoint) {
         case PX_TEXTURERENDER_REFPOINT_LEFTTOP:
             break;
@@ -1280,8 +1271,6 @@ px_void PX_TextureRenderMaskEx(px_surface *psurface, px_texture *mask_tex, px_te
             bottom = newHeight - 1;
         }
     }
-
-    //////////////////////////////////////////////////////////////////////////
 
     invCosAgl = PX_cos_angle(-Angle);
     invSinAgl = PX_sin_angle(-Angle);
@@ -1488,10 +1477,7 @@ px_void PX_ShapeRenderEx(px_surface *psurface, px_shape *shape, px_int x, px_int
 
     px_color clr;
 
-    //////////////////////////////////////////////////////////////////////////
     px_int left, right, top, bottom;
-
-    //////////////////////////////////////////////////////////////////////////
 
     resHeight = shape->height;
     resWidth = shape->width;
@@ -1499,7 +1485,6 @@ px_void PX_ShapeRenderEx(px_surface *psurface, px_shape *shape, px_int x, px_int
     newHeight = PX_TRUNC(resHeight * scale);
     newWidth = PX_TRUNC(resWidth * scale);
 
-    //////////////////////////////////////////////////////////////////////////
     switch (refPoint) {
         case PX_TEXTURERENDER_REFPOINT_LEFTTOP:
             break;
@@ -1569,7 +1554,6 @@ px_void PX_ShapeRenderEx(px_surface *psurface, px_shape *shape, px_int x, px_int
     } else {
         bottom = newHeight - 1;
     }
-    //////////////////////////////////////////////////////////////////////////
 
     invCosAgl = PX_cos_angle(-Angle);
     invSinAgl = PX_sin_angle(-Angle);
@@ -1637,10 +1621,7 @@ px_void PX_ShapeRenderEx_sincos(px_surface *psurface, px_shape *shape, px_int x,
 
     px_color clr;
 
-    //////////////////////////////////////////////////////////////////////////
     px_int left, right, top, bottom;
-
-    //////////////////////////////////////////////////////////////////////////
 
     resHeight = shape->height;
     resWidth = shape->width;
@@ -1648,7 +1629,6 @@ px_void PX_ShapeRenderEx_sincos(px_surface *psurface, px_shape *shape, px_int x,
     newHeight = PX_TRUNC(resHeight * scale);
     newWidth = PX_TRUNC(resWidth * scale);
 
-    //////////////////////////////////////////////////////////////////////////
     switch (refPoint) {
         case PX_TEXTURERENDER_REFPOINT_LEFTTOP:
             break;
@@ -1718,7 +1698,6 @@ px_void PX_ShapeRenderEx_sincos(px_surface *psurface, px_shape *shape, px_int x,
     } else {
         bottom = newHeight - 1;
     }
-    //////////////////////////////////////////////////////////////////////////
 
     invCosAgl = cosx;
     invSinAgl = sinx;
@@ -1765,10 +1744,7 @@ px_void PX_TextureRenderEx_sincos(px_surface *psurface, px_texture *resTexture, 
     px_color clr;
     px_int bA, bR, bG, bB;
 
-    //////////////////////////////////////////////////////////////////////////
     px_int left, right, top, bottom;
-
-    //////////////////////////////////////////////////////////////////////////
 
     resHeight = resTexture->height;
     resWidth = resTexture->width;
@@ -1776,7 +1752,6 @@ px_void PX_TextureRenderEx_sincos(px_surface *psurface, px_texture *resTexture, 
     newHeight = PX_TRUNC(resHeight * scale);
     newWidth = PX_TRUNC(resWidth * scale);
 
-    //////////////////////////////////////////////////////////////////////////
     switch (refPoint) {
         case PX_TEXTURERENDER_REFPOINT_LEFTTOP:
             break;
@@ -1846,7 +1821,6 @@ px_void PX_TextureRenderEx_sincos(px_surface *psurface, px_texture *resTexture, 
     } else {
         bottom = newHeight - 1;
     }
-    //////////////////////////////////////////////////////////////////////////
 
     invCosAgl = cosx;
     invSinAgl = -sinx;

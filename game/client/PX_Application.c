@@ -387,13 +387,11 @@ px_void PX_ApplicationUpdateGaming(PX_Application *App, px_dword elpased) {
         px_dword serverSyncTime;
         px_dword maxUpdateTimes = GAME_SYNC_RECONNECT_XSPEED;
 
-        //////////////////////////////////////////////////////////////////////////
         // real time
         App->gameTime += elpased;
 
-        //////////////////////////////////////////////////////////////////////////
         // Synchronization
-        //////////////////////////////////////////////////////////////////////////
+
         // remote
         PX_SyncFrameClientUpdate(&App->SyncFrameClient, elpased);
 
@@ -461,7 +459,6 @@ px_void PX_ApplicationUpdate(PX_Application *App, px_dword elpased) {
 }
 
 px_void PX_ApplicationGamingRender(px_surface *renderSurface, PX_Application *App, px_dword elpased) {
-    //////////////////////////////////////////////////////////////////////////
     // Game Over
     if (Game_PlayIsGameOver(&App->play) && App->play.GameOverWaitElpased >= GAME_PLAY_GAME_WAIT_ELPASED) {
         // Game Render
@@ -471,8 +468,6 @@ px_void PX_ApplicationGamingRender(px_surface *renderSurface, PX_Application *Ap
     } else {
         px_int MonitorPlayer, LocalPlayer;
         PX_Object *pShipObject;
-
-        //////////////////////////////////////////////////////////////////////////
 
         LocalPlayer = App->SyncFrameClient.c_id;
 
@@ -554,7 +549,6 @@ px_void PX_ApplicationRender(PX_Application *App, px_dword elpased) {
     px_surface *renderSurface = &App->Instance.runtime.RenderSurface;
     PX_RuntimeRenderClear(&App->Instance.runtime, PX_COLOR(255, 255, 255, 255));
 
-    //////////////////////////////////////////////////////////////////////////
     // messagebox
     if (App->messagebox.show) {
         PX_MessageBoxRender(renderSurface, &App->messagebox, elpased);

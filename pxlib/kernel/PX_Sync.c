@@ -330,9 +330,9 @@ static px_void PX_SyncFrameServerHandle_StatusProcess(PX_SyncFrame_Server *sync_
                             // PX_SYNC_LOG("id %d Update ms %d\n",pClient->c_id,sync_server->time-pClient->lastsendtime);
                             pClient->lastsendtime = sync_server->time;
                             PX_SyncFrameServer_Write(sync_server, pClient, pClient->send_cache_instr_buffer, pClient->send_cache_instr_size);
-                            //////////////////////////////////////////////////////////////////////////
+
                             pClient->sendTimes = PX_SYNC_SERVER_SEND_TIMES;
-                            //////////////////////////////////////////////////////////////////////////
+
                         } else {
                             pClient->send_cache_instr_size = 0;
                             pClient->sendTimes = 0;
@@ -688,7 +688,6 @@ px_uint32 PX_SyncFrameClientSum32(PX_SyncFrame_Client *sync) {
     return sum;
 }
 
-//////////////////////////////////////////////////////////////////////////
 // SyncData
 
 static px_int PX_SyncDataCalculateBlockCount(px_int size) {

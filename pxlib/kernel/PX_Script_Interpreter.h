@@ -1,4 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
 // Painter Engine Interpreter
 // code by DBinary, matrixcascade@gmail.com
 // QQ:477608346,tel-18959060883
@@ -37,9 +36,7 @@ typedef enum {
 } PX_SCRIPT_PARSER_VAR_TYPE;
 
 typedef enum {
-    ////
     PX_SCRIPT_TRANSLATOR_EXPRESSION_TOKEN,
-    ////
 
     PX_SCRIPT_TRANSLATOR_EXPRESSION_OP_FUNCTION,
     PX_SCRIPT_TRANSLATOR_EXPRESSION_OP_ADD,

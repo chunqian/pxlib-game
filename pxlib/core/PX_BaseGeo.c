@@ -494,7 +494,6 @@ px_void PX_GeoDrawLine(px_surface *psurface, px_int x0, px_int y0, px_int x1, px
             }
         }
 
-        ///////////////////////////////////////////////////////////
         // p2-->p3 draw triangle
         rx = p2x - (1 - PX_ABS_FRAC(p2y)) * k;
         y = PX_TRUNC(p2y) + 1;
@@ -536,9 +535,6 @@ px_void PX_GeoDrawLine(px_surface *psurface, px_int x0, px_int y0, px_int x1, px
         }
 
     } else {
-        ////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
         ylen = k;
         ry = p0y + (1 - PX_ABS_FRAC(p0x)) * k;
         x = PX_TRUNC(p0x) + 1;
@@ -938,10 +934,9 @@ static px_void PX_GeoDrawSolidCircle_Ex1(px_surface *psurface, px_int x, px_int 
         while (Sy < dy) {
             cY = ry;
             xleft = Sy;
-            //////////////////////////////////////////////////////////////////////////
 
             // outside
-            //////////////////////////////////////////////////////////////////////////
+
             xoft1 = xoft2;
             fy = (px_float)Sy + 0.5f;
             xoft2 = PX_sqrt(rad2 * rad2 - fy * fy) + 0.5f;
@@ -1006,8 +1001,6 @@ static px_void PX_GeoDrawSolidCircle_Ex1(px_surface *psurface, px_int x, px_int 
                 PX_SurfaceDrawPixel(psurface, x - dry, y - drx, clr);
             }
             xright = PX_TRUNC(xoft2);
-
-            //////////////////////////////////////////////////////////////////////////
 
             for (i = xleft + 1; i < xright; i++) {
                 PX_SurfaceDrawPixel(psurface, x + i, y + Sy, color);
@@ -1289,7 +1282,7 @@ px_void PX_GeoDrawCircle(px_surface *psurface, px_int x, px_int y, px_int Radius
     while (Sy < dy) {
         cY = ry;
         // inside
-        //////////////////////////////////////////////////////////////////////////
+
         if (Sy < cY) {
             xoft1 = xoft2;
             fy = (px_float)Sy + 0.5f;
@@ -1363,10 +1356,9 @@ px_void PX_GeoDrawCircle(px_surface *psurface, px_int x, px_int y, px_int Radius
         } else {
             xleft = Sy;
         }
-        //////////////////////////////////////////////////////////////////////////
 
         // outside
-        //////////////////////////////////////////////////////////////////////////
+
         xoft3 = xoft4;
         fy = (px_float)Sy + 0.5f;
         xoft4 = PX_sqrt(rad2 * rad2 - fy * fy) + 0.5f;
@@ -1431,8 +1423,6 @@ px_void PX_GeoDrawCircle(px_surface *psurface, px_int x, px_int y, px_int Radius
             PX_SurfaceDrawPixel(psurface, x - dry, y - drx, clr);
         }
         xright = PX_TRUNC(xoft4);
-
-        //////////////////////////////////////////////////////////////////////////
 
         for (i = xleft + 1; i < xright; i++) {
             PX_SurfaceDrawPixel(psurface, x + i, y + Sy, color);
@@ -1654,7 +1644,7 @@ px_void PX_GeoDrawRing(px_surface *psurface, px_int x, px_int y, px_int Radius, 
     while (Sy < dy) {
         cY = ry;
         // inside
-        //////////////////////////////////////////////////////////////////////////
+
         if (Sy < cY) {
             xoft1 = xoft2;
             fy = (px_float)Sy + 0.5f;
@@ -1728,10 +1718,9 @@ px_void PX_GeoDrawRing(px_surface *psurface, px_int x, px_int y, px_int Radius, 
         } else {
             xleft = Sy;
         }
-        //////////////////////////////////////////////////////////////////////////
 
         // outside
-        //////////////////////////////////////////////////////////////////////////
+
         xoft3 = xoft4;
         fy = (px_float)Sy + 0.5f;
         xoft4 = PX_sqrt(rad2 * rad2 - fy * fy) + 0.5f;
@@ -1796,8 +1785,6 @@ px_void PX_GeoDrawRing(px_surface *psurface, px_int x, px_int y, px_int Radius, 
             PX_GeoDrawRingPoint(psurface, x - dry, y - drx, clr, x, y, start_mathRegion, end_mathRegion);
         }
         xright = PX_TRUNC(xoft4);
-
-        //////////////////////////////////////////////////////////////////////////
 
         for (i = xleft + 1; i < xright; i++) {
             PX_GeoDrawRingPoint(psurface, x + i, y + Sy, color, x, y, start_mathRegion, end_mathRegion);
@@ -1979,7 +1966,7 @@ px_void PX_GeoDrawSector(px_surface *psurface, px_int x, px_int y, px_int Radius
     while (Sy < dy) {
         cY = ry;
         // inside
-        //////////////////////////////////////////////////////////////////////////
+
         if (Sy < cY) {
             xoft1 = xoft2;
             fy = (px_float)Sy + 0.5f;
@@ -2053,10 +2040,9 @@ px_void PX_GeoDrawSector(px_surface *psurface, px_int x, px_int y, px_int Radius
         } else {
             xleft = Sy;
         }
-        //////////////////////////////////////////////////////////////////////////
 
         // outside
-        //////////////////////////////////////////////////////////////////////////
+
         xoft3 = xoft4;
         fy = (px_float)Sy + 0.5f;
         xoft4 = PX_sqrt(rad2 * rad2 - fy * fy) + 0.5f;
@@ -2121,8 +2107,6 @@ px_void PX_GeoDrawSector(px_surface *psurface, px_int x, px_int y, px_int Radius
             PX_GeoDrawRingPoint(psurface, x - dry, y - drx, clr, x, y, start_mathRegion, end_mathRegion);
         }
         xright = PX_TRUNC(xoft4);
-
-        //////////////////////////////////////////////////////////////////////////
 
         for (i = xleft + 1; i < xright; i++) {
             PX_GeoDrawRingPoint(psurface, x + i, y + Sy, color, x, y, start_mathRegion, end_mathRegion);

@@ -105,7 +105,6 @@ px_void Game_Object_ShipRender(px_surface *psurface, PX_Object *pObject, px_uint
         PX_TextureRender(psurface, pShip->shieldtex, (px_int)pObject->x, (px_int)pObject->y, PX_TEXTURERENDER_REFPOINT_CENTER, &blend);
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // Name
     if (pShip->bLocalController) {
         PX_FontModuleDrawText(psurface, &pShip->pIns->FontModule18, (px_int)pObject->x, (px_int)pObject->y - 48, PX_ALIGN_CENTER, pShip->PlayerName,
@@ -124,7 +123,6 @@ px_void Game_Object_ShipRender(px_surface *psurface, PX_Object *pObject, px_uint
                          PX_NULL);
     } while (0);
 
-    //////////////////////////////////////////////////////////////////////////
     // silent
     if (pShip->slientTime) {
         px_char content[16] = {0};

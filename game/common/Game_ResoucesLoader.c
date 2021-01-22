@@ -121,7 +121,7 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
             if (!PX_LoadTextureToResource(runtime, GAME_TEXT_PATH_STONE3, GAME_TEXT_KEY_TEX_STONE3)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
+
             // rail gun
             if (!PX_LoadAnimationToResource(runtime, GAME_TEXT_PATH_RAILGUN_AMMO, GAME_TEXT_KEY_RAILGUN_AMMO)) {
                 return PX_FALSE;
@@ -143,7 +143,6 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             // machine gun
             if (!PX_LoadTextureToResource(runtime, GAME_TEXT_PATH_MACHINEGUN_AMMO, GAME_TEXT_KEY_TEX_MACHINEGUN_AMMO)) {
                 return PX_FALSE;
@@ -160,9 +159,7 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
             if (!PX_LoadTextureToResource(runtime, GAME_TEXT_PATH_MACHINE_FIRE, GAME_TEXT_KEY_PARTICAL_SHOTGUNASH)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////////
 
-            //////////////////////////////////////////////////////////////////////////
             // missile
             if (!PX_LoadAnimationToResource(runtime, GAME_TEXT_PATH_MISSILE_AMMO, GAME_TEXT_KEY_MISSILE_AMMO)) {
                 return PX_FALSE;
@@ -172,8 +169,6 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////
             // nuclear
             if (!PX_LoadAnimationToResource(runtime, GAME_TEXT_PATH_NUCLEAR_AMMO, GAME_TEXT_KEY_NUCLEAR_AMMO)) {
                 return PX_FALSE;
@@ -186,16 +181,12 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
             if (!PX_LoadSoundToResource(runtime, GAME_TEXT_PATH_NUCLEAR_EXPLOSIONSOUND, GAME_TEXT_KEY_NUCLEAR_EXPLOSIONSOUND)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
 
-            //////////////////////////////////////////////////////////////////////////
             // mine
             if (!PX_LoadAnimationToResource(runtime, GAME_TEXT_PATH_MINE_AMMO, GAME_TEXT_KEY_MINE_AMMO)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
 
-            //////////////////////////////////////////////////////////////////////////
             // BlackHole
             if (!PX_LoadAnimationToResource(runtime, GAME_TEXT_PATH_BLACKHOLE_AMMO, GAME_TEXT_KEY_BLACKHOLE_AMMO)) {
                 return PX_FALSE;
@@ -204,7 +195,6 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
             if (!PX_LoadSoundToResource(runtime, GAME_TEXT_PATH_BLACKHOLE_EXPLOSIONSOUND, GAME_TEXT_KEY_BLACKHOLE_EXPLOSIONSOUND)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
 
             // ship
 
@@ -215,14 +205,12 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
             if (!PX_LoadTextureToResource(runtime, GAME_TEXT_PATH_CURSOR, GAME_TEXT_KEY_TEX_CURSOR)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
+
             // pickup explosion
             if (!PX_LoadSoundToResource(runtime, GAME_TEXT_PATH_PICKUPEXPLOSION_SOUND, GAME_TEXT_KEY_PICKUPEXPLOSION_SOUND)) {
                 return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
 
-            //////////////////////////////////////////////////////////////////////////
             // Treasure
             if (!PX_LoadTextureToResource(runtime, GAME_TEXT_PATH_TEX_TREASURE0, GAME_TEXT_KEY_TEX_TREASURE0)) {
                 return PX_FALSE;
@@ -232,13 +220,11 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             // TreasureTag
             if (!PX_LoadShapeToResource(runtime, GAME_TEXT_PATH_TREASURETAG, GAME_TEXT_KEY_TREASURETAG)) {
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             // ProtectShield
             if (!PX_LoadShapeToResource(runtime, GAME_TEXT_PATH_PROTECTSHIELD_LOGO, GAME_TEXT_KEY_PROTECTSHIELD_LOGO)) {
                 return PX_FALSE;
@@ -248,13 +234,11 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             // Alien
             if (!PX_LoadAnimationToResource(runtime, GAME_TEXT_PATH_ALIEN, GAME_TEXT_KEY_ALIEN)) {
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             //
             if (!PX_LoadShapeToResource(runtime, GAME_TEXT_PATH_PIERCER_LOGO, GAME_TEXT_KEY_PIERCER_LOGO)) {
                 return PX_FALSE;
@@ -263,7 +247,6 @@ px_bool Game_ResourcesLoaderInitialize(PX_Instance *Ins, GAME_RESOURCESLOADER_TY
                 return PX_FALSE;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             //
             if (!PX_LoadSoundToResource(runtime, GAME_TEXT_PATH_PIERCER_FIRESOUND, GAME_TEXT_KEY_PIERCER_FIRESOUND)) {
                 return PX_FALSE;

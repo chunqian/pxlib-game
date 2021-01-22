@@ -1218,7 +1218,6 @@ px_bool PX_ScriptAsmCompile(px_memorypool *mp, px_char *asmcode, px_memory *binm
     px_dword woffset;
     px_dword binsize, bufsize;
 
-    //////////////////////////////////////////////////////////////////////////
     // test
 
     compiler.mp = mp;

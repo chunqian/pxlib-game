@@ -995,18 +995,15 @@ px_void PX_LobbyUpdate_Packets(PX_Lobby *pDesc, PX_UDP_ADDR addr, px_byte data[]
 }
 
 px_void PX_LobbyUpdate_Connection(PX_Lobby *pDesc, px_dword elpased) {
-    //////////////////////////////////////////////////////////////////////////
     // connection
     pDesc->connection_elpased += elpased;
     if (pDesc->connection_elpased >= PX_LOBBY_CONNECTION_TIME) {
         PX_LobbyDisconnect(pDesc);
         return;
     }
-    //////////////////////////////////////////////////////////////////////////
 }
 
 px_void PX_LobbyUpdate_QueryUserInfo(PX_Lobby *pDesc, px_dword elpased) {
-    //////////////////////////////////////////////////////////////////////////
     // userInfo
     pDesc->userinfo_elpased += elpased;
     if (pDesc->userinfo_elpased >= PX_LOBBY_UPDATE_USERINFO_TIME) {
@@ -1024,11 +1021,9 @@ px_void PX_LobbyUpdate_QueryUserInfo(PX_Lobby *pDesc, px_dword elpased) {
 
         return;
     }
-    //////////////////////////////////////////////////////////////////////////
 }
 
 px_void PX_LobbyUpdate_QueryUserState(PX_Lobby *pDesc, px_dword elpased) {
-    //////////////////////////////////////////////////////////////////////////
     // userInfo
     pDesc->userstate_elpased += elpased;
     if (pDesc->userstate_elpased >= PX_LOBBY_UPDATE_USERSTATE_TIME) {
@@ -1046,11 +1041,9 @@ px_void PX_LobbyUpdate_QueryUserState(PX_Lobby *pDesc, px_dword elpased) {
 
         return;
     }
-    //////////////////////////////////////////////////////////////////////////
 }
 
 px_void PX_LobbyUpdate_QueryNews(PX_Lobby *pDesc, px_dword elpased) {
-    //////////////////////////////////////////////////////////////////////////
     // news
     pDesc->news_elpased += elpased;
     if (pDesc->news_elpased >= PX_LOBBY_UPDATE_NEWS_TIME) {
@@ -1068,11 +1061,9 @@ px_void PX_LobbyUpdate_QueryNews(PX_Lobby *pDesc, px_dword elpased) {
 
         return;
     }
-    //////////////////////////////////////////////////////////////////////////
 }
 
 px_void PX_LobbyUpdate_QueryPhoto(PX_Lobby *pDesc, px_dword elpased) {
-    //////////////////////////////////////////////////////////////////////////
     // photo
     if (pDesc->photo.surfaceBuffer == PX_NULL) {
         pDesc->photo_elpased += elpased;
@@ -1094,7 +1085,6 @@ px_void PX_LobbyUpdate_QueryPhoto(PX_Lobby *pDesc, px_dword elpased) {
             return;
         }
     }
-    //////////////////////////////////////////////////////////////////////////
 }
 
 px_void PX_LobbyUpdate(PX_Lobby *pDesc, px_dword elpased) {

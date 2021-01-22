@@ -16,7 +16,6 @@ typedef struct __px_list {
     struct __px_list_node *end;
 } px_list;
 
-//////////////////////////////////////////////////////////////////////////
 // List
 px_void PX_ListInit(px_memorypool *mp, px_list *list);
 px_void *PX_ListPush(px_list *list, px_void *data, px_int size);

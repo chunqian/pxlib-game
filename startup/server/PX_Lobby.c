@@ -1262,7 +1262,6 @@ px_void PX_StartupServer_LobbyUpdateHeartBeat(PX_StartupServer_Lobby *pDesc, px_
 
     for (i = 0; i < PX_COUNTOF(pDesc->clients); i++) {
         if (pDesc->clients[i].activated) {
-            //////////////////////////////////////////////////////////////////////////
             // HearBeat
             pDesc->clients[i].hb_elpased += elpased;
             pDesc->clients[i].lastop_elpased += elpased;
@@ -1279,7 +1278,7 @@ px_void PX_StartupServer_LobbyUpdateHeartBeat(PX_StartupServer_Lobby *pDesc, px_
 
 px_void PX_StartupServer_LobbyUpdateClientState(PX_StartupServer_Lobby *pDesc, px_dword elpased) {
     px_int i;
-    //////////////////////////////////////////////////////////////////////////
+
     // update clients state
     // clear state
     pDesc->OnlineCount = 0;
@@ -1344,8 +1343,6 @@ px_void PX_StartupServer_LobbyUpdateClientState(PX_StartupServer_Lobby *pDesc, p
             }
         }
     }
-
-    //////////////////////////////////////////////////////////////////////////
 }
 
 px_void PX_StartupServer_LobbyUpdateRoomGameInstance_Room_StartInstance(PX_StartupServer_Lobby *pDesc, PX_StartupServer_Lobby_GameRoom *pRoom) {

@@ -63,7 +63,6 @@ typedef struct {
     px_uchar RoomPlayerCount[16];
 } PX_Startup_UserState;
 
-//////////////////////////////////////////////////////////////////////////
 // netpackets
 #define PX_NETWORK_PACKET_MAX_SIZE 1420
 

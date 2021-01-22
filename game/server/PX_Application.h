@@ -6,7 +6,6 @@
 
 #include "PX_Startup.h"
 
-//////////////////////////////////////////////////////////////////////////
 // Configures
 #define PX_WINDOW_NAME ""
 
@@ -20,7 +19,6 @@
 
 #define PX_APPLICATION_GAMEOVER_DELAY 6000
 #define PX_APPLICATION_CONNECTIONTIMEOUT_DELAY 30000
-//////////////////////////////////////////////////////////////////////////
 
 typedef enum {
     PX_APPLICATION_STATUS_CONNECTING,

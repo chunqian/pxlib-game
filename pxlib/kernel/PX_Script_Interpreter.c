@@ -1022,7 +1022,7 @@ static px_bool PX_ScriptParseAST_MapTokenToR2(PX_SCRIPT_Analysis *analysis, PX_S
         case PX_SCRIPT_AST_OPERAND_TYPE_VOID:
             PX_StringCat(out, "MOV R2,0\n");
             break;
-            //////////////////////////////////////////////////////////////////////////
+
             // R2
         case PX_SCRIPT_AST_OPERAND_TYPE_FLOAT:
         case PX_SCRIPT_AST_OPERAND_TYPE_INT:
@@ -1119,8 +1119,6 @@ static px_bool PX_ScriptParseAST_MapTokenToR2(PX_SCRIPT_Analysis *analysis, PX_S
 
         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_CONST:
         case PX_SCRIPT_AST_OPERAND_TYPE_MEMORY_CONST: {
-            //////////////////////////////////////////////////////////////////////////
-
             PX_StringInit(analysis->mp, &fmrString);
 
             if (operand.region == PX_SCRIPT_VARIABLE_REGION_GLOBAL) {
@@ -1136,7 +1134,7 @@ static px_bool PX_ScriptParseAST_MapTokenToR2(PX_SCRIPT_Analysis *analysis, PX_S
             PX_StringFree(&fmrString);
 
             // Check operand
-            //////////////////////////////////////////////////////////////////////////
+
         } break;
 
         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_IDX: {
@@ -1247,7 +1245,7 @@ static px_bool PX_ScriptParseAST_MapTokenToR1(PX_SCRIPT_Analysis *analysis, PX_S
         case PX_SCRIPT_AST_OPERAND_TYPE_VOID:
             PX_StringCat(out, "MOV R1,0\n");
             break;
-            //////////////////////////////////////////////////////////////////////////
+
             // R2
         case PX_SCRIPT_AST_OPERAND_TYPE_FLOAT:
         case PX_SCRIPT_AST_OPERAND_TYPE_INT:
@@ -1344,8 +1342,6 @@ static px_bool PX_ScriptParseAST_MapTokenToR1(PX_SCRIPT_Analysis *analysis, PX_S
 
         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_CONST:
         case PX_SCRIPT_AST_OPERAND_TYPE_MEMORY_CONST: {
-            //////////////////////////////////////////////////////////////////////////
-
             PX_StringInit(analysis->mp, &fmrString);
 
             if (operand.region == PX_SCRIPT_VARIABLE_REGION_GLOBAL) {
@@ -1361,7 +1357,7 @@ static px_bool PX_ScriptParseAST_MapTokenToR1(PX_SCRIPT_Analysis *analysis, PX_S
             PX_StringFree(&fmrString);
 
             // Check operand
-            //////////////////////////////////////////////////////////////////////////
+
         } break;
 
         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_IDX: {
@@ -1514,7 +1510,6 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
     pTop = PX_VECTORLAST(PX_SCRIPT_AST_OPERAND, tk);
 
     switch (operandRight.operandType) {
-            //////////////////////////////////////////////////////////////////////////
             // R2
         case PX_SCRIPT_AST_OPERAND_TYPE_INT: {
             if (!PX_ScriptParseAST_MapTokenToR2(analysis, operandRight, out)) {
@@ -2207,7 +2202,7 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
             pTop->operandType = operandRight.operandType;
             pTop->region = PX_SCRIPT_VARIABLE_REGION_POP;
             pTop->_oft = 0;
-            //////////////////////////////////////////////////////////////////////////
+
             if (operandRight.operandType == PX_SCRIPT_AST_OPERAND_TYPE_STRING_CONST && operandLeft.operandType != PX_SCRIPT_AST_OPERAND_TYPE_STRING) {
                 return PX_FALSE;
             }
@@ -2261,7 +2256,7 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
                 default:
                     return PX_FALSE;
             }
-            //////////////////////////////////////////////////////////////////////////
+
         } break;
 
         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_IDX: {
@@ -2278,7 +2273,6 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
             }
 
             if (operandLeft.operandType == PX_SCRIPT_AST_OPERAND_TYPE_INT) {
-                //////////////////////////////////////////////////////////////////////////
                 switch (operandLeft.region) {
                     case PX_SCRIPT_VARIABLE_REGION_LOCAL: {
                         PX_StringInit(analysis->mp, &fmrString);
@@ -2308,7 +2302,7 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
                     default:
                         return PX_FALSE;
                 }
-                //////////////////////////////////////////////////////////////////////////
+
             } else if (operandLeft.operandType == PX_SCRIPT_AST_OPERAND_TYPE_STRING_IDX) {
                 switch (operandLeft.region) {
                     case PX_SCRIPT_VARIABLE_REGION_LOCAL: {
@@ -2442,7 +2436,6 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
             }
 
             if (operandLeft.operandType == PX_SCRIPT_AST_OPERAND_TYPE_INT) {
-                //////////////////////////////////////////////////////////////////////////
                 switch (operandLeft.region) {
                     case PX_SCRIPT_VARIABLE_REGION_LOCAL: {
                         PX_StringInit(analysis->mp, &fmrString);
@@ -2472,7 +2465,7 @@ static px_bool PX_ScriptParseLastInstr_EQUAL(PX_SCRIPT_Analysis *analysis, px_ve
                     default:
                         return PX_FALSE;
                 }
-                //////////////////////////////////////////////////////////////////////////
+
             } else if (operandLeft.operandType == PX_SCRIPT_AST_OPERAND_TYPE_MEMORY_IDX) {
                 switch (operandLeft.region) {
                     case PX_SCRIPT_VARIABLE_REGION_LOCAL: {
@@ -5354,7 +5347,6 @@ static px_bool PX_ScriptParseExpression(PX_SCRIPT_Analysis *analysis, px_char *e
         }
 
         if (type == PX_LEXER_LEXEME_TYPE_TOKEN) {
-            //////////////////////////////////////////////////////////////////////////
             // key word
             if (PX_strequ(lexer.CurLexeme.buffer, "STRLEN")) {
                 if ((accept_type & PX_SCRIPT_EXPRESSION_ACCEPT_SINGLE) == 0) {
@@ -6553,7 +6545,6 @@ px_bool PX_ScriptParseSetDefine(PX_SCRIPT_Analysis *analysis) {
         if ((pSet = PX_ScriptParseGetSetInfo(analysis, analysis->lexer.CurLexeme.buffer)) != PX_NULL) {
             member.defvar.setIndex = PX_ScriptParseGetSetIndex(analysis, analysis->lexer.CurLexeme.buffer);
 
-            //////////////////////////////////////////////////////////////////////////
             while (PX_TRUE) {
                 type = PX_ScriptTranslatorNextToken(&analysis->lexer);
 
@@ -6657,7 +6648,6 @@ px_bool PX_ScriptParseSetDefine(PX_SCRIPT_Analysis *analysis) {
                     goto _ERROR;
                 }
             }
-            //////////////////////////////////////////////////////////////////////////
 
         } else {
             if (type != PX_LEXER_LEXEME_TYPE_TOKEN) {
@@ -6676,7 +6666,6 @@ px_bool PX_ScriptParseSetDefine(PX_SCRIPT_Analysis *analysis) {
                 goto _ERROR;
             }
 
-            //////////////////////////////////////////////////////////////////////////
             while (PX_TRUE) {
                 type = PX_ScriptTranslatorNextToken(&analysis->lexer);
 
@@ -6818,7 +6807,6 @@ px_bool PX_ScriptParseSetDefine(PX_SCRIPT_Analysis *analysis) {
                     goto _ERROR;
                 }
             }
-            //////////////////////////////////////////////////////////////////////////
         }
     }
     if (vSet.size == 0) {
@@ -6924,7 +6912,7 @@ px_bool PX_ScriptParseFunctionDefined(PX_SCRIPT_Analysis *analysis, PX_SCRIPT_TR
             goto _ERROR;
         }
         fvar.size = 1;
-        //////////////////////////////////////////////////////////////////////////
+
         if (PX_strequ(analysis->lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_VAR_INT)) {
             fvar.type = PX_SCRIPT_PARSER_VAR_TYPE_INT;
         } else if (PX_strequ(analysis->lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_VAR_FLOAT)) {
@@ -6942,8 +6930,6 @@ px_bool PX_ScriptParseFunctionDefined(PX_SCRIPT_Analysis *analysis, PX_SCRIPT_TR
         } else {
             goto _ERROR;
         }
-
-        //////////////////////////////////////////////////////////////////////////
 
         type = PX_ScriptTranslatorNextToken(&analysis->lexer);
 
@@ -7463,9 +7449,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
     PX_SCRIPT_VARIABLES *pvar;
     px_int thread = 1;
     px_bool withEnd;
-    //////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////////////////////
 
     PX_StringInit(lib->mp, &codes);
 
@@ -7530,7 +7513,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
     PX_StringInit(analysis.mp, &analysis.bootCode);
     PX_StringInit(analysis.mp, &analysis.code);
 
-    //////////////////////////////////////////////////////////////////////////
     // Handle codes to stream
 
     while (PX_TRUE) {
@@ -7545,9 +7527,9 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
         if (type == PX_LEXER_LEXEME_TYPE_NEWLINE) {
             continue;
         }
-        //////////////////////////////////////////////////////////////////////////
-        /// Runtime
-        //////////////////////////////////////////////////////////////////////////
+
+        // Runtime
+
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_RUNTIME)) {
             type = PX_ScriptTranslatorNextToken(&analysis.lexer);
             if (type != PX_LEXER_LEXEME_TYPE_TOKEN) {
@@ -7585,9 +7567,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        //////////////////////////////////////////////////////////////////////////
-        /// VAR
-        //////////////////////////////////////////////////////////////////////////
+        // VAR
+
         if ((pset = PX_ScriptParseGetSetInfo(&analysis, analysis.lexer.CurLexeme.buffer)) != PX_NULL ||
             PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_VAR_INT) ||
             PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_VAR_FLOAT) ||
@@ -7613,7 +7594,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             if (type == PX_LEXER_LEXEME_TYPE_DELIMITER && analysis.lexer.Symbol == '(') {
                 // custom function
                 PX_LexerSetState(state);
-                //////////////////////////////////////////////////////////////////////////
+
                 if (analysis.functionInside) {
                     goto _ERROR;
                 }
@@ -7634,12 +7615,11 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                 } else {
                     goto _ERROR;
                 }
-                //////////////////////////////////////////////////////////////////////////
+
             } else {
                 if (pset) {
-                    //////////////////////////////////////////////////////////////////////////
                     // SET VARIALBE
-                    //////////////////////////////////////////////////////////////////////////
+
                     if (isBeginExpression) {
                         goto _ERROR;
                     }
@@ -7659,11 +7639,9 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                 continue;
             }
         }
-        //////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////////
-        /// SET DEFINE
-        //////////////////////////////////////////////////////////////////////////
+        // SET DEFINE
+
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_VAR_SET)) {
             if (analysis.functionInside) {
                 goto _ERROR;
@@ -7684,9 +7662,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             }
             continue;
         }
-        //////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////////
         // Host function define
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_HOST)) {
             if (analysis.functionInside) {
@@ -7719,9 +7695,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                 goto _ERROR;
             }
         }
-        //////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////////
         // Export function define
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_EXPORT)) {
             state = PX_LexerGetState(&analysis.lexer);
@@ -7760,11 +7734,9 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                 goto _ERROR;
             }
         }
-        //////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////////////////////////
         // Expression
-        //////////////////////////////////////////////////////////////////////////
+
         if (analysis.functionInside) {
             if (!isBeginExpression) {
                 isBeginExpression = PX_TRUE;
@@ -7772,9 +7744,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             }
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // IF
-        //////////////////////////////////////////////////////////////////////////
+
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_IF)) {
             if (!analysis.functionInside) {
                 goto _ERROR;
@@ -7803,7 +7774,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringCat(&analysis.code, expCode.buffer);
             PX_StringFree(&expression);
             PX_StringFree(&expCode);
-            //////////////////////////////////////////////////////////////////////////
 
             if (!PX_ScriptParseIsOperandNumericType(retOperand)) {
                 goto _ERROR;
@@ -7830,9 +7800,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // WHILE
-        //////////////////////////////////////////////////////////////////////////
 
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_WHILE)) {
             if (!analysis.functionInside) {
@@ -7871,7 +7839,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringCat(&analysis.code, expCode.buffer);
             PX_StringFree(&expression);
             PX_StringFree(&expCode);
-            //////////////////////////////////////////////////////////////////////////
 
             if (!PX_ScriptParseIsOperandNumericType(retOperand)) {
                 goto _ERROR;
@@ -7893,9 +7860,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringFree(&expression);
             continue;
         }
-        //////////////////////////////////////////////////////////////////////////
+
         //_ASM
-        //////////////////////////////////////////////////////////////////////////
 
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_ASM)) {
             if (!analysis.functionInside) {
@@ -7948,9 +7914,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // FOR
-        //////////////////////////////////////////////////////////////////////////
 
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_FOR)) {
             if (!analysis.functionInside) {
@@ -8052,8 +8016,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringFree(&fmrString);
             PX_StringFree(&condCodes);
 
-            //////////////////////////////////////////////////////////////////////////
-
             if (!PX_ScriptParseIsOperandNumericType(retOperand)) {
                 goto _ERROR;
             }
@@ -8070,9 +8032,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // COMPARE
-        //////////////////////////////////////////////////////////////////////////
+
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_COMPARE)) {
             if (!analysis.functionInside) {
                 goto _ERROR;
@@ -8111,7 +8072,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringCat(&analysis.code, "PUSH R1\n");
             PX_StringFree(&expression);
             PX_StringFree(&expCode);
-            //////////////////////////////////////////////////////////////////////////
 
             state = PX_LexerGetState(&analysis.lexer);
             type = PX_ScriptTranslatorNextTokenSN(&analysis.lexer);
@@ -8126,9 +8086,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // WITH
-        //////////////////////////////////////////////////////////////////////////
+
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_WITH)) {
             if (!analysis.functionInside) {
                 goto _ERROR;
@@ -8170,7 +8129,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
                 //                  PX_StringFree(&expCode);
                 //                  goto _ERROR;
                 //              }
-                //////////////////////////////////////////////////////////////////////////
+
                 PX_StringClear(&expression);
                 mBracket = 0, lBracket = 0;
 
@@ -8217,7 +8176,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
 
                     PX_StringCat(&expression, analysis.lexer.CurLexeme.buffer);
                 }
-                //////////////////////////////////////////////////////////////////////////
 
                 if (!PX_ScriptParseExpression(&analysis, expression.buffer, &expCode, &retOperand)) {
                     PX_StringFree(&expression);
@@ -8247,8 +8205,6 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringFree(&expression);
             PX_StringFree(&expCode);
 
-            //////////////////////////////////////////////////////////////////////////
-
             state = PX_LexerGetState(&analysis.lexer);
             type = PX_ScriptTranslatorNextTokenSN(&analysis.lexer);
             if (type == PX_LEXER_LEXEME_TYPE_DELIMITER && analysis.lexer.Symbol == '{') {
@@ -8261,9 +8217,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_VectorPushback(&analysis.v_astStructure, &buildAstStruct);
             continue;
         }
-        ///////////////////////////////////////////////////////////////////////////
+
         // break
-        //////////////////////////////////////////////////////////////////////////
 
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_BREAK)) {
             type = PX_ScriptTranslatorNextToken(&analysis.lexer);
@@ -8308,9 +8263,7 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        ///////////////////////////////////////////////////////////////////////////
         // continue
-        //////////////////////////////////////////////////////////////////////////
 
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_CONTINUE)) {
             type = PX_ScriptTranslatorNextToken(&analysis.lexer);
@@ -8348,9 +8301,8 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             continue;
         }
 
-        ///////////////////////////////////////////////////////////////////////////
         // Return
-        //////////////////////////////////////////////////////////////////////////
+
         if (PX_strequ(analysis.lexer.CurLexeme.buffer, PX_SCRIPT_TRANSLATOR_KEYWORD_RETURN)) {
             if (!analysis.functionInside) {
                 goto _ERROR;
@@ -8502,14 +8454,13 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             }
             continue;
         }
-        //////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
+
         //
 
         PX_ScriptTranslatorError(&analysis.lexer, "Invalid expression.");
         goto _ERROR;
     }
-    //////////////////////////////////////////////////////////////////////////
+
     // Output
     if (!PX_ScriptParseBootCode(&analysis)) {
         goto _ERROR;

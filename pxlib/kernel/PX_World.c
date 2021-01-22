@@ -113,9 +113,8 @@ px_void PX_WorldUpdate(PX_World *world, px_uint elpased) {
     // Object Counts
     updateCount = world->pObjects.size;
 
-    //////////////////////////////////////////////////////////////////////////
     // impact test
-    //////////////////////////////////////////////////////////////////////////
+
     for (i = 0; i < updateCount; i++) {
         pwo = PX_VECTORAT(PX_WorldObject, &world->pObjects, i);
         if (!pwo->pObject) {
@@ -196,7 +195,6 @@ px_void PX_WorldUpdate(PX_World *world, px_uint elpased) {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // Update Objects
 
     for (i = 0; i < updateCount; i++) {
@@ -207,7 +205,6 @@ px_void PX_WorldUpdate(PX_World *world, px_uint elpased) {
         PX_ObjectUpdate(pwo->pObject, elpased);
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // delete death objects
     for (i = 0; i < updateCount; i++) {
         pwo = PX_VECTORAT(PX_WorldObject, &world->pObjects, i);

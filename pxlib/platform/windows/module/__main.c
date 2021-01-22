@@ -3,7 +3,7 @@
 // mouse informations
 POINT main_zoomPoint;
 px_int main_ZoomRegion;
-//////////////////////////////////////////////////////////////////////////
+
 DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     DWORD time, elpased;
     PX_Object_Event e;
@@ -12,7 +12,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     LastDownPoint.x = -1;
     LastDownPoint.y = -1;
     /*  px_char *keyBoardString;*/
-    //////////////////////////////////////////////////////////////////////////
+
     // CreateWindow
 
     time = timeGetTime();
@@ -175,7 +175,7 @@ int main(int argc, const px_char *argv[])
                                PX_MEMORY_GAME_SIZE))
         return 0;
     if (!PX_ApplicationInitialize(&App)) return 0;
-    //////////////////////////////////////////////////////////////////////////
+
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);

@@ -3,7 +3,6 @@
 
 #include "PX_Startup.h"
 
-//////////////////////////////////////////////////////////////////////////
 // Configures
 #define PX_WINDOW_NAME ""
 
@@ -14,7 +13,6 @@
 #define PX_MEMORY_UI_SIZE (1024 * 1024 * 8)
 #define PX_MEMORY_RESOURCES_SIZE (1024 * 1024 * 8)
 #define PX_MEMORY_GAME_SIZE (1024 * 1024)
-//////////////////////////////////////////////////////////////////////////
 
 typedef struct {
     PX_Instance Instance;

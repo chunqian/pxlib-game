@@ -46,18 +46,16 @@ px_uint PX_BitmapGetHeight(void *BitmapBuffer);
 px_uint PX_BitmapGetWidth(void *BitmapBuffer);
 // Get bitmap BitCount
 px_word PX_BitmapGetBitCount(void *BitmapBuffer);
-//////////////////////////////////////////////////////////////////////////
+
 //  Draw bitmap to panel
 // param:void *BitmapBuffer -Point to buffer of bitmap
 // param:int x -Offset of X
 // param:int y -Offset of Y
-/////////////////////////////////////////////////////////////////////////
+
 px_void PX_BitmapRender(px_surface *psurface, void *BitmapBuffer, px_int BufferSize, int x, int y);
 
-//////////////////////////////////////////////////////////////////////////
 // build bitmap from surface
 // param:px_memory *BitmapBuffer -Pointer of px_buffer to save bmpfile data
-/////////////////////////////////////////////////////////////////////////
 
 px_bool PX_BitmapBuild(px_surface *psurface, px_char *BitmapBuffer, px_int *size);
 

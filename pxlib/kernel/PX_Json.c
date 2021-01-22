@@ -291,7 +291,7 @@ px_bool PX_JsonInterpret_Object(PX_Json *pjson, px_lexer *lexer, PX_Json_Object 
         }
     }
 _ERROR:
-    //////////////////////////////////////////////////////////////////////////
+
     // remove object
 
     for (i = 0; i < json_Object->values.size; i++) {

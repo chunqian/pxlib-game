@@ -3859,7 +3859,6 @@ px_char PX_Object_VirtualKeyBoardGetCode(PX_Object *pObject) {
     return 0;
 }
 
-//////////////////////////////////////////////////////////////////////////
 //
 static px_int PX_Object_CoordinatesDichotomy(px_double *p, px_int Size, px_double Mark) {
     px_int Minx, Maxx;
