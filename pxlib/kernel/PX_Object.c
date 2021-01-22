@@ -48,8 +48,8 @@ px_void PX_ObjectGetInheritXY(PX_Object *Object, px_float *x, px_float *y) {
     *y = 0;
     Object = Object->pParent;
     while (Object) {
-        *x += Object->x;
-        *y += Object->y;
+        // *x += Object->x;
+        // *y += Object->y;
         Object = Object->pParent;
     }
 }
@@ -448,7 +448,7 @@ px_void PX_Object_LabelSetBorder(PX_Object *pLabel, px_bool Border) {
 px_void PX_Object_LabelRender(px_surface *psurface, PX_Object *pObject, px_uint elpased) {
     px_int x, y, w, h;
     px_float inheritX, inheritY;
-    PX_SurfaceLimitInfo limitInfo;
+    // PX_SurfaceLimitInfo limitInfo;
     PX_Object_Label *pLabel = (PX_Object_Label *)pObject->pObject;
     if (pLabel == PX_NULL) {
         return;
@@ -465,8 +465,8 @@ px_void PX_Object_LabelRender(px_surface *psurface, PX_Object *pObject, px_uint 
     h = (px_int)pObject->Height;
 
     PX_GeoDrawRect(psurface, x, y, x + w, y + h - 1, pLabel->BackgroundColor);
-    limitInfo = PX_SurfaceGetLimit(psurface);
-    PX_SurfaceSetLimit(psurface, x, y, x + w - 1, y + h - 1);
+    // limitInfo = PX_SurfaceGetLimit(psurface);
+    // PX_SurfaceSetLimit(psurface, x, y, x + w - 1, y + h - 1);
 
     switch (pLabel->Align) {
         case PX_ALIGN_LEFTTOP:
@@ -497,7 +497,7 @@ px_void PX_Object_LabelRender(px_surface *psurface, PX_Object *pObject, px_uint 
             PX_FontModuleDrawText(psurface, pLabel->fontModule, x + w, y + h, PX_ALIGN_RIGHTBOTTOM, pLabel->Text, pLabel->TextColor);
             break;
     }
-    PX_SurfaceSetLimitInfo(psurface, limitInfo);
+    // PX_SurfaceSetLimitInfo(psurface, limitInfo);
 }
 
 px_void PX_Object_LabelFree(PX_Object *pLabel) {
@@ -2390,7 +2390,6 @@ PX_Object *PX_Object_ScrollAreaGetIncludedObjects(PX_Object *pObj) {
 }
 
 px_void PX_Object_ScrollAreaMoveToBottom(PX_Object *pObject) {
-    // px_int w, h;
     px_int w = 0, h = 0;
     PX_Object_ScrollArea *psa = PX_Object_GetScrollArea(pObject);
     if (psa) {
