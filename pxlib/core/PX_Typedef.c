@@ -845,25 +845,25 @@ void PX_MatrixIdentity(px_matrix *Mat) {
 
 px_matrix PX_MatrixMultiply(px_matrix Mat1, px_matrix Mat2) {
     px_matrix ptmat;
-    ptmat.m[0][0] = Mat1.m[0][0] * Mat2.m[0][0] /**/ + Mat1.m[0][1] * Mat2.m[1][0] /**/ + Mat1.m[0][2] * Mat2.m[2][0] /**/ + Mat1.m[0][3] * Mat2.m[3][0];
-    ptmat.m[0][1] = Mat1.m[0][0] * Mat2.m[0][1] /**/ + Mat1.m[0][1] * Mat2.m[1][1] /**/ + Mat1.m[0][2] * Mat2.m[2][1] /**/ + Mat1.m[0][3] * Mat2.m[3][1];
-    ptmat.m[0][2] = Mat1.m[0][0] * Mat2.m[0][2] /**/ + Mat1.m[0][1] * Mat2.m[1][2] /**/ + Mat1.m[0][2] * Mat2.m[2][2] /**/ + Mat1.m[0][3] * Mat2.m[3][2];
-    ptmat.m[0][3] = Mat1.m[0][0] * Mat2.m[0][3] /**/ + Mat1.m[0][1] * Mat2.m[1][3] /**/ + Mat1.m[0][2] * Mat2.m[2][3] /**/ + Mat1.m[0][3] * Mat2.m[3][3];
+    ptmat.m[0][0] = Mat1.m[0][0] * Mat2.m[0][0] + Mat1.m[0][1] * Mat2.m[1][0] + Mat1.m[0][2] * Mat2.m[2][0] + Mat1.m[0][3] * Mat2.m[3][0];
+    ptmat.m[0][1] = Mat1.m[0][0] * Mat2.m[0][1] + Mat1.m[0][1] * Mat2.m[1][1] + Mat1.m[0][2] * Mat2.m[2][1] + Mat1.m[0][3] * Mat2.m[3][1];
+    ptmat.m[0][2] = Mat1.m[0][0] * Mat2.m[0][2] + Mat1.m[0][1] * Mat2.m[1][2] + Mat1.m[0][2] * Mat2.m[2][2] + Mat1.m[0][3] * Mat2.m[3][2];
+    ptmat.m[0][3] = Mat1.m[0][0] * Mat2.m[0][3] + Mat1.m[0][1] * Mat2.m[1][3] + Mat1.m[0][2] * Mat2.m[2][3] + Mat1.m[0][3] * Mat2.m[3][3];
 
-    ptmat.m[1][0] = Mat1.m[1][0] * Mat2.m[0][0] /**/ + Mat1.m[1][1] * Mat2.m[1][0] /**/ + Mat1.m[1][2] * Mat2.m[2][0] /**/ + Mat1.m[1][3] * Mat2.m[3][0];
-    ptmat.m[1][1] = Mat1.m[1][0] * Mat2.m[0][1] /**/ + Mat1.m[1][1] * Mat2.m[1][1] /**/ + Mat1.m[1][2] * Mat2.m[2][1] /**/ + Mat1.m[1][3] * Mat2.m[3][1];
-    ptmat.m[1][2] = Mat1.m[1][0] * Mat2.m[0][2] /**/ + Mat1.m[1][1] * Mat2.m[1][2] /**/ + Mat1.m[1][2] * Mat2.m[2][2] /**/ + Mat1.m[1][3] * Mat2.m[3][2];
-    ptmat.m[1][3] = Mat1.m[1][0] * Mat2.m[0][3] /**/ + Mat1.m[1][1] * Mat2.m[1][3] /**/ + Mat1.m[1][2] * Mat2.m[2][3] /**/ + Mat1.m[1][3] * Mat2.m[3][3];
+    ptmat.m[1][0] = Mat1.m[1][0] * Mat2.m[0][0] + Mat1.m[1][1] * Mat2.m[1][0] + Mat1.m[1][2] * Mat2.m[2][0] + Mat1.m[1][3] * Mat2.m[3][0];
+    ptmat.m[1][1] = Mat1.m[1][0] * Mat2.m[0][1] + Mat1.m[1][1] * Mat2.m[1][1] + Mat1.m[1][2] * Mat2.m[2][1] + Mat1.m[1][3] * Mat2.m[3][1];
+    ptmat.m[1][2] = Mat1.m[1][0] * Mat2.m[0][2] + Mat1.m[1][1] * Mat2.m[1][2] + Mat1.m[1][2] * Mat2.m[2][2] + Mat1.m[1][3] * Mat2.m[3][2];
+    ptmat.m[1][3] = Mat1.m[1][0] * Mat2.m[0][3] + Mat1.m[1][1] * Mat2.m[1][3] + Mat1.m[1][2] * Mat2.m[2][3] + Mat1.m[1][3] * Mat2.m[3][3];
 
-    ptmat.m[2][0] = Mat1.m[2][0] * Mat2.m[0][0] /**/ + Mat1.m[2][1] * Mat2.m[1][0] /**/ + Mat1.m[2][2] * Mat2.m[2][0] /**/ + Mat1.m[2][3] * Mat2.m[3][0];
-    ptmat.m[2][1] = Mat1.m[2][0] * Mat2.m[0][1] /**/ + Mat1.m[2][1] * Mat2.m[1][1] /**/ + Mat1.m[2][2] * Mat2.m[2][1] /**/ + Mat1.m[2][3] * Mat2.m[3][1];
-    ptmat.m[2][2] = Mat1.m[2][0] * Mat2.m[0][2] /**/ + Mat1.m[2][1] * Mat2.m[1][2] /**/ + Mat1.m[2][2] * Mat2.m[2][2] /**/ + Mat1.m[2][3] * Mat2.m[3][2];
-    ptmat.m[2][3] = Mat1.m[2][0] * Mat2.m[0][3] /**/ + Mat1.m[2][1] * Mat2.m[1][3] /**/ + Mat1.m[2][2] * Mat2.m[2][3] /**/ + Mat1.m[2][3] * Mat2.m[3][3];
+    ptmat.m[2][0] = Mat1.m[2][0] * Mat2.m[0][0] + Mat1.m[2][1] * Mat2.m[1][0] + Mat1.m[2][2] * Mat2.m[2][0] + Mat1.m[2][3] * Mat2.m[3][0];
+    ptmat.m[2][1] = Mat1.m[2][0] * Mat2.m[0][1] + Mat1.m[2][1] * Mat2.m[1][1] + Mat1.m[2][2] * Mat2.m[2][1] + Mat1.m[2][3] * Mat2.m[3][1];
+    ptmat.m[2][2] = Mat1.m[2][0] * Mat2.m[0][2] + Mat1.m[2][1] * Mat2.m[1][2] + Mat1.m[2][2] * Mat2.m[2][2] + Mat1.m[2][3] * Mat2.m[3][2];
+    ptmat.m[2][3] = Mat1.m[2][0] * Mat2.m[0][3] + Mat1.m[2][1] * Mat2.m[1][3] + Mat1.m[2][2] * Mat2.m[2][3] + Mat1.m[2][3] * Mat2.m[3][3];
 
-    ptmat.m[3][0] = Mat1.m[3][0] * Mat2.m[0][0] /**/ + Mat1.m[3][1] * Mat2.m[1][0] /**/ + Mat1.m[3][2] * Mat2.m[2][0] /**/ + Mat1.m[3][3] * Mat2.m[3][0];
-    ptmat.m[3][1] = Mat1.m[3][0] * Mat2.m[0][1] /**/ + Mat1.m[3][1] * Mat2.m[1][1] /**/ + Mat1.m[3][2] * Mat2.m[2][1] /**/ + Mat1.m[3][3] * Mat2.m[3][1];
-    ptmat.m[3][2] = Mat1.m[3][0] * Mat2.m[0][2] /**/ + Mat1.m[3][1] * Mat2.m[1][2] /**/ + Mat1.m[3][2] * Mat2.m[2][2] /**/ + Mat1.m[3][3] * Mat2.m[3][2];
-    ptmat.m[3][3] = Mat1.m[3][0] * Mat2.m[0][3] /**/ + Mat1.m[3][1] * Mat2.m[1][3] /**/ + Mat1.m[3][2] * Mat2.m[2][3] /**/ + Mat1.m[3][3] * Mat2.m[3][3];
+    ptmat.m[3][0] = Mat1.m[3][0] * Mat2.m[0][0] + Mat1.m[3][1] * Mat2.m[1][0] + Mat1.m[3][2] * Mat2.m[2][0] + Mat1.m[3][3] * Mat2.m[3][0];
+    ptmat.m[3][1] = Mat1.m[3][0] * Mat2.m[0][1] + Mat1.m[3][1] * Mat2.m[1][1] + Mat1.m[3][2] * Mat2.m[2][1] + Mat1.m[3][3] * Mat2.m[3][1];
+    ptmat.m[3][2] = Mat1.m[3][0] * Mat2.m[0][2] + Mat1.m[3][1] * Mat2.m[1][2] + Mat1.m[3][2] * Mat2.m[2][2] + Mat1.m[3][3] * Mat2.m[3][2];
+    ptmat.m[3][3] = Mat1.m[3][0] * Mat2.m[0][3] + Mat1.m[3][1] * Mat2.m[1][3] + Mat1.m[3][2] * Mat2.m[2][3] + Mat1.m[3][3] * Mat2.m[3][3];
     return ptmat;
 }
 

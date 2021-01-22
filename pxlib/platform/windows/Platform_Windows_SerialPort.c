@@ -37,9 +37,9 @@ const BOOL PX_SerialPortInitialize(PX_SerialPort *com, const char *name, unsigne
     COMMTIMEOUTS CommTimeouts;
     DCB dcb;
 
-    com->Handle = CreateFileA(name, GENERIC_READ | GENERIC_WRITE, 0, /** Share mode,No share if zero */
-                              NULL,                                  /** */
-                              OPEN_EXISTING,                         /** This device should be existing */
+    com->Handle = CreateFileA(name, GENERIC_READ | GENERIC_WRITE, 0,  // Share mode,No share if zero
+                              NULL,                                   //
+                              OPEN_EXISTING,                          // This device should be existing
                               0, 0);
 
     if (com->Handle == INVALID_HANDLE_VALUE) {

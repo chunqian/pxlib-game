@@ -60,9 +60,7 @@ ID2D1HwndRenderTarget *D2D_pRenderTarget;
 
 static WNDCLASSEXA Win_Wcx;
 
-/////////////////////////////////////////////////////
 LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-/////////////////////////////////////////////////////
 
 void DInput_Update() {
     POINT point;
@@ -83,9 +81,8 @@ BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen) 
     nScreenHeight = GetSystemMetrics(SM_CYSCREEN);
 
     if (Win_Wcx.cbSize == 0) {
-        ////////////////////////////////////////////////////////////////////////////
         // Initialize Window class struct
-        ///////////////////////////////////////////////////////////////////////////
+
         Win_Wcx.cbSize = sizeof(WNDCLASSEX);
         Win_Wcx.style = CS_CLASSDC;
         Win_Wcx.lpfnWndProc = AppWindowProc;
@@ -99,9 +96,8 @@ BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen) 
         Win_Wcx.lpszClassName = "WindowCls";
         Win_Wcx.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
-        ///////////////////////////////////////////////////////////////////////////
         // Class Register
-        ///////////////////////////////////////////////////////////////////////////
+
         if (!RegisterClassExA(&Win_Wcx)) return FALSE;
     }
 
@@ -109,23 +105,19 @@ BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen) 
     Win_Height = Height;
     Win_bFullScreen = bfullScreen;
 
-    ////////////////////////////////////////////////////////////////////////////
     // Create window
-    ////////////////////////////////////////////////////////////////////////////
+
     Win_Hwnd =
         CreateWindowA("WindowCls", name, WS_OVERLAPPED | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, Width, Height, NULL, NULL, GetModuleHandle(NULL), NULL);
 
     if (!Win_Hwnd) return FALSE;
 
-    ////////////////////////////////////////////////////////////////////////////
     // Show window
-    ////////////////////////////////////////////////////////////////////////////
+
     ShowWindow(Win_Hwnd, SW_SHOWNORMAL);
     UpdateWindow(Win_Hwnd);
     // CoInitialize(NULL);
     DragAcceptFiles(Win_Hwnd, TRUE);
-    //////////////////////////////////////////////////////////////////////////
-    //
 
     if ((Win_Hwnd) == NULL) return FALSE;
 
@@ -162,14 +154,14 @@ BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen) 
 
     return TRUE;
 }
-/////////////////////////////////////////////////////////////
+
 char Win_Str[WIN_MAX_INPUT_STRING_LEN] = {0};
 char Win_SpecKey[WIN_MAX_INPUT_SPECKEY_LEN] = {0};
 int Win_CurrentIndex = 0;
 #include <stdio.h>
 LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-    //  if(uMsg==0x246)
-    //  printf("%x\n",uMsg);
+    // if(uMsg == 0x246)
+    // printf("%x\n", uMsg);
     WM_MESSAGE message;
     int i;
 

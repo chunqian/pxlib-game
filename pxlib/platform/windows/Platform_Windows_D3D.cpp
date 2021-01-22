@@ -49,21 +49,16 @@ DINPUT_INPUT_DEVICE DInput_JoyDevice[8], DInput_KeyboardDevice[8], DInput_MouseD
 
 static WNDCLASSEX Win_Wcx;
 
-/////////////////////////////////////////////////////
 LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-/////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////
-//              Get BPP(Color bit) from D3DFORMAT               ///
-///////////////////////////////////////////////////////////////////
-//************************************
+// Get BPP(Color bit) from D3DFORMAT
+
 // Method:    GetFormatBPP
 // FullName:  GetFormatBPP
 // Access:    public
 // Returns:   CHAR
 // Qualifier:
 // Parameter: D3DFORMAT Format
-//************************************
 static int GetFormatBPP(D3DFORMAT Format) {
     switch (Format) {
         case D3DFMT_A8R8G8B8:
@@ -428,9 +423,8 @@ BOOL PX_D3DReset(HWND hWnd, int Width, int Height, BOOL bfullScreen) {
 
 BOOL PX_CreateWindow(int Width, int Height, char *name, BOOL bfullScreen) {
     if (Win_Wcx.cbSize == 0) {
-        ////////////////////////////////////////////////////////////////////////////
         // Initialize Window class struct
-        ///////////////////////////////////////////////////////////////////////////
+
         Win_Wcx.cbSize = sizeof(WNDCLASSEX);
         Win_Wcx.style = CS_CLASSDC;
         Win_Wcx.lpfnWndProc = AppWindowProc;
@@ -444,9 +438,8 @@ BOOL PX_CreateWindow(int Width, int Height, char *name, BOOL bfullScreen) {
         Win_Wcx.lpszClassName = "WindowCls";
         Win_Wcx.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
-        ///////////////////////////////////////////////////////////////////////////
         // Class Register
-        ///////////////////////////////////////////////////////////////////////////
+
         if (!RegisterClassEx(&Win_Wcx)) return FALSE;
     }
 
@@ -454,23 +447,19 @@ BOOL PX_CreateWindow(int Width, int Height, char *name, BOOL bfullScreen) {
     Win_Height = Height;
     Win_bFullScreen = bfullScreen;
 
-    ////////////////////////////////////////////////////////////////////////////
     // Create window
-    ////////////////////////////////////////////////////////////////////////////
+
     Win_Hwnd =
         CreateWindow("WindowCls", name, WS_OVERLAPPED | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, Width, Height, NULL, NULL, GetModuleHandle(NULL), NULL);
 
     if (!Win_Hwnd) return FALSE;
 
-    ////////////////////////////////////////////////////////////////////////////
     // Show window
-    ////////////////////////////////////////////////////////////////////////////
+
     ShowWindow(Win_Hwnd, SW_SHOWNORMAL);
     UpdateWindow(Win_Hwnd);
     CoInitialize(NULL);
     DragAcceptFiles(Win_Hwnd, TRUE);
-    //////////////////////////////////////////////////////////////////////////
-    //
 
     if ((Win_Hwnd) == NULL) return FALSE;
 
@@ -478,7 +467,6 @@ BOOL PX_CreateWindow(int Width, int Height, char *name, BOOL bfullScreen) {
         return FALSE;
     }
 
-    //////////////////////////////////////////////////////////////////////////
     // Direct input
     if (FAILED(DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID *)&DInput_pDirectInput, NULL))) {
         return FALSE;
@@ -488,7 +476,7 @@ BOOL PX_CreateWindow(int Width, int Height, char *name, BOOL bfullScreen) {
 
     return TRUE;
 }
-/////////////////////////////////////////////////////////////
+
 char Win_Str[WIN_MAX_INPUT_STRING_LEN];
 char Win_SpecKey[WIN_MAX_INPUT_SPECKEY_LEN];
 int Win_CurrentIndex = 0;

@@ -1,5 +1,5 @@
-#include <windows.h>
 #include <dsound.h>
+#include <windows.h>
 // #pragma comment (lib,"dsound.lib")
 
 extern "C" {
@@ -69,7 +69,6 @@ BOOL PX_AudioInitialize(HWND hwnd, PX_SoundPlay *soundPlay, BOOL startThread) {
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////
     // Create Sound buffer
 
     DSound_waveformat.wFormatTag = WAVE_FORMAT_PCM;

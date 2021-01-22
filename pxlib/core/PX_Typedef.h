@@ -291,7 +291,7 @@ px_int PX_sprintf3(px_char *str, px_int str_size, const px_char fmt[], px_string
 px_int PX_sprintf2(px_char *str, px_int str_size, const px_char fmt[], px_stringformat _1, px_stringformat _2);
 px_int PX_sprintf1(px_char *str, px_int str_size, const px_char fmt[], px_stringformat _1);
 px_int PX_sprintf0(px_char *str, px_int str_size, const px_char fmt[]);
-/*px_int px_sprintf(px_char *str,px_int str_size,px_char fmt[],...);*/
+// px_int px_sprintf(px_char *str, px_int str_size, px_char fmt[], ...);
 
 // matrix
 void PX_MatrixZero(px_matrix *Mat);
