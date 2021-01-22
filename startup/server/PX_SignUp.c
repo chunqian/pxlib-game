@@ -208,6 +208,7 @@ px_void PX_StartupServer_SignUpUpdate(PX_StartupServer_SignUp *pR, px_dword elpa
                                 PX_UDPSend(&pR->udp, pR->connections[i].Addr, (px_byte *)&ack, sizeof(ack));
                                 break;
                             }
+
                             if (PX_strlen(nickname) < PX_STARTUP_NICKNAME_MINLEN || PX_strlen(nickname) > PX_STARTUP_NICKNAME_MAXLEN) {
                                 PX_SignUp_Packet_SignAck ack;
                                 ack.magic_numeric = PX_NETWORKSIGNUP_MAGIC;

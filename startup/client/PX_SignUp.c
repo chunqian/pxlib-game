@@ -242,9 +242,10 @@ static px_void PX_SignUpUpdate_Exchange(PX_SignUp *pR, px_dword elpased) {
         PX_memset(pR->regcode, 0, sizeof(pR->regcode));
 
         PX_strcpy(pR->userName, PX_Object_EditGetText(pR->edit_user), sizeof(pR->userName));
-        MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, PX_Object_EditGetText(pR->edit_nickname), sizeof(pR->nickName), (LPWSTR)pR->nickName,
-                            PX_COUNTOF(pR->nickName));
-        pR->nickName[PX_COUNTOF(pR->nickName) - 1] = 0;
+        PX_strcpy(pR->nickName, PX_Object_EditGetText(pR->edit_nickname), sizeof(pR->nickName));
+        // MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, PX_Object_EditGetText(pR->edit_nickname), sizeof(pR->nickName), (LPWSTR)pR->nickName,
+        //                     PX_COUNTOF(pR->nickName));
+        // pR->nickName[PX_COUNTOF(pR->nickName) - 1] = 0;
         PX_strcpy(pR->password, PX_Object_EditGetText(pR->edit_pwd), sizeof(pR->password));
         PX_strcpy(pR->regcode, PX_Object_EditGetText(pR->edit_regcode), sizeof(pR->regcode));
         return;

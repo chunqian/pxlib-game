@@ -104,7 +104,7 @@ typedef struct {
     px_dword magic_numeric;
     px_dword opcode;
     px_byte userName[32];
-    px_word nickName[32];
+    px_char nickName[32];
     px_byte password[32];
     px_byte regcode[32];
 } PX_Signup_Packet_Sign;

@@ -41,7 +41,7 @@ typedef enum {
 typedef struct {
     PX_Instance *pIns;
     px_char userName[32];
-    px_word nickName[32];
+    px_char nickName[32];
     px_char password[32];
     px_char regcode[32];
     px_byte privatekey[32];
