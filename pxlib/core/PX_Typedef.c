@@ -2854,79 +2854,77 @@ px_uint32 PX_sum32(px_void *buffer, px_uint size) {
     return _sum32;
 }
 
-//%s %d %f
-// px_bool px_sprintf(px_char *str,px_int str_size,px_char fmt[],...)
-// {
-//  _px_va_list ap;
-//  px_char *p, *sval;
-//  px_int ival,oft=0;
-//  px_int finalLen=0;
-//  px_double dval;
-//  px_char dat[32];
-//  px_uchar shl=0;
-//
-//  _px_va_start(ap, fmt);
-//  for (p = fmt; *p; p++) {
-//      if(*p != '%') {
-//          finalLen++;
-//          continue;
-//      }
-//      switch(*++p) {
-//      case 'd':
-//          ival = _px_va_arg(ap, px_int);
-//          finalLen +=PX_itoa(ival,dat,sizeof dat,10);
-//          break;
-//      case 'f':
-//          dval = _px_va_arg(ap, px_double);
-//          finalLen +=PX_ftoa((px_float)dval,dat,sizeof dat,6);
-//          break;
-//      case 's':
-//          sval = _px_va_arg(ap, char *);
-//          finalLen +=PX_strcpy(sval);
-//          break;
-//      default:
-//          finalLen+=1;
-//          break;
-//      }
-//  }
-//  _px_va_end(ap);
-//  finalLen++;
-//  if (str_size<finalLen)
-//  {
-//      return PX_FALSE;
-//  }
-//
-//  px_memset(str,0,str_size);
-//  _px_va_start(ap, fmt);
-//  for (p = fmt; *p; p++) {
-//      if(*p != '%') {
-//          str[oft++]=*p;
-//          continue;
-//      }
-//      switch(*++p) {
-//      case 'd':
-//          ival = _px_va_arg(ap, px_int);
-//          oft+=PX_itoa(ival,dat,sizeof dat,10);
-//          PX_strcat(str,dat);
-//          break;
-//      case 'f':
-//          dval = _px_va_arg(ap, px_double);
-//          oft+=PX_ftoa((px_float)dval,dat,sizeof dat,6);
-//          PX_strcat(str,dat);
-//          break;
-//      case 's':
-//          sval = _px_va_arg(ap, char *);
-//          oft+=PX_strcpy(sval);
-//          PX_strcat(str,sval);
-//          break;
-//      default:
-//          str[oft++]=*p;
-//          break;
-//      }
-//  }
-//  _px_va_end(ap);
-//  str[oft]='\0';
-//  return oft;
+// %s %d %f
+// px_bool px_sprintf(px_char *str, px_int str_size, px_char fmt[], ...) {
+//     _px_va_list ap;
+//     px_char *p, *sval;
+//     px_int ival, oft = 0;
+//     px_int finalLen = 0;
+//     px_double dval;
+//     px_char dat[32];
+//     px_uchar shl = 0;
+
+//     _px_va_start(ap, fmt);
+//     for (p = fmt; *p; p++) {
+//         if (*p != '%') {
+//             finalLen++;
+//             continue;
+//         }
+//         switch (*++p) {
+//             case 'd':
+//                 ival = _px_va_arg(ap, px_int);
+//                 finalLen += PX_itoa(ival, dat, sizeof dat, 10);
+//                 break;
+//             case 'f':
+//                 dval = _px_va_arg(ap, px_double);
+//                 finalLen += PX_ftoa((px_float)dval, dat, sizeof dat, 6);
+//                 break;
+//             case 's':
+//                 sval = _px_va_arg(ap, char *);
+//                 finalLen += PX_strcpy(sval);
+//                 break;
+//             default:
+//                 finalLen += 1;
+//                 break;
+//         }
+//     }
+//     _px_va_end(ap);
+//     finalLen++;
+//     if (str_size < finalLen) {
+//         return PX_FALSE;
+//     }
+
+//     px_memset(str, 0, str_size);
+//     _px_va_start(ap, fmt);
+//     for (p = fmt; *p; p++) {
+//         if (*p != '%') {
+//             str[oft++] = *p;
+//             continue;
+//         }
+//         switch (*++p) {
+//             case 'd':
+//                 ival = _px_va_arg(ap, px_int);
+//                 oft += PX_itoa(ival, dat, sizeof dat, 10);
+//                 PX_strcat(str, dat);
+//                 break;
+//             case 'f':
+//                 dval = _px_va_arg(ap, px_double);
+//                 oft += PX_ftoa((px_float)dval, dat, sizeof dat, 6);
+//                 PX_strcat(str, dat);
+//                 break;
+//             case 's':
+//                 sval = _px_va_arg(ap, char *);
+//                 oft += PX_strcpy(sval);
+//                 PX_strcat(str, sval);
+//                 break;
+//             default:
+//                 str[oft++] = *p;
+//                 break;
+//         }
+//     }
+//     _px_va_end(ap);
+//     str[oft] = '\0';
+//     return oft;
 // }
 
 px_point PX_PointRotate(px_point p, px_float angle) {

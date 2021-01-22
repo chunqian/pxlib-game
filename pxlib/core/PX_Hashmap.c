@@ -1,6 +1,5 @@
-/*
- * Generic map implementation.
- */
+// Generic map implementation.
+
 #include "PX_Hashmap.h"
 
 px_bool PX_MapInit(px_memorypool *mp, px_map *m) {

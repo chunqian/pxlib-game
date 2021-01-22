@@ -1,4 +1,3 @@
-
 /*
   Red Black Trees
   (C) 1999  Andrea Arcangeli <andrea@suse.de>
@@ -31,7 +30,6 @@
   be called. Such function will do the not trivial work to rebalance the
   rbtree, if necessary.
 
------------------------------------------------------------------------
 */
 
 #ifndef _PX_RBTREE_H
@@ -118,7 +116,7 @@ extern struct px_rb_node *rb_last(const struct px_rb_root *);
 extern void rb_replace_node(struct px_rb_node *victim, struct px_rb_node *newnode, struct px_rb_root *root);
 
 static void rb_link_node(struct px_rb_node *node, struct px_rb_node *parent, struct px_rb_node **rb_link) {
-    //  node->rb_parent_color = (unsigned long )parent;
+    // node->rb_parent_color = (unsigned long )parent;
     node->parent = parent;
     node->color = 0;
 

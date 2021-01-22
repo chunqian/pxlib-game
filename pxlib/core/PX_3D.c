@@ -441,8 +441,8 @@ static px_void PX_3D_RenderListRasterization(px_surface *psurface, PX_3D_RenderL
         }
     } while (0);
 
-    //    p0
-    // p1   p2
+    // p0
+    // p1 p2
 
     x0 = p0.position.x;
     y0 = p0.position.y;
@@ -600,8 +600,8 @@ static px_void PX_3D_RenderListRasterization(px_surface *psurface, PX_3D_RenderL
         }
     } while (0);
 
-    //    p0
-    // p1   p2
+    // p0
+    // p1 p2
 
     x0 = p0.position.x;
     y0 = p0.position.y;

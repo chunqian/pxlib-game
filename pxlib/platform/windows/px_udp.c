@@ -28,7 +28,7 @@ px_bool PX_UDPInit(PX_UDP *udp, PX_UDP_IP_TYPE type) {
         return PX_FALSE;
     }
 
-    rev = ioctlsocket(udp->socket, FIONBIO, (PULONG)&imode); // u_long * <- PULONG
+    rev = ioctlsocket(udp->socket, FIONBIO, (PULONG)&imode);  // u_long * <- PULONG
 
     setsockopt(udp->socket, SOL_SOCKET, SO_RCVBUF, (const char *)&nRecvBuf, sizeof(int));
 
@@ -65,19 +65,17 @@ px_bool PX_UDPSend(PX_UDP *udp, PX_UDP_ADDR addr, px_void *buffer, px_int size) 
             return TRUE;
         } break;
         case PX_UDP_IP_TYPE_IPV6: {
-            //          sockaddr_in6 to;
-            //          to.sin6_family=AF_INET6;
-            //          to.sin6_port=htons(addr.port);
-            //          px_memcpy(to.sin6_addr,addr.ipv6,sizeof(addr.ipv6));
-            //          while(size>0)
-            //          {
-            //              if ((length=sendto(udp->socket,(const char *)buffer,size,0,(LPSOCKADDR)&to,sizeof(sockaddr_in6)))==SOCKET_ERROR)
-            //              {
-            //                  return FALSE;
-            //              }
-            //              size-=length;
-            //          }
-            //          return TRUE;
+            // sockaddr_in6 to;
+            // to.sin6_family = AF_INET6;
+            // to.sin6_port = htons(addr.port);
+            // px_memcpy(to.sin6_addr, addr.ipv6, sizeof(addr.ipv6));
+            // while (size > 0) {
+            //     if ((length = sendto(udp->socket, (const char *)buffer, size, 0, (LPSOCKADDR)&to, sizeof(sockaddr_in6))) == SOCKET_ERROR) {
+            //         return FALSE;
+            //     }
+            //     size -= length;
+            // }
+            // return TRUE;
         } break;
     }
     return PX_FALSE;
@@ -98,17 +96,15 @@ px_bool PX_UDPReceived(PX_UDP *udp, PX_UDP_ADDR *from_addr, px_void *buffer, px_
                 return PX_FALSE;
         } break;
         case PX_UDP_IP_TYPE_IPV6: {
-            //          sockaddr_in6 in;
-            //          int SockAddrSize=sizeof(SOCKADDR);
-            //          if((ReturnSize=recvfrom(udp->socket,(char *)buffer,buffersize,0,(LPSOCKADDR)&in,&SockAddrSize))!=SOCKET_ERROR)
-            //          {
-            //              px_memcpy(from_addr->ipv6,in.sin6_addr,sizeof(from_addr->ipv6));
-            //              from_addr->port=in.sin_port;
-            //              *readsize=ReturnSize;
-            //              return PX_TRUE;
-            //          }
-            //          else
-            //              return PX_FALSE;
+            // sockaddr_in6 in;
+            // int SockAddrSize = sizeof(SOCKADDR);
+            // if ((ReturnSize = recvfrom(udp->socket, (char *)buffer, buffersize, 0, (LPSOCKADDR)&in, &SockAddrSize)) != SOCKET_ERROR) {
+            //     px_memcpy(from_addr->ipv6, in.sin6_addr, sizeof(from_addr->ipv6));
+            //     from_addr->port = in.sin_port;
+            //     *readsize = ReturnSize;
+            //     return PX_TRUE;
+            // } else
+            //     return PX_FALSE;
         } break;
     }
     return PX_FALSE;

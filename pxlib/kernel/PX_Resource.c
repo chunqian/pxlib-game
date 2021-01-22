@@ -25,67 +25,58 @@ px_bool PX_ResourceLibraryLoad(PX_ResourceLibrary *lib, PX_RESOURCE_TYPE type, p
             if (!PX_ShapeCreateFromMemory(lib->mp, data, datasize, &res.shape)) return PX_FALSE;
             break;
         case PX_RESOURCE_TYPE_SCRIPT:
-            /*
-            if (data[0]!='P'||data[1]!='A'||data[2]!='S'||data[3]!='M')
-            {
-                PX_SCRIPT_LIBRARY compilelib;
-                px_string asmcodeString;
-                px_memory bin;
-                MP_Reset(mptemp);
-                if(!PX_ScriptCompilerInit(&compilelib,mptemp))
-                {
-                    return PX_FALSE;
-                }
 
-                if(!PX_ScriptCompilerLoad(&compilelib,(px_char *)data))
-                {
-                    PX_ScriptCompilerFree(&compilelib);
-                    return PX_FALSE;
-                }
+            // if (data[0] != 'P' || data[1] != 'A' || data[2] != 'S' || data[3] != 'M') {
+            //     PX_SCRIPT_LIBRARY compilelib;
+            //     px_string asmcodeString;
+            //     px_memory bin;
+            //     MP_Reset(mptemp);
+            //     if (!PX_ScriptCompilerInit(&compilelib, mptemp)) {
+            //         return PX_FALSE;
+            //     }
 
-                PX_StringInit(mptemp,&asmcodeString);
+            //     if (!PX_ScriptCompilerLoad(&compilelib, (px_char *)data)) {
+            //         PX_ScriptCompilerFree(&compilelib);
+            //         return PX_FALSE;
+            //     }
 
+            //     PX_StringInit(mptemp, &asmcodeString);
 
-                if(PX_ScriptCompilerCompile(&compilelib,"main",&asmcodeString,256))
-                {
-                    PX_ScriptCompilerFree(&compilelib);
+            //     if (PX_ScriptCompilerCompile(&compilelib, "main", &asmcodeString, 256)) {
+            //         PX_ScriptCompilerFree(&compilelib);
 
-                    PX_ScriptAsmOptimization(&asmcodeString);
-                    PX_MemoryInit(mptemp,&bin);
+            //         PX_ScriptAsmOptimization(&asmcodeString);
+            //         PX_MemoryInit(mptemp, &bin);
 
-                    if(!PX_ScriptAsmCompile(mptemp,asmcodeString.buffer,&bin))
-                    {
-                        PX_MemoryFree(&bin);
-                        PX_StringFree(&asmcodeString);
-                        PX_ScriptCompilerFree(&compilelib);
-                        return PX_FALSE;
-                    }
+            //         if (!PX_ScriptAsmCompile(mptemp, asmcodeString.buffer, &bin)) {
+            //             PX_MemoryFree(&bin);
+            //             PX_StringFree(&asmcodeString);
+            //             PX_ScriptCompilerFree(&compilelib);
+            //             return PX_FALSE;
+            //         }
 
-                    if(!PX_ScriptVM_InstanceInit(&res.Script,lib->mp,bin.buffer,bin.usedsize))
-                        {
-                            PX_MemoryFree(&bin);
-                            PX_StringFree(&asmcodeString);
-                            PX_ScriptCompilerFree(&compilelib);
-                            return PX_FALSE;
-                        }
+            //         if (!PX_ScriptVM_InstanceInit(&res.Script, lib->mp, bin.buffer, bin.usedsize)) {
+            //             PX_MemoryFree(&bin);
+            //             PX_StringFree(&asmcodeString);
+            //             PX_ScriptCompilerFree(&compilelib);
+            //             return PX_FALSE;
+            //         }
 
-                    PX_MemoryFree(&bin);
-                }
-                else
-                {
-                    PX_StringFree(&asmcodeString);
-                    PX_ScriptCompilerFree(&compilelib);
-                    MP_Reset(mptemp);
-                    return PX_FALSE;
-                }
+            //         PX_MemoryFree(&bin);
+            //     } else {
+            //         PX_StringFree(&asmcodeString);
+            //         PX_ScriptCompilerFree(&compilelib);
+            //         MP_Reset(mptemp);
+            //         return PX_FALSE;
+            //     }
 
-                PX_StringFree(&asmcodeString);
+            //     PX_StringFree(&asmcodeString);
 
-                MP_Reset(mptemp);
-            }
-            else
-            */
-            if (!PX_ScriptVM_InstanceInit(&res.Script, lib->mp, data, datasize)) return PX_FALSE;
+            //     MP_Reset(mptemp);
+            // } else
+
+                if (!PX_ScriptVM_InstanceInit(&res.Script, lib->mp, data, datasize))
+                return PX_FALSE;
             break;
         case PX_RESOURCE_TYPE_ANIMATIONLIBRARY:
             if (!PX_AnimationLibraryCreateFromMemory(lib->mp, &res.animationlibrary, data, datasize)) return PX_FALSE;

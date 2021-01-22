@@ -225,7 +225,7 @@ px_void PX_AES_InvShiftRows(PX_AES *aesStruct) {
     }
 }  // InvShiftRows()
 
-//              GF(2^8) Operation....
+// GF(2^8) Operation....
 
 AES_BYTE PX_AES_gfmultby01(AES_BYTE b) { return b; }
 

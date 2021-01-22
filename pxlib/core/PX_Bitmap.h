@@ -47,7 +47,7 @@ px_uint PX_BitmapGetWidth(void *BitmapBuffer);
 // Get bitmap BitCount
 px_word PX_BitmapGetBitCount(void *BitmapBuffer);
 
-//  Draw bitmap to panel
+// Draw bitmap to panel
 // param:void *BitmapBuffer -Point to buffer of bitmap
 // param:int x -Offset of X
 // param:int y -Offset of Y

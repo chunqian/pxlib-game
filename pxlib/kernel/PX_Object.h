@@ -65,7 +65,7 @@ enum PX_OBJECT_TYPE {
 
 #define PX_OBJECT_ALIGN_CENTER (PX_OBJECT_ALIGN_HCENTER | PX_OBJECT_ALIGN_VCENTER)
 
-//              Label Control
+// Label Control
 
 enum PX_OBJECT_SLIDERBAR_TYPE {
     PX_OBJECT_SLIDERBAR_TYPE_HORIZONTAL,
@@ -639,69 +639,6 @@ typedef struct {
     px_int Visibled;
     px_int Size;
 } PX_Object_CoordinateData;
-
-// typedef struct {
-//     px_memorypool *mp;
-//     px_double HorizontalRangeMin;
-//     px_double HorizontalRangeMax;
-//     px_double LeftVerticalRangeMin, LeftVerticalRangeMax;
-//     px_double RightVerticalRangeMin, RightVerticalRangeMax;
-
-//     px_double ResHorizontalRangeMin;
-//     px_double ResHorizontalRangeMax;
-//     px_double ResLeftVerticalRangeMin, ResLeftVerticalRangeMax;
-//     px_double ResRightVerticalRangeMin, ResRightVerticalRangeMax;
-
-//     px_int MinVerticalPixelDividing;
-//     px_int MinHorizontalPixelDividing;
-//     px_int HorizontalDividing;
-//     px_int LeftVerticalDividing;
-//     px_int RightVerticalDividing;
-
-//     px_int LeftSpacer, RightSpacer, TopSpacer, BottomSpacer;
-
-//     const px_char *FloatFlagFormat_H;
-//     const px_char *IntFlagFormat_H;
-//     const px_char *FloatFlagFormat_L;
-//     const px_char *IntFlagFormat_L;
-//     const px_char *FloatFlagFormat_R;
-//     const px_char *IntFlagFormat_R;
-//     const px_char *LeftTitle, *RightTitle, *TopTitle, *BottomTitle;
-
-//     px_point DragStartPoint;
-//     px_point DragingPoint;
-//     px_int bScaleDrag;
-//     px_int bScaling;
-//     px_int MarkLineX;
-
-//     px_bool ScaleEnabled;
-//     px_bool ShowGuides;
-//     px_bool MarkValueEnabled;
-//     px_bool OnMarkStatus;
-//     px_bool bDataUpdatePainter;
-//     px_bool ShowHelpLine;
-
-//     px_bool LeftTitleShow, RightTitleShow, HorizontalShow;
-
-//     px_color DashColor;
-//     px_color FontColor;
-//     px_color borderColor;
-//     px_color helpLineColor;
-//     int FontSize;
-
-//     PX_OBJECT_COORDINATES_LINEMODE LineMode;
-//     PX_OBJECT_COORDINATES_GUIDESSHOWMODE guidesShowMode;
-
-//     px_float DataLineWidth;
-//     px_float DataPillarWidth;
-
-//     px_float GuidesLineWidth;
-//     px_vector vData;
-//     px_vector vFlagLine;
-
-//     px_int helpLineX, helpLineY;
-//     PX_FontModule *fontModule;
-// } PX_Object_Coordinates;
 
 typedef struct {
     px_memorypool *mp;

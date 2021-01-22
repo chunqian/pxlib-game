@@ -159,34 +159,27 @@ px_char *PX_LexerIsContainerEnd(px_lexer *lexer, const px_char startch[], const 
 //--------------------------------------------TOKEN-------------------------------------
 //
 //
-// CA_Token *Pt_Lexer::GetToken(pt_string Mnemonic)
-// {
-//  for (px_uint i=0;i<lexer->Tokens.size();i++)
-//  {
-//      if (strcmp(Mnemonic,lexer->Tokens[i].Mnemonic)==0)
-//      {
-//          return &lexer->Tokens[i];
-//      }
-//  }
-//  return NULL;
+// CA_Token *Pt_Lexer::GetToken(pt_string Mnemonic) {
+//     for (px_uint i = 0; i < lexer->Tokens.size(); i++) {
+//         if (strcmp(Mnemonic, lexer->Tokens[i].Mnemonic) == 0) {
+//             return &lexer->Tokens[i];
+//         }
+//     }
+//     return NULL;
 // }
-//
-//
-// px_void  Pt_Lexer::RegisterToken(pt_string Mnemonic,px_uint Type)
-// {
-//
-//  if (GetToken(Mnemonic)!=NULL)
-//  {
-//      return;
-//  }
-//
-//  CA_Token Token;
-//  PT_STRING_COPY(Token.Mnemonic,sizeof(Token.Mnemonic),Mnemonic);
-//  Token.Type=Type;
-//
-//  lexer->Tokens.push_back(Token);
-//
+
+// px_void Pt_Lexer::RegisterToken(pt_string Mnemonic, px_uint Type) {
+//     if (GetToken(Mnemonic) != NULL) {
+//         return;
+//     }
+
+//     CA_Token Token;
+//     PT_STRING_COPY(Token.Mnemonic, sizeof(Token.Mnemonic), Mnemonic);
+//     Token.Type = Type;
+
+//     lexer->Tokens.push_back(Token);
 // }
+
 px_void PX_LexerInit(px_lexer *lexer, px_memorypool *mp) {
     lexer->CommentCount = 0;
     lexer->SpacerCount = 0;

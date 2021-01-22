@@ -176,16 +176,15 @@ BOOL IsAlreadyRunning() {
 }
 
 int main(int argc, const px_char *argv[])
-// int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd )
+// int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
 {
     HANDLE hThread;
     DWORD threadId;
     const px_char *StartupFilePath = PX_NULL;
     PX_GameClientStartUp startup;
-    //  if (IsAlreadyRunning())
-    //  {
-    //      return 0;
-    //  }
+    // if (IsAlreadyRunning()) {
+    //     return 0;
+    // }
 
     if (argc != 2) {
         StartupFilePath = PX_OpenFileDialog("");

@@ -5006,7 +5006,7 @@ px_void PX_Object_CoordinatesRender(px_surface *psurface, PX_Object *pObject, px
     }
 
     //
-    //  PX_Object_CoordinatesDrawMarkLine(psurface,pObject);
+    // PX_Object_CoordinatesDrawMarkLine(psurface,pObject);
 
     if (pcd->ShowGuides) PX_Object_CoordinatesDrawDashed(psurface, pObject);
 
@@ -5092,9 +5092,6 @@ px_void PX_Object_CoordinatesCursorDragEvent(PX_Object *pObject, PX_Object_Event
         pcd->OnMarkStatus = PX_FALSE;
         pcd->MarkLineX = -1;
 
-        //  emit SignalOnMousePosition(this->MapPixelValueToHorizontal(e->x()),
-        //      e->x(),
-        //      this->MapPixelValueToVertical(e->y(),COORDINATEDATA_MAP_RIGHT));
         if (x < pcd->LeftSpacer) {
             x = pcd->LeftSpacer;
         }
@@ -5123,9 +5120,6 @@ px_void PX_Object_CoordinatesCursorMoveEvent(PX_Object *pObject, PX_Object_Event
         pcd->OnMarkStatus = PX_FALSE;
         pcd->MarkLineX = -1;
 
-        //  emit SignalOnMousePosition(this->MapPixelValueToHorizontal(e->x()),
-        //      e->x(),
-        //      this->MapPixelValueToVertical(e->y(),COORDINATEDATA_MAP_RIGHT));
         if (x < pcd->LeftSpacer) {
             x = pcd->LeftSpacer;
         }

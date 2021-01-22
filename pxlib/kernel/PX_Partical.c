@@ -1,15 +1,12 @@
 #include "PX_Partical.h"
 
-/*
-set Partical_Init_Info
-{
-int          generateDuration;  +0
-int          maxCount; +1
-float        forceX +2 ,forceY +3,forceZ +4;
-float        resistanceK +5;
-int          launchCount +6;
-}
-*/
+// set Partical_Init_Info {
+//     int generateDuration;
+//     +0 int maxCount;
+//     +1 float forceX + 2, forceY + 3, forceZ + 4;
+//     float resistanceK + 5;
+//     int launchCount + 6;
+// }
 
 static px_bool PX_Partical_Rand(PX_ScriptVM_Instance *ins) {
     PX_ScriptVM_RET(ins, PX_ScriptVM_Variable_float(PX_rand() * 1.0f / PX_RAND_MAX));
@@ -138,32 +135,24 @@ px_bool PX_ParticalLauncherCreate(PX_Partical_Launcher *env, px_memorypool *mp, 
 
 px_void PX_ParticalLauncherSetLauncherPosition(PX_Partical_Launcher *launcher, px_point position) { launcher->launcherPosition = position; }
 
-/*
-set PARTICAL_ATOM_INFO
-{
-float   size; +0
-float   rotation; +1
-float   mass;+2
-float   alpha;+3
-int     aliveTime;+4
-float   x +5,y +6,z +7;
-float   vx +8,vy +9,vz +10;
-float   hdrR +11,hdrG +12,hdrB +13;
-float   rotationSpeed +14;
-float   alphaIncrement +15;
-float   sizeIncrement +16;
-};
+// set PARTICAL_ATOM_INFO {
+//     float size;
+//     +0 float rotation;
+//     +1 float mass;
+//     +2 float alpha;
+//     +3 int aliveTime;
+//     +4 float x + 5, y + 6, z + 7;
+//     float vx + 8, vy + 9, vz + 10;
+//     float hdrR + 11, hdrG + 12, hdrB + 13;
+//     float rotationSpeed + 14;
+//     float alphaIncrement + 15;
+//     float sizeIncrement + 16;
+// };
 
-void Partical_Atom_Create(PARTICAL_ATOM_INFO *atomInfo)
-{
+// void Partical_Atom_Create(PARTICAL_ATOM_INFO *atomInfo) {}
 
-}
+// void Partical_Atom_Update(PARTICAL_ATOM_INFO *atomInfo) {}
 
-void Partical_Atom_Update(PARTICAL_ATOM_INFO *atomInfo)
-{
-
-}
-*/
 px_void PX_ParticalAtomUpdate(PX_Partical_Launcher *env, PX_Partical_Atom *pAtom, px_dword elpased) {
     px_int updateTime;
     px_int atomTime;
@@ -225,24 +214,22 @@ px_void PX_ParticalAtomUpdate(PX_Partical_Launcher *env, PX_Partical_Atom *pAtom
             }
         }
 
-        /*
-    set PARTICAL_ATOM_INFO
-    {
-        float   size; +0
-            float   rotation; +1
-            float   mass;+2
-            float   alpha;+3
-            int     aliveTime;+4
-            float   x +5,y +6,z +7;
-        float   vx +8,vy +9,vz +10;
-        float hdrR;
-        float hdrG;
-        float hdrB;
-        float RotationSpeed;
-        float sizeIncrement;
-        float alphaIncrement;
-    };
-    */
+        // set PARTICAL_ATOM_INFO {
+        //     float size;
+        //     +0 float rotation;
+        //     +1 float mass;
+        //     +2 float alpha;
+        //     +3 int aliveTime;
+        //     +4 float x + 5, y + 6, z + 7;
+        //     float vx + 8, vy + 9, vz + 10;
+        //     float hdrR;
+        //     float hdrG;
+        //     float hdrB;
+        //     float RotationSpeed;
+        //     float sizeIncrement;
+        //     float alphaIncrement;
+        // };
+
         if (env->Update_func) {
             env->Update_func(env, pAtom);
         } else if (env->UpdateParitcalFuncIndex != -1) {
@@ -363,20 +350,18 @@ px_bool PX_ParticalLauncherUpdate(PX_Partical_Launcher *env, px_dword elpased) {
                         } else if (env->CreateParticalFuncIndex != -1) {
                             var = PX_ScriptVM_Variable_int(env->genIndex);
                             if (PX_ScriptVM_InstanceRunFunctionIndex(env->VM_Instance, 0, PX_NULL, env->CreateParticalFuncIndex, &var, 1)) {
-                                /*
-                                set PARTICAL_ATOM_INFO
-                                {
-                                        float   size; +0
-                                        float   rotation; +1
-                                        float   mass;+2
-                                        float   alpha;+3
-                                        int     aliveTime;+4
-                                        int     elpased;+5
-                                        float   x +6,y +7,z +8;
-                                        float   vx +9,vy +10,vz +11;
-                                        float   hdrR +12,hdrG +13,hdrB +14;
-                                };
-                                */
+                                // set PARTICAL_ATOM_INFO {
+                                //     float size;
+                                //     +0 float rotation;
+                                //     +1 float mass;
+                                //     +2 float alpha;
+                                //     +3 int aliveTime;
+                                //     +4 int elpased;
+                                //     +5 float x + 6, y + 7, z + 8;
+                                //     float vx + 9, vy + 10, vz + 11;
+                                //     float hdrR + 12, hdrG + 13, hdrB + 14;
+                                // };
+
                                 env->ParticalPool[j].size = PX_ScriptVM_RETURN_POINTER(env->VM_Instance, 0)._float;
                                 env->ParticalPool[j].rotation = PX_ScriptVM_RETURN_POINTER(env->VM_Instance, 1)._float;
                                 env->ParticalPool[j].mass = PX_ScriptVM_RETURN_POINTER(env->VM_Instance, 2)._float;

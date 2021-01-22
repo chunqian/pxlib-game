@@ -4861,12 +4861,11 @@ static px_bool PX_ScriptParseExpressionStream(PX_SCRIPT_Analysis *analysis, px_v
                         case PX_SCRIPT_AST_OPERAND_TYPE_INT_CONST:
                         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_IDX:
                         case PX_SCRIPT_AST_OPERAND_TYPE_MEMORY_IDX:
-                            //                  if (pfunc->parameters[i].type!=PX_SCRIPT_PARSER_VAR_TYPE_INT)
-                            //                  {
-                            //                      PX_ScriptTranslatorError(&analysis->lexer,"Parameter not matched.");
-                            //                      goto _ERROR;
-                            //                  }
-                            //                  break;
+                            // if (pfunc->parameters[i].type != PX_SCRIPT_PARSER_VAR_TYPE_INT) {
+                            //     PX_ScriptTranslatorError(&analysis->lexer, "Parameter not matched.");
+                            //     goto _ERROR;
+                            // }
+                            // break;
                         case PX_SCRIPT_AST_OPERAND_TYPE_FLOAT:
                         case PX_SCRIPT_AST_OPERAND_TYPE_FLOAT_CONST:
                             if (pfunc->parameters[i].type != PX_SCRIPT_PARSER_VAR_TYPE_FLOAT && pfunc->parameters[i].type != PX_SCRIPT_PARSER_VAR_TYPE_INT) {
@@ -4969,12 +4968,11 @@ static px_bool PX_ScriptParseExpressionStream(PX_SCRIPT_Analysis *analysis, px_v
                         case PX_SCRIPT_AST_OPERAND_TYPE_INT_CONST:
                         case PX_SCRIPT_AST_OPERAND_TYPE_STRING_IDX:
                         case PX_SCRIPT_AST_OPERAND_TYPE_MEMORY_IDX:
-                            //                  if (pfunc->parameters[i].type!=PX_SCRIPT_PARSER_VAR_TYPE_INT)
-                            //                  {
-                            //                      PX_ScriptTranslatorError(&analysis->lexer,"Parameter not matched.");
-                            //                      goto _ERROR;
-                            //                  }
-                            //                  break;
+                            // if (pfunc->parameters[i].type != PX_SCRIPT_PARSER_VAR_TYPE_INT) {
+                            //     PX_ScriptTranslatorError(&analysis->lexer, "Parameter not matched.");
+                            //     goto _ERROR;
+                            // }
+                            // break;
                         case PX_SCRIPT_AST_OPERAND_TYPE_FLOAT:
                         case PX_SCRIPT_AST_OPERAND_TYPE_FLOAT_CONST:
                             if (pfunc->parameters[i].type != PX_SCRIPT_PARSER_VAR_TYPE_FLOAT && pfunc->parameters[i].type != PX_SCRIPT_PARSER_VAR_TYPE_INT) {
@@ -8123,12 +8121,11 @@ px_bool PX_ScriptCompilerCompile(PX_SCRIPT_LIBRARY *lib, px_char *name, px_strin
             PX_StringCat(&analysis.code, "MOV R2,GLOBAL[SP]\n");
 
             while (PX_TRUE) {
-                //              if(!PX_ScriptParseGetExpression(&analysis,&expression,';'))
-                //              {
-                //                  PX_StringFree(&expression);
-                //                  PX_StringFree(&expCode);
-                //                  goto _ERROR;
-                //              }
+                // if (!PX_ScriptParseGetExpression(&analysis, &expression, ';')) {
+                //     PX_StringFree(&expression);
+                //     PX_StringFree(&expCode);
+                //     goto _ERROR;
+                // }
 
                 PX_StringClear(&expression);
                 mBracket = 0, lBracket = 0;

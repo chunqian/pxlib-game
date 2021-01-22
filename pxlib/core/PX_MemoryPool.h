@@ -60,7 +60,7 @@ px_uint MP_Size(px_memorypool *Pool, px_void *Ptr);
 // Pool: Pool MemoryPool structure pointer
 // Size: Size of alloc
 // Return - if succeeded return the begin address of memories
-//         if faith return null
+// if faith return null
 px_void *MP_Malloc(px_memorypool *Pool, px_uint Size);
 
 // Free the memory from memory pool

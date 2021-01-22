@@ -1,14 +1,14 @@
-//  WjCryptLib_Sha256
-//
-//  Implementation of SHA256 hash function.
-//  Original author: Tom St Denis, tomstdenis@gmail.com, http://libtom.org
-//  Modified by WaterJuice retaining Public Domain license.
-//
-//  This is free and unencumbered software released into the public domain - June 2013 waterjuice.org
+// WjCryptLib_Sha256
+
+// Implementation of SHA256 hash function.
+// Original author: Tom St Denis, tomstdenis@gmail.com, http://libtom.org
+// Modified by WaterJuice retaining Public Domain license.
+
+// This is free and unencumbered software released into the public domain - June 2013 waterjuice.org
 
 #pragma once
 
-//  IMPORTS
+// IMPORTS
 
 #include "PX_Typedef.h"
 
@@ -25,12 +25,12 @@ typedef struct {
     px_uchar bytes[SHA256_HASH_SIZE];
 } PX_SHA256_HASH;
 
-//  PUBLIC FUNCTIONS
+// PUBLIC FUNCTIONS
 
-//  Sha256Calculate
-//
-//  Combines Sha256Initialise, Sha256Update, and Sha256Finalise into one function. Calculates the SHA256 hash of the
-//  buffer.
+// Sha256Calculate
+
+// Combines Sha256Initialise, Sha256Update, and Sha256Finalise into one function. Calculates the SHA256 hash of the
+// buffer.
 
 void PX_Sha256Calculate(void* Buffer,           // [in]
                         px_uint32 BufferSize,   // [in]

@@ -799,22 +799,22 @@ static px_void PX_LobbyStandRender_UserState(PX_Lobby *pDesc, px_dword elpased) 
     switch (pDesc->userState.userState) {
         case PX_STARTUP_GAMESTATE_STANDBY: {
             pDesc->state_angle = 0;
-            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-            //                       "待命中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8, "待命中",
+            //                       PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2,
                                   pDesc->pIns->runtime.height / 2 + 8, PX_ALIGN_CENTER, "待命中", PX_COLOR(255, 0, 0, 0));
         } break;
         case PX_STARTUP_GAMESTATE_RANKING: {
             pDesc->state_angle += elpased / 1000.0f * 90;
-            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-            //                       "排位中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8, "排位中",
+            //                       PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2,
                                   pDesc->pIns->runtime.height / 2 + 8, PX_ALIGN_CENTER, "排位中", PX_COLOR(255, 0, 0, 0));
         } break;
         case PX_STARTUP_GAMESTATE_GAMING: {
             pDesc->state_angle += elpased / 1000.0f * 90;
-            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8,
-            //                       "游戏中", PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
+            // PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, pDesc->pIns->runtime.width / 2, pDesc->pIns->runtime.height / 2 + 8, "游戏中",
+            //                       PX_COLOR(255, 0, 0, 0), &pDesc->pIns->fontmodule32, PX_FONT_ALIGN_XCENTER);
             PX_FontModuleDrawText(&pDesc->pIns->runtime.RenderSurface, &pDesc->pIns->fontmodule32, pDesc->pIns->runtime.width / 2,
                                   pDesc->pIns->runtime.height / 2 + 8, PX_ALIGN_CENTER, "游戏中", PX_COLOR(255, 0, 0, 0));
         } break;
@@ -894,7 +894,7 @@ px_bool PX_LobbyInitialize(PX_Instance *pIns, PX_Lobby *pDesc, const px_char Lob
         PX_ObjectRegisterEvent(pDesc->btn_upgrade_life, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUpgrade_Life, pDesc);
         PX_ObjectRegisterEvent(pDesc->btn_upgrade_shield, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnUpgrade_Shield, pDesc);
 
-        // PX_ObjectRegisterEvent(pDesc->btn_matchJoin,PX_OBJECT_EVENT_EXECUTE,PX_LobbyOnMatchJoin,pDesc);
+        // PX_ObjectRegisterEvent(pDesc->btn_matchJoin, PX_OBJECT_EVENT_EXECUTE, PX_LobbyOnMatchJoin, pDesc);
     } while (0);
 
     return PX_TRUE;
