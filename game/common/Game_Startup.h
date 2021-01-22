@@ -6,10 +6,10 @@
 
 #include "../../pxlib/platform/windows/Platform_Windows_Audio.h"
 #include "../../pxlib/platform/windows/Platform_Windows_D2D.h"
+#include "../../pxlib/platform/windows/px_udp.h"
 
 #include "../../pxlib/arch/PX_Console.h"
 #include "../../pxlib/arch/PX_MessageBox.h"
-#include "../../pxlib/platform/windows/px_udp.h"
 
 extern px_uint64 game_rand_seed;
 

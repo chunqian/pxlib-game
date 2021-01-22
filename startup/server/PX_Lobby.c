@@ -14,12 +14,13 @@ DWORD WINAPI PX_LobbyServerGameStartThread(px_void *ptr) {
     memset(&sti, 0, sizeof(STARTUPINFO));
     memset(&proci, 0, sizeof(PROCESS_INFORMATION));
     sti.cb = sizeof(STARTUPINFO);
-    GetCurrentDirectory(sizeof(currentDir), currentDir);
+    GetCurrentDirectory(sizeof(currentDir), (px_word *)currentDir);
     PX_strcat(currentDir, "/bin");
 
     PX_sprintf1(startup_param, sizeof(startup_param), "server %1", PX_STRINGFORMAT_INT(pDesc->gameport));
 
-    processRet = CreateProcess("./bin/game_server.exe", startup_param, PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
+    processRet =
+        CreateProcess(L"./bin/game_server.exe", (px_word *)startup_param, PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, (px_word *)currentDir, &sti, &proci);
     if (processRet) {
         CloseHandle(proci.hThread);
         WaitForSingleObject(proci.hProcess, INFINITE);
