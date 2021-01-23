@@ -8,12 +8,10 @@
 #define GAME_TEXT_PATH_FONTMODULE32_CHS "./Resources/chs32.pxf"
 #define GAME_TEXT_PATH_FONTMODULE24_CHS "./Resources/chs24.pxf"
 #define GAME_TEXT_PATH_FONTMODULE18_CHS "./Resources/chs18.pxf"
-// #define GAME_TEXT_PATH_FONTMODULE16_CHS "./Resources/chs16.pxf"
 
 #define GAME_TEXT_PATH_FONTMODULE32_EN "./Resources/en32.pxf"
 #define GAME_TEXT_PATH_FONTMODULE24_EN "./Resources/en24.pxf"
 #define GAME_TEXT_PATH_FONTMODULE18_EN "./Resources/en18.pxf"
-// #define GAME_TEXT_PATH_FONTMODULE16_EN "./Resources/en16.pxf"
 
 #define GAME_TEXT_PATH_FONTMODULE_SCOREPANEL "./Resources/scoretitle.pxf"
 
