@@ -9,7 +9,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
     px_dword processRet;
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
     PX_GameClientStartUp startup_param;
-    STARTUPINFO sti;
+    STARTUPINFOA sti;
     PROCESS_INFORMATION proci;
     FILE *pf;
     memset(&sti, 0, sizeof(STARTUPINFO));
@@ -29,9 +29,11 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
     }
     fwrite(&startup_param, 1, sizeof(startup_param), pf);
     fclose(pf);
-    GetCurrentDirectory(sizeof(currentDir), (px_word *)currentDir);
+    GetCurrentDirectoryA(sizeof(currentDir), currentDir);
     PX_strcat(currentDir, "/bin");
-    processRet = CreateProcess(L"./bin/game_client.exe", L"game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, (px_word *)currentDir, &sti, &proci);
+    processRet = CreateProcessA("./bin/game_client.exe", "game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
+    printf("processRet==%d\n", processRet);
+    printf("currentDir==%s\n", currentDir);
     if (processRet) {
         CloseHandle(proci.hThread);
         WaitForSingleObject(proci.hProcess, INFINITE);
