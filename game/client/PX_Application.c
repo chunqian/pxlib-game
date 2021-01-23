@@ -271,7 +271,7 @@ px_void PX_ApplicationUpdateDownloading(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
     static px_char procContent2[32] = {0};
     static px_char procContent[16];
-    const px_char *Content[] = {(const char *)L"数据同步中.", (const char *)L"数据同步中..", (const char *)L"数据同步中..."};
+    const px_char *Content[] = {"数据同步中.", "数据同步中..", "数据同步中..."};
 
     if (!App->messagebox.show) {
         PX_MessageBoxAlert(&App->messagebox, Content[0]);
@@ -301,7 +301,7 @@ px_void PX_ApplicationUpdateDownloading(PX_Application *App, px_dword elpased) {
 px_void PX_ApplicationUpdateConnecting(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
 
-    const px_char *Content[] = {(const char *)L"连接中.", (const char *)L"连接中..", (const char *)L"连接中..."};
+    const px_char *Content[] = {"连接中.", "连接中..", "连接中..."};
 
     if (!App->messagebox.show) {
         PX_MessageBoxAlert(&App->messagebox, Content[0]);
@@ -333,7 +333,7 @@ px_void PX_ApplicationUpdateWaiting(PX_Application *App, px_dword elpased) {
     static px_dword aniElpased;
     static px_char procContent2[32] = {0};
     static px_char procContent[16];
-    const px_char *Content[] = {(const char *)L"等待其它玩家.", (const char *)L"等待其它玩家..", (const char *)L"等待其它玩家..."};
+    const px_char *Content[] = {"等待其它玩家.", "等待其它玩家..", "等待其它玩家..."};
     aniElpased += elpased;
     if (aniElpased >= 1500) {
         aniElpased = 0;
