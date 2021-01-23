@@ -71,6 +71,7 @@ px_bool PX_ApplicationInitialize(PX_Application *App, const px_char ServerIpAddr
     printf("Code by DBinary(matrixcascade@gmail.com) All Rights Reserved.\n");
     printf("SyncDataPort:%d SyncFramePort:%d\n", dataPort, syncPort);
     printf("ClientID:%d ServerID:%d\n", client_id, server_id);
+
     App->gameTime = 0;
     App->syncTime = 0;
     App->controllerSyncTime = GAME_SYNC_DURATION;
@@ -91,28 +92,34 @@ px_bool PX_ApplicationInitialize(PX_Application *App, const px_char ServerIpAddr
     PX_memset(&App->LastCursorInstr, 0, sizeof(Game_Play_Instr));
 
     if (!Game_ResourcesLoaderInitialize(&App->Instance, GAME_RESOURCESLOADER_TYPE_CLIENT)) {
+        PX_SystemMessageBox(PX_NULL, L"Game_ResourcesLoaderInitialize Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_MessageBoxInitialize(&App->Instance.runtime, &App->messagebox, &App->Instance.FontModule32, App->Instance.runtime.width,
                                  App->Instance.runtime.height)) {
+        PX_SystemMessageBox(PX_NULL, L"PX_MessageBoxInitialize Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_MessageBoxInitialize(&App->Instance.runtime, &App->SyncMessageBox, &App->Instance.FontModule32, App->Instance.runtime.width,
                                  App->Instance.runtime.height)) {
+        PX_SystemMessageBox(PX_NULL, L"PX_MessageBoxInitialize Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!Game_PlayInitialize(&App->Instance, &App->play)) {
+        PX_SystemMessageBox(PX_NULL, L"Game_PlayInitialize Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!Game_UIInitialize(&App->Instance, &App->ui, &App->play)) {
+        PX_SystemMessageBox(PX_NULL, L"Game_UIInitialize Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
     if (!PX_UDPInit(&App->udp, PX_UDP_IP_TYPE_IPV4)) {
+        PX_SystemMessageBox(PX_NULL, L"PX_UDPInit Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
@@ -121,6 +128,7 @@ px_bool PX_ApplicationInitialize(PX_Application *App, const px_char ServerIpAddr
     syncport.dw_atom[1] = dataPort;
     if (!PX_SyncDataClientInit(&App->SyncDataClient, &App->Instance.runtime.mp_game, 0, client_id, syncport, game_syncdata_client_read,
                                game_syncdata_client_write, &App->udp)) {
+        PX_SystemMessageBox(PX_NULL, L"PX_SyncDataClientInit Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
 
@@ -130,6 +138,7 @@ px_bool PX_ApplicationInitialize(PX_Application *App, const px_char ServerIpAddr
 
     if (!PX_SyncFrameClientInit(&App->SyncFrameClient, &App->Instance.runtime.mp_game, GAME_SYNC_DURATION, syncport, server_id, client_id,
                                 game_syncframe_client_read, game_syncframe_client_write, &App->udp)) {
+        PX_SystemMessageBox(PX_NULL, L"PX_SyncFrameClientInit Failed.", L"error", MB_OK);
         return PX_FALSE;
     }
     PX_SyncFrameClientSetVersion(&App->SyncFrameClient, GAME_VERSION);

@@ -213,7 +213,7 @@ int main(int argc, const px_char *argv[])
         return 0;
     }
     if (!PX_ApplicationInitialize(&App, startup.IpAddr, startup.syncDataPort, startup.syncFramePort, startup.clientID, startup.serverID)) {
-        PX_SystemMessageBox(PX_NULL, L"应用初始化失败", L"error", MB_OK);
+        // PX_SystemMessageBox(PX_NULL, L"应用初始化失败", L"error", MB_OK);
         return 0;
     }
 
