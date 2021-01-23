@@ -29,7 +29,7 @@ extern "C" char *PX_OpenFileDialog(const char Filter[]);
 extern "C" char *PX_SaveFileDialog(const char Filter[], const char ext[]);
 extern "C" char *PX_MultFileDialog(const char Filter[]);
 extern "C" char *PX_GetFileName(const char filePath[]);
-extern "C" VOID PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType);
+extern "C" int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType);
 
 #define WIN_MAX_INPUT_STRING_LEN 64
 #define WIN_MAX_INPUT_SPECKEY_LEN 0xff
@@ -412,4 +412,4 @@ char *PX_GetFileName(const char filePath[]) {
     return (char *)filePath + offset;
 }
 
-VOID PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType) { MessageBoxW(hWnd, lpText, lpCaption, uType); }
+int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType) { return MessageBoxW(hWnd, lpText, lpCaption, uType); }
