@@ -1,8 +1,8 @@
 #ifndef PLATFORM_WINDOWS
 #define PLATFORM_WINDOWS
 
-#include <windows.h>
 #include <stdio.h>
+#include <windows.h>
 // #pragma comment(lib,"user32.lib")
 // #pragma comment(lib,"shell32.lib")
 // #pragma comment(lib,"ole32.lib")
@@ -179,4 +179,5 @@ extern char *PX_OpenFileDialog(const char Filter[]);
 extern char *PX_MultFileDialog(const char Filter[]);
 extern char *PX_GetFileName(const char filePath[]);
 extern char *PX_SaveFileDialog(const char Filter[], const char ext[]);
+extern VOID PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType);
 #endif

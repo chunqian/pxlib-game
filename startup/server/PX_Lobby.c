@@ -8,16 +8,16 @@ DWORD WINAPI PX_LobbyServerGameStartThread(px_void *ptr) {
     px_dword processRet;
     PX_StartupServer_Lobby_GameInstance *pDesc = (PX_StartupServer_Lobby_GameInstance *)ptr;
     // PX_GameClientStartUp startup_param;
-    STARTUPINFOA sti;
+    STARTUPINFO sti;
     PROCESS_INFORMATION proci;
 
     memset(&sti, 0, sizeof(STARTUPINFO));
     memset(&proci, 0, sizeof(PROCESS_INFORMATION));
     sti.cb = sizeof(STARTUPINFO);
-    GetCurrentDirectoryA(sizeof(currentDir), currentDir);
+    GetCurrentDirectory(sizeof(currentDir), currentDir);
     PX_strcat(currentDir, "/bin");
     PX_sprintf1(startup_param, sizeof(startup_param), "server %1", PX_STRINGFORMAT_INT(pDesc->gameport));
-    processRet = CreateProcessA("./bin/game_server.exe", startup_param, PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
+    processRet = CreateProcess("./bin/game_server.exe", startup_param, PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
     printf("processRet==%d\n", processRet);
     printf("startup_param==%s\n", startup_param);
     printf("currentDir==%s\n", currentDir);

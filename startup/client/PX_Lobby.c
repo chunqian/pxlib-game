@@ -9,7 +9,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
     px_dword processRet;
     PX_Lobby *pDesc = (PX_Lobby *)ptr;
     PX_GameClientStartUp startup_param;
-    STARTUPINFOA sti;
+    STARTUPINFO sti;
     PROCESS_INFORMATION proci;
     FILE *pf;
     memset(&sti, 0, sizeof(STARTUPINFO));
@@ -24,14 +24,14 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
 
     pf = fopen("./bin/startup", "wb");
     if (!pf) {
-        MessageBox(NULL, L"启动配置失败,请重新启动游戏", L"Error", MB_OK);
+        PX_SystemMessageBox(NULL, L"启动配置失败,请重新启动游戏", L"Error", MB_OK);
         exit(0);
     }
     fwrite(&startup_param, 1, sizeof(startup_param), pf);
     fclose(pf);
-    GetCurrentDirectoryA(sizeof(currentDir), currentDir);
+    GetCurrentDirectory(sizeof(currentDir), currentDir);
     PX_strcat(currentDir, "/bin");
-    processRet = CreateProcessA("./bin/game_client.exe", "game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
+    processRet = CreateProcess("./bin/game_client.exe", "game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
     printf("processRet==%d\n", processRet);
     printf("currentDir==%s\n", currentDir);
     if (processRet) {
@@ -40,7 +40,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
         pDesc->gameHandle = PX_NULL;
     } else {
         pDesc->gameHandle = PX_NULL;
-        MessageBox(NULL, L"严重错误:游戏文件缺失,请重新下载游戏!", L"Error", MB_OK);
+        PX_SystemMessageBox(NULL, L"严重错误:游戏文件缺失,请重新下载游戏!", L"Error", MB_OK);
         exit(0);
     }
     return 0;

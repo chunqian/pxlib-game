@@ -7,18 +7,18 @@ px_bool PX_InstanceInitialize(PX_Instance *Instance, const px_char name[], px_in
     px_int allocSize;
 
     if (!PX_CreateWindow(width, height, name, PX_FALSE)) {
-        MessageBox(NULL, L"窗口创建失败", L"error", MB_OK);
+        PX_SystemMessageBox(NULL, L"窗口创建失败", L"error", MB_OK);
         return 0;
     }
 
     allocSize = ui_size + resource_size + game_size + 1024 * 1024 * 16;
 
     if (!PX_RuntimeInitialize(&Instance->runtime, width, height, malloc(allocSize), allocSize, ui_size, resource_size, game_size)) {
-        MessageBox(NULL, L"运行时初始化错误", L"error", MB_OK);
+        PX_SystemMessageBox(NULL, L"运行时初始化错误", L"error", MB_OK);
         return PX_FALSE;
     }
     if (!PX_ConsoleInitialize(&Instance->runtime, &Instance->console)) {
-        MessageBox(NULL, L"控制台初始化错误", L"error", MB_OK);
+        PX_SystemMessageBox(NULL, L"控制台初始化错误", L"error", MB_OK);
         return PX_FALSE;
     }
     return PX_TRUE;

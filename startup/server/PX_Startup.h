@@ -2,7 +2,6 @@
 #define PX_STARTUP_H
 
 #define _WIN32_WINNT 0x0601  // Windows 7
-#define UNICODE
 
 #include "../../pxlib/platform/windows/Platform_Windows_D2D.h"
 #include "../../pxlib/platform/windows/px_udp.h"
