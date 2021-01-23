@@ -117,11 +117,11 @@ px_bool PX_ApplicationInitialize(PX_Application *pApp) {
         PX_SystemMessageBox(NULL, L"字模初始化失败", L"error", MB_OK);
         return PX_FALSE;
     }
-    if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/chs16.pxf")) {
+    if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/chs18.pxf")) {
         PX_SystemMessageBox(NULL, L"字模缺失", L"error", MB_OK);
         return PX_FALSE;
     }
-    if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/ss16.pxf")) {
+    if (!PX_LoadFontModuleFromFile(&pApp->Instance.fontmodule32, "./resources/ss18.pxf")) {
         PX_SystemMessageBox(NULL, L"字模缺失", L"error", MB_OK);
         return PX_FALSE;
     }

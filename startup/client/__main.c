@@ -161,7 +161,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
 }
 // int main()
 
-#define REMOTESHELL_PROCESS_GUID "startup_client"
+#define REMOTESHELL_PROCESS_GUID "client_startup"
 HANDLE G_hMutex;
 
 BOOL IsAlreadyRunning() {

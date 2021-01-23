@@ -31,7 +31,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
     fclose(pf);
     GetCurrentDirectory(sizeof(currentDir), currentDir);
     PX_strcat(currentDir, "/bin");
-    processRet = CreateProcess("./bin/game_client.exe", "game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
+    processRet = CreateProcess("./bin/client_game.exe", "game ./startup", PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
     printf("processRet==%d\n", processRet);
     printf("currentDir==%s\n", currentDir);
     if (processRet) {

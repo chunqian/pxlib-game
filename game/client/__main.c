@@ -162,7 +162,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     return 0;
 }
 
-#define REMOTESHELL_PROCESS_GUID "game_client"
+#define REMOTESHELL_PROCESS_GUID "client_game"
 HANDLE G_hMutex;
 
 BOOL IsAlreadyRunning() {
