@@ -3,7 +3,7 @@
 
 #define _WIN32_WINNT 0x0601  // Windows 7
 
-#include "../../../pxlib/arch/PX_Console.h"
+#include "../../../../pxlib/arch/PX_Console.h"
 #include "../Platform_Windows_Audio.h"
 #include "../Platform_Windows_D2D.h"
 
