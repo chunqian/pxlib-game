@@ -13,9 +13,8 @@ set_toolset("ar", "x86_64-w64-mingw32-ar")
 -- 工程
 target("client_startup")
 
--- 清理
-del_files("$(projectdir)/compile_commands.json")
-del_files("$(buildir)/$(mode)/client_startup.*")
+-- 依赖
+add_deps("pxlib")
 
 -- 构建之后运行插件
 after_build(function(target)
