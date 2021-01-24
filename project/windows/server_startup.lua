@@ -13,8 +13,11 @@ set_toolset("ar", "x86_64-w64-mingw32-ar")
 -- 工程
 target("server_startup")
 
+-- 清理
+del_files("$(projectdir)/compile_commands.json")
+del_files("$(buildir)/$(mode)/server_startup.*")
+
 -- 构建之后运行插件
-del_files("../compile_commands.json")
 after_build(function(target)
     -- 导入task模块
     import("core.base.task")
@@ -24,20 +27,16 @@ end)
 
 set_kind("binary")
 set_optimize("faster")
+set_targetdir("$(buildir)/$(mode)")
+add_linkdirs("$(buildir)/$(mode)")
 
--- set_plat("windows")
--- set_arch("i686")
 -- add_includedirs(
 --     "/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
 -- set_toolchains("i686-windows")
--- add_linkdirs("$(buildir)/windows/i686/release/")
 
-set_plat("windows")
-set_arch("x86_64")
 add_includedirs(
     "/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-x86_64/x86_64-w64-mingw32/include")
 set_toolchains("x86_64-windows")
-add_linkdirs("$(buildir)/windows/x86_64/release/")
 
 add_files(pxlibdir .. "/platform/windows/*.c|Platform_Windows_SerialPort.c")
 add_files(pxlibdir ..

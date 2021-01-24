@@ -1,9 +1,9 @@
-add_rules("mode.debug", "mode.release")
+add_rules("mode.release", "mode.debug")
 
 pxlibdir = "$(projectdir)/pxlib"
 
-includes("project/pxlib.lua")
-includes("project/client_startup.lua")
--- includes("project/client_game.lua")
--- includes("project/server_startup.lua")
--- includes("project/server_game.lua")
+includes("project/windows/pxlib.lua")
+includes("project/windows/client_startup.lua")
+-- includes("project/windows/client_game.lua")
+-- includes("project/windows/server_startup.lua")
+-- includes("project/windows/server_game.lua")
