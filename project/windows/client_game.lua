@@ -38,7 +38,8 @@ add_includedirs(
 set_toolchains("x86_64-windows")
 
 add_files(pxlibdir .. "/platform/windows/*.c")
-add_files(pxlibdir .. "/platform/windows/*.cpp|Platform_Windows_D3D.cpp")
+add_files(pxlibdir .. "/platform/windows/*.cpp")
+add_files(pxlibdir .. "/platform/common/*.c")
 add_files("$(projectdir)/game/common/*.c")
 add_files("$(projectdir)/game/client/*.c")
 

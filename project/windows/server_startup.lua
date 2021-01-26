@@ -39,7 +39,8 @@ set_toolchains("x86_64-windows")
 
 add_files(pxlibdir .. "/platform/windows/*.c|Platform_Windows_SerialPort.c")
 add_files(pxlibdir ..
-              "/platform/windows/*.cpp|Platform_Windows_D3D.cpp|Platform_Windows_DSound.cpp")
+              "/platform/windows/*.cpp|Platform_Windows_DSound.cpp")
+add_files(pxlibdir .. "/platform/common/*.c")
 add_files("$(projectdir)/startup/server/*.c")
 
 add_ldflags("-static-libgcc")

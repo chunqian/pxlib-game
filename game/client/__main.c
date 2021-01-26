@@ -22,7 +22,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
         elpased = timeGetTime() - time;
         time = timeGetTime();
 
-        while (PX_GetWinMessage(&msg)) {
+        while (PX_PullWinMessage(PX_NULL, &msg)) {
             px_char text[2] = {0};
             e.Event = PX_OBJECT_EVENT_ANY;
             switch (msg.uMsg) {

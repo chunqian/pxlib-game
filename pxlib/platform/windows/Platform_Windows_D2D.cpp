@@ -3,33 +3,39 @@
 #include <windowsx.h>
 // #pragma comment(lib,"d2d1.lib")
 
+#include "../../core/PX_Typedef.h"
+#include "../common/utf8.h"
+
 typedef struct {
     UINT uMsg;
     LPARAM lparam;
     WPARAM wparam;
 } WM_MESSAGE;
 
-extern "C" BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen);
-extern "C" HWND PX_GetWindowHwnd();
-extern "C" VOID PX_SystemReadDeviceState();
-extern "C" BOOL PX_SystemLoop();
-extern "C" BOOL PX_SystemRender(void *raw, int width, int height);
-extern "C" BOOL PX_SystemisAvtivated();
-extern "C" BOOL PX_KeyboardDown(unsigned char X);
-extern "C" char *PX_KeyboardString();
-extern "C" char *PX_DragfileString();
-extern "C" BOOL PX_MouseLButtonDown();
-extern "C" BOOL PX_MouseRButtonDown();
-extern "C" BOOL PX_MouseMButtonDown();
-extern "C" POINT PX_MousePosition();
-extern "C" BOOL PX_KeyDown(unsigned char key);
-extern "C" BOOL PX_MouseWheel(int *x, int *y, int *delta);
-extern "C" BOOL PX_GetWinMessage(WM_MESSAGE *Msg);
-extern "C" char *PX_OpenFileDialog(const char Filter[]);
-extern "C" char *PX_SaveFileDialog(const char Filter[], const char ext[]);
-extern "C" char *PX_MultFileDialog(const char Filter[]);
-extern "C" char *PX_GetFileName(const char filePath[]);
-extern "C" int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType);
+extern "C" {
+BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen);
+HWND PX_GetWindowHwnd();
+VOID PX_SystemReadDeviceState();
+BOOL PX_SystemLoop();
+BOOL PX_SystemRender(void *raw, int width, int height);
+BOOL PX_SystemisAvtivated();
+BOOL PX_KeyboardDown(unsigned char X);
+char *PX_KeyboardString();
+char *PX_DragfileString();
+BOOL PX_MouseLButtonDown();
+BOOL PX_MouseRButtonDown();
+BOOL PX_MouseMButtonDown();
+POINT PX_MousePosition();
+BOOL PX_KeyDown(unsigned char key);
+BOOL PX_MouseWheel(int *x, int *y, int *delta);
+BOOL PX_PullWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
+BOOL PX_PushWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
+char *PX_OpenFileDialog(const char Filter[]);
+char *PX_SaveFileDialog(const char Filter[], const char ext[]);
+char *PX_MultFileDialog(const char Filter[]);
+char *PX_GetFileName(const char filePath[]);
+int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType);
+}
 
 #define WIN_MAX_INPUT_STRING_LEN 64
 #define WIN_MAX_INPUT_SPECKEY_LEN 0xff
@@ -42,6 +48,7 @@ extern "C" int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption,
 #define WIN_KEYDOWN_DOWN 6
 
 #define WIN_MESSAGESTACK_SIZE 32
+#define WM_CHARSTACK_SIZE 64
 
 HWND Win_Hwnd;
 int Win_Height;
@@ -49,6 +56,7 @@ int Win_Width;
 BOOL Win_bFullScreen;
 BOOL Win_Activated;
 WM_MESSAGE Win_messageStack[WIN_MESSAGESTACK_SIZE] = {0};
+WM_MESSAGE Win_messageCharacterStack[WIN_MESSAGESTACK_SIZE] = {0};
 unsigned char DInput_KeyBoardState[256];
 char DInput_AccepyFile[MAX_PATH] = {0};
 POINT DInput_MousePosition;
@@ -164,6 +172,7 @@ LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
     // if(uMsg == 0x246)
     // printf("%x\n", uMsg);
     WM_MESSAGE message;
+    WM_MESSAGE message2;
     int i;
 
     switch (uMsg) {
@@ -189,6 +198,12 @@ LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
             DInput_MouseWheelDelta.y = GET_WHEEL_DELTA_WPARAM(wParam);
         } break;
         case WM_CHAR: {
+            message = {0};
+            message.uMsg = uMsg;
+            message.wparam = wParam;
+            message.lparam = lParam;
+            PX_PushWinMessage(Win_messageCharacterStack, &message);
+
             if (Win_CurrentIndex < WIN_MAX_INPUT_STRING_LEN - 1) {
                 if (wParam >= 32 || wParam == 8) {
                     Win_Str[Win_CurrentIndex++] = (char)wParam;
@@ -213,13 +228,40 @@ LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
             return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
 
+    // message.uMsg = uMsg;
+    // message.wparam = wParam;
+    // message.lparam = lParam;
+    // for (i = 0; i < WIN_MESSAGESTACK_SIZE; i++) {
+    //     if (Win_messageStack[i].uMsg == 0) {
+    //         Win_messageStack[i] = message;
+    //         break;
+    //     }
+    // }
+
     message.uMsg = uMsg;
     message.wparam = wParam;
     message.lparam = lParam;
-    for (i = 0; i < WIN_MESSAGESTACK_SIZE; i++) {
-        if (Win_messageStack[i].uMsg == 0) {
-            Win_messageStack[i] = message;
-            break;
+    if (uMsg != WM_CHAR) PX_PushWinMessage(Win_messageStack, &message);
+
+    message = {0};
+    if (!PX_PullWinMessage(Win_messageCharacterStack, &message)) return TRUE;
+    if (message.wparam <= 127) {
+        if (!PX_PushWinMessage(Win_messageStack, &message)) return TRUE;
+    } else {
+        if (!PX_PullWinMessage(Win_messageCharacterStack, &message2)) {
+            PX_PushWinMessage(Win_messageCharacterStack, &message);
+            return TRUE;
+        }
+        px_char ch_utf8[6] = {0};
+        px_byte low = message.wparam;
+        px_byte high = message2.wparam;
+        const px_char ch_gb[2] = {(char)low, (char)high};
+        gb_to_utf8(ch_gb, ch_utf8, 6);
+        for (i = 0; i < 6; i++) {
+            px_byte ch_byte = (px_byte)ch_utf8[i];
+            if ((px_int)ch_byte == 0) break;
+            message.wparam = (WPARAM)ch_byte;
+            PX_PushWinMessage(Win_messageStack, &message);
         }
     }
 
@@ -301,12 +343,27 @@ BOOL PX_MouseWheel(int *x, int *y, int *delta) {
     return FALSE;
 }
 
-BOOL PX_GetWinMessage(WM_MESSAGE *Msg) {
+BOOL PX_PushWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg) {
     int i;
+    if (Stack == PX_NULL) Stack = Win_messageStack;
+
     for (i = 0; i < WIN_MESSAGESTACK_SIZE; i++) {
-        if (Win_messageStack[i].uMsg != 0) {
-            *Msg = Win_messageStack[i];
-            memset(&Win_messageStack[i], 0, sizeof(WM_MESSAGE));
+        if (Stack[i].uMsg == 0) {
+            Stack[i] = *Msg;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+BOOL PX_PullWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg) {
+    int i;
+    if (Stack == PX_NULL) Stack = Win_messageStack;
+
+    for (i = 0; i < WIN_MESSAGESTACK_SIZE; i++) {
+        if (Stack[i].uMsg != 0) {
+            *Msg = Stack[i];
+            memset(&Stack[i], 0, sizeof(WM_MESSAGE));
             return TRUE;
         }
     }
