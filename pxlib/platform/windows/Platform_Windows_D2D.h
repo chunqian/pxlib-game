@@ -174,7 +174,7 @@ extern BOOL PX_MouseMButtonDown();
 extern POINT PX_MousePosition();
 extern BOOL PX_KeyDown(unsigned char key);
 extern BOOL PX_MouseWheel(int *x, int *y, int *delta);
-extern BOOL PX_PullWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
+extern BOOL PX_ShiftWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
 extern char *PX_OpenFileDialog(const char Filter[]);
 extern char *PX_MultFileDialog(const char Filter[]);
 extern char *PX_GetFileName(const char filePath[]);

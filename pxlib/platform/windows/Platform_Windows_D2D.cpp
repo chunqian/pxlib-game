@@ -28,7 +28,7 @@ BOOL PX_MouseMButtonDown();
 POINT PX_MousePosition();
 BOOL PX_KeyDown(unsigned char key);
 BOOL PX_MouseWheel(int *x, int *y, int *delta);
-BOOL PX_PullWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
+BOOL PX_ShiftWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
 BOOL PX_PushWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
 char *PX_OpenFileDialog(const char Filter[]);
 char *PX_SaveFileDialog(const char Filter[], const char ext[]);
@@ -244,11 +244,11 @@ LRESULT CALLBACK AppWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
     if (uMsg != WM_CHAR) PX_PushWinMessage(Win_messageStack, &message);
 
     message = {0};
-    if (!PX_PullWinMessage(Win_messageCharacterStack, &message)) return TRUE;
+    if (!PX_ShiftWinMessage(Win_messageCharacterStack, &message)) return TRUE;
     if (message.wparam <= 127) {
         if (!PX_PushWinMessage(Win_messageStack, &message)) return TRUE;
     } else {
-        if (!PX_PullWinMessage(Win_messageCharacterStack, &message2)) {
+        if (!PX_ShiftWinMessage(Win_messageCharacterStack, &message2)) {
             PX_PushWinMessage(Win_messageCharacterStack, &message);
             return TRUE;
         }
@@ -356,7 +356,7 @@ BOOL PX_PushWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg) {
     return FALSE;
 }
 
-BOOL PX_PullWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg) {
+BOOL PX_ShiftWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg) {
     int i;
     if (Stack == PX_NULL) Stack = Win_messageStack;
 
