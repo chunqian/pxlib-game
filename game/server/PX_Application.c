@@ -132,7 +132,7 @@ px_bool PX_ApplicationInitialize(PX_Application *App, px_ushort dataport, px_ush
     printf("SyncDataPort:%d SyncFramePort:%d\n", dataport, gameport);
     printf("%d Players:\n", PlayerCount);
     for (i = 0; i < PlayerCount; i++) {
-        printf("Player%d: clientID:%d serverID:%d\n", i, PlayerNet[i].clientID, PlayerNet[i].serverID);
+        printf("Player:%d clientID:%d serverID:%d\n", i, PlayerNet[i].clientID, PlayerNet[i].serverID);
     }
     printf("Waiting for connection\n");
     App->connectionTimeOutElpased = 0;

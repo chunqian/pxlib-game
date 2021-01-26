@@ -18,9 +18,9 @@ DWORD WINAPI PX_LobbyServerGameStartThread(px_void *ptr) {
     PX_strcat(currentDir, "/bin");
     PX_sprintf1(startup_param, sizeof(startup_param), "server %1", PX_STRINGFORMAT_INT(pDesc->gameport));
     processRet = CreateProcess("./bin/server_game.exe", startup_param, PX_NULL, PX_NULL, FALSE, PX_NULL, PX_NULL, currentDir, &sti, &proci);
-    printf("processRet==%d\n", processRet);
-    printf("startup_param==%s\n", startup_param);
-    printf("currentDir==%s\n", currentDir);
+    printf("processRet:%d\n", processRet);
+    printf("startup_param:%s\n", startup_param);
+    printf("currentDir:%s\n", currentDir);
     if (processRet) {
         CloseHandle(proci.hThread);
         WaitForSingleObject(proci.hProcess, INFINITE);
