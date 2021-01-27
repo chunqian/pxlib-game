@@ -154,7 +154,6 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
 
             if (e.Event != PX_OBJECT_EVENT_ANY) {
                 PX_ApplicationPostEvent(&App, e);
-                PX_ConsolePostEvent(&App.Instance.console, e);
             }
         }
         PX_ApplicationUpdate(&App, elpased);
