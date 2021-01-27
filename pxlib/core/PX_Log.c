@@ -1,4 +1,4 @@
-#include "PX_Typedef.h"
+#include "PX_Log.h"
 
 void PX_ASSERT() {
 #ifdef PX_DEBUG_MODE

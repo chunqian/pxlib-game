@@ -29,7 +29,6 @@
   in the tree, and then the support library function rb_insert_color() must
   be called. Such function will do the not trivial work to rebalance the
   rbtree, if necessary.
-
 */
 
 #ifndef _PX_RBTREE_H

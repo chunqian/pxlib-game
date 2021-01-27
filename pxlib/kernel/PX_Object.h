@@ -510,10 +510,10 @@ px_void PX_Object_EditSetOffset(PX_Object *pObject, px_int TopOffset, px_int Lef
 px_void PX_Object_EditCursorBack(PX_Object *pObject);
 px_void PX_Object_EditCursorForward(PX_Object *pObject);
 
-// PX_Object * PX_Object_StaticImageCreate( PX_Object *Parent,px_int x,px_int y,px_texture tex);
-// PX_Object_StaticImage * PX_Object_GetStaticImage( PX_Object *Object );
-// px_void PX_Object_StaticImageSetAlign( PX_Object *pImage,px_dword Align);
-// px_void PX_Object_StaticImageRender(px_surface *psurface, PX_Object *im,px_uint elpased);
+// PX_Object *PX_Object_StaticImageCreate(PX_Object *Parent, px_int x, px_int y, px_texture tex);
+// PX_Object_StaticImage *PX_Object_GetStaticImage(PX_Object *Object);
+// px_void PX_Object_StaticImageSetAlign(PX_Object *pImage, px_dword Align);
+// px_void PX_Object_StaticImageRender(px_surface *psurface, PX_Object *im, px_uint elpased);
 // px_void PX_Object_StaticImageFree(PX_Object *pObj);
 
 PX_Object *PX_Object_ScrollAreaCreate(px_memorypool *mp, PX_Object *Parent, int x, int y, int height, int width);
@@ -745,8 +745,8 @@ px_void PX_Object_CoordinatesSetBorderColor(PX_Object *pObject, px_color clr);
 PX_Object_CoordinateData *PX_Object_CoordinatesGetCoordinateData(PX_Object *pObject, px_int index);
 int PX_Object_CoordinatesGetCoordinateWidth(PX_Object *pObject);
 int PX_Object_CoordinatesGetCoordinateHeight(PX_Object *pObject);
-// px_void PX_Object_CoordinatesSetTitleLeft(PX_Object *pObject,const px_char * title);
-// px_void PX_Object_CoordinatesSetTitleRight(PX_Object *pObject,const px_char * title);
+// px_void PX_Object_CoordinatesSetTitleLeft(PX_Object *pObject, const px_char *title);
+// px_void PX_Object_CoordinatesSetTitleRight(PX_Object *pObject, const px_char *title);
 px_void PX_Object_CoordinatesSetTitleTop(PX_Object *pObject, const px_char *title);
 px_void PX_Object_CoordinatesSetTitleBottom(PX_Object *pObject, const px_char *title);
 

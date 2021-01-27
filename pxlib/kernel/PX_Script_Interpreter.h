@@ -1,6 +1,6 @@
 // Painter Engine Interpreter
 // code by DBinary, matrixcascade@gmail.com
-// QQ:477608346,tel-18959060883
+// QQ:477608346, tel-18959060883
 // include script compiler & parser & AST
 
 #ifndef PX_SCRIPT_TRANSLATOR_H

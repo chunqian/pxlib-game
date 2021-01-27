@@ -12,12 +12,10 @@ static px_int PX_LexerFilterChar(px_lexer *lexer, px_char ch);
 static px_int PX_LexerIsSourcsEnd(px_lexer *lexer);
 static px_int PX_LexerIsNewLine(px_char ch);
 
-// CA_Token *GetToken(px_lexer *lexer,pt_string Mnemonic);
-// px_void RegisterToken(pt_string Mnemonic,px_uint Type);
+// CA_Token *GetToken(px_lexer *lexer, pt_string Mnemonic);
+// px_void RegisterToken(pt_string Mnemonic, px_uint Type);
 
-//----------------------------------------------------------------------------------
-
-//-------------------------------------------Lexer----------------------------------
+// Lexer
 
 px_bool PX_LexerIsCharNumeric(px_char chr) {
     if (chr >= ('0') && chr <= ('9')) {
@@ -28,10 +26,10 @@ px_bool PX_LexerIsCharNumeric(px_char chr) {
 
 px_bool PX_LexerIsStringNumeric(px_string *pString) { return PX_StringIsNumeric(pString); }
 
-// -------------------------------------------New Line-------------------------------
+// New Line
 px_bool PX_LexerIsNewLine(px_char ch) { return ch == '\r' || ch == '\n'; }
 
-//-------------------------------------------Comment----------------------------------
+// Comment
 
 px_char *PX_LexerIsCommentStart(px_lexer *lexer, const px_char ch[]) {
     px_int i = 0;
@@ -53,7 +51,7 @@ px_char *PX_LexerIsCommentEnd(px_lexer *lexer, const px_char startch[], const px
     return PX_NULL;
 }
 
-//--------------------------------------------Spacer-----------------------------------
+// Spacer
 
 px_void PX_LexerRegisterSpacer(px_lexer *lexer, px_char Spacer) {
     px_int i;
@@ -76,7 +74,7 @@ px_bool PX_LexerIsSpacer(px_lexer *lexer, px_char chr) {
     }
     return PX_FALSE;
 }
-//--------------------------------------------Delimiter--------------------------------
+// Delimiter
 
 px_uint PX_LexerRegisterDelimiter(px_lexer *lexer, px_char Delimiter) {
     px_int i;
@@ -112,7 +110,7 @@ px_uint PX_LexerGetDelimiterType(px_lexer *lexer, px_char Delimiter) {
     return -1;
 }
 
-//--------------------------------------------Container---------------------------------
+// Container
 
 px_uint PX_LexerRegisterContainer(px_lexer *lexer, const px_char Begin[], const px_char End[]) {
     px_int i;
@@ -156,9 +154,8 @@ px_char *PX_LexerIsContainerEnd(px_lexer *lexer, const px_char startch[], const 
     return PX_NULL;
 }
 
-//--------------------------------------------TOKEN-------------------------------------
-//
-//
+// TOKEN
+
 // CA_Token *Pt_Lexer::GetToken(pt_string Mnemonic) {
 //     for (px_uint i = 0; i < lexer->Tokens.size(); i++) {
 //         if (strcmp(Mnemonic, lexer->Tokens[i].Mnemonic) == 0) {
@@ -345,7 +342,7 @@ PX_LEXER_LEXEME_TYPE PX_LexerGetNextLexeme(px_lexer *lexer) {
         PX_StringCat(&lexer->CurLexeme, chred);
         lexer->SourceOffset += PX_strlen(chred);
 
-        // printf("<Container> %s\n",lexer->CurLexeme);
+        // printf("<Container> %s\n", lexer->CurLexeme);
         lexer->CurrentLexemeFlag = PX_LEXER_LEXEME_TYPE_CONATINER;
         return PX_LEXER_LEXEME_TYPE_CONATINER;
     }
@@ -378,7 +375,7 @@ PX_LEXER_LEXEME_TYPE PX_LexerGetNextLexeme(px_lexer *lexer) {
         }
 
         PX_StringCatChar(&lexer->CurLexeme, lexer->Sources[lexer->SourceOffset]);
-        // printf("<Delimiter> %c\n",lexer->Sources[lexer->SourceOffset]);
+        // printf("<Delimiter> %c\n", lexer->Sources[lexer->SourceOffset]);
         lexer->SourceOffset++;
         lexer->CurrentLexemeFlag = PX_LEXER_LEXEME_TYPE_DELIMITER;
         return PX_LEXER_LEXEME_TYPE_DELIMITER;
@@ -423,7 +420,7 @@ PX_LEXER_LEXEME_TYPE PX_LexerGetNextLexeme(px_lexer *lexer) {
             }
         }
     }
-    // printf("<Token> %s\n",m_CurLexeme);
+    // printf("<Token> %s\n", m_CurLexeme);
     if (lexer->lexemeTokenCase == PX_LEXER_LEXEME_CASE_UPPER) {
         PX_strupr(lexer->CurLexeme.buffer);
     }
