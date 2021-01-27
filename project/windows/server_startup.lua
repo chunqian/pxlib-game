@@ -37,11 +37,10 @@ add_includedirs(
     "/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-x86_64/x86_64-w64-mingw32/include")
 set_toolchains("x86_64-windows")
 
-add_files(pxlibdir .. "/platform/windows/*.c|Platform_Windows_SerialPort.c")
-add_files(pxlibdir ..
-              "/platform/windows/*.cpp|Platform_Windows_DSound.cpp")
-add_files(pxlibdir .. "/platform/common/*.c")
-add_files("$(projectdir)/startup/server/*.c")
+add_files(pxlibdir .. "/plat/windows/*.c")
+add_files(pxlibdir .. "/plat/windows/*.cpp")
+add_files(pxlibdir .. "/plat/PX_*.c")
+add_files("$(projectdir)/pxgame/target/server_startup/*.c")
 
 add_ldflags("-static-libgcc")
 add_links("pxlib")

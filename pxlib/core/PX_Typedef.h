@@ -64,8 +64,6 @@ typedef struct {
 
 } PX_RETURN_STRING;
 
-#include "PX_Log.h"
-
 #define PX_STRUCT_OFFSET(t, m) ((((t *)0)->m - (px_byte *)0))
 #define BigLittleSwap16(A) ((((px_word)(A)&0xff00) >> 8) | (((px_word)(A)&0x00ff) << 8))
 #define BigLittleSwap32(A) \
