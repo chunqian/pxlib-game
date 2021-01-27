@@ -336,27 +336,7 @@ px_double PX_sind(px_double x) {
 
 px_double PX_cosd(px_double radius) { return PX_sind((PX_PI / 2 - radius)); }
 
-px_float PX_sin_radian(px_float radius) {
-    px_int radIndex;
-    radIndex = PX_TRUNC(radius * 1000) % 6282;
-    if (radIndex < 0) {
-        radIndex += 6282;
-    }
-    if (radIndex > 3141) {
-        radIndex -= 3141;
-        if (radIndex < 1571) {
-            return -px_sinx_radius[radIndex % 1572];
-        } else {
-            return -px_sinx_radius[1570 - (radIndex % 1571)];
-        }
-    }
-
-    if (radIndex < 1571) {
-        return px_sinx_radius[radIndex % 1572];
-    } else {
-        return px_sinx_radius[1570 - (radIndex % 1571)];
-    }
-}
+px_float PX_sin_radian(px_float radius) { return (px_float)PX_sind(radius); }
 
 px_float PX_cos_radian(px_float radius) { return PX_sin_radian((px_float)(PX_PI / 2 - radius)); }
 
