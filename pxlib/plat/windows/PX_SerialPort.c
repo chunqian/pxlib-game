@@ -1,4 +1,4 @@
-#include "PX_SerialPort.h"
+#include "../PX_SerialPort.h"
 
 const UCHAR *PX_SerialPortEnumComName(int index) {
     static UCHAR szPortName[25];

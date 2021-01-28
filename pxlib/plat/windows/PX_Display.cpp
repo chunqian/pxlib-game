@@ -1,4 +1,4 @@
-#include "PX_Display.h"
+#include "../PX_Display.h"
 
 #include <d2d1.h>
 #include <d2d1helper.h>

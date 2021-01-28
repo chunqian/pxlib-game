@@ -4,13 +4,10 @@
 #include <stdio.h>
 #include <windows.h>
 
-// #pragma comment(lib,"user32.lib")
-// #pragma comment(lib,"shell32.lib")
-// #pragma comment(lib,"ole32.lib")
-// #pragma comment(lib,"winmm.lib" )
-
-#include "../../core/PX_Typedef.h"
-#include "../PX_UTF8.h"
+// #pragma comment(lib, "user32.lib")
+// #pragma comment(lib, "shell32.lib")
+// #pragma comment(lib, "ole32.lib")
+// #pragma comment(lib, "winmm.lib")
 
 typedef struct {
     UINT uMsg;
@@ -21,6 +18,10 @@ typedef struct {
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "../core/PX_Typedef.h"
+#include "PX_UTF8.h"
+
 BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen);
 HWND PX_GetWindowHwnd();
 VOID PX_SystemReadDeviceState();
@@ -43,6 +44,7 @@ char *PX_SaveFileDialog(const char Filter[], const char ext[]);
 char *PX_MultFileDialog(const char Filter[]);
 char *PX_GetFileName(const char filePath[]);
 int PX_SystemMessageBox(px_void *wnd, px_char *text, px_char *caption, px_uint type);
+
 #ifdef __cplusplus
 }
 #endif

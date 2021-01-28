@@ -178,7 +178,7 @@ int main(int argc, const px_char *argv[])
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);
-    PX_AudioInitialize(PX_GetWindowHwnd(), &App.Instance.soundplay, PX_FALSE);
+    PX_AudioInitialize(&App.Instance.soundplay, PX_FALSE);
 
     while (PX_SystemLoop()) {
     };

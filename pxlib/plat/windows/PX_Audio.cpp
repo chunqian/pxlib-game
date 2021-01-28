@@ -1,12 +1,10 @@
+#include "../PX_Audio.h"
+
 #include <dsound.h>
 #include <windows.h>
+
 // #pragma comment (lib,"dsound.lib")
 
-extern "C" {
-#include "../../core/PX_Log.h"
-#include "../../core/PX_Sound.h"
-BOOL PX_AudioInitialize(HWND hwnd, PX_SoundPlay *soundPlay, BOOL startThread);
-void PX_AudioSetVolume(unsigned long Vol);
 void PX_AudioPlay(unsigned long Vol);
 int PX_AudioGetStandbyBufferSize();
 int PX_AudioWriteBuffer(void *pBuffer, size_t Size);
@@ -15,7 +13,6 @@ void PX_AudioCaptureClose();
 DWORD PX_AudioCaptureReadEx(void *pBuffer, px_int buffersize, px_int align);
 DWORD PX_AudioCaptureRead(void *buffer, px_int buffersize);
 LPDIRECTSOUNDBUFFER PX_AudioGetDirectSoundBuffer();
-};
 
 #define DSOUND_BUFFER_SIZE (1764 * 16)
 
@@ -51,11 +48,13 @@ DWORD WINAPI DEMO_DSoundProc(LPVOID p) {
     }
 }
 
-BOOL PX_AudioInitialize(HWND hwnd, PX_SoundPlay *soundPlay, BOOL startThread) {
+BOOL PX_AudioInitialize(PX_SoundPlay *soundPlay, BOOL startThread) {
     VOID *pDSLockedBuffer = NULL;
     DWORD dwDSLockedBufferSize = 0;
     HANDLE hThread;
     DWORD threadId;
+
+    HWND hwnd = PX_GetWindowHwnd();
 
     /*Sound Play*/
 
@@ -109,7 +108,7 @@ BOOL PX_AudioInitialize(HWND hwnd, PX_SoundPlay *soundPlay, BOOL startThread) {
 
 LPDIRECTSOUNDBUFFER PX_AudioGetDirectSoundBuffer() { return DSound_lpdbsBuffer; }
 
-void PX_AudioSetVolume(DWORD Vol) { DSound_lpdbsBuffer->SetVolume(Vol); }
+void PX_AudioSetVolume(unsigned long Vol) { DSound_lpdbsBuffer->SetVolume(Vol); }
 
 void PX_AudioPlay(unsigned long Vol) { DSound_lpdbsBuffer->Play(0, 0, DSBPLAY_LOOPING); }
 

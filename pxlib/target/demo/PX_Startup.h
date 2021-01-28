@@ -4,8 +4,8 @@
 #define _WIN32_WINNT 0x0601  // Windows 7
 
 #include "../../arch/PX_Console.h"
-#include "../../plat/windows/PX_Audio.h"
-#include "../../plat/windows/PX_Display.h"
+#include "../../plat/PX_Audio.h"
+#include "../../plat/PX_Display.h"
 
 typedef struct {
     PX_Runtime runtime;

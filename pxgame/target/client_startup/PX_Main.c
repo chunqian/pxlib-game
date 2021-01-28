@@ -198,7 +198,7 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, _
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);
-    PX_AudioInitialize(PX_GetWindowHwnd(), &App.Instance.soundplay, PX_FALSE);
+    PX_AudioInitialize(&App.Instance.soundplay, PX_FALSE);
 
     while (PX_SystemLoop()) {
     };

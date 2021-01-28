@@ -3,8 +3,8 @@
 
 #define _WIN32_WINNT 0x0601  // Windows 7
 
-#include "../../../pxlib/plat/windows/PX_Display.h"
-#include "../../../pxlib/plat/windows/PX_UDP.h"
+#include "../../../pxlib/plat/PX_Display.h"
+#include "../../../pxlib/plat/PX_UDP.h"
 
 #include "../../../pxlib/arch/PX_Console.h"
 #include "../../../pxlib/arch/PX_MessageBox.h"
