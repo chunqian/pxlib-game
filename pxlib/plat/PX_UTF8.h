@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2008  Huang Guan
  * Copyright (C) 2011  iBoxpay.com inc.
  *

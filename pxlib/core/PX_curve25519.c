@@ -58,8 +58,7 @@
 
  uint8_t shared_key[32];
  curve25519_donna(shared_key, mysecret, theirpublic);
-
-
+ 
  */
 
 #include "PX_curve25519.h"
