@@ -1,41 +1,8 @@
+#include "PX_Display.h"
+
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <windowsx.h>
-// #pragma comment(lib,"d2d1.lib")
-
-#include "../../core/PX_Typedef.h"
-#include "../PX_UTF8.h"
-
-typedef struct {
-    UINT uMsg;
-    LPARAM lparam;
-    WPARAM wparam;
-} WM_MESSAGE;
-
-extern "C" {
-BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen);
-HWND PX_GetWindowHwnd();
-VOID PX_SystemReadDeviceState();
-BOOL PX_SystemLoop();
-BOOL PX_SystemRender(void *raw, int width, int height);
-BOOL PX_SystemisAvtivated();
-BOOL PX_KeyboardDown(unsigned char X);
-char *PX_KeyboardString();
-char *PX_DragfileString();
-BOOL PX_MouseLButtonDown();
-BOOL PX_MouseRButtonDown();
-BOOL PX_MouseMButtonDown();
-POINT PX_MousePosition();
-BOOL PX_KeyDown(unsigned char key);
-BOOL PX_MouseWheel(int *x, int *y, int *delta);
-BOOL PX_ShiftWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
-BOOL PX_PushWinMessage(WM_MESSAGE *Stack, WM_MESSAGE *Msg);
-char *PX_OpenFileDialog(const char Filter[]);
-char *PX_SaveFileDialog(const char Filter[], const char ext[]);
-char *PX_MultFileDialog(const char Filter[]);
-char *PX_GetFileName(const char filePath[]);
-int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType);
-}
 
 #define WIN_MAX_INPUT_STRING_LEN 64
 #define WIN_MAX_INPUT_SPECKEY_LEN 0xff
@@ -469,4 +436,10 @@ char *PX_GetFileName(const char filePath[]) {
     return (char *)filePath + offset;
 }
 
-int PX_SystemMessageBox(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType) { return MessageBoxW(hWnd, lpText, lpCaption, uType); }
+int PX_SystemMessageBox(px_void *wnd, px_char *text, px_char *caption, px_uint type) {
+    px_char dstTest[256] = {0};
+    px_char dstCaption[64] = {0};
+    utf8_to_widechar(text, dstTest, 256);
+    utf8_to_widechar(caption, dstCaption, 64);
+    return MessageBoxW((HWND)wnd, (LPCWSTR)dstTest, (LPCWSTR)dstCaption, (UINT)type);
+}

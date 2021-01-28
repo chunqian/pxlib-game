@@ -17,6 +17,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ 
  */
 
 #ifndef PX_UTF8_H
@@ -34,6 +35,15 @@ extern "C" {
  *
  */
 void utf8_to_gb(const char* src, char* dst, int len);
+
+/**
+ * UTF-8 to WideChar
+ * @param src [in]
+ * @param dst [out]
+ * @param len [in] The most bytes which starting at dst, will be written.
+ *
+ */
+void utf8_to_widechar(const char* src, char* dst, int len);
 
 /**
  * GBK to UTF-8

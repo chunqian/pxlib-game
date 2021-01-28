@@ -142,7 +142,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                     } else {
                         DWORD dwErr = GetLastError();
                         if (dwErr > 0) {
-                            // PX_SystemMessageBox(hWnd, L"Error!", L"Could not retrieve a GESTUREINFO structure.", MB_OK);
+                            // PX_SystemMessageBox(hWnd, "Error!", "Could not retrieve a GESTUREINFO structure.", MB_OK);
                         }
                     }
                 } break;
@@ -195,7 +195,7 @@ int main(int argc, const px_char *argv[])
     if (StartupFilePath != PX_NULL && StartupFilePath[0] != 0) {
         FILE *pf = fopen(StartupFilePath, "rb");
         if (!pf) {
-            PX_SystemMessageBox(PX_NULL, L"无法打开配置文件", L"error", MB_OK);
+            PX_SystemMessageBox(PX_NULL, "无法打开配置文件", "error", MB_OK);
             return 0;
         }
         if (fread(&startup, 1, sizeof(PX_GameClientStartUp), pf) != sizeof(PX_GameClientStartUp)) {
@@ -209,11 +209,11 @@ int main(int argc, const px_char *argv[])
     PX_srand(314159);
     if (!PX_InstanceInitialize(&App.Instance, PX_WINDOW_NAME, PX_WINDOW_WIDTH, PX_WINDOW_HEIGHT, PX_MEMORY_UI_SIZE, PX_MEMORY_RESOURCES_SIZE,
                                PX_MEMORY_GAME_SIZE)) {
-        PX_SystemMessageBox(PX_NULL, L"游戏初始化失败", L"error", MB_OK);
+        PX_SystemMessageBox(PX_NULL, "游戏初始化失败", "error", MB_OK);
         return 0;
     }
     if (!PX_ApplicationInitialize(&App, startup.IpAddr, startup.syncDataPort, startup.syncFramePort, startup.clientID, startup.serverID)) {
-        // PX_SystemMessageBox(PX_NULL, L"应用初始化失败", L"error", MB_OK);
+        // PX_SystemMessageBox(PX_NULL, "应用初始化失败", "error", MB_OK);
         return 0;
     }
 

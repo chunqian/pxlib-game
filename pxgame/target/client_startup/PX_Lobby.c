@@ -24,7 +24,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
 
     pf = fopen("./bin/startup", "wb");
     if (!pf) {
-        PX_SystemMessageBox(NULL, L"启动配置失败,请重新启动游戏", L"Error", MB_OK);
+        PX_SystemMessageBox(PX_NULL, "启动配置失败,请重新启动游戏", "Error", MB_OK);
         exit(0);
     }
     fwrite(&startup_param, 1, sizeof(startup_param), pf);
@@ -40,7 +40,7 @@ DWORD WINAPI PX_LobbyGameStartThread(px_void *ptr) {
         pDesc->gameHandle = PX_NULL;
     } else {
         pDesc->gameHandle = PX_NULL;
-        PX_SystemMessageBox(NULL, L"严重错误:游戏文件缺失,请重新下载游戏!", L"Error", MB_OK);
+        PX_SystemMessageBox(PX_NULL, "严重错误:游戏文件缺失,请重新下载游戏!", "Error", MB_OK);
         exit(0);
     }
     return 0;

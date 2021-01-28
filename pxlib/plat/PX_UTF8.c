@@ -62,6 +62,26 @@ void utf8_to_gb(const char* src, char* dst, int len) {
     free(strA);
 }
 
+void utf8_to_widechar(const char* src, char* dst, int len) {
+    int ret = 0;
+    WCHAR* strA;
+    int i = MultiByteToWideChar(CP_UTF8, 0, src, -1, NULL, 0);
+    printf("i==%d\n", i);
+    if (i <= 0) {
+        printf("ERROR.");
+        return;
+    }
+    strA = (WCHAR*)malloc(i * 2);
+    MultiByteToWideChar(CP_UTF8, 0, src, -1, strA, i);
+    i = i * 2 - 1;
+    if (len >= i) {
+        memcpy(dst, strA, i);
+        dst[i] = 0;
+    }
+
+    free(strA);
+}
+
 void gb_to_utf8(const char* src, char* dst, int len) {
     int ret = 0;
     WCHAR* strA;
