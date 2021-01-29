@@ -1,4 +1,4 @@
-#include "PX_Application.h"
+#include "../PX_Application.h"
 
 // mouse informations
 POINT main_zoomPoint;
@@ -14,7 +14,6 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     // px_char *keyBoardString;
 
     // CreateWindow
-
     time = timeGetTime();
 
     while (1) {
@@ -52,7 +51,6 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                         LastDownPoint.x = -1;
                         LastDownPoint.y = -1;
                         PX_ApplicationPostEvent(&App, e);
-                        PX_ConsolePostEvent(&App.Instance.console, e);
                     }
                     e.Event = PX_OBJECT_EVENT_CURSORUP;
                     e.Param_uint[0] = ((msg.lparam) & 0xffff);
@@ -164,21 +162,65 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     return 0;
 }
 
+#define REMOTESHELL_PROCESS_GUID "client_game"
+HANDLE G_hMutex;
+
+BOOL IsAlreadyRunning() {
+    G_hMutex = CreateMutex(NULL, TRUE, REMOTESHELL_PROCESS_GUID);
+
+    if (GetLastError() == ERROR_ALREADY_EXISTS) {
+        CloseHandle(G_hMutex);
+        return TRUE;
+    }
+    return FALSE;
+}
+
 int main(int argc, const px_char *argv[])
 // int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
 {
     HANDLE hThread;
     DWORD threadId;
+    const px_char *StartupFilePath = PX_NULL;
+    PX_GameClientStartUp startup;
+    // if (IsAlreadyRunning()) {
+    //     return 0;
+    // }
+
+    if (argc != 2) {
+        StartupFilePath = PX_OpenFileDialog("");
+    } else {
+        StartupFilePath = argv[1];
+    }
+
+    if (StartupFilePath != PX_NULL && StartupFilePath[0] != 0) {
+        FILE *pf = fopen(StartupFilePath, "rb");
+        if (!pf) {
+            PX_SystemMessageBox(PX_NULL, "无法打开配置文件", "error", MB_OK);
+            return 0;
+        }
+        if (fread(&startup, 1, sizeof(PX_GameClientStartUp), pf) != sizeof(PX_GameClientStartUp)) {
+            return 0;
+        }
+        fclose(pf);
+    } else {
+        return 0;
+    }
+
     PX_srand(314159);
     if (!PX_InstanceInitialize(&App.Instance, PX_WINDOW_NAME, PX_WINDOW_WIDTH, PX_WINDOW_HEIGHT, PX_MEMORY_UI_SIZE, PX_MEMORY_RESOURCES_SIZE,
-                               PX_MEMORY_GAME_SIZE))
+                               PX_MEMORY_GAME_SIZE)) {
+        PX_SystemMessageBox(PX_NULL, "游戏初始化失败", "error", MB_OK);
         return 0;
-    if (!PX_ApplicationInitialize(&App)) return 0;
+    }
+    if (!PX_ApplicationInitialize(&App, startup.IpAddr, startup.syncDataPort, startup.syncFramePort, startup.clientID, startup.serverID)) {
+        // PX_SystemMessageBox(PX_NULL, "应用初始化失败", "error", MB_OK);
+        return 0;
+    }
 
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);
-    PX_AudioInitialize(&App.Instance.soundplay, PX_FALSE);
+    PX_AudioInitialize(&App.Instance.soundplay, PX_TRUE);
 
     while (PX_SystemLoop()) {
     };

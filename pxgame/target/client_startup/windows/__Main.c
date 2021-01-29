@@ -1,4 +1,4 @@
-#include "PX_Application.h"
+#include "../PX_Application.h"
 
 // mouse informations
 POINT main_zoomPoint;
@@ -15,7 +15,6 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
 
     // CreateWindow
     time = timeGetTime();
-
     while (1) {
         PX_SystemReadDeviceState();
 
@@ -103,7 +102,6 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                         switch (gi.dwID) {
                             case GID_ZOOM:
                                 // Code for zooming goes here
-
                                 if (25 > (main_zoomPoint.x - gi.ptsLocation.x) * (main_zoomPoint.x - gi.ptsLocation.x) +
                                              (main_zoomPoint.y - gi.ptsLocation.y) * (main_zoomPoint.y - gi.ptsLocation.y)) {
                                     e.Event = PX_OBJECT_EVENT_SCALE;
@@ -161,8 +159,9 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     }
     return 0;
 }
+// int main()
 
-#define REMOTESHELL_PROCESS_GUID "client_game"
+#define REMOTESHELL_PROCESS_GUID "client_startup"
 HANDLE G_hMutex;
 
 BOOL IsAlreadyRunning() {
@@ -174,53 +173,32 @@ BOOL IsAlreadyRunning() {
     }
     return FALSE;
 }
-
-int main(int argc, const px_char *argv[])
-// int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
-{
+#include <time.h>
+int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd) {
     HANDLE hThread;
     DWORD threadId;
-    const px_char *StartupFilePath = PX_NULL;
-    PX_GameClientStartUp startup;
-    // if (IsAlreadyRunning()) {
-    //     return 0;
-    // }
 
-    if (argc != 2) {
-        StartupFilePath = PX_OpenFileDialog("");
-    } else {
-        StartupFilePath = argv[1];
-    }
+    PX_srand(time((PX_NULL)));
 
-    if (StartupFilePath != PX_NULL && StartupFilePath[0] != 0) {
-        FILE *pf = fopen(StartupFilePath, "rb");
-        if (!pf) {
-            PX_SystemMessageBox(PX_NULL, "无法打开配置文件", "error", MB_OK);
+    if (GetFileAttributes("./debug") == INVALID_FILE_ATTRIBUTES) {
+        if (IsAlreadyRunning()) {
             return 0;
         }
-        if (fread(&startup, 1, sizeof(PX_GameClientStartUp), pf) != sizeof(PX_GameClientStartUp)) {
-            return 0;
-        }
-        fclose(pf);
-    } else {
-        return 0;
     }
 
-    PX_srand(314159);
     if (!PX_InstanceInitialize(&App.Instance, PX_WINDOW_NAME, PX_WINDOW_WIDTH, PX_WINDOW_HEIGHT, PX_MEMORY_UI_SIZE, PX_MEMORY_RESOURCES_SIZE,
                                PX_MEMORY_GAME_SIZE)) {
-        PX_SystemMessageBox(PX_NULL, "游戏初始化失败", "error", MB_OK);
         return 0;
     }
-    if (!PX_ApplicationInitialize(&App, startup.IpAddr, startup.syncDataPort, startup.syncFramePort, startup.clientID, startup.serverID)) {
-        // PX_SystemMessageBox(PX_NULL, "应用初始化失败", "error", MB_OK);
+
+    if (!PX_ApplicationInitialize(&App)) {
         return 0;
     }
 
     // CreateThread
 
     hThread = CreateThread(NULL, 0, DEMO_RenderThreadFunc, 0, 0, &threadId);
-    PX_AudioInitialize(&App.Instance.soundplay, PX_TRUE);
+    PX_AudioInitialize(&App.Instance.soundplay, PX_FALSE);
 
     while (PX_SystemLoop()) {
     };

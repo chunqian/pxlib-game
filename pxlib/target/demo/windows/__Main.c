@@ -1,4 +1,4 @@
-#include "PX_Application.h"
+#include "../PX_Application.h"
 
 // mouse informations
 POINT main_zoomPoint;
@@ -14,7 +14,9 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     // px_char *keyBoardString;
 
     // CreateWindow
+
     time = timeGetTime();
+
     while (1) {
         PX_SystemReadDeviceState();
 
@@ -50,6 +52,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                         LastDownPoint.x = -1;
                         LastDownPoint.y = -1;
                         PX_ApplicationPostEvent(&App, e);
+                        PX_ConsolePostEvent(&App.Instance.console, e);
                     }
                     e.Event = PX_OBJECT_EVENT_CURSORUP;
                     e.Param_uint[0] = ((msg.lparam) & 0xffff);
@@ -102,6 +105,7 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
                         switch (gi.dwID) {
                             case GID_ZOOM:
                                 // Code for zooming goes here
+
                                 if (25 > (main_zoomPoint.x - gi.ptsLocation.x) * (main_zoomPoint.x - gi.ptsLocation.x) +
                                              (main_zoomPoint.y - gi.ptsLocation.y) * (main_zoomPoint.y - gi.ptsLocation.y)) {
                                     e.Event = PX_OBJECT_EVENT_SCALE;
@@ -159,41 +163,17 @@ DWORD WINAPI DEMO_RenderThreadFunc(LPVOID p) {
     }
     return 0;
 }
-// int main()
 
-#define REMOTESHELL_PROCESS_GUID "client_startup"
-HANDLE G_hMutex;
-
-BOOL IsAlreadyRunning() {
-    G_hMutex = CreateMutex(NULL, TRUE, REMOTESHELL_PROCESS_GUID);
-
-    if (GetLastError() == ERROR_ALREADY_EXISTS) {
-        CloseHandle(G_hMutex);
-        return TRUE;
-    }
-    return FALSE;
-}
-#include <time.h>
-int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd) {
+int main(int argc, const px_char *argv[])
+// int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd)
+{
     HANDLE hThread;
     DWORD threadId;
-
-    PX_srand(time((PX_NULL)));
-
-    if (GetFileAttributes("./debug") == INVALID_FILE_ATTRIBUTES) {
-        if (IsAlreadyRunning()) {
-            return 0;
-        }
-    }
-
+    PX_srand(314159);
     if (!PX_InstanceInitialize(&App.Instance, PX_WINDOW_NAME, PX_WINDOW_WIDTH, PX_WINDOW_HEIGHT, PX_MEMORY_UI_SIZE, PX_MEMORY_RESOURCES_SIZE,
-                               PX_MEMORY_GAME_SIZE)) {
+                               PX_MEMORY_GAME_SIZE))
         return 0;
-    }
-
-    if (!PX_ApplicationInitialize(&App)) {
-        return 0;
-    }
+    if (!PX_ApplicationInitialize(&App)) return 0;
 
     // CreateThread
 

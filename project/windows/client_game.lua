@@ -42,6 +42,7 @@ add_files(pxlibdir .. "/plat/windows/*.cpp")
 add_files(pxlibdir .. "/plat/PX_*.c")
 add_files("$(projectdir)/pxgame/game/*.c")
 add_files("$(projectdir)/pxgame/target/client_game/*.c")
+add_files("$(projectdir)/pxgame/target/client_game/windows/__Main.c")
 
 add_ldflags("-static-libgcc")
 add_links("pxlib")

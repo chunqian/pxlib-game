@@ -3,11 +3,9 @@
 
 #define _WIN32_WINNT 0x0601  // Windows 7
 
-#include "../../../pxlib/plat/PX_Display.h"
-#include "../../../pxlib/plat/PX_UDP.h"
+#include "../../../pxlib/arch/PX_Arch.h"
+#include "../../../pxlib/plat/PX_Plat.h"
 
-#include "../../../pxlib/arch/PX_Console.h"
-#include "../../../pxlib/arch/PX_MessageBox.h"
 #include "../../PX_Network.h"
 
 #define PX_GAMESERVER_RESULT_PORT 47760
