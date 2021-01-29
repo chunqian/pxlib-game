@@ -4,6 +4,7 @@
 #include "PX_Audio.h"
 #include "PX_Display.h"
 #include "PX_File.h"
+#include "PX_Process.h"
 #include "PX_SerialPort.h"
 #include "PX_TCP.h"
 #include "PX_Time.h"
