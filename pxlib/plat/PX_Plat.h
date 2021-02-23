@@ -1,8 +1,6 @@
 #ifndef PX_Plat_H
 #define PX_Plat_H
 
-#include "PX_Audio.h"
-#include "PX_Display.h"
 #include "PX_File.h"
 #include "PX_Process.h"
 #include "PX_SerialPort.h"

@@ -38,10 +38,11 @@ add_includedirs(
 set_toolchains("x86_64-windows")
 
 add_files(pxlibdir .. "/plat/windows/*.c")
-add_files(pxlibdir .. "/plat/windows/*.cpp")
+-- add_files(pxlibdir .. "/plat/windows/*.cpp")
 add_files(pxlibdir .. "/plat/PX_*.c")
 add_files("$(projectdir)/pxlib/target/demo/*.c")
-add_files("$(projectdir)/pxlib/target/demo/windows/__Main.c")
+add_files("$(projectdir)/pxlib/target/demo/windows/*.c")
+add_files("$(projectdir)/pxlib/target/demo/windows/*.cpp")
 
 add_ldflags("-static-libgcc")
 add_links("pxlib")

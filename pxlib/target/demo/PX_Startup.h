@@ -12,15 +12,15 @@ typedef struct {
     PX_SoundPlay soundplay;
 } PX_Instance;
 
-typedef struct {
-    px_byte *buffer;
-    px_uint size;
-} PX_IO_Data;
+// typedef struct {
+//     px_byte *buffer;
+//     px_uint size;
+// } PX_IO_Data;
 
 px_bool PX_InstanceInitialize(PX_Instance *Instance, const px_char name[], px_int width, px_int height, px_uint ui_size, px_uint resource_size,
                               px_uint game_size);
 PX_IO_Data PX_LoadFileToIOData(const px_char path[]);
-px_void PX_FreeIOData(PX_IO_Data *io);
+// px_void PX_FreeIOData(PX_IO_Data *io);
 px_bool PX_LoadTextureFromFile(px_memorypool *mp, px_texture *tex, const px_char path[]);
 px_bool PX_LoadShapeFromFile(px_memorypool *mp, px_shape *shape, const px_char path[]);
 px_bool PX_LoadSoundFromFile(px_memorypool *mp, px_shape *shape, const px_char path[]);

@@ -21,44 +21,44 @@ px_bool PX_InstanceInitialize(PX_Instance *Instance, const px_char name[], px_in
     return PX_TRUE;
 }
 
-PX_IO_Data PX_LoadFileToIOData(const px_char path[]) {
-    PX_IO_Data io;
-    px_int fileoft = 0;
-    FILE *pf = fopen(path, "rb");
-    px_int filesize;
-    if (!pf) {
-        goto _ERROR;
-    }
-    fseek(pf, 0, SEEK_END);
-    filesize = ftell(pf);
-    fseek(pf, 0, SEEK_SET);
+// PX_IO_Data PX_LoadFileToIOData(const px_char path[]) {
+//     PX_IO_Data io;
+//     px_int fileoft = 0;
+//     FILE *pf = fopen(path, "rb");
+//     px_int filesize;
+//     if (!pf) {
+//         goto _ERROR;
+//     }
+//     fseek(pf, 0, SEEK_END);
+//     filesize = ftell(pf);
+//     fseek(pf, 0, SEEK_SET);
 
-    io.buffer = (px_byte *)malloc(filesize + 1);
-    if (!io.buffer) {
-        goto _ERROR;
-    }
+//     io.buffer = (px_byte *)malloc(filesize + 1);
+//     if (!io.buffer) {
+//         goto _ERROR;
+//     }
 
-    while (!feof(pf)) {
-        fileoft += (px_int)fread(io.buffer + fileoft, 1, 1024, pf);
-    }
-    fclose(pf);
+//     while (!feof(pf)) {
+//         fileoft += (px_int)fread(io.buffer + fileoft, 1, 1024, pf);
+//     }
+//     fclose(pf);
 
-    io.buffer[filesize] = '\0';
-    io.size = filesize;
-    return io;
-_ERROR:
-    io.buffer = PX_NULL;
-    io.size = 0;
-    return io;
-}
+//     io.buffer[filesize] = '\0';
+//     io.size = filesize;
+//     return io;
+// _ERROR:
+//     io.buffer = PX_NULL;
+//     io.size = 0;
+//     return io;
+// }
 
-px_void PX_FreeIOData(PX_IO_Data *io) {
-    if (io->size && io->buffer) {
-        free(io->buffer);
-        io->size = 0;
-        io->buffer = PX_NULL;
-    }
-}
+// px_void PX_FreeIOData(PX_IO_Data *io) {
+//     if (io->size && io->buffer) {
+//         free(io->buffer);
+//         io->size = 0;
+//         io->buffer = PX_NULL;
+//     }
+// }
 
 px_bool PX_LoadTextureFromFile(px_memorypool *mp, px_texture *tex, const px_char path[]) {
     PX_IO_Data io;

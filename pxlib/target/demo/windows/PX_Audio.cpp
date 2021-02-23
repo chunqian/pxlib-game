@@ -1,4 +1,4 @@
-#include "../PX_Audio.h"
+#include "PX_Audio.h"
 
 #include <dsound.h>
 #include <windows.h>

@@ -1,5 +1,11 @@
 #include "../PX_Application.h"
 
+#include "PX_Audio.h"
+#include "PX_Display.h"
+
+#include <stdio.h>
+#include <windows.h>
+
 // mouse informations
 POINT main_zoomPoint;
 px_int main_ZoomRegion;

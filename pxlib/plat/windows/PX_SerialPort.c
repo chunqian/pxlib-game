@@ -1,7 +1,9 @@
 #include "../PX_SerialPort.h"
 
-const UCHAR *PX_SerialPortEnumComName(int index) {
-    static UCHAR szPortName[25];
+#include <windows.h>
+
+const char *PX_SerialPortEnumComName(int index) {
+    static char szPortName[25];
     HKEY hKey;
     CHAR Name[25];
     LONG Status;
@@ -21,13 +23,14 @@ const UCHAR *PX_SerialPortEnumComName(int index) {
         dwName = sizeof(Name);
         dwSizeofPortName = sizeof(szPortName);
 
-        Status = RegEnumValueA(hKey, dwIndex, Name, &dwName, NULL, &Type, szPortName, &dwSizeofPortName);
-        dwIndex++;
+        Status = RegEnumValueA(hKey, dwIndex, Name, &dwName, NULL, &Type, (LPBYTE)szPortName, &dwSizeofPortName);
+
         if ((Status == ERROR_SUCCESS) || (Status == ERROR_MORE_DATA)) {
             if (dwIndex == index) {
                 return szPortName;
             }
         }
+        dwIndex++;
     } while ((Status == ERROR_SUCCESS) || (Status == ERROR_MORE_DATA));
     RegCloseKey(hKey);
     return NULL;
@@ -37,12 +40,12 @@ const BOOL PX_SerialPortInitialize(PX_SerialPort *com, const char *name, unsigne
     COMMTIMEOUTS CommTimeouts;
     DCB dcb;
 
-    com->Handle = CreateFileA(name, GENERIC_READ | GENERIC_WRITE, 0,  // Share mode,No share if zero
-                              NULL,                                   //
-                              OPEN_EXISTING,                          // This device should be existing
-                              0, 0);
+    com->Handle = (long long)CreateFileA(name, GENERIC_READ | GENERIC_WRITE, 0, /** Share mode,No share if zero */
+                                         NULL,                                  /** */
+                                         OPEN_EXISTING,                         /** This device should be existing */
+                                         0, 0);
 
-    if (com->Handle == INVALID_HANDLE_VALUE) {
+    if (com->Handle == -1) {
         goto _ERROR;
     }
 
@@ -52,18 +55,18 @@ const BOOL PX_SerialPortInitialize(PX_SerialPort *com, const char *name, unsigne
     CommTimeouts.WriteTotalTimeoutMultiplier = 0;
     CommTimeouts.WriteTotalTimeoutConstant = 0;
 
-    if (!SetCommTimeouts(com->Handle, &CommTimeouts)) {
+    if (!SetCommTimeouts((HANDLE)com->Handle, &CommTimeouts)) {
         goto _ERROR;
     }
 
-    if (!GetCommState(com->Handle, &dcb)) {
+    if (!GetCommState((HANDLE)com->Handle, &dcb)) {
         goto _ERROR;
     }
 
     // Setup BCD
     dcb.ByteSize = DataBits;
     dcb.BaudRate = baudRate;
-    dcb.StopBits = stopBit;
+    dcb.StopBits = stopBit - 1;
     dcb.Parity = ParityType;
     dcb.fRtsControl = RTS_CONTROL_ENABLE;
 
@@ -72,13 +75,41 @@ const BOOL PX_SerialPortInitialize(PX_SerialPort *com, const char *name, unsigne
     com->ParityType = ParityType;
     com->StopBit = stopBit;
 
-    if (!SetCommState(com->Handle, &dcb)) {
+    if (!SetCommState((HANDLE)com->Handle, &dcb)) {
         goto _ERROR;
     }
 
     return 1;
 _ERROR:
-    CloseHandle(com->Handle);
+    CloseHandle((HANDLE)com->Handle);
+    return 0;
+}
+
+const int PX_SerialPortReset(PX_SerialPort *com, unsigned int baudRate, unsigned int DataBits, char ParityType, unsigned int stopBit) {
+    DCB dcb;
+
+    if (!GetCommState((HANDLE)com->Handle, &dcb)) {
+        goto _ERROR;
+    }
+
+    dcb.ByteSize = DataBits;
+    dcb.BaudRate = baudRate;
+    dcb.StopBits = stopBit - 1;
+    dcb.Parity = ParityType;
+    dcb.fRtsControl = RTS_CONTROL_ENABLE;
+
+    com->BaudRate = baudRate;
+    com->DataBits = DataBits;
+    com->ParityType = ParityType;
+    com->StopBit = stopBit;
+
+    if (!SetCommState((HANDLE)com->Handle, &dcb)) {
+        goto _ERROR;
+    }
+
+    return 1;
+_ERROR:
+    CloseHandle((HANDLE)com->Handle);
     return 0;
 }
 
@@ -89,7 +120,7 @@ size_t PX_SerialPortGetBufferBytes(PX_SerialPort *com) {
 
     memset(&comstat, 0, sizeof(COMSTAT));
 
-    if (ClearCommError(com->Handle, &dwError, &comstat)) {
+    if (ClearCommError((HANDLE)com->Handle, &dwError, &comstat)) {
         BytesInQue = comstat.cbInQue;
     }
 
@@ -99,13 +130,13 @@ size_t PX_SerialPortGetBufferBytes(PX_SerialPort *com) {
 const int PX_SerialPortWrite(PX_SerialPort *com, void *data, int size) {
     DWORD WriteSize = 0;
 
-    if (com->Handle == INVALID_HANDLE_VALUE) {
+    if (com->Handle == -1) {
         return 0;
     }
 
-    if (!WriteFile(com->Handle, data, size, &WriteSize, NULL)) {
+    if (!WriteFile((HANDLE)com->Handle, data, size, &WriteSize, NULL)) {
         DWORD dwError = GetLastError();
-        PurgeComm(com->Handle, PURGE_RXCLEAR | PURGE_RXABORT);
+        PurgeComm((HANDLE)com->Handle, PURGE_RXCLEAR | PURGE_RXABORT);
         return WriteSize;
     }
     return WriteSize;
@@ -113,9 +144,10 @@ const int PX_SerialPortWrite(PX_SerialPort *com, void *data, int size) {
 
 const BOOL PX_SerialPortRead(PX_SerialPort *com, void *data, int size) {
     int Offset;
-    int QueSize, rSize;
+    int QueSize;
+    DWORD rSize;
 
-    if (com->Handle != INVALID_HANDLE_VALUE) {
+    if (com->Handle != -1) {
         UINT BytesInQue = PX_SerialPortGetBufferBytes(com);
 
         /*if Buffer is empty,sleep 10ms*/
@@ -132,7 +164,7 @@ const BOOL PX_SerialPortRead(PX_SerialPort *com, void *data, int size) {
         }
 
         while (QueSize > 0) {
-            ReadFile(com->Handle, (char *)data + Offset, QueSize, &rSize, NULL);
+            ReadFile((HANDLE)com->Handle, (char *)data + Offset, QueSize, &rSize, NULL);
             Offset += rSize;
             QueSize -= rSize;
         }
@@ -142,8 +174,8 @@ const BOOL PX_SerialPortRead(PX_SerialPort *com, void *data, int size) {
 }
 
 void PX_SerialPortClose(PX_SerialPort *com) {
-    if (com->Handle != 0 && com->Handle != INVALID_HANDLE_VALUE) {
-        CloseHandle(com->Handle);
-        com->Handle = NULL;
+    if (com->Handle != 0 && com->Handle != -1) {
+        CloseHandle((HANDLE)com->Handle);
+        com->Handle = 0;
     }
 }
