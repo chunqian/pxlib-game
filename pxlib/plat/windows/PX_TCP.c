@@ -32,7 +32,7 @@ int PX_TCPInitialize(PX_TCP *tcp, PX_TCP_IP_TYPE type) {
     }
     // Initialize socket
 
-    if ((tcp->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == INVALID_SOCKET) {
+    if ((tcp->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == (unsigned int)INVALID_SOCKET) {
         return 0;
     }
 
@@ -109,7 +109,7 @@ int PX_TCPAccept(PX_TCP *tcp, unsigned int *socket, PX_TCP_ADDR *fromAddr) {
     SOCKADDR_IN sockaddr_in;
     int len;
     *socket = accept(tcp->socket, (LPSOCKADDR)&sockaddr_in, &len);
-    return *socket != INVALID_SOCKET;
+    return *socket != (unsigned int)INVALID_SOCKET;
 }
 
 int PX_TCPIsConnecting(PX_TCP *tcp) {

@@ -32,7 +32,7 @@ int PX_UDPInitialize(PX_UDP *udp, PX_UDP_IP_TYPE type) {
     }
     // Initialize socket
 
-    if ((udp->socket = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+    if ((udp->socket = socket(AF_INET, SOCK_DGRAM, 0)) == (unsigned int)INVALID_SOCKET) {
         return 0;
     }
 
