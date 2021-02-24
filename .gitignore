@@ -7,7 +7,6 @@ build/
 .DS_Store
 
 .clangd/
-release/**/*.exe
 pxlib/supports/**/*.pages
 pxlib/sdl2
 compile_commands.json
