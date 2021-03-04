@@ -1,0 +1,44 @@
+[settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[requires]
+    zlib/1.Y.Z
+
+[options]
+    api_prefix=None
+    shared=False
+
+[full_settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[full_requires]
+    zlib/1.2.11:e86d9266e0091537b02465f034f13e70aeefebfc
+
+[full_options]
+    api_prefix=None
+    shared=False
+    zlib:minizip=False
+    zlib:shared=False
+
+[recipe_hash]
+    e6c6fbae7cb00e1da30181b51e68f2a7
+
+[env]
+    AR=i686-w64-mingw32-ar
+    AS=i686-w64-mingw32-as
+    CC=i686-w64-mingw32-gcc
+    CHOST=i686-w64-mingw32
+    CONAN_CMAKE_FIND_ROOT_PATH=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CONAN_CMAKE_SYSROOT=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CXX=i686-w64-mingw32-g++
+    RANLIB=i686-w64-mingw32-ranlib
+    RC=i686-w64-mingw32-windres
+    STRIP=i686-w64-mingw32-strip

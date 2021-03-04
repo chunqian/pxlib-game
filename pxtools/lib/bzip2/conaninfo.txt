@@ -1,0 +1,42 @@
+[settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[requires]
+
+
+[options]
+    build_executable=True
+    shared=False
+
+[full_settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[full_requires]
+
+
+[full_options]
+    build_executable=True
+    shared=False
+
+[recipe_hash]
+    ec305daf917b87e9de2fa35d3aa55859
+
+[env]
+    AR=i686-w64-mingw32-ar
+    AS=i686-w64-mingw32-as
+    CC=i686-w64-mingw32-gcc
+    CHOST=i686-w64-mingw32
+    CONAN_CMAKE_FIND_ROOT_PATH=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CONAN_CMAKE_SYSROOT=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CXX=i686-w64-mingw32-g++
+    RANLIB=i686-w64-mingw32-ranlib
+    RC=i686-w64-mingw32-windres
+    STRIP=i686-w64-mingw32-strip

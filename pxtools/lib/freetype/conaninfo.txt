@@ -1,0 +1,61 @@
+[settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[requires]
+    brotli/1.Y.Z
+    bzip2/1.Y.Z
+    libpng/1.Y.Z
+    zlib/1.Y.Z
+
+[options]
+    shared=False
+    with_brotli=True
+    with_bzip2=True
+    with_png=True
+    with_zlib=True
+
+[full_settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[full_requires]
+    brotli/1.0.9:e86d9266e0091537b02465f034f13e70aeefebfc
+    bzip2/1.0.8:7fd90bea7527b1753894a3cca37e19e981bbe9a6
+    libpng/1.6.37:c110c66c1f2eeac1bbe29dbda5766fc0f3af7b5a
+    zlib/1.2.11:e86d9266e0091537b02465f034f13e70aeefebfc
+
+[full_options]
+    shared=False
+    with_brotli=True
+    with_bzip2=True
+    with_png=True
+    with_zlib=True
+    brotli:shared=False
+    bzip2:build_executable=True
+    bzip2:shared=False
+    libpng:api_prefix=None
+    libpng:shared=False
+    zlib:minizip=False
+    zlib:shared=False
+
+[recipe_hash]
+    615e6227d018791c0a0bddeb11170268
+
+[env]
+    AR=i686-w64-mingw32-ar
+    AS=i686-w64-mingw32-as
+    CC=i686-w64-mingw32-gcc
+    CHOST=i686-w64-mingw32
+    CONAN_CMAKE_FIND_ROOT_PATH=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CONAN_CMAKE_SYSROOT=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CXX=i686-w64-mingw32-g++
+    RANLIB=i686-w64-mingw32-ranlib
+    RC=i686-w64-mingw32-windres
+    STRIP=i686-w64-mingw32-strip
