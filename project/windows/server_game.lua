@@ -4,12 +4,6 @@ set_toolset("cxx", "i686-w64-mingw32-gcc", "i686-w64-mingw32-g++")
 set_toolset("ld", "i686-w64-mingw32-g++", "i686-w64-mingw32-gcc")
 set_toolset("ar", "i686-w64-mingw32-ar")
 
-toolchain("x86_64-windows")
-set_toolset("cc", "x86_64-w64-mingw32-gcc")
-set_toolset("cxx", "x86_64-w64-mingw32-gcc", "x86_64-w64-mingw32-g++")
-set_toolset("ld", "x86_64-w64-mingw32-g++", "x86_64-w64-mingw32-gcc")
-set_toolset("ar", "x86_64-w64-mingw32-ar")
-
 -- 工程
 target("server_game")
 
@@ -29,13 +23,9 @@ set_optimize("faster")
 set_targetdir("$(buildir)/$(mode)")
 add_linkdirs("$(buildir)/$(mode)")
 
--- add_includedirs(
---     "/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-i686/i686-w64-mingw32/include")
--- set_toolchains("i686-windows")
-
 add_includedirs(
-    "/usr/local/Cellar/mingw-w64/7.0.0_2/toolchain-x86_64/x86_64-w64-mingw32/include")
-set_toolchains("x86_64-windows")
+    "/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686/i686-w64-mingw32/include")
+set_toolchains("i686-windows")
 
 add_files(pxlibdir .. "/plat/windows/*.c")
 add_files(pxlibdir .. "/plat/windows/*.cpp")

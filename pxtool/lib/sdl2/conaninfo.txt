@@ -1,0 +1,52 @@
+[settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[requires]
+    libiconv/1.Y.Z
+
+[options]
+    directx=True
+    iconv=True
+    opengl=True
+    opengles=True
+    shared=False
+    vulkan=True
+
+[full_settings]
+    arch=x86
+    build_type=Release
+    compiler=gcc
+    compiler.version=10.2
+    os=Windows
+
+[full_requires]
+    libiconv/1.16:e86d9266e0091537b02465f034f13e70aeefebfc
+
+[full_options]
+    directx=True
+    iconv=True
+    opengl=True
+    opengles=True
+    sdl2main=True
+    shared=False
+    vulkan=True
+    libiconv:shared=False
+
+[recipe_hash]
+    16ac6b52d68e4fe3a1109beacec56ee5
+
+[env]
+    AR=i686-w64-mingw32-ar
+    AS=i686-w64-mingw32-as
+    CC=i686-w64-mingw32-gcc
+    CHOST=i686-w64-mingw32
+    CONAN_CMAKE_FIND_ROOT_PATH=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CONAN_CMAKE_SYSROOT=/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686
+    CXX=i686-w64-mingw32-g++
+    RANLIB=i686-w64-mingw32-ranlib
+    RC=i686-w64-mingw32-windres
+    STRIP=i686-w64-mingw32-strip
