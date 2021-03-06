@@ -1,5 +1,7 @@
 #include "PX_Application.h"
 
+#include <windows.h>
+
 PX_Application App;
 
 px_bool PX_ApplicationInitialize(PX_Application *App) {
@@ -11,7 +13,7 @@ px_void PX_ApplicationUpdate(PX_Application *App, px_dword elpased) { PX_Console
 
 px_void PX_ApplicationRender(PX_Application *App, px_dword elpased) {
     PX_ConsoleRender(&App->Instance.console, elpased);
-    // Sleep(10);
+    Sleep(10);
 }
 
 px_void PX_ApplicationPostEvent(PX_Application *App, PX_Object_Event e) {

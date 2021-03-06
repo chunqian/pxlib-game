@@ -5,7 +5,7 @@ set_toolset("ld", "i686-w64-mingw32-g++", "i686-w64-mingw32-gcc")
 set_toolset("ar", "i686-w64-mingw32-ar")
 
 -- 工程
-target("demo")
+target("console")
 
 -- 依赖
 add_deps("pxlib")
@@ -29,9 +29,9 @@ set_toolchains("i686-windows")
 
 add_files(pxlibdir .. "/plat/PX_*.c")
 add_files("$(projectdir)/pxplat/windows/*.c")
-add_files("$(projectdir)/pxtarget/demo/*.c")
-add_files("$(projectdir)/pxtarget/demo/*.c")
-add_files("$(projectdir)/pxtarget/demo/*.cpp")
+add_files("$(projectdir)/pxtarget/console/*.c")
+add_files("$(projectdir)/pxtarget/console/*.c")
+add_files("$(projectdir)/pxtarget/console/*.cpp")
 
 add_ldflags("-static-libgcc")
 add_links("pxlib")
