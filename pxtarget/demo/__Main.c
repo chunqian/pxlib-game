@@ -1,4 +1,4 @@
-#include "../PX_Application.h"
+#include "PX_Application.h"
 
 #include "PX_Audio.h"
 #include "PX_Display.h"

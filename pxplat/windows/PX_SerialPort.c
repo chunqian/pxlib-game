@@ -1,4 +1,4 @@
-#include "../PX_SerialPort.h"
+#include "../../pxlib/plat/PX_SerialPort.h"
 
 #include <windows.h>
 

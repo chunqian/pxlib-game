@@ -19,8 +19,8 @@ typedef struct {
 extern "C" {
 #endif
 
-#include "../../../core/PX_Typedef.h"
-#include "../../../plat/PX_UTF8.h"
+#include "../../pxlib/core/PX_Typedef.h"
+#include "../../pxlib/plat/PX_UTF8.h"
 
 BOOL PX_CreateWindow(int Width, int Height, const char *name, BOOL bfullScreen);
 HWND PX_GetWindowHwnd();

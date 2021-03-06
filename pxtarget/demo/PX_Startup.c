@@ -1,4 +1,5 @@
 #include "PX_Startup.h"
+#include "PX_Display.h"
 
 // Functions
 
@@ -6,7 +7,8 @@ px_bool PX_InstanceInitialize(PX_Instance *Instance, const px_char name[], px_in
                               px_uint game_size) {
     px_int allocSize;
 
-    PX_srand(timeGetTime());
+    // PX_srand(timeGetTime());
+    PX_srand(PX_TimeGetTime());
 
     if (!PX_CreateWindow(width, height, name, PX_FALSE)) {
         return 0;

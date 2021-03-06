@@ -1,4 +1,4 @@
-#include "../PX_TCP.h"
+#include "../../pxlib/plat/PX_TCP.h"
 
 #include <windows.h>
 #include <winsock.h>

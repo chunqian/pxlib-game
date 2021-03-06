@@ -27,12 +27,11 @@ add_includedirs(
     "/usr/local/Cellar/mingw-w64/8.0.0_3/toolchain-i686/i686-w64-mingw32/include")
 set_toolchains("i686-windows")
 
-add_files(pxlibdir .. "/plat/windows/*.c")
--- add_files(pxlibdir .. "/plat/windows/*.cpp")
 add_files(pxlibdir .. "/plat/PX_*.c")
-add_files("$(projectdir)/pxlib/target/demo/*.c")
-add_files("$(projectdir)/pxlib/target/demo/windows/*.c")
-add_files("$(projectdir)/pxlib/target/demo/windows/*.cpp")
+add_files("$(projectdir)/pxplat/windows/*.c")
+add_files("$(projectdir)/pxtarget/demo/*.c")
+add_files("$(projectdir)/pxtarget/demo/*.c")
+add_files("$(projectdir)/pxtarget/demo/*.cpp")
 
 add_ldflags("-static-libgcc")
 add_links("pxlib")

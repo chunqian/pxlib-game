@@ -7,8 +7,8 @@
 extern "C" {
 #endif
 
-#include "../../../core/PX_Log.h"
-#include "../../../core/PX_Sound.h"
+#include "../../pxlib/core/PX_Log.h"
+#include "../../pxlib/core/PX_Sound.h"
 
 int PX_AudioInitialize(PX_SoundPlay *soundPlay, int startThread);
 void PX_AudioSetVolume(unsigned long volume);
