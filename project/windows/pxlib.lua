@@ -2,6 +2,7 @@ toolchain("i686-windows")
 set_toolset("cc", "i686-w64-mingw32-gcc")
 set_toolset("cxx", "i686-w64-mingw32-gcc", "i686-w64-mingw32-g++")
 set_toolset("ld", "i686-w64-mingw32-g++", "i686-w64-mingw32-gcc")
+set_toolset("ar", "i686-w64-mingw32-ar")
 
 -- 工程
 target("pxlib")
